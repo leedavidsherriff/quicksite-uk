@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{businessName}} — {{Trade}} in {{Town}} | Garden Design &amp; Landscaping</title>
+<meta name="description" content="{{businessName}} — a {{trade}} in {{Town}}. {{heroSubline}}">
+<style>
+  /* ============ RESET & TOKENS ============ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root{
+    --navy: #0B1D33;
+    --midnight: #071426;
+    --amber: #F5B54A;
+    --foam: #F4EFE8;
+    --cream: #FAF6EF;
+    --ink: #17241D;
+    --fern: #3E7C4F;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --radius: 1rem;
+  }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html { scroll-behavior: auto; }
+  }
+
+  body{
+    font-family: var(--font);
+    background: var(--midnight);
+    color: var(--foam);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  img, video { max-width: 100%; display: block; }
+
+  .wrap{
+    width: min(1120px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  h1, h2, h3 { line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; }
+
+  .kicker{
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.9rem;
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    background: rgba(7, 20, 38, 0.55);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(244, 239, 232, 0.08);
+  }
+  .nav-inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 0;
+  }
+  .brand{
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--foam);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .brand .amp{ color: var(--amber); }
+  .nav-links{
+    display: flex;
+    gap: 1.75rem;
+    list-style: none;
+    align-items: center;
+  }
+  .nav-links a{
+    color: var(--foam);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+  .nav-links a:hover{ opacity: 1; color: var(--amber); }
+  .nav-links a.nav-cta{
+    color: var(--midnight);
+    background: var(--amber);
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    opacity: 1;
+  }
+  .nav-links a.nav-cta:hover{ color: var(--midnight); background: #ffc95e; }
+
+  .hamburger{
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 110;
+  }
+  .hamburger span{
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--foam);
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .hamburger[aria-expanded="true"] span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .hamburger[aria-expanded="true"] span:nth-child(2){ opacity: 0; }
+  .hamburger[aria-expanded="true"] span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 720px){
+    .hamburger{ display: block; }
+    .nav-links{
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: rgba(7, 20, 38, 0.97);
+      border-bottom: 1px solid rgba(244, 239, 232, 0.08);
+      display: none;
+      padding: 0.5rem 0 1rem;
+    }
+    .nav-links.open{ display: flex; }
+    .nav-links li{ width: 100%; text-align: center; }
+    .nav-links a{ display: block; padding: 0.85rem 0; }
+    .nav-links a.nav-cta{
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.55rem 1.5rem;
+    }
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position: relative;
+    height: 100vh;
+    min-height: 560px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero video{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+      rgba(7, 20, 38, 0.88) 0%,
+      rgba(7, 20, 38, 0.45) 32%,
+      rgba(7, 20, 38, 0.05) 60%,
+      rgba(7, 20, 38, 0.25) 100%);
+    pointer-events: none;
+  }
+  .hero-content{
+    position: relative;
+    z-index: 2;
+    padding-bottom: clamp(3.5rem, 9vh, 6.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero h1{
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    max-width: 12ch;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.45);
+  }
+  .hero p.sub{
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    max-width: 34ch;
+    margin-top: 0.9rem;
+    opacity: 0.92;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.5);
+  }
+  .btn{
+    display: inline-block;
+    background: var(--amber);
+    color: var(--midnight);
+    font-weight: 700;
+    font-size: 1.02rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.9rem 1.9rem;
+    border-radius: 999px;
+    margin-top: 1.75rem;
+    box-shadow: 0 4px 28px rgba(245, 181, 74, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .btn:hover{
+    background: #ffc95e;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 36px rgba(245, 181, 74, 0.5);
+  }
+
+  /* ============ NIGHT SECTION ============ */
+  .night{
+    position: relative;
+    background: linear-gradient(180deg, var(--midnight) 0%, var(--navy) 45%, var(--midnight) 100%);
+    padding: clamp(4rem, 9vw, 7rem) 0;
+    overflow: hidden;
+  }
+  .night h2{
+    font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+    max-width: 20ch;
+  }
+  .night .lede{
+    margin-top: 0.9rem;
+    max-width: 52ch;
+    opacity: 0.82;
+    font-size: 1.05rem;
+  }
+
+  /* fireflies / festoon glow dots */
+  .fireflies{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .fly{
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 12px 4px rgba(245, 181, 74, 0.55);
+    opacity: 0;
+    animation: drift 14s ease-in-out infinite;
+  }
+  .fly:nth-child(1){ left: 8%;  top: 22%; animation-delay: 0s;    animation-duration: 13s; }
+  .fly:nth-child(2){ left: 22%; top: 68%; animation-delay: -3s;   animation-duration: 17s; width: 4px; height: 4px; }
+  .fly:nth-child(3){ left: 41%; top: 14%; animation-delay: -6s;   animation-duration: 15s; }
+  .fly:nth-child(4){ left: 58%; top: 78%; animation-delay: -9s;   animation-duration: 19s; width: 5px; height: 5px; }
+  .fly:nth-child(5){ left: 73%; top: 30%; animation-delay: -4.5s; animation-duration: 12s; width: 4px; height: 4px; }
+  .fly:nth-child(6){ left: 87%; top: 58%; animation-delay: -11s;  animation-duration: 16s; }
+  .fly:nth-child(7){ left: 15%; top: 44%; animation-delay: -8s;   animation-duration: 18s; width: 3px; height: 3px; }
+  .fly:nth-child(8){ left: 66%; top: 10%; animation-delay: -13s;  animation-duration: 14s; width: 3px; height: 3px; }
+
+  @keyframes drift{
+    0%   { transform: translate(0, 0);        opacity: 0; }
+    12%  { opacity: 0.85; }
+    50%  { transform: translate(38px, -46px); opacity: 0.35; }
+    72%  { opacity: 0.8; }
+    100% { transform: translate(-14px, 22px); opacity: 0; }
+  }
+
+  .cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+    position: relative;
+    z-index: 2;
+  }
+  .card{
+    background: rgba(244, 239, 232, 0.04);
+    border: 1px solid rgba(244, 239, 232, 0.09);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+  }
+  .card:hover{
+    box-shadow: 0 0 0 1px rgba(245, 181, 74, 0.35), 0 8px 44px rgba(245, 181, 74, 0.22);
+    border-color: rgba(245, 181, 74, 0.4);
+    transform: translateY(-4px);
+  }
+  .card img{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .card-body{ padding: 1.25rem 1.4rem 1.5rem; }
+  .card h3{ font-size: 1.15rem; margin-bottom: 0.4rem; }
+  .card p{ font-size: 0.93rem; opacity: 0.78; }
+
+  /* ============ DAWN TRANSITION ============ */
+  .dawn{
+    position: relative;
+    height: clamp(260px, 42vw, 460px);
+    background: linear-gradient(180deg,
+      var(--midnight) 0%,
+      #14213f 22%,
+      #3b3260 42%,
+      #7c5470 58%,
+      #c98a71 72%,
+      #ecc294 84%,
+      var(--cream) 100%);
+  }
+  .dawn svg{
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: clamp(70px, 12vw, 140px);
+  }
+
+  /* ============ DAY SECTIONS (shared) ============ */
+  .day{
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .day .kicker{ color: var(--fern); }
+  .section-pad{ padding: clamp(3.5rem, 8vw, 6rem) 0; }
+  .day h2{ font-size: clamp(1.9rem, 4.5vw, 2.7rem); }
+  .day .lede{
+    margin-top: 0.9rem;
+    max-width: 54ch;
+    color: rgba(23, 36, 29, 0.72);
+    font-size: 1.05rem;
+  }
+
+  /* ============ JOURNEY STRIP ============ */
+  .journey{
+    margin-top: 3.25rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .journey::before{
+    content: "";
+    position: absolute;
+    top: 44px;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--fern), var(--amber));
+    opacity: 0.4;
+  }
+  .step{
+    text-align: center;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: var(--d, 0s);
+  }
+  .step.visible{ opacity: 1; transform: translateY(0); }
+  .step img{
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 0.9rem;
+    border: 3px solid var(--cream);
+    box-shadow: 0 0 0 2px var(--fern), 0 6px 18px rgba(23, 36, 29, 0.18);
+    position: relative;
+    z-index: 2;
+  }
+  .step .num{
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: var(--fern);
+    margin-bottom: 0.25rem;
+  }
+  .step h3{ font-size: 1.02rem; margin-bottom: 0.3rem; }
+  .step p{ font-size: 0.85rem; color: rgba(23, 36, 29, 0.65); max-width: 22ch; margin-inline: auto; }
+
+  @media (max-width: 720px){
+    .journey{ grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+    .journey::before{ display: none; }
+  }
+
+  /* ============ PROJECTS ============ */
+  .projects-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .proj{
+    background: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 22px rgba(23, 36, 29, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .proj:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(23, 36, 29, 0.14);
+  }
+  .proj img{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .proj-body{ padding: 1.35rem 1.5rem 1.6rem; }
+  .proj h3{ font-size: 1.2rem; }
+  .proj .loc{
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fern);
+    margin: 0.3rem 0 0.6rem;
+  }
+  .proj p.desc{ font-size: 0.95rem; color: rgba(23, 36, 29, 0.72); }
+
+  /* ============ REVIEWS ============ */
+  .reviews-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .review{
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1.75rem 1.75rem 1.6rem;
+    box-shadow: 0 4px 22px rgba(23, 36, 29, 0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .stars{
+    color: var(--amber);
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
+  }
+  .review blockquote{
+    font-size: 1rem;
+    color: rgba(23, 36, 29, 0.85);
+    border: none;
+  }
+  .review cite{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--fern);
+  }
+
+  /* ============ QUOTE ============ */
+  .quote-section{
+    background: linear-gradient(180deg, var(--cream) 0%, #f3ecdd 100%);
+  }
+  .quote-card{
+    max-width: 560px;
+    margin: 2.75rem auto 0;
+    background: #fff;
+    border-radius: calc(var(--radius) + 0.25rem);
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    box-shadow: 0 10px 44px rgba(23, 36, 29, 0.1);
+  }
+  .quote-header{ text-align: center; }
+  .field{ margin-bottom: 1.2rem; }
+  .field label{
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+  .field input,
+  .field textarea{
+    width: 100%;
+    font: inherit;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid rgba(23, 36, 29, 0.18);
+    border-radius: 0.75rem;
+    background: var(--cream);
+    color: var(--ink);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .field input:focus,
+  .field textarea:focus{
+    outline: none;
+    border-color: var(--fern);
+    box-shadow: 0 0 0 3px rgba(62, 124, 79, 0.18);
+  }
+  .field textarea{ min-height: 120px; resize: vertical; }
+  .quote-card .btn{
+    width: 100%;
+    text-align: center;
+    margin-top: 0.25rem;
+    box-shadow: 0 4px 20px rgba(245, 181, 74, 0.3);
+  }
+  .form-success{
+    display: none;
+    text-align: center;
+    background: rgba(62, 124, 79, 0.1);
+    border: 1.5px solid rgba(62, 124, 79, 0.35);
+    color: var(--fern);
+    font-weight: 700;
+    border-radius: 0.75rem;
+    padding: 1.1rem 1.25rem;
+    margin-top: 1.25rem;
+  }
+  .form-success.show{ display: block; }
+  .trust{
+    text-align: center;
+    margin-top: 1.75rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: rgba(23, 36, 29, 0.6);
+  }
+
+  /* ============ FOOTER ============ */
+  footer{
+    background: #050e1c;
+    color: var(--foam);
+    padding: 3.25rem 0 2.25rem;
+  }
+  .foot-grid{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  footer .brand{ font-size: 1.2rem; }
+  footer p{ font-size: 0.92rem; opacity: 0.7; margin-top: 0.4rem; }
+  footer a{ color: var(--amber); text-decoration: none; }
+  footer a:hover{ text-decoration: underline; }
+  .small-print{
+    margin-top: 2.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(244, 239, 232, 0.1);
+    font-size: 0.8rem;
+    opacity: 0.5;
+  }
+
+  /* ============ REDUCED MOTION ============ */
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.001s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001s !important;
+    }
+    .fireflies{ display: none; }
+    .step{ opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">{{businessName}}</a>
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a class="nav-cta" href="#quote">Quote</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="hero">
+    <video autoplay muted loop playsinline preload="metadata" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/b4e5d5c1-1f07-4c40-80ba-5e72e894bf85.jpg" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/ee520bb4-93a7-4909-9a51-75d681339fe3.mp4" aria-label="Dusk flythrough of a landscaped garden as path lights ignite, ending at a glowing hot tub"></video>
+    <div class="wrap hero-content">
+      <span class="kicker">{{businessName}} · {{Town}}</span>
+      <h1>{{tagline}}</h1>
+      <p class="sub">{{heroSubline}}</p>
+      <a class="btn" href="#quote">Get a free design visit</a>
+    </div>
+  </section>
+
+  <!-- ============ 2. NIGHT — SERVICES ============ -->
+  <section class="night" id="services">
+    <div class="fireflies" aria-hidden="true">
+      <div class="fly"></div><div class="fly"></div><div class="fly"></div><div class="fly"></div>
+      <div class="fly"></div><div class="fly"></div><div class="fly"></div><div class="fly"></div>
+    </div>
+    <div class="wrap">
+      <span class="kicker">After dark</span>
+      <h2>Gardens designed for the hours you actually use them.</h2>
+      <p class="lede">{{aboutPara}}</p>
+      <div class="cards">
+        <article class="card">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/c0cf448e-93e1-45da-8bc9-34ea81092321.jpg" alt="Garden gate at dusk with warm path lights leading into the garden" loading="lazy">
+          <div class="card-body">
+            <h3>{{service1name}}</h3>
+            <p>{{service1desc}}</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/c2e923c7-15f8-4526-86c6-df2c3807708a.jpg" alt="Stone garden path glowing with in-set lights at twilight" loading="lazy">
+          <div class="card-body">
+            <h3>{{service2name}}</h3>
+            <p>{{service2desc}}</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/29b82a5c-5e12-42cf-849d-85f82920e2d3.jpg" alt="Timber pergola strung with festoon lights over an evening dining terrace" loading="lazy">
+          <div class="card-body">
+            <h3>{{service3name}}</h3>
+            <p>{{service3desc}}</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/f0a91a0f-d853-4d8f-aeb3-8020e1c140f6.jpg" alt="Glowing hot tub steaming in a landscaped garden at night" loading="lazy">
+          <div class="card-body">
+            <h3>{{service4name}}</h3>
+            <p>{{service4desc}}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. DAWN TRANSITION ============ -->
+  <div class="dawn" aria-hidden="true">
+    <svg viewBox="0 0 1440 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,90 C120,60 240,44 380,58 C520,72 600,110 740,102 C880,94 960,48 1100,44 C1240,40 1340,72 1440,64 L1440,140 L0,140 Z" fill="#FAF6EF" opacity="0.55"/>
+      <path d="M0,110 C160,84 300,70 460,84 C620,98 720,126 880,118 C1040,110 1160,74 1300,74 C1360,74 1410,82 1440,88 L1440,140 L0,140 Z" fill="#FAF6EF"/>
+    </svg>
+  </div>
+
+  <!-- ============ 4. JOURNEY STRIP ============ -->
+  <section class="day section-pad" id="journey">
+    <div class="wrap">
+      <span class="kicker">The Fern &amp; Stone journey</span>
+      <h2>One evening, one garden.</h2>
+      <p class="lede">Every project we build tells the same story: you step through the gate, follow the light, and end the night somewhere warm.</p>
+      <div class="journey" id="journeySteps">
+        <div class="step" style="--d:0s">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/c0cf448e-93e1-45da-8bc9-34ea81092321.jpg" alt="Garden gate lit at dusk — step one of the garden journey" loading="lazy">
+          <span class="num">STEP 1</span>
+          <h3>The Gate</h3>
+          <p>A welcome that glows before you're even inside.</p>
+        </div>
+        <div class="step" style="--d:0.18s">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/c2e923c7-15f8-4526-86c6-df2c3807708a.jpg" alt="Lit stone path winding through planting — step two" loading="lazy">
+          <span class="num">STEP 2</span>
+          <h3>The Path</h3>
+          <p>Lights ignite one by one, drawing you onward.</p>
+        </div>
+        <div class="step" style="--d:0.36s">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/29b82a5c-5e12-42cf-849d-85f82920e2d3.jpg" alt="Festoon-lit pergola dining space — step three" loading="lazy">
+          <span class="num">STEP 3</span>
+          <h3>The Pergola</h3>
+          <p>Dinner, festoons and shelter under timber.</p>
+        </div>
+        <div class="step" style="--d:0.54s">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/f0a91a0f-d853-4d8f-aeb3-8020e1c140f6.jpg" alt="Steaming, glowing hot tub — the final destination" loading="lazy">
+          <span class="num">STEP 4</span>
+          <h3>The Hot Tub</h3>
+          <p>The glowing finale. Lights low, steam rising.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. PROJECTS ============ -->
+  <section class="day section-pad" id="projects">
+    <div class="wrap">
+      <span class="kicker">Recent transformations</span>
+      <h2>Built nearby. Loved nightly.</h2>
+      <div class="projects-grid">
+        <article class="proj">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/f172e421-1ca3-4e8b-a897-2fe93352b36e.jpg" alt="Curved stone patio with sunken seating wall and in-set path lights" loading="lazy">
+          <div class="proj-body">
+            <h3>The Curved Patio</h3>
+            <p class="loc">Nottage, Porthcawl</p>
+            <p class="desc">Sunken seating wall, in-set path lights and grasses that glow at dusk.</p>
+          </div>
+        </article>
+        <article class="proj">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/da00e909-b198-4b46-bfe8-83e9b4d7f591.jpg" alt="Hand-built oak pergola over a dining terrace strung with festoon lights" loading="lazy">
+          <div class="proj-body">
+            <h3>The Oak Pergola</h3>
+            <p class="loc">Rest Bay</p>
+            <p class="desc">A hand-built oak pergola and dining terrace, wired for festoon nights.</p>
+          </div>
+        </article>
+        <article class="proj">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/e25f71f5-1547-4fa0-ae71-48cfc310101e.jpg" alt="Tiered garden with sleeper terraces, step lights and a glowing water feature" loading="lazy">
+          <div class="proj-body">
+            <h3>The Tiered Garden</h3>
+            <p class="loc">Newton</p>
+            <p class="desc">Full transformation: sleeper tiers, step lights and a glowing water feature.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. REVIEWS ============ -->
+  <section class="day section-pad" id="reviews">
+    <div class="wrap">
+      <span class="kicker">Reviews</span>
+      <h2>What our neighbours say.</h2>
+      <div class="reviews-grid">
+        <article class="review">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>"{{reviewSnippet}}"</blockquote>
+          <cite>— {{reviewAuthor}}</cite>
+        </article>
+        <article class="review">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>"Tidy, honest and genuinely creative. The pergola is the best thing we've ever added to the house."</blockquote>
+          <cite>— Gareth, Rest Bay</cite>
+        </article>
+        <article class="review">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>"From a muddy slope to a tiered garden with a glowing water feature. Neighbours keep knocking to ask who did it."</blockquote>
+          <cite>— Sioned, Newton</cite>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. QUOTE ============ -->
+  <section class="day quote-section section-pad" id="quote">
+    <div class="wrap">
+      <div class="quote-header">
+        <span class="kicker">Free design visit</span>
+        <h2>Let's talk about your garden.</h2>
+        <p class="lede" style="margin-inline:auto;">{{ctaLine}}</p>
+      </div>
+      <form class="quote-card" id="quoteForm" novalidate>
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+        </div>
+        <div class="field">
+          <label for="garden">Tell us about your garden</label>
+          <textarea id="garden" name="garden" placeholder="Size, what you'd love to change, and how you'd like to use it after dark…"></textarea>
+        </div>
+        <button type="submit" class="btn">Book my free design visit</button>
+        <p class="form-success" id="formSuccess" role="status">Thanks — we've got your details and will be in touch within one working day.</p>
+      </form>
+      <p class="trust">{{trustStrip}}</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 8. FOOTER ============ -->
+<!--MERCHANT:START-->
+<style>
+.merch-hero{position:relative;overflow:hidden;min-height:380px;display:flex;align-items:center;border-top:3px solid var(--m-accent);background:var(--m-primary-dark);isolation:isolate;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+.merch-hero__bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;transform:scale(1.06);animation:merchKenBurns 22s ease-in-out infinite alternate;}
+/* No trade hero yet? Build a branded backdrop out of the merchant's own colours
+   instead of showing a flat slab: a diagonal wash + a soft accent glow + fine
+   pinstripes. Keeps every site looking designed until its hero is generated. */
+/* the glow is WHITE, not the accent — a yellow accent washed over a navy base
+   mixes to a murky green. White lifts the same corner and stays on-brand. */
+.merch-hero--nohero .merch-hero__bg{animation:none;transform:none;background:
+  radial-gradient(90% 120% at 90% 6%, rgba(255,255,255,.16) 0%, transparent 55%),
+  linear-gradient(115deg, var(--m-primary-dark) 0%, var(--m-primary) 58%, var(--m-primary-dark) 100%);}
+.merch-hero--nohero .merch-hero__bg::after{content:"";position:absolute;inset:0;opacity:.5;background:repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0 2px, transparent 2px 14px);}
+.merch-hero__scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,color-mix(in srgb,var(--m-primary-dark) 94%,transparent) 0%,color-mix(in srgb,var(--m-primary-dark) 62%,transparent) 45%,color-mix(in srgb,var(--m-primary-dark) 15%,transparent) 78%),linear-gradient(0deg,color-mix(in srgb,var(--m-primary-dark) 85%,transparent) 0%,transparent 55%);}
+.merch-hero--nohero .merch-hero__scrim{background:none;}
+.merch-hero__content{position:relative;max-width:1180px;width:100%;margin:0 auto;padding:48px 40px;display:flex;flex-direction:column;align-items:flex-start;gap:18px;text-align:left;}
+.merch-hero__eyebrow{font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--m-accent);text-shadow:0 1px 12px rgba(0,0,0,.5);}
+.merch-hero__logoChip{background:#fff;border-radius:12px;padding:14px 22px;box-shadow:0 10px 34px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.4);}
+.merch-hero__logo{height:46px;width:auto;display:block;}
+.merch-hero__tagline{color:var(--m-on-dark);font-size:clamp(20px,3vw,30px);line-height:1.2;font-weight:800;letter-spacing:-.01em;margin:4px 0 6px;max-width:560px;text-shadow:0 2px 24px rgba(0,0,0,.55);}
+.merch-hero__cta{display:inline-flex;align-items:center;gap:10px;background:var(--m-accent);color:var(--m-accent-ink);font-weight:800;font-size:15px;padding:14px 26px;border-radius:10px;text-decoration:none;box-shadow:0 8px 26px color-mix(in srgb,var(--m-accent) 40%,transparent);transition:transform .15s ease,box-shadow .15s ease;}
+.merch-hero__cta:hover,.merch-hero__cta:focus-visible{transform:translateY(-2px);box-shadow:0 12px 34px color-mix(in srgb,var(--m-accent) 55%,transparent);}
+.merch-hero__cta:focus-visible{outline:3px solid var(--m-on-dark);outline-offset:3px;}
+@keyframes merchKenBurns{from{transform:scale(1.06) translate(0,0)}to{transform:scale(1.14) translate(-1.5%,-1%)}}
+@media (prefers-reduced-motion:reduce){.merch-hero__bg{animation:none}}
+@media (max-width:640px){.merch-hero{min-height:340px}.merch-hero__content{padding:36px 24px}.merch-hero__logo{height:36px}}
+</style>
+<template data-qs-merch="mkm">
+<section class="merch-hero merch-hero--nohero" aria-label="MKM Building Supplies — Proudly supplied by"
+  style="--m-primary:#1B3A6B;--m-primary-dark:#0F2547;--m-accent:#FFD200;--m-accent-ink:#1B3A6B;--m-on-dark:#FFFFFF;">
+  <div class="merch-hero__bg"></div>
+  <div class="merch-hero__scrim"></div>
+  <div class="merch-hero__content">
+    <span class="merch-hero__eyebrow">Proudly supplied by</span>
+    <div class="merch-hero__logoChip"><img src="https://media.base44.com/images/public/6a1eca9d5c22fc410e3b0fef/b34abd4d4_MKMLogo02forwhitebackground.png" alt="MKM Building Supplies" class="merch-hero__logo" loading="lazy" decoding="async"></div>
+    <p class="merch-hero__tagline">Every slab, sleeper and bag of aggregate out here — supplied by MKM.</p>
+    <a href="https://mkm.com/category/landscaping" target="_blank" rel="noopener noreferrer sponsored" class="merch-hero__cta">
+      <span>Explore MKM's landscaping range</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+</template>
+<template data-qs-merch="gap">
+<section class="merch-hero merch-hero--nohero" aria-label="GAP Ltd — Proudly supplied by"
+  style="--m-primary:#0B0B0B;--m-primary-dark:#000000;--m-accent:#1FB25A;--m-accent-ink:#FFFFFF;--m-on-dark:#FFFFFF;">
+  <div class="merch-hero__bg"></div>
+  <div class="merch-hero__scrim"></div>
+  <div class="merch-hero__content">
+    <span class="merch-hero__eyebrow">Proudly supplied by</span>
+    <div class="merch-hero__logoChip"><img src="https://www.gap.uk.com/assets/img/GAP-Logo.png" alt="GAP Ltd" class="merch-hero__logo" loading="lazy" decoding="async"></div>
+    <p class="merch-hero__tagline">The Trade Choice — uPVC fascias, soffits, gutters, cladding, windows and doors.</p>
+    <a href="https://www.gap.uk.com/" target="_blank" rel="noopener noreferrer sponsored" class="merch-hero__cta">
+      <span>Browse GAP</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+</template>
+<template data-qs-merch="cef">
+<section class="merch-hero merch-hero--nohero" aria-label="City Electrical Factors — Proudly supplied by"
+  style="--m-primary:#D02239;--m-primary-dark:#7E1422;--m-accent:#FFFFFF;--m-accent-ink:#D02239;--m-on-dark:#FFFFFF;">
+  <div class="merch-hero__bg"></div>
+  <div class="merch-hero__scrim"></div>
+  <div class="merch-hero__content">
+    <span class="merch-hero__eyebrow">Proudly supplied by</span>
+    <div class="merch-hero__logoChip"><img src="https://www.cef.co.uk/assets/shared/cef-logo-small-74049fcb504cd93204a5fcccd33f3a988512597f8f51336972fda8fadb94f652.png" alt="City Electrical Factors" class="merch-hero__logo" loading="lazy" decoding="async"></div>
+    <p class="merch-hero__tagline">The UK's leading electrical wholesaler — cable, lighting, tools and renewables.</p>
+    <a href="https://www.cef.co.uk/" target="_blank" rel="noopener noreferrer sponsored" class="merch-hero__cta">
+      <span>Browse CEF</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+</template>
+<script>(function(){var s=document.currentScript;var id=(typeof window.__QS_MERCHANT!=="undefined")?String(window.__QS_MERCHANT||""):(function(){try{var q=new URLSearchParams(location.search).get("merchant");if(q!=null)return q}catch(e){}return "";})();id=String(id).toLowerCase();var t=document.querySelector('template[data-qs-merch="'+id+'"]');if(t&&s.parentNode)s.parentNode.insertBefore(t.content.cloneNode(true),s);document.querySelectorAll("template[data-qs-merch]").forEach(function(n){n.remove()});s.remove();})();</script>
+<!--MERCHANT:END-->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top">{{businessName}}</a>
+        <p>Garden design &amp; landscaping<br>{{Town}}, South Wales</p>
+      </div>
+      <div>
+        <p><a href="tel:01656234567">01656 234 567</a><br>
+        <a href="mailto:hello@example.co.uk">hello@example.co.uk</a></p>
+      </div>
+      <div>
+        <p>{{serviceAreaLine}}</p>
+      </div>
+    </div>
+    <p class="small-print">{{trustStrip}}</p>
+  </div>
+</footer>
+
+<script>
+  // ---- Mobile hamburger ----
+  var burger = document.getElementById('hamburger');
+  var links = document.getElementById('navLinks');
+  burger.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  links.addEventListener('click', function(e){
+    if (e.target.tagName === 'A'){
+      links.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // ---- Journey steps: sequential fade-in ----
+  var steps = document.querySelectorAll('.step');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !('IntersectionObserver' in window)){
+    steps.forEach(function(s){ s.classList.add('visible'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    steps.forEach(function(s){ io.observe(s); });
+  }
+
+  // ---- Quote form: JS-only success ----
+  var form = document.getElementById('quoteForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('name');
+    var phone = document.getElementById('phone');
+    if (!name.value.trim()){ name.focus(); return; }
+    if (!phone.value.trim()){ phone.focus(); return; }
+    document.getElementById('formSuccess').classList.add('show');
+    form.querySelector('button[type="submit"]').disabled = true;
+    form.reset();
+  });
+</script>
+
+<!-- ============ PERSONALISATION RESOLVER (BrandSuite name / town / trade tokens) ============ -->
+<script>
+(function(){
+  var DEFAULTS = {
+    businessName: "Fern & Stone Landscapes", town: "Porthcawl", trade: "landscaper",
+    tagline: "Your garden, after dark.",
+    heroSubline: "Design-led landscaping that comes alive when the lights come on.",
+    aboutPara: "Most gardens are enjoyed in the evening — after work, after dinner, after the kids are down. We design every path, patio and pergola to glow, so the garden earns its keep after dark, not just in June sunshine.",
+    service1name: "Paths & Lighting Design", service1desc: "Low-glare, layered lighting that guides you through the garden from the first gate to the last step.",
+    service2name: "Patios & Stonework", service2desc: "Natural stone patios, seating walls and steps, built to hold warmth and light beautifully.",
+    service3name: "Pergolas & Outdoor Rooms", service3desc: "Hand-built timber structures wired for festoons, heaters and speakers — an extra room outdoors.",
+    service4name: "Hot Tubs & Water Features", service4desc: "Sunken tubs, reflecting pools and lit water features — the glowing finale to any garden.",
+    reviewSnippet: "We sat outside until midnight the first evening it was finished. The lighting completely changed how we use the garden.",
+    reviewAuthor: "Rhian, Nottage",
+    ctaLine: "Tell us a little about your space and we'll arrange a free, no-pressure design visit — evenings welcome, naturally.",
+    serviceAreaLine: "Serving Porthcawl, Bridgend & the Vale",
+    trustStrip: "Free quotes   ·   No-obligation quotes   ·   Tidy & on time"
+  };
+  var p = new URLSearchParams(location.search);
+  var inj = window.BRAND || {};
+  function pick(k){
+    var v = (inj[k] != null ? inj[k] : null);
+    if (v == null && k === 'businessName' && inj.name != null) v = inj.name;
+    if (v == null) v = p.get(k);
+    if (v == null && k === 'businessName') v = p.get('name');
+    if (v == null) v = DEFAULTS[k];
+    return v;
+  }
+  var d = Object.assign({}, DEFAULTS, { businessName: pick('businessName'), town: pick('town'), trade: pick('trade') });
+  function cap(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+  d.Town = cap(d.town); d.Trade = cap(d.trade);
+  var re = /\{\{\s*([A-Za-z0-9]+)\s*\}\}/g;
+  function sub(s){ return s.replace(re, function(m, k){ return d[k] != null ? d[k] : m; }); }
+  if (document.title.indexOf('{{') > -1) document.title = sub(document.title);
+  var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), n, list = [];
+  while (n = w.nextNode()) { if (n.nodeValue.indexOf('{{') > -1) list.push(n); }
+  list.forEach(function(t){ t.nodeValue = sub(t.nodeValue); });
+  document.querySelectorAll('*').forEach(function(el){
+    for (var i = 0; i < el.attributes.length; i++) {
+      var a = el.attributes[i];
+      if (a.value.indexOf('{{') > -1) a.value = sub(a.value);
+    }
+  });
+})();
+</script>
+
+
+<script>window.__QS_MERCHANT="mkm";</script>
+
+<!--QSMKM:PACK-->
+<script id="qs-mkm-pack">(function(){
+var id=(typeof window.__QS_MERCHANT!=="undefined")?String(window.__QS_MERCHANT||""):(function(){try{var q=new URLSearchParams(location.search).get("merchant");if(q!=null)return q}catch(e){}return ""})();
+if(String(id).toLowerCase()!=="mkm")return;
+var LOGO="https://media.base44.com/images/public/6a1eca9d5c22fc410e3b0fef/b34abd4d4_MKMLogo02forwhitebackground.png",HREF="https://mkm.com/category/landscaping",LABEL="Explore MKM's landscaping range";
+var css=".qsmkm-chip{position:absolute;top:96px;right:22px;z-index:2147483000;display:flex;align-items:center;gap:12px;pointer-events:none;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;}"+
+".qsmkm-chip b{font-size:12px;font-weight:900;letter-spacing:.26em;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.55),0 2px 14px rgba(0,0,0,.4);white-space:nowrap;}"+
+".qsmkm-chip img{height:44px;width:auto;display:block;filter:drop-shadow(0 0 6px rgba(255,255,255,.95)) drop-shadow(0 0 20px rgba(255,255,255,.6)) drop-shadow(0 1px 3px rgba(0,0,0,.35));}"+
+".qsmkm-strip{position:relative;z-index:2147483001;background:#12294d;border-top:3px solid #FFD200;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;transition:transform .3s ease;}"+
+".qsmkm-strip--fixed{position:fixed;top:0;left:0;right:0;border-top-width:0;border-bottom:3px solid #FFD200;box-shadow:0 8px 30px rgba(0,0,0,.35);}"+
+".qsmkm-strip--hidden{transform:translateY(-110%);}"+
+".qsmkm-strip-ph{display:none;}"+
+".qsmkm-strip__in{max-width:1180px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}"+
+".qsmkm-strip__brand{display:flex;align-items:center;gap:11px;color:#fff;font-weight:800;font-size:13px;letter-spacing:.02em;}"+
+".qsmkm-strip__brand img{height:18px;width:auto;background:#fff;border-radius:6px;padding:4px 8px;box-sizing:content-box;display:block;}"+
+".qsmkm-strip__link{color:#FFD200;font-weight:800;font-size:14px;text-decoration:none;white-space:nowrap;}"+
+".qsmkm-strip__link:hover,.qsmkm-strip__link:focus-visible{text-decoration:underline;}"+
+"@media(max-width:640px){.qsmkm-chip{top:78px;right:14px;gap:9px}.qsmkm-chip img{height:32px}.qsmkm-chip b{font-size:10px}.qsmkm-strip__in{padding:12px 16px}}";
+var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+function build(){
+if(document.querySelector(".qsmkm-chip"))return;
+var chip=document.createElement("div");chip.className="qsmkm-chip";
+chip.innerHTML='<b>MATERIALS SUPPLIED BY</b><img alt="MKM Building Supplies" src="'+LOGO+'">';
+document.body.appendChild(chip);
+var strip=document.createElement("div");strip.className="qsmkm-strip";
+strip.innerHTML='<div class="qsmkm-strip__in"><span class="qsmkm-strip__brand"><img alt="MKM" src="'+LOGO+'"><span>Materials supplied by MKM Building Supplies</span></span><a class="qsmkm-strip__link" href="'+HREF+'" target="_blank" rel="noopener noreferrer sponsored">'+LABEL+' &rarr;</a></div>';
+var vh=window.innerHeight||800,page=Math.max(document.body.scrollHeight,vh),hero=null;
+var probe=document.elementFromPoint(Math.floor(window.innerWidth/2),Math.floor(vh*0.45));
+var el=probe;
+while(el&&el!==document.body&&el!==document.documentElement){
+var r=el.getBoundingClientRect();
+if(r.height>=vh*0.5&&r.height<=page*0.85&&el.nextElementSibling){hero=el;}
+el=el.parentElement;}
+if(!hero){var cands=document.querySelectorAll("body > *, body > div > *, body > div > div > *, main > *");
+for(var i=0;i<cands.length;i++){var c=cands[i];var tg=c.tagName;
+if(tg==="SCRIPT"||tg==="STYLE"||tg==="LINK"||tg==="TEMPLATE")continue;
+if(c.className&&String(c.className).indexOf("qsmkm")>-1)continue;
+var rr=c.getBoundingClientRect();var top=rr.top+window.scrollY;
+if(top<vh*0.4&&rr.height>=vh*0.55&&rr.height<=page*0.85){hero=c;}}}
+if(hero){hero.insertAdjacentElement("afterend",strip);}
+else{var first=null;for(var j=0;j<document.body.children.length;j++){var c=document.body.children[j];if(c.tagName!=="SCRIPT"&&c.tagName!=="STYLE"&&c.tagName!=="LINK"&&c.tagName!=="TEMPLATE"){first=c;break}}
+if(first){first.insertAdjacentElement("afterend",strip);}else{document.body.appendChild(strip);}}
+var ph=document.createElement("div");ph.className="qsmkm-strip-ph";strip.insertAdjacentElement("afterend",ph);
+function onScroll(){
+var y=window.scrollY,sh=strip.offsetHeight||52;
+var start=(strip.classList.contains("qsmkm-strip--fixed")?ph:strip).getBoundingClientRect().top+y;
+var release=start+(window.innerHeight||800)*2;
+if(y>=start&&y<release){
+if(!strip.classList.contains("qsmkm-strip--fixed")){ph.style.display="block";ph.style.height=sh+"px";strip.classList.add("qsmkm-strip--fixed");}
+strip.classList.remove("qsmkm-strip--hidden");
+}else if(y>=release){strip.classList.add("qsmkm-strip--hidden");}
+else{strip.classList.remove("qsmkm-strip--hidden");
+if(strip.classList.contains("qsmkm-strip--fixed")){strip.classList.remove("qsmkm-strip--fixed");ph.style.display="none";}}
+}
+window.addEventListener("scroll",onScroll,{passive:true});
+window.addEventListener("resize",onScroll);
+onScroll();
+}
+if(document.readyState==="complete"){setTimeout(build,350);}
+else{window.addEventListener("load",function(){setTimeout(build,350);});}
+})();</script>
+
+</body>
+</html>
