@@ -129,10 +129,17 @@ if(document.readyState==="complete"){setTimeout(build,350);}else{window.addEvent
   /* ---------- timing ---------- */
   var T_START = reduced ? 0 : 520;
   var STEP_GAP = reduced ? 260 : 1900;
-  var FLIGHT = reduced ? 220 : 950;
+  /* the landing is two phases: a gravity DROP that accelerates all the way into
+     the impact, then a short SETTLE that rebounds out of a slight overshoot.
+     Easing out of the drop is what kills the slam — it has to arrive at speed. */
+  var DROP = reduced ? 180 : 620;
+  var SETTLE = reduced ? 60 : 300;
+  var FLIGHT = DROP + SETTLE;
   var PART_STAGGER = reduced ? 40 : 130;
   var CARD_IN = reduced ? 40 : 260;
   var CARD_HOLD = reduced ? 200 : 1450;
+  var EASE_DROP = "cubic-bezier(.45,.02,.9,.42)";
+  var EASE_SETTLE = "cubic-bezier(.2,1.4,.4,1)";
   var EASE_LAND = "cubic-bezier(.16,.84,.32,1.04)";
   var EASE = "cubic-bezier(.4,0,.2,1)";
 
@@ -149,15 +156,18 @@ if(document.readyState==="complete"){setTimeout(build,350);}else{window.addEvent
     });
   }
 
-  /* build order: which parts fly in on each of the six captioned steps,
-     and which positional FX group (shadow / settle dust / spark / debris) each one triggers */
+  /* build order: which parts fly in on each of the six captioned steps.
+     [filename, FX group index, impact weight] — the FX index picks the
+     positional shadow / settle dust / spark / debris set (-1 = rides in with a
+     sibling and fires none of its own); the weight drives how hard the frame
+     kicks when that part lands. Concrete and roof steel hit hardest, glass least. */
   var STEPS = [
-    { step: "01", parts: [["base.png", 0]] },
-    { step: "02", parts: [["pier-left.png", 1], ["pier-right.png", 2], ["dwarf-wall.png", 3]] },
-    { step: "03", parts: [["interior.png", -1], ["doors-outer.png", 4], ["doors-panel-left.png", -1], ["doors-panel-right.png", -1]] },
-    { step: "04", parts: [["window-left.png", 5], ["window-right.png", 6]] },
-    { step: "05", parts: [["roof.png", 7]] },
-    { step: "06", parts: [["lantern.png", 8]] }
+    { step: "01", parts: [["base.png", 0, 11]] },
+    { step: "02", parts: [["pier-left.png", 1, 7], ["pier-right.png", 2, 7], ["dwarf-wall.png", 3, 6]] },
+    { step: "03", parts: [["interior.png", -1, 0], ["doors-outer.png", 4, 5], ["doors-panel-left.png", -1, 0], ["doors-panel-right.png", -1, 0]] },
+    { step: "04", parts: [["window-left.png", 5, 4], ["window-right.png", 6, 4]] },
+    { step: "05", parts: [["roof.png", 7, 10]] },
+    { step: "06", parts: [["lantern.png", 8, 5]] }
   ];
 
   var shadows = divsWhere(function (s) { return s.indexOf("rgba(14, 20, 10, 0.55)") > -1; });
@@ -223,6 +233,7 @@ if(document.readyState==="complete"){setTimeout(build,350);}else{window.addEvent
 
   /* ---------- state ---------- */
   var timers = [];
+  var runId = 0;
   var running = false;
   var done = false;
   var initial = [];
@@ -246,11 +257,12 @@ if(document.readyState==="complete"){setTimeout(build,350);}else{window.addEvent
         return k.replace(/[A-Z]/g, function (c) { return "-" + c.toLowerCase(); }) + " " + dur + "ms " + (ease || EASE);
       })
       .join(", ");
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        keys.forEach(function (k) { el.style[k] = props[k]; });
-      });
-    });
+    /* flush the current computed value so the transition starts on THIS frame.
+       Deferring the apply to a double-rAF puts the visual contact two frames
+       behind the timers that fire the dust and the kick — at drop speed that
+       reads as the effects arriving late, which is what kills the impact. */
+    void el.offsetWidth;
+    keys.forEach(function (k) { el.style[k] = props[k]; });
   }
 
   /* ---------- the sequence ---------- */
@@ -268,9 +280,10 @@ if(document.readyState==="complete"){setTimeout(build,350);}else{window.addEvent
       remember(sp);
       var base = /transform:\s*([^;]+)/.exec(styleOf(sp));
       var t0 = base ? base[1] : "translate(-50%, -50%) scale(0.3)";
-      tween(sp, 180, { opacity: "1", transform: t0.replace(/scale\([^)]*\)/, "scale(1.45)") });
-      at(200, function () {
-        tween(sp, 560, { opacity: "0", transform: t0.replace(/scale\([^)]*\)/, "scale(2.1)") });
+      /* snap open on the frame of impact, then bleed out slowly */
+      tween(sp, 90, { opacity: "1", transform: t0.replace(/scale\([^)]*\)/, "scale(1.7)") });
+      at(110, function () {
+        tween(sp, 620, { opacity: "0", transform: t0.replace(/scale\([^)]*\)/, "scale(2.4)") });
       });
     }
 
@@ -278,43 +291,82 @@ if(document.readyState==="complete"){setTimeout(build,350);}else{window.addEvent
       db.forEach(function (chip, n) {
         remember(chip);
         var ang = (n * 137.5 * Math.PI) / 180;
-        var r = 34 + (n % 5) * 15;
+        var r = 48 + (n % 5) * 21;
         var dx = Math.cos(ang) * r;
-        var dy = Math.sin(ang) * r * 0.55 - (16 + (n % 4) * 9);
+        var dy = Math.sin(ang) * r * 0.5 - (26 + (n % 4) * 13);
         var t0 = (/transform:\s*([^;]+)/.exec(styleOf(chip)) || [, "translate(-50%, -50%)"])[1];
-        tween(chip, 150, { opacity: "1" });
-        at(60, function () {
-          tween(chip, 720, { opacity: "0", transform: t0 + " translate(" + dx.toFixed(1) + "px, " + dy.toFixed(1) + "px) scale(0.45)" }, "cubic-bezier(.2,.7,.3,1)");
+        /* kicked out fast on impact, then decelerating as it falls away */
+        tween(chip, 70, { opacity: "1" });
+        at(40, function () {
+          tween(chip, 760, { opacity: "0", transform: t0 + " translate(" + dx.toFixed(1) + "px, " + dy.toFixed(1) + "px) scale(0.4)" }, "cubic-bezier(.12,.62,.28,1)");
         });
       });
     }
   }
 
-  function thud(px) {
-    if (!stage || reduced) return;
+  /* frame kick on impact: a hard displacement that recoils and rings out over a
+     few quick oscillations, rather than one soft nudge. Scaled by part weight. */
+  function shake(weight) {
+    if (!stage || reduced || !weight) return;
     remember(stage);
     var t0 = (/transform:\s*([^;]+)/.exec(styleOf(stage)) || [, ""])[1];
-    var settled = t0.replace(/translateY\([^)]*\)/, "translateY(0px)");
-    tween(stage, 90, { transform: t0.replace(/translateY\([^)]*\)/, "translateY(" + px + "px)") });
-    at(100, function () { tween(stage, 320, { transform: settled }, "cubic-bezier(.2,.9,.3,1)"); });
+    function frame(dy, dur, ease) {
+      tween(stage, dur, { transform: t0.replace(/translateY\([^)]*\)/, "translateY(" + dy.toFixed(2) + "px)") }, ease);
+    }
+    var steps = [
+      [weight, 55, "cubic-bezier(.3,0,.7,1)"],
+      [-weight * 0.52, 70, EASE],
+      [weight * 0.26, 85, EASE],
+      [-weight * 0.1, 100, EASE],
+      [0, 150, "cubic-bezier(.2,.9,.3,1)"]
+    ];
+    var t = 0;
+    steps.forEach(function (s) {
+      at(t, function () { frame(s[0], s[1], s[2]); });
+      t += s[1];
+    });
   }
 
-  function land(name, fxIndex, delay, heavy) {
+  function land(name, fxIndex, delay, weight) {
     var el = part(name);
     if (!el) return;
     remember(el);
     at(delay, function () {
       var t = (/transform:\s*([^;]+)/.exec(styleOf(el)) || [, ""])[1];
-      var settled = t
-        .replace(/translateY\([^)]*\)/, "translateY(0vh)")
-        .replace(/rotate\([^)]*\)/, "rotate(0deg)")
-        .replace(/translateX\([^)]*\)/, "translateX(0%)");
-      if (!reduced) el.style.filter = "blur(2.5px)";
-      tween(el, FLIGHT, { transform: settled, filter: "none" }, EASE_LAND);
-      at(delay + FLIGHT - 60, function () {
+      function to(y) {
+        return t
+          .replace(/translateY\([^)]*\)/, "translateY(" + y + ")")
+          .replace(/rotate\([^)]*\)/, "rotate(0deg)")
+          .replace(/translateX\([^)]*\)/, "translateX(0%)");
+      }
+      /* phase 1 — gravity. Accelerates the whole way in and arrives at speed,
+         driving slightly past the resting line so there is something to recoil
+         from. Motion blur builds with the speed and cuts hard on contact. */
+      if (!reduced) el.style.filter = "blur(1px)";
+      tween(el, DROP, { transform: to("0.9vh"), filter: "blur(4px)" }, EASE_DROP);
+
+      /* phase 2 — impact. Everything lands on this frame: the rebound to rest,
+         the blur cut, the dust and debris, and the kick.
+         Driven off the drop's own transitionend, not a timer. A transition
+         starts on the next style commit, which can trail the setTimeout by a
+         frame or more; on a timer the settle tween would pre-empt the drop
+         mid-flight and glide the part the rest of the way, which is exactly
+         what softens the landing. The timer is kept only as a fallback. */
+      var mine = runId;
+      var fired = false;
+      function impact() {
+        if (fired || mine !== runId) return;
+        fired = true;
+        el.removeEventListener("transitionend", onDropEnd);
+        tween(el, SETTLE, { transform: to("0vh"), filter: "none" }, EASE_SETTLE);
         if (fxIndex >= 0) fireFX(fxIndex);
-        if (heavy) thud(5);
-      });
+        shake(weight);
+      }
+      function onDropEnd(e) {
+        if (e.target === el && e.propertyName === "transform") impact();
+      }
+      el.addEventListener("transitionend", onDropEnd);
+      at(DROP + 260, impact);
     });
   }
 
@@ -378,6 +430,7 @@ if(document.readyState==="complete"){setTimeout(build,350);}else{window.addEvent
   }
 
   function reset() {
+    runId++;
     timers.forEach(clearTimeout);
     timers = [];
     initial.forEach(function (pair) {
@@ -406,7 +459,7 @@ if(document.readyState==="complete"){setTimeout(build,350);}else{window.addEvent
     STEPS.forEach(function (s, si) {
       showCard(s.step, t + CARD_IN);
       s.parts.forEach(function (p, pi) {
-        land(p[0], p[1], t + pi * PART_STAGGER, si === 0 || si === 4);
+        land(p[0], p[1], t + pi * PART_STAGGER, p[2]);
       });
       if (si === 0) at(t + FLIGHT, function () { if (groundShadow) tween(groundShadow, 700, { opacity: "1" }); });
       t += STEP_GAP;
