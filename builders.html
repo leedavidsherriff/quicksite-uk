@@ -2,38 +2,24 @@
 <html lang="en-GB">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Right Price Builders — Orangeries built properly</title>
+<!-- Straight redirect to the live page. It was embedded in an iframe here so the
+     URL would stay put, but framing broke the "Press to build" animation, and a
+     working page matters more than a tidy address bar. The destination carries
+     its own MKM branding: sticky "Proudly supplied by MKM / Shop MKM" bar at the
+     top, and the full MKM banner above the footer. -->
+<meta http-equiv="refresh" content="0; url=https://abiding-brand-deck-flow.base44.app/right-price-builders">
+<link rel="canonical" href="https://abiding-brand-deck-flow.base44.app/right-price-builders">
+<script>location.replace("https://abiding-brand-deck-flow.base44.app/right-price-builders");</script>
 <style>
-  html,body{margin:0;padding:0;height:100%;background:#181a1f;overflow:hidden}
-  #site{border:0;display:block;width:100%;height:100%}
-  .qsmkm-chip{position:fixed;top:96px;right:22px;z-index:2147483000;display:flex;align-items:center;gap:12px;
-    pointer-events:none;font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
-  .qsmkm-chip b{font-size:12px;font-weight:900;letter-spacing:.26em;color:#fff;
-    text-shadow:0 1px 4px rgba(0,0,0,.55),0 2px 14px rgba(0,0,0,.4);white-space:nowrap}
-  .qsmkm-chip img{height:44px;width:auto;display:block;
-    filter:drop-shadow(0 0 6px rgba(255,255,255,.95)) drop-shadow(0 0 20px rgba(255,255,255,.6)) drop-shadow(0 1px 3px rgba(0,0,0,.35))}
-  @media(max-width:640px){.qsmkm-chip{top:78px;right:14px;gap:9px}.qsmkm-chip img{height:32px}.qsmkm-chip b{font-size:10px}}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+       background:#0F2547;color:#fff;font:16px/1.6 system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+  a{color:#FFD200;font-weight:700}
 </style>
 </head>
 <body>
-<iframe id="site" src="https://abiding-brand-deck-flow.base44.app/right-price-builders"
-        title="Right Price Builders — Orangeries built properly" allow="autoplay; fullscreen"></iframe>
-
-<!-- No overlay chip here: the embedded page carries its own MKM branding —
-     a sticky "Proudly supplied by MKM / Shop MKM" bar pinned to the top of the
-     hero, and the full MKM banner above the footer. An extra chip collided with
-     the headline and contradicted the bar's wording. -->
-
-<script>
-// If the embed hasn't loaded in 8s, send the visitor to the real page rather
-// than leaving them looking at a blank screen.
-(function(){
-  var TARGET="https://abiding-brand-deck-flow.base44.app/right-price-builders";
-  var f=document.getElementById("site"), ok=false;
-  f.addEventListener("load",function(){ok=true;});
-  setTimeout(function(){ if(!ok) location.replace(TARGET); },8000);
-})();
-</script>
+  <p>Taking you to Right Price Builders&hellip;
+     <a href="https://abiding-brand-deck-flow.base44.app/right-price-builders">Continue &rarr;</a></p>
 </body>
 </html>
