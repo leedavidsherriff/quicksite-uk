@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>window.__QS_MERCHANT="talbotblock";</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{businessName}} — Bespoke {{Trade}} Bathrooms in {{Town}}</title>
+<meta name="description" content="{{businessName}} — a {{trade}} in {{Town}}. {{heroSubline}}">
+<style>
+  :root {
+    --stone: #F4F1EC;
+    --slate: #3E4E58;
+    --slate-dark: #33414A;
+    --brass: #B08D57;
+    --charcoal: #2A2E30;
+    --white: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--stone);
+    color: var(--charcoal);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  img, video { max-width: 100%; display: block; }
+
+  h1, h2, h3 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  a { color: inherit; }
+
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(244, 241, 236, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(62, 78, 88, 0.08);
+    transition: background 0.3s ease;
+  }
+
+  .site-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+  }
+
+  .brand {
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--slate);
+    font-weight: 600;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--charcoal);
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover { color: var(--brass); }
+
+  .nav-cta {
+    background: var(--slate);
+    color: var(--stone) !important;
+    padding: 0.6rem 1.3rem;
+    border-radius: 999px;
+    font-size: 0.9rem !important;
+  }
+
+  .nav-cta:hover { background: var(--brass) !important; color: var(--white) !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--slate);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.is-open span:nth-child(2) { opacity: 0; }
+  .hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 780px) {
+    .nav-links {
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      background: var(--stone);
+      padding: 1.5rem 28px 2rem;
+      gap: 1.4rem;
+      transform: translateY(-8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+      border-bottom: 1px solid rgba(62, 78, 88, 0.08);
+    }
+    .nav-links.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+    .hamburger { display: flex; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 560px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(62,78,88,0) 40%, rgba(42,46,48,0.55) 100%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 28px 6.5rem;
+    max-width: 1180px;
+    margin: 0 auto;
+    color: var(--white);
+  }
+
+  .kicker {
+    display: inline-block;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+    opacity: 0.92;
+    margin-bottom: 1.1rem;
+    font-weight: 600;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.25);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.1rem, 5.5vw, 3.8rem);
+    color: var(--white);
+    max-width: 15ch;
+    margin-bottom: 1.1rem;
+    line-height: 1.15;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.22);
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    max-width: 46ch;
+    color: var(--white);
+    opacity: 0.96;
+    margin-bottom: 2.1rem;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.2);
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .btn-pill {
+    display: inline-block;
+    background: var(--slate);
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.95rem 2.1rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .btn-pill:hover {
+    background: var(--brass);
+    transform: translateY(-2px);
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section {
+    padding: 6rem 0;
+  }
+
+  .section-head {
+    max-width: 640px;
+    margin: 0 auto 3.2rem;
+    text-align: center;
+  }
+
+  .section-head .kicker {
+    color: var(--brass);
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    margin-bottom: 0.9rem;
+  }
+
+  .section-head p {
+    color: #5A6268;
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  /* ---------- PROCESS CARDS ---------- */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .process-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    border-top: 4px solid var(--brass);
+    box-shadow: 0 10px 30px rgba(42,46,48,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .process-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(42,46,48,0.12);
+  }
+
+  .process-card .img-wrap {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .process-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .process-card .card-body {
+    padding: 1.6rem 1.7rem 2rem;
+  }
+
+  .process-card .step-num {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: var(--brass);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .process-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+    color: var(--slate);
+  }
+
+  .process-card p {
+    color: #5A6268;
+    font-size: 0.98rem;
+    margin: 0;
+  }
+
+  @media (max-width: 980px) {
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 560px) {
+    .process-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- JOURNEY STRIP ---------- */
+  .journey {
+    background: var(--slate);
+    color: var(--stone);
+  }
+
+  .journey .section-head h2,
+  .journey .section-head p { color: var(--stone); }
+
+  .journey .section-head p { opacity: 0.78; }
+
+  .journey-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    position: relative;
+  }
+
+  .journey-grid::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: 16.6%;
+    right: 16.6%;
+    height: 1px;
+    background: rgba(244,241,236,0.28);
+  }
+
+  .journey-step {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .journey-step.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .journey-step .dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--brass);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 auto 1.3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .journey-step h3 {
+    color: var(--stone);
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .journey-step p {
+    color: rgba(244,241,236,0.75);
+    font-size: 0.95rem;
+    max-width: 30ch;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 780px) {
+    .journey-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .journey-grid::before { display: none; }
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(42,46,48,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(42,46,48,0.12);
+  }
+
+  .project-card .img-wrap {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #E4DFD5;
+  }
+
+  .project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .project-card .card-body {
+    padding: 1.6rem 1.7rem 2rem;
+  }
+
+  .project-card .location {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brass);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    color: var(--slate);
+  }
+
+  .project-card p {
+    color: #5A6268;
+    font-size: 0.96rem;
+    margin: 0;
+  }
+
+  @media (max-width: 980px) {
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 560px) {
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews {
+    background: var(--white);
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .review-card {
+    background: var(--stone);
+    border-radius: 20px;
+    padding: 2.1rem 1.9rem;
+  }
+
+  .stars {
+    color: var(--brass);
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+  }
+
+  .review-card p.quote {
+    font-size: 1rem;
+    color: var(--charcoal);
+    margin-bottom: 1.3rem;
+  }
+
+  .review-card .author {
+    font-size: 0.9rem;
+    color: var(--slate);
+    font-weight: 600;
+  }
+
+  .review-card .author span {
+    display: block;
+    font-weight: 400;
+    color: #7A828A;
+    font-size: 0.85rem;
+    margin-top: 0.15rem;
+  }
+
+  @media (max-width: 980px) {
+    .reviews-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- CONSULT ---------- */
+  .consult {
+    background: var(--stone);
+  }
+
+  .consult-inner {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .consult-form {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 2.6rem 2.2rem;
+    box-shadow: 0 14px 40px rgba(42,46,48,0.08);
+    text-align: left;
+    margin-top: 2.4rem;
+  }
+
+  .form-field {
+    margin-bottom: 1.4rem;
+  }
+
+  .form-field label {
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    color: var(--slate);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(62,78,88,0.2);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--stone);
+    color: var(--charcoal);
+    transition: border-color 0.2s ease;
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--brass);
+  }
+
+  .form-field textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  .form-submit-row {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 0.4rem;
+  }
+
+  .form-submit-row .btn-pill {
+    width: auto;
+  }
+
+  .form-success {
+    display: none;
+    background: rgba(176,141,87,0.12);
+    border: 1px solid rgba(176,141,87,0.3);
+    color: var(--slate);
+    padding: 1.1rem 1.3rem;
+    border-radius: 14px;
+    margin-top: 1.2rem;
+    font-size: 0.96rem;
+  }
+
+  .form-success.is-visible { display: block; }
+
+  .trust-line {
+    margin-top: 2.2rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    color: var(--slate);
+    opacity: 0.85;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--slate);
+    color: var(--stone);
+    padding: 3.4rem 0 2.2rem;
+  }
+
+  footer .footer-brand {
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  footer .footer-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.6rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-bottom: 1.6rem;
+  }
+
+  footer .footer-fine {
+    font-size: 0.8rem;
+    opacity: 0.55;
+    border-top: 1px solid rgba(244,241,236,0.15);
+    padding-top: 1.4rem;
+  }
+
+  /* ---------- REDUCED MOTION ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+    .journey-step {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .process-card:hover,
+    .project-card:hover,
+    .btn-pill:hover {
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="#" class="brand">{{businessName}}</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#process">Process</a></li>
+      <li><a href="#projects">Bathrooms</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#consult" class="nav-cta">Consult</a></li>
+    </ul>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="hero">
+  <video autoplay muted loop playsinline preload="metadata" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/7e151b20-a8b4-4e1b-a9d1-3d7a58d7bea6.jpg" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/9e181064-450f-4d01-bb9d-58bc24d9d95a.mp4" aria-hidden="true"></video>
+  <div class="hero-content">
+    <span class="kicker">{{businessName}} · {{Town}}</span>
+    <h1>{{tagline}}</h1>
+    <p>{{heroSubline}}</p>
+    <div class="cta-row">
+      <a href="#consult" class="btn-pill">Book a design consultation</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">How we build it</span>
+      <h2>From first sketch to final tap</h2>
+      <p>{{aboutPara}}</p>
+    </div>
+    <div class="process-grid">
+      <article class="process-card">
+        <div class="img-wrap">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/d1aa7a57-1663-4381-9491-1f14660a1f9a.jpg" alt="Bright hallway entrance leading toward a bathroom design consultation" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="step-num">Stage One</span>
+          <h3>{{service1name}}</h3>
+          <p>{{service1desc}}</p>
+        </div>
+      </article>
+      <article class="process-card">
+        <div class="img-wrap">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/1e3233b1-b4d2-4519-acdb-5d5ad50601de.jpg" alt="Freestanding bath positioned as the centrepiece of a bright bathroom" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="step-num">Stage Two</span>
+          <h3>{{service2name}}</h3>
+          <p>{{service2desc}}</p>
+        </div>
+      </article>
+      <article class="process-card">
+        <div class="img-wrap">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/179d249f-c157-4f50-a3f0-2c057c7c9356.jpg" alt="Walk-in shower with frameless glass and natural daylight" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="step-num">Stage Three</span>
+          <h3>{{service3name}}</h3>
+          <p>{{service3desc}}</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section journey">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">The film</span>
+      <h2>One morning, one bathroom</h2>
+      <p>Follow the same journey our film takes — through the door, up the stairs, into the light.</p>
+    </div>
+    <div class="journey-grid">
+      <div class="journey-step">
+        <div class="dot">01</div>
+        <h3>Entrance</h3>
+        <p>Through the front door and up the stairs, into a home ready for its new bathroom.</p>
+      </div>
+      <div class="journey-step">
+        <div class="dot">02</div>
+        <h3>Bath</h3>
+        <p>A freestanding tub, bathed in daylight — the calm centre of the room.</p>
+      </div>
+      <div class="journey-step">
+        <div class="dot">03</div>
+        <h3>Shower</h3>
+        <p>A walk-in shower finished to the last detail, ready for the everyday.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Recent bathrooms</span>
+      <h2>Bathrooms we've built across the Vale</h2>
+      <p>A selection of recent projects from Bridgend, Pencoed, Coity and Litchard.</p>
+    </div>
+    <div class="projects-grid">
+      <article class="project-card">
+        <div class="img-wrap">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/7377dc60-a22e-4fbd-93e2-77541cc643b2.jpg" alt="The Charcoal Ensuite, a dark metro tile walk-in shower room in Pencoed" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="location">Pencoed, Bridgend</span>
+          <h3>The Charcoal Ensuite</h3>
+          <p>A compact walk-in shower room in dark metro tile, built into an awkward loft space.</p>
+        </div>
+      </article>
+      <article class="project-card">
+        <div class="img-wrap">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/6e7ec3f2-497c-4b18-b748-abf8aa806a4d.jpg" alt="The Freestanding Bath, a statement tub and brass filler in a Coity family home" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="location">Coity</span>
+          <h3>The Freestanding Bath</h3>
+          <p>A statement bath and brass filler, the calm centre of a busy family home.</p>
+        </div>
+      </article>
+      <article class="project-card">
+        <div class="img-wrap">
+          <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/e376cef5-ae12-4a4b-8edf-50fab823bced.jpg" alt="The Family Bathroom in Litchard, finished in classic metro tile" loading="lazy">
+        </div>
+        <div class="card-body">
+          <span class="location">Litchard</span>
+          <h3>The Family Bathroom</h3>
+          <p>Classic metro tile and a heated towel rail, built to survive a busy household.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">Reviews</span>
+      <h2>What our clients say</h2>
+      <p>Kind words from homeowners across Bridgend and the Vale.</p>
+    </div>
+    <div class="reviews-grid">
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"{{reviewSnippet}}"</p>
+        <p class="author">{{reviewAuthor}}</p>
+      </article>
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"The team were tidy, honest about timings, and the freestanding bath they suggested has completely changed how the room feels. Worth every penny."</p>
+        <p class="author">Gareth M. <span>Coity</span></p>
+      </article>
+      <article class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"We had three quotes and they were the only ones who actually listened to how our family uses the bathroom. Calm, professional, brilliant finish."</p>
+        <p class="author">Sian P. <span>Litchard</span></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section consult" id="consult">
+  <div class="container">
+    <div class="consult-inner">
+      <span class="kicker" style="color:var(--brass);">Book a consultation</span>
+      <h2>Let's talk about your bathroom</h2>
+      <p style="color:#5A6268; margin-top:0.9rem;">{{ctaLine}}</p>
+
+      <form class="consult-form" id="consultForm" novalidate>
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required>
+        </div>
+        <div class="form-field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="Your contact number" required>
+        </div>
+        <div class="form-field">
+          <label for="message">Tell us about your bathroom</label>
+          <textarea id="message" name="message" placeholder="Size of the room, what you'd love to change, any inspiration..."></textarea>
+        </div>
+        <div class="form-submit-row">
+          <button type="submit" class="btn-pill">Send enquiry</button>
+        </div>
+        <div class="form-success" id="formSuccess" role="status">
+          Thanks — we've got your details and will be in touch within one working day.
+        </div>
+      </form>
+
+      <p class="trust-line">{{trustStrip}}</p>
+    </div>
+  </div>
+</section>
+
+<!--MERCHANT:START-->
+<style>
+.merch-hero{position:relative;overflow:hidden;min-height:380px;display:flex;align-items:center;border-top:3px solid var(--m-accent);background:var(--m-primary-dark);isolation:isolate;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+.merch-hero__bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;transform:scale(1.06);animation:merchKenBurns 22s ease-in-out infinite alternate;}
+/* No trade hero yet? Build a branded backdrop out of the merchant's own colours
+   instead of showing a flat slab: a diagonal wash + a soft accent glow + fine
+   pinstripes. Keeps every site looking designed until its hero is generated. */
+/* the glow is WHITE, not the accent — a yellow accent washed over a navy base
+   mixes to a murky green. White lifts the same corner and stays on-brand. */
+.merch-hero--nohero .merch-hero__bg{animation:none;transform:none;background:
+  radial-gradient(90% 120% at 90% 6%, rgba(255,255,255,.16) 0%, transparent 55%),
+  linear-gradient(115deg, var(--m-primary-dark) 0%, var(--m-primary) 58%, var(--m-primary-dark) 100%);}
+.merch-hero--nohero .merch-hero__bg::after{content:"";position:absolute;inset:0;opacity:.5;background:repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0 2px, transparent 2px 14px);}
+.merch-hero__scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,color-mix(in srgb,var(--m-primary-dark) 94%,transparent) 0%,color-mix(in srgb,var(--m-primary-dark) 62%,transparent) 45%,color-mix(in srgb,var(--m-primary-dark) 15%,transparent) 78%),linear-gradient(0deg,color-mix(in srgb,var(--m-primary-dark) 85%,transparent) 0%,transparent 55%);}
+.merch-hero--nohero .merch-hero__scrim{background:none;}
+.merch-hero__content{position:relative;max-width:1180px;width:100%;margin:0 auto;padding:48px 40px;display:flex;flex-direction:column;align-items:flex-start;gap:18px;text-align:left;}
+.merch-hero__eyebrow{font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--m-accent);text-shadow:0 1px 12px rgba(0,0,0,.5);}
+.merch-hero__logoChip{background:#0a1730;border-radius:12px;padding:14px 22px;box-shadow:0 10px 34px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.4);}
+.merch-hero__logo{height:46px;width:auto;display:block;}
+.merch-hero__tagline{color:var(--m-on-dark);font-size:clamp(20px,3vw,30px);line-height:1.2;font-weight:800;letter-spacing:-.01em;margin:4px 0 6px;max-width:560px;text-shadow:0 2px 24px rgba(0,0,0,.55);}
+.merch-hero__cta{display:inline-flex;align-items:center;gap:10px;background:var(--m-accent);color:var(--m-accent-ink);font-weight:800;font-size:15px;padding:14px 26px;border-radius:10px;text-decoration:none;box-shadow:0 8px 26px color-mix(in srgb,var(--m-accent) 40%,transparent);transition:transform .15s ease,box-shadow .15s ease;}
+.merch-hero__cta:hover,.merch-hero__cta:focus-visible{transform:translateY(-2px);box-shadow:0 12px 34px color-mix(in srgb,var(--m-accent) 55%,transparent);}
+.merch-hero__cta:focus-visible{outline:3px solid var(--m-on-dark);outline-offset:3px;}
+@keyframes merchKenBurns{from{transform:scale(1.06) translate(0,0)}to{transform:scale(1.14) translate(-1.5%,-1%)}}
+@media (prefers-reduced-motion:reduce){.merch-hero__bg{animation:none}}
+@media (max-width:640px){.merch-hero{min-height:340px}.merch-hero__content{padding:36px 24px}.merch-hero__logo{height:36px}}
+</style>
+
+<section class="merch-hero merch-hero--nohero" aria-label="Talbot Block — Materials supplied by"
+  style="--m-primary:#14294f;--m-primary-dark:#0a1730;--m-accent:#1863DC;--m-accent-ink:#FFFFFF;--m-on-dark:#FFFFFF;">
+  <div class="merch-hero__bg"></div>
+  <div class="merch-hero__scrim"></div>
+  <div class="merch-hero__content">
+    <span class="merch-hero__eyebrow">Materials supplied by</span>
+    <div class="merch-hero__logoChip"><img src="https://www.talbotblock.co.uk/wp-content/themes/talbotblock/images/logos/default.png" alt="Talbot Block — Builders Merchants, Port Talbot" class="merch-hero__logo" loading="lazy" decoding="async"></div>
+    <p class="merch-hero__tagline">Every basin, bath and tile in this room — supplied by Talbot Block.</p>
+    <a href="https://www.talbotblock.co.uk/products-services/" target="_blank" rel="noopener noreferrer sponsored" class="merch-hero__cta">
+      <span>Explore Talbot Block's products &amp; services</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+
+
+
+<!--MERCHANT:END-->
+<footer>
+  <div class="container">
+    <div class="footer-brand">{{businessName}}</div>
+    <div class="footer-details">
+      <span>01656 234 567</span>
+      <span>hello@example.co.uk</span>
+      <span>{{serviceAreaLine}}</span>
+    </div>
+    <div class="footer-fine">{{trustStrip}}</div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    "use strict";
+
+    // Mobile nav toggle
+    var hamburger = document.getElementById('hamburgerBtn');
+    var navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('is-open');
+      hamburger.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('is-open');
+        hamburger.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Journey strip fade-in on scroll
+    var steps = document.querySelectorAll('.journey-step');
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      steps.forEach(function (step) { step.classList.add('is-visible'); });
+    } else if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.25 });
+
+      steps.forEach(function (step) { observer.observe(step); });
+    } else {
+      steps.forEach(function (step) { step.classList.add('is-visible'); });
+    }
+
+    // Consult form — client-side only, no backend
+    var form = document.getElementById('consultForm');
+    var success = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var lead = {
+        name: document.getElementById('name').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        message: document.getElementById('message').value.trim(),
+        submittedAt: new Date().toISOString()
+      };
+
+      // Conceptual lead capture — demo only, no real backend wired up
+      try {
+        var leads = JSON.parse(localStorage.getItem('valeBathroomLeads') || '[]');
+        leads.push(lead);
+        localStorage.setItem('valeBathroomLeads', JSON.stringify(leads));
+      } catch (err) {
+        // localStorage unavailable — fail silently, still show success
+      }
+
+      success.classList.add('is-visible');
+      form.reset();
+    });
+  })();
+</script>
+
+<!-- ============ PERSONALISATION RESOLVER (BrandSuite name / town / trade tokens) ============ -->
+<script>
+(function(){
+  var DEFAULTS = {
+    businessName: "Willow & Basin Bathrooms", town: "Bridgend", trade: "plumber",
+    tagline: "A bathroom that feels like a retreat.",
+    heroSubline: "Bespoke design and fitting — freestanding baths, walk-in showers, considered down to the last tap.",
+    aboutPara: "A calm, considered process across three stages — design and space planning, then fittings, then the finished room. We survey your space, talk through how you live, and design a layout that makes every inch feel intentional.",
+    service1name: "Design & Space Planning", service1desc: "We survey your space, talk through how you live, and design a layout that makes every inch feel intentional.",
+    service2name: "Freestanding Baths & Fittings", service2desc: "Statement baths, brass fittings and considered tiling, sourced and fitted with a craftsman's eye for detail.",
+    service3name: "Walk-in Showers & Wet Rooms", service3desc: "Frameless glass, level-access floors and precision waterproofing for a shower that feels effortless every day.",
+    reviewSnippet: "From the first design chat to the final tile, everything felt considered. Our bathroom now feels like a hotel suite — we didn't think that was possible in our little semi.",
+    reviewAuthor: "Rhian T., Pencoed",
+    ctaLine: "Tell us a little about your space and we'll be in touch to arrange a design consultation.",
+    serviceAreaLine: "Serving Bridgend, Pencoed & the Vale",
+    trustStrip: "Free quotes   ·   No-obligation quotes   ·   Tidy & on time"
+  };
+  var p = new URLSearchParams(location.search);
+  var inj = window.BRAND || {};
+  function pick(k){
+    var v = (inj[k] != null ? inj[k] : null);
+    if (v == null && k === 'businessName' && inj.name != null) v = inj.name;
+    if (v == null) v = p.get(k);
+    if (v == null && k === 'businessName') v = p.get('name');
+    if (v == null) v = DEFAULTS[k];
+    return v;
+  }
+  var d = Object.assign({}, DEFAULTS, { businessName: pick('businessName'), town: pick('town'), trade: pick('trade') });
+  function cap(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+  d.Town = cap(d.town); d.Trade = cap(d.trade);
+  var re = /\{\{\s*([A-Za-z0-9]+)\s*\}\}/g;
+  function sub(s){ return s.replace(re, function(m, k){ return d[k] != null ? d[k] : m; }); }
+  if (document.title.indexOf('{{') > -1) document.title = sub(document.title);
+  var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), n, list = [];
+  while (n = w.nextNode()) { if (n.nodeValue.indexOf('{{') > -1) list.push(n); }
+  list.forEach(function(t){ t.nodeValue = sub(t.nodeValue); });
+  document.querySelectorAll('*').forEach(function(el){
+    for (var i = 0; i < el.attributes.length; i++) {
+      var a = el.attributes[i];
+      if (a.value.indexOf('{{') > -1) a.value = sub(a.value);
+    }
+  });
+})();
+</script>
+
+
+<!--QSMKM:PACK-->
+<script id="qs-mkm-pack">(function(){
+var id=(typeof window.__QS_MERCHANT!=="undefined")?String(window.__QS_MERCHANT||""):(function(){try{var q=new URLSearchParams(location.search).get("merchant");if(q!=null)return q}catch(e){}return ""})();
+if(String(id).toLowerCase()!=="talbotblock")return;
+var LOGO="https://www.talbotblock.co.uk/wp-content/themes/talbotblock/images/logos/default.png",HREF="https://www.talbotblock.co.uk/products-services/",LABEL="Explore Talbot Block's products & services";
+var css=".qsmkm-chip{position:absolute;top:96px;right:22px;z-index:2147483000;display:flex;align-items:center;gap:12px;pointer-events:none;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;}"+
+".qsmkm-chip b{font-size:12px;font-weight:900;letter-spacing:.26em;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.55),0 2px 14px rgba(0,0,0,.4);white-space:nowrap;}"+
+".qsmkm-chip img{height:40px;width:auto;display:block;background:#0a1730;padding:8px 14px;border-radius:10px;box-sizing:content-box;box-shadow:0 6px 22px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.28);}"+
+".qsmkm-strip{position:relative;z-index:2147483001;background:#0a1730;border-top:3px solid #1863DC;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;transition:transform .3s ease;}"+
+".qsmkm-strip--fixed{position:fixed;top:0;left:0;right:0;border-top-width:0;border-bottom:3px solid #1863DC;box-shadow:0 8px 30px rgba(0,0,0,.35);}"+
+".qsmkm-strip--hidden{transform:translateY(-110%);}"+
+".qsmkm-strip-ph{display:none;}"+
+".qsmkm-strip__in{max-width:1180px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}"+
+".qsmkm-strip__brand{display:flex;align-items:center;gap:11px;color:#fff;font-weight:800;font-size:13px;letter-spacing:.02em;}"+
+".qsmkm-strip__brand img{height:22px;width:auto;display:block;}"+
+".qsmkm-strip__link{color:#7db1ff;font-weight:800;font-size:14px;text-decoration:none;white-space:nowrap;}"+
+".qsmkm-strip__link:hover,.qsmkm-strip__link:focus-visible{text-decoration:underline;}"+
+"@media(max-width:640px){.qsmkm-chip{top:78px;right:14px;gap:9px}.qsmkm-chip img{height:32px}.qsmkm-chip b{font-size:10px}.qsmkm-strip__in{padding:12px 16px}}";
+var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+function build(){
+if(document.querySelector(".qsmkm-chip"))return;
+var chip=document.createElement("div");chip.className="qsmkm-chip";
+chip.innerHTML='<b>MATERIALS SUPPLIED BY</b><img alt="Talbot Block — Builders Merchants, Port Talbot" src="'+LOGO+'">';
+document.body.appendChild(chip);
+var strip=document.createElement("div");strip.className="qsmkm-strip";
+strip.innerHTML='<div class="qsmkm-strip__in"><span class="qsmkm-strip__brand"><img alt="Talbot Block" src="'+LOGO+'"><span>Materials supplied by Talbot Block — Builders Merchants, Port Talbot</span></span><a class="qsmkm-strip__link" href="'+HREF+'" target="_blank" rel="noopener noreferrer sponsored">'+LABEL+' &rarr;</a></div>';
+var vh=window.innerHeight||800,page=Math.max(document.body.scrollHeight,vh),hero=null;
+var probe=document.elementFromPoint(Math.floor(window.innerWidth/2),Math.floor(vh*0.45));
+var el=probe;
+while(el&&el!==document.body&&el!==document.documentElement){
+var r=el.getBoundingClientRect();
+if(r.height>=vh*0.5&&r.height<=page*0.85&&el.nextElementSibling){hero=el;}
+el=el.parentElement;}
+if(!hero){var cands=document.querySelectorAll("body > *, body > div > *, body > div > div > *, main > *");
+for(var i=0;i<cands.length;i++){var c=cands[i];var tg=c.tagName;
+if(tg==="SCRIPT"||tg==="STYLE"||tg==="LINK"||tg==="TEMPLATE")continue;
+if(c.className&&String(c.className).indexOf("qsmkm")>-1)continue;
+var rr=c.getBoundingClientRect();var top=rr.top+window.scrollY;
+if(top<vh*0.4&&rr.height>=vh*0.55&&rr.height<=page*0.85){hero=c;}}}
+if(hero){hero.insertAdjacentElement("afterend",strip);}
+else{var first=null;for(var j=0;j<document.body.children.length;j++){var c=document.body.children[j];if(c.tagName!=="SCRIPT"&&c.tagName!=="STYLE"&&c.tagName!=="LINK"&&c.tagName!=="TEMPLATE"){first=c;break}}
+if(first){first.insertAdjacentElement("afterend",strip);}else{document.body.appendChild(strip);}}
+var ph=document.createElement("div");ph.className="qsmkm-strip-ph";strip.insertAdjacentElement("afterend",ph);
+function onScroll(){
+var y=window.scrollY,sh=strip.offsetHeight||52;
+var start=(strip.classList.contains("qsmkm-strip--fixed")?ph:strip).getBoundingClientRect().top+y;
+var release=start+(window.innerHeight||800)*2;
+if(y>=start&&y<release){
+if(!strip.classList.contains("qsmkm-strip--fixed")){ph.style.display="block";ph.style.height=sh+"px";strip.classList.add("qsmkm-strip--fixed");}
+strip.classList.remove("qsmkm-strip--hidden");
+}else if(y>=release){strip.classList.add("qsmkm-strip--hidden");}
+else{strip.classList.remove("qsmkm-strip--hidden");
+if(strip.classList.contains("qsmkm-strip--fixed")){strip.classList.remove("qsmkm-strip--fixed");ph.style.display="none";}}
+}
+window.addEventListener("scroll",onScroll,{passive:true});
+window.addEventListener("resize",onScroll);
+onScroll();
+}
+if(document.readyState==="complete"){setTimeout(build,350);}
+else{window.addEventListener("load",function(){setTimeout(build,350);});}
+})();</script>
+
+</body>
+</html>

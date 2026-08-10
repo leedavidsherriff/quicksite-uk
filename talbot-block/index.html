@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Talbot Block × QuickSite — websites for trades</title>
+<style>
+  :root{
+    --pink:#1863DC; --pink-light:#7db1ff; --plum:#0a1730; --plum-mid:#14294f;
+    --ink:#ffffff; --muted:rgba(255,255,255,.72);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(24,99,220,.28), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(24,99,220,.18), transparent 55%),
+      var(--plum);
+    color:var(--ink); min-height:100vh;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:40px 22px 60px}
+  .brandbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+  .brandbar img{height:34px;width:auto;display:block}
+  .brandbar .x{color:var(--pink);font-weight:900;font-size:20px}
+  .brandbar .qs{font-weight:900;font-size:20px;letter-spacing:-.02em}
+  .brandbar .qs em{color:var(--pink);font-style:normal}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--pink-light);margin-bottom:14px}
+  h1{font-size:clamp(30px,8vw,44px);line-height:1.08;font-weight:900;letter-spacing:-.02em;margin-bottom:16px}
+  h1 em{color:var(--pink);font-style:normal}
+  .sub{font-size:17px;line-height:1.5;color:var(--muted);max-width:46ch;margin-bottom:38px}
+  .cards{display:grid;gap:14px;margin-bottom:44px}
+  .card{
+    display:block;text-decoration:none;color:var(--ink);
+    background:linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.12);
+    border-left:4px solid var(--pink);
+    border-radius:14px;padding:20px 22px;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .card:hover,.card:focus-visible{transform:translateY(-2px);border-color:var(--pink);background:linear-gradient(135deg, rgba(24,99,220,.14), rgba(255,255,255,.03))}
+  .card .trade{font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--pink-light);margin-bottom:6px}
+  .card .name{font-size:21px;font-weight:900;letter-spacing:-.01em;margin-bottom:6px}
+  .card .desc{font-size:14px;line-height:1.45;color:var(--muted)}
+  .card .go{display:inline-block;margin-top:12px;font-size:14px;font-weight:800;color:var(--pink-light)}
+  .cta{
+    background:var(--pink);border-radius:16px;padding:26px 24px;
+    box-shadow:0 14px 44px rgba(24,99,220,.35);margin-bottom:36px;
+  }
+  .cta h2{font-size:22px;font-weight:900;letter-spacing:-.01em;margin-bottom:8px}
+  .cta p{font-size:15px;line-height:1.5;color:rgba(255,255,255,.9)}
+  .cta a{color:#fff;font-weight:800}
+  footer{font-size:12.5px;line-height:1.6;color:rgba(255,255,255,.45)}
+  footer a{color:rgba(255,255,255,.65)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brandbar">
+    <img src="https://www.talbotblock.co.uk/wp-content/themes/talbotblock/images/logos/default.png" alt="Talbot Block — Builders Merchants, Port Talbot">
+    <span class="x">×</span>
+    <span class="qs">Quick<em>Site</em></span>
+  </div>
+
+  <p class="eyebrow">For Talbot Block trade customers</p>
+  <h1>Your work deserves a website <em>like this</em>.</h1>
+  <p class="sub">You've just scanned this at the Talbot Block counter. Have a look at what a site for your trade looks like when it's done properly — then ask how to get yours.</p>
+
+  <div class="cards">
+    <a class="card" href="driveways.html">
+      <div class="trade">Driveways &amp; Patios</div>
+      <div class="name">Halcyon Drives</div>
+      <div class="desc">A locked-off camera watches a tired Bridgend driveway strip itself back and relay, block by block — the whole job in one hero shot.</div>
+      <span class="go">See the site &rarr;</span>
+    </a>
+    <a class="card" href="landscaper.html">
+      <div class="trade">Landscaping</div>
+      <div class="name">Fern &amp; Stone</div>
+      <div class="desc">Slabs, sleepers and planting — a garden transformation that sells the finished space, not a list of services.</div>
+      <span class="go">See the site &rarr;</span>
+    </a>
+    <a class="card" href="bathrooms.html">
+      <div class="trade">Bathroom Fitting</div>
+      <div class="name">Willow &amp; Basin</div>
+      <div class="desc">A full bathroom refit presented like a showroom — tiles, basin and brassware doing the talking.</div>
+      <span class="go">See the site &rarr;</span>
+    </a>
+  </div>
+
+  <div class="cta">
+    <h2>Want one for your firm?</h2>
+    <p>Ask at the Talbot Block counter, or email <a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a> with your trade and your town. You'll see your own site before you pay a penny.</p>
+  </div>
+
+  <footer>
+    The sites above are demonstration pages for example businesses, shown in partnership with
+    <a href="https://www.talbotblock.co.uk/" target="_blank" rel="noopener">Talbot Block Ltd</a>,
+    The Docks, North Bank, Port Talbot SA13 1RE.
+  </footer>
+</div>
+</body>
+</html>
