@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Braceys counter card — print A5</title>
+<style>
+  :root{--pink:#ed008c;--plum:#1f0313;--plum-mid:#3a0620}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#4a4a4a;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  /* A5 portrait: 148 × 210 mm */
+  .card{
+    width:148mm;height:210mm;margin:10mm auto;position:relative;overflow:hidden;
+    background:
+      radial-gradient(120mm 70mm at 85% -5%, rgba(237,0,140,.4), transparent 65%),
+      radial-gradient(100mm 60mm at 0% 105%, rgba(237,0,140,.25), transparent 60%),
+      var(--plum);
+    color:#fff;display:flex;flex-direction:column;
+    padding:14mm 13mm 12mm;
+    box-shadow:0 10px 60px rgba(0,0,0,.5);
+  }
+  .logo{height:11mm;width:auto;align-self:flex-start;margin-bottom:12mm}
+  h1{font-size:34pt;line-height:1.04;font-weight:900;letter-spacing:-.02em;margin-bottom:6mm}
+  h1 em{color:var(--pink);font-style:normal}
+  .sub{font-size:12.5pt;line-height:1.45;color:rgba(255,255,255,.82);max-width:100mm;margin-bottom:auto}
+  .scanrow{display:flex;align-items:center;gap:9mm;margin-top:8mm}
+  .qrbox{background:#fff;border-radius:5mm;padding:4.5mm;flex:0 0 auto;box-shadow:0 4mm 14mm rgba(237,0,140,.45)}
+  .qrbox img{width:44mm;height:44mm;display:block}
+  .scantext .big{font-size:19pt;font-weight:900;letter-spacing:-.01em;line-height:1.1;margin-bottom:3mm}
+  .scantext .big em{color:var(--pink);font-style:normal}
+  .scantext .small{font-size:10.5pt;line-height:1.45;color:rgba(255,255,255,.75)}
+  .footrule{border-top:1mm solid var(--pink);margin-top:9mm;padding-top:4.5mm;display:flex;justify-content:space-between;align-items:baseline;gap:6mm}
+  .footrule .friendly{font-size:9.5pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+  .footrule .qs{font-size:9.5pt;font-weight:900}
+  .footrule .qs em{color:var(--pink);font-style:normal}
+  @page{size:A5 portrait;margin:0}
+  @media print{
+    html,body{background:#fff}
+    .card{margin:0;box-shadow:none;width:148mm;height:210mm;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <img class="logo" src="https://braceys.co.uk/wp-content/uploads/2016/12/Braceys-Text-logo-WHITE-PINK.png" alt="Braceys — The Friendly Builders Merchant">
+  <h1>Need a website for your trade? <em>Scan it.</em></h1>
+  <p class="sub">See what a driveway firm, a landscaper or a bathroom fitter looks like with a proper site — built for local trades, shown before you pay a penny.</p>
+  <div class="scanrow">
+    <div class="qrbox"><img src="qr.svg" alt="QR code — scan to see the demo sites"></div>
+    <div class="scantext">
+      <div class="big">Point your camera <em>here</em>.</div>
+      <div class="small">Takes ten seconds. No app, no sign-up — straight to three example sites on your phone.</div>
+    </div>
+  </div>
+  <div class="footrule">
+    <span class="friendly">The Friendly Builders Merchant</span>
+    <span class="qs">Quick<em>Site</em></span>
+  </div>
+</div>
+</body>
+</html>
