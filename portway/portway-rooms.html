@@ -1,9 +1,9 @@
 <!doctype html>
 <!-- Portway Wellness Centre rooms trailer
-     Cinematic trailer landing — the page IS the film. Shots sequence with
-     crossfades; clips play once per pass (no per-clip loop), the whole reel
-     loops. CTA → the detail landing. quicksite-uk pattern conventions:
-     self-contained, noindex, reduced-motion fallback to poster + CTA. -->
+     Cinematic trailer landing v2 — single-advance guard (the v1 jump bug:
+     onended AND the early-advance timer both fired), true next-shot
+     preloading so cuts are instant, and playback only starts once the
+     incoming layer is actually ready. -->
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
@@ -17,30 +17,26 @@
 html,body{height:100%}
 body{background:#000;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow:hidden}
 .cinema{position:fixed;inset:0;background:var(--bg)}
-.layer{position:absolute;inset:0;opacity:0;transition:opacity .9s ease}
+.layer{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
 .layer.on{opacity:1}
 .layer video,.layer img{width:100%;height:100%;object-fit:cover}
 .layer .kb-in{animation:kbin 9s ease-in-out forwards}
 @keyframes kbin{from{transform:scale(1.03)}to{transform:scale(1.14) translate(-1.5%,-1%)}}
-/* cinema dressing */
 .bars::before,.bars::after{content:"";position:fixed;left:0;right:0;height:7vh;background:#000;z-index:30}
 .bars::before{top:0}.bars::after{bottom:0}
 .vig{position:fixed;inset:0;z-index:20;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.55) 100%)}
 .grain{position:fixed;inset:0;z-index:21;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");background-size:240px 240px}
-/* title cards */
 .card{position:fixed;inset:0;z-index:25;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 6vw;pointer-events:none;opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease}
 .card.on{opacity:1;transform:none}
 .card h2{font-family:'Oswald','Arial Narrow',sans-serif;text-transform:uppercase;font-weight:600;font-size:clamp(30px,7.2vw,86px);line-height:1.02;letter-spacing:.01em;text-shadow:0 4px 40px rgba(0,0,0,.75)}
 .card h2 em{font-style:normal;color:var(--accent)}
 .card .k{display:block;font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
-/* end CTA */
 .endcta{position:fixed;inset:0;z-index:26;display:flex;flex-direction:column;gap:20px;align-items:center;justify-content:center;text-align:center;padding:0 6vw;opacity:0;pointer-events:none;transition:opacity .9s ease}
 .endcta.on{opacity:1;pointer-events:auto}
 .endcta h2{font-family:'Oswald','Arial Narrow',sans-serif;font-weight:600;text-transform:uppercase;font-size:clamp(26px,5.4vw,60px);text-shadow:0 4px 40px rgba(0,0,0,.8)}
 .btn{display:inline-block;border-radius:999px;padding:18px 40px;font-weight:800;font-size:16px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;background:var(--accent);color:#0b0b0b;box-shadow:0 0 60px -12px var(--accent);transition:transform .15s ease}
 .btn:hover{transform:translateY(-2px)}
 .sub{font-size:13.5px;opacity:.75;max-width:60ch}
-/* persistent pill */
 .enter{position:fixed;top:calc(7vh + 16px);right:18px;z-index:35;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--text);background:rgba(0,0,0,.4);border:1px solid var(--accent);border-radius:999px;padding:10px 18px;backdrop-filter:blur(8px)}
 .enter:hover{background:rgba(0,0,0,.65)}
 .fineprint{position:fixed;bottom:calc(7vh + 10px);left:0;right:0;z-index:26;text-align:center;font-size:10.5px;letter-spacing:.04em;opacity:0;transition:opacity .9s ease;padding:0 6vw;color:rgba(255,255,255,.62)}
@@ -52,9 +48,9 @@ body{background:#000;color:var(--text);font-family:-apple-system,BlinkMacSystemF
 </style>
 </head>
 <body class="bars">
-<div class="cinema" id="cinema">
-  <div class="layer" id="A"></div>
-  <div class="layer" id="B"></div>
+<div class="cinema">
+  <div class="layer" id="L0"></div>
+  <div class="layer" id="L1"></div>
 </div>
 <div class="vig"></div><div class="grain"></div>
 <div class="card" id="card"><div><span class="k" id="cardK"></span><h2 id="cardH"></h2></div></div>
@@ -68,58 +64,87 @@ body{background:#000;color:var(--text);font-family:-apple-system,BlinkMacSystemF
 
 <script>
 var SHOTS=[{"v":"assets/rooms/r1-building.mp4"},{"v":"assets/rooms/r2-fillup.mp4"},{"v":"assets/rooms/r3-glowup.mp4"}];
-var CARDS=[
-    {"k":"Porthcawl","h":"The town's old surgery<br>has never been busier."},
-    {"k":"Five rooms left","h":"A bare room<br><em>doesn't stay bare.</em>"},
-    {"k":"One month at a time","h":"", "hold":true, "ms":0}
-  ];
+var CARDS=[{"k":"Porthcawl","h":"The town's old surgery<br>has never been busier."},{"k":"Five rooms left","h":"A bare room<br><em>doesn't stay bare.</em>"},{}];
 (function(){
-  var A=document.getElementById("A"),B=document.getElementById("B"),layers=[A,B],cur=0,idx=-1;
+  var layers=[document.getElementById("L0"),document.getElementById("L1")];
   var card=document.getElementById("card"),cardH=document.getElementById("cardH"),cardK=document.getElementById("cardK");
   var endcta=document.getElementById("endcta"),fine=document.getElementById("fineprint");
   var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var N=SHOTS.length,active=0,prepared=null,cardTimer=null;
 
   function build(shot){
     var el;
-    if(shot.v){el=document.createElement("video");el.src=shot.v;el.muted=true;el.playsInline=true;el.setAttribute("playsinline","");el.preload="auto";}
-    else{el=document.createElement("img");el.src=shot.img;if(!reduce)el.className="kb-in";}
+    if(shot.v){
+      el=document.createElement("video");
+      el.src=shot.v;el.muted=true;el.playsInline=true;
+      el.setAttribute("playsinline","");el.setAttribute("muted","");
+      el.preload="auto";el.load();
+    }else{
+      el=document.createElement("img");el.src=shot.img;
+    }
     return el;
   }
+  /* build shot i into the idle layer ahead of time */
+  function prep(i){
+    var layer=layers[1-active];
+    layer.innerHTML="";
+    var el=build(SHOTS[i]);
+    layer.appendChild(el);
+    prepared={i:i,el:el,layer:layer};
+  }
+  function once(fn){var done=false;return function(){if(done)return;done=true;fn();};}
   function showCard(i){
+    clearTimeout(cardTimer);
     var c=CARDS[i];
-    if(!c){card.classList.remove("on");return;}
+    if(i===N-1){card.classList.remove("on");endcta.classList.add("on");fine.classList.add("on");return;}
+    endcta.classList.remove("on");fine.classList.remove("on");
+    if(!c||!c.h){card.classList.remove("on");return;}
     cardK.textContent=c.k||"";cardH.innerHTML=c.h;
     card.classList.add("on");
-    if(!c.hold)setTimeout(function(){card.classList.remove("on")},(c.ms||3400));
+    cardTimer=setTimeout(function(){card.classList.remove("on")},(c.ms||3600));
   }
-  function next(){
-    idx=(idx+1)%SHOTS.length;
-    var shot=SHOTS[idx],incoming=layers[1-cur],outgoing=layers[cur];
-    incoming.innerHTML="";var el=build(shot);incoming.appendChild(el);
+  function playShot(i){
+    var p=(prepared&&prepared.i===i)?prepared:(prep(i),prepared);
+    prepared=null;
+    var el=p.el,layer=p.layer,shot=SHOTS[i];
+    var advance=once(function(){playShot((i+1)%N);});
     function go(){
-      incoming.classList.add("on");outgoing.classList.remove("on");cur=1-cur;
-      if(idx===SHOTS.length-1){
-        card.classList.remove("on");
-        endcta.classList.add("on");fine.classList.add("on");
-      } else {
-        endcta.classList.remove("on");fine.classList.remove("on");
-        showCard(idx);
-      }
+      layer.classList.add("on");
+      layers[active].classList.remove("on");
+      active=layers.indexOf(layer);
+      if(el.tagName==="IMG"&&!reduce)el.classList.add("kb-in");
+      showCard(i);
+      /* preload the next cut — after the fade, so we don't blank the
+         outgoing layer while it's still visible */
+      setTimeout(function(){prep((i+1)%N);},900);
       if(shot.v){
         el.play().catch(function(){});
-        el.onended=next;
-        el.ontimeupdate=function(){ if(el.duration&&el.duration-el.currentTime<0.95&&!el._x){el._x=1;next();} };
-      } else { setTimeout(next,shot.dur||5200); }
+        el.onended=advance;
+        el.ontimeupdate=function(){
+          if(el.duration&&el.duration-el.currentTime<0.55)advance();
+        };
+        /* safety: never hang on a stalled video */
+        setTimeout(advance,(el.duration?el.duration*1000:8000)+2500);
+      }else{
+        setTimeout(advance,shot.dur||5200);
+      }
     }
-    if(shot.v){ if(el.readyState>=2)go(); else {el.onloadeddata=go; setTimeout(function(){if(!incoming.classList.contains("on"))go()},2500);} }
-    else { if(el.complete)go(); else {el.onload=go; setTimeout(function(){if(!incoming.classList.contains("on"))go()},2000);} }
+    var started=once(go);
+    if(shot.v){
+      if(el.readyState>=3)started();
+      else{el.oncanplay=started;setTimeout(started,3000);}
+    }else{
+      if(el.complete)started();
+      else{el.onload=started;setTimeout(started,2000);}
+    }
   }
   if(reduce){
-    A.innerHTML="";var p=document.createElement("img");p.src="assets/rooms/r-poster.jpg";A.appendChild(p);A.classList.add("on");
-    endcta.classList.add("on");fine.classList.add("on");showCard(0);
+    var l=layers[0],img=document.createElement("img");
+    img.src="assets/rooms/r-poster.jpg";l.appendChild(img);l.classList.add("on");
+    endcta.classList.add("on");fine.classList.add("on");
     return;
   }
-  next();
+  prep(0);playShot(0);
   document.addEventListener("visibilitychange",function(){
     var v=document.querySelector(".layer.on video");
     if(v&&!document.hidden)v.play().catch(function(){});
