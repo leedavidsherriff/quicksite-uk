@@ -1,184 +1,128 @@
 <!doctype html>
-<!-- QuickSite landing · Invigorate — infrared sauna & ice bath.
-     Pattern: quicksite-uk trade landing. Temps and pricing are PLACEHOLDER —
-     confirm with the studio. Media root-relative /assets/…. -->
+<!-- Invigorate trailer
+     Cinematic trailer landing — the page IS the film. Shots sequence with
+     crossfades; clips play once per pass (no per-clip loop), the whole reel
+     loops. CTA → the detail landing. quicksite-uk pattern conventions:
+     self-contained, noindex, reduced-motion fallback to poster + CTA. -->
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>{{businessName}} — contrast therapy in {{Town}}</title>
+<title>Invigorate — the film</title>
 <style>
-:root{
-  --cedar-deep:#3B1F13; --ice-deep:#071924; --ember:#C4472A; --glacial:#8FB8CE; --bone:#F0EDE7;
-  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --mono:ui-monospace,"SF Mono",Menlo,monospace;
-  --radius:1rem;
-}
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+:root{ --bg:#071924; --accent:#8FB8CE; --text:#F0EDE7; }
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--font);background:linear-gradient(180deg,var(--cedar-deep) 0%,var(--ice-deep) 100%);color:var(--bone);line-height:1.6;overflow-x:hidden}
-img,video{max-width:100%;display:block}
-a{color:inherit}
-.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,5vw,48px)}
-.section-pad{padding:clamp(56px,9vw,110px) 0}
-.kicker{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);margin-bottom:12px}
-.cold .kicker{color:var(--glacial)}
-h1,h2{line-height:1.02;font-weight:800;letter-spacing:-.01em;text-transform:uppercase}
-h2{font-size:clamp(28px,5vw,48px)}
-h2 em{font-style:normal;color:var(--glacial)}
-.lede{max-width:56ch;margin-top:14px;opacity:.86;font-size:clamp(15px,1.7vw,18px)}
-.btn{display:inline-block;border:0;border-radius:999px;padding:16px 30px;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;text-decoration:none;background:var(--bone);color:#14100D;transition:transform .15s ease,box-shadow .15s ease}
-.btn:hover{transform:translateY(-1px);box-shadow:0 0 34px -10px var(--bone)}
-.btn-ghost{background:transparent;color:var(--bone);box-shadow:inset 0 0 0 1.5px var(--bone)}
-/* hero */
-.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;overflow:hidden;background:#000}
-.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,25,36,.5),rgba(7,25,36,.1) 40%,rgba(59,31,19,.96))}
-.hero .wrap{position:relative;z-index:2;padding-top:120px;padding-bottom:clamp(40px,7vw,80px)}
-.hero h1{font-size:clamp(40px,8.6vw,92px);color:var(--bone);white-space:pre-line}
-.hero .sub{max-width:48ch;margin-top:16px;opacity:.9}
-.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
-.temps{display:flex;gap:24px;margin-top:24px}
-.temps b{font-family:var(--mono);font-size:clamp(24px,3.4vw,34px)}
-.temps .hot b{color:var(--ember);text-shadow:0 0 18px rgba(196,71,42,.6)}
-.temps .coldb b{color:var(--glacial);text-shadow:0 0 18px rgba(143,184,206,.6)}
-.temps small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
-/* protocol */
-.steps{margin-top:34px;border-top:1px solid rgba(240,237,231,.2)}
-.step{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;padding:20px 0;border-bottom:1px solid rgba(240,237,231,.2)}
-.step .n{font-family:var(--mono);font-size:12px;opacity:.5}
-.step .l{font-weight:800;text-transform:uppercase;font-size:clamp(18px,2.6vw,26px)}
-.step .t{font-family:var(--mono);font-size:clamp(17px,2.4vw,24px);font-weight:700}
-.step.hot .l,.step.hot .t{color:var(--ember)}
-.step.coldb .l,.step.coldb .t{color:var(--glacial)}
-.step p{grid-column:1/-1;margin-top:-6px;font-size:14.5px;opacity:.78}
-@media(min-width:760px){.step{grid-template-columns:52px 170px 1fr auto}.step p{grid-column:3/4;margin:0}}
-/* pricing */
-.prices{display:grid;gap:14px;margin-top:36px}
-@media(min-width:820px){.prices{grid-template-columns:repeat(3,1fr)}}
-.price{border-radius:var(--radius);padding:26px;background:rgba(240,237,231,.05);box-shadow:inset 0 0 0 1px rgba(240,237,231,.16);display:flex;flex-direction:column;gap:10px}
-.price.feature{box-shadow:inset 0 0 0 1.5px var(--glacial),0 0 44px -18px rgba(143,184,206,.7)}
-.price h3{text-transform:uppercase;font-size:16px}
-.price .fig{font-family:var(--mono);font-size:clamp(32px,4.6vw,44px);font-weight:700}
-.price .fig small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-left:8px}
-.price p{font-size:14px;opacity:.75}
-/* form */
-form{display:grid;gap:14px;max-width:520px;margin-top:30px}
-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.6}
-input{width:100%;padding:14px 15px;border-radius:12px;border:1px solid rgba(240,237,231,.3);background:rgba(240,237,231,.06);color:var(--bone);font:inherit}
-input:focus{outline:none;border-color:var(--bone);box-shadow:0 0 0 3px rgba(240,237,231,.16)}
-#formSuccess{display:none;border:1px solid var(--bone);border-radius:var(--radius);padding:18px;margin-top:6px}
-#formSuccess.show{display:block}
-.trust{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.55}
-footer{background:#04121b;padding:44px 0;font-size:13px;color:rgba(240,237,231,.62)}
-footer .wrap{display:grid;gap:10px}
-.rev{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.rev.visible{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rev{opacity:1;transform:none}}
+html,body{height:100%}
+body{background:#000;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow:hidden}
+.cinema{position:fixed;inset:0;background:var(--bg)}
+.layer{position:absolute;inset:0;opacity:0;transition:opacity .9s ease}
+.layer.on{opacity:1}
+.layer video,.layer img{width:100%;height:100%;object-fit:cover}
+.layer .kb-in{animation:kbin 9s ease-in-out forwards}
+@keyframes kbin{from{transform:scale(1.03)}to{transform:scale(1.14) translate(-1.5%,-1%)}}
+/* cinema dressing */
+.bars::before,.bars::after{content:"";position:fixed;left:0;right:0;height:7vh;background:#000;z-index:30}
+.bars::before{top:0}.bars::after{bottom:0}
+.vig{position:fixed;inset:0;z-index:20;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.55) 100%)}
+.grain{position:fixed;inset:0;z-index:21;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");background-size:240px 240px}
+/* title cards */
+.card{position:fixed;inset:0;z-index:25;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 6vw;pointer-events:none;opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease}
+.card.on{opacity:1;transform:none}
+.card h2{font-family:'Anton','Arial Black',sans-serif;text-transform:uppercase;font-weight:400;font-size:clamp(30px,7.2vw,86px);line-height:1.02;letter-spacing:.01em;text-shadow:0 4px 40px rgba(0,0,0,.75)}
+.card h2 em{font-style:normal;color:var(--accent)}
+.card .k{display:block;font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+/* end CTA */
+.endcta{position:fixed;inset:0;z-index:26;display:flex;flex-direction:column;gap:20px;align-items:center;justify-content:center;text-align:center;padding:0 6vw;opacity:0;pointer-events:none;transition:opacity .9s ease}
+.endcta.on{opacity:1;pointer-events:auto}
+.endcta h2{font-family:'Anton','Arial Black',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(26px,5.4vw,60px);text-shadow:0 4px 40px rgba(0,0,0,.8)}
+.btn{display:inline-block;border-radius:999px;padding:18px 40px;font-weight:800;font-size:16px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;background:var(--accent);color:#0b0b0b;box-shadow:0 0 60px -12px var(--accent);transition:transform .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.sub{font-size:13.5px;opacity:.75;max-width:60ch}
+/* persistent pill */
+.enter{position:fixed;top:calc(7vh + 16px);right:18px;z-index:35;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--text);background:rgba(0,0,0,.4);border:1px solid var(--accent);border-radius:999px;padding:10px 18px;backdrop-filter:blur(8px)}
+.enter:hover{background:rgba(0,0,0,.65)}
+.fineprint{position:fixed;bottom:calc(7vh + 10px);left:0;right:0;z-index:26;text-align:center;font-size:10.5px;letter-spacing:.04em;opacity:0;transition:opacity .9s ease;padding:0 6vw;color:rgba(255,255,255,.62)}
+.fineprint.on{opacity:1}
+@media(prefers-reduced-motion:reduce){
+  .layer,.card,.endcta{transition:none}
+  .layer .kb-in{animation:none}
+}
 </style>
 </head>
-<body>
-
-<section class="hero">
-  <video src="assets/invigorate/plunge-hero.mp4" poster="/assets/invigorate/plunge-hero-poster.jpg" autoplay muted loop playsinline></video>
-  <div class="wrap">
-    <span class="kicker">{{businessName}} · Portway Wellness Centre · {{Town}}</span>
-    <h1>{{tagline}}</h1>
-    <p class="sub">{{heroSubline}}</p>
-    <div class="temps">
-      <span class="hot"><b>55°C</b><small>Infrared</small></span>
-      <span class="coldb"><b>5°C</b><small>Ice bath</small></span>
-    </div>
-    <div class="hero-ctas">
-      <a class="btn" href="#book">Book a session</a>
-      <a class="btn btn-ghost" href="#pricing">See the pricing</a>
-    </div>
-  </div>
-</section>
-
-<section class="section-pad" id="protocol">
-  <div class="wrap">
-    <span class="kicker">The sequence</span>
-    <h2 class="rev">The protocol</h2>
-    <p class="lede rev">{{aboutPara}}</p>
-    <div class="steps">
-      <div class="step hot rev"><span class="n">01</span><span class="l">Infrared</span><p>55° of radiant heat that works from the inside out. Sit until you're streaming.</p><span class="t">25:00</span></div>
-      <div class="step coldb rev"><span class="n">02</span><span class="l">Ice bath</span><p>5°. In to the shoulders. The first thirty seconds are the worst part of your day, then they aren't.</p><span class="t">2:00</span></div>
-      <div class="step rev"><span class="n">03</span><span class="l">Rest</span><p>Out, dry, still. No phone. The bit everyone skips and shouldn't.</p><span class="t">5:00</span></div>
-      <div class="step rev"><span class="n">04</span><span class="l">Repeat</span><p>Two full rounds. Finish cold if you're off to work, warm if you're going home.</p><span class="t">×2</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="section-pad cold" id="pricing" style="background:rgba(0,0,0,.22)">
-  <div class="wrap">
-    <span class="kicker">Pricing</span>
-    <h2 class="rev">No joining fee. <em>No tie-in.</em></h2>
-    <div class="prices">
-      <div class="price rev"><h3>Single session</h3><div class="fig">£15<small>per session</small></div><p>Seventy-five minutes, full guided protocol, towel hire included.</p></div>
-      <div class="price feature rev"><h3>Ten-pack</h3><div class="fig">£120<small>10 sessions</small></div><p>£12 a session, twelve months to use them, shareable with one other person.</p></div>
-      <div class="price rev"><h3>Membership</h3><div class="fig">£59<small>per month</small></div><p>Unlimited guided sessions and priority on the early and evening slots.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section-pad cold" id="book">
-  <div class="wrap">
-    <span class="kicker">Book</span>
-    <h2 class="rev">Pick a day. <em>We'll ring to confirm.</em></h2>
-    <p class="lede rev">{{ctaLine}}</p>
-    <form novalidate>
-      <div><label for="f-name">Your name</label><input id="f-name" type="text" autocomplete="name"></div>
-      <div><label for="f-phone">Phone</label><input id="f-phone" type="tel" autocomplete="tel"></div>
-      <button class="btn" type="submit">Request a slot</button>
-      <div id="formSuccess">Booked in, pending confirmation — we'll ring to lock the slot down. Bring a towel and something to swim in.</div>
-    </form>
-    <p class="trust">{{trustStrip}}</p>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <strong style="color:var(--bone)">{{businessName}}</strong>
-    <span>Portway Wellness Centre, 1 The Portway, {{Town}} CF36 3XB · <a href="tel:+441656856120">01656 856120</a></span>
-    <span>A recovery studio, not a clinic. Nothing on this page is medical advice — if you're under a doctor for anything at all, speak to them before booking.</span>
-  </div>
-</footer>
+<body class="bars">
+<div class="cinema" id="cinema">
+  <div class="layer" id="A"></div>
+  <div class="layer" id="B"></div>
+</div>
+<div class="vig"></div><div class="grain"></div>
+<div class="card" id="card"><div><span class="k" id="cardK"></span><h2 id="cardH"></h2></div></div>
+<div class="endcta" id="endcta">
+  <h2>The swing<br><em>is the point.</em></h2>
+  <a class="btn" href="detail/invigorate.html">Book the protocol</a>
+  <p class="sub">Guided contrast therapy at the Portway Wellness Centre. Seventy-five minutes, on a clock.</p>
+</div>
+<p class="fineprint" id="fineprint">Invigorate · Portway Wellness Centre, Porthcawl · A recovery studio, not a clinic — nothing here is medical advice.</p>
+<a class="enter" href="detail/invigorate.html">Enter site →</a>
 
 <script>
+var SHOTS=[{"v":"assets/invig/i1-plunge.mp4"},{"v":"assets/invig/i2-steam.mp4"},{"img":"assets/invig/i3-ice.webp","dur":5200}];
+var CARDS=[
+    {"k":"Ice bath","h":"Five degrees."},
+    {"k":"Infrared","h":"Fifty-five."},
+    {"k":"Contrast therapy","h":"", "hold":true, "ms":0}
+  ];
 (function(){
-  var DEFAULTS={
-    businessName:"Invigorate", town:"Porthcawl",
-    tagline:"Fifty degrees\nof difference.",
-    heroSubline:"An infrared sauna at 55°. An ice bath at 5°. You move between them on a clock — and it works because it's hard.",
-    aboutPara:"You don't wander in and sit about. There's a sequence, it's timed, and someone calls it. About seventy-five minutes end to end.",
-    ctaLine:"Pick what you want and when. We'll confirm by phone, usually within the hour.",
-    trustStrip:"Guided sessions · First-timers walked through · Towels included"
-  };
-  var q=new URLSearchParams(location.search),vals={};
-  for(var k in DEFAULTS){vals[k]=(window.BRAND&&window.BRAND[k])||q.get(k)||DEFAULTS[k];}
-  vals.Town=vals.town.charAt(0).toUpperCase()+vals.town.slice(1);
-  function sub(s){return s.replace(/\{\{(\w+)\}\}/g,function(m,k){return k in vals?vals[k]:m;});}
-  var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n;
-  while(n=w.nextNode()){if(n.nodeValue.indexOf("{{")>-1)n.nodeValue=sub(n.nodeValue);}
-  document.title=sub(document.title);
-})();
-(function(){
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches){document.querySelectorAll(".rev").forEach(function(el){el.classList.add("visible")});return;}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target);}})},{threshold:.15});
-  document.querySelectorAll(".rev").forEach(function(el,i){el.style.transitionDelay=(i%4)*0.08+"s";io.observe(el);});
-})();
-(function(){
-  var form=document.querySelector("form");
-  form.addEventListener("submit",function(e){
-    e.preventDefault();
-    var name=document.getElementById("f-name"),phone=document.getElementById("f-phone");
-    if(!name.value.trim()){name.focus();return;}
-    if(!phone.value.trim()){phone.focus();return;}
-    document.getElementById("formSuccess").classList.add("show");
-    form.querySelector('button[type="submit"]').disabled=true;
-    form.reset();
+  var A=document.getElementById("A"),B=document.getElementById("B"),layers=[A,B],cur=0,idx=-1;
+  var card=document.getElementById("card"),cardH=document.getElementById("cardH"),cardK=document.getElementById("cardK");
+  var endcta=document.getElementById("endcta"),fine=document.getElementById("fineprint");
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function build(shot){
+    var el;
+    if(shot.v){el=document.createElement("video");el.src=shot.v;el.muted=true;el.playsInline=true;el.setAttribute("playsinline","");el.preload="auto";}
+    else{el=document.createElement("img");el.src=shot.img;if(!reduce)el.className="kb-in";}
+    return el;
+  }
+  function showCard(i){
+    var c=CARDS[i];
+    if(!c){card.classList.remove("on");return;}
+    cardK.textContent=c.k||"";cardH.innerHTML=c.h;
+    card.classList.add("on");
+    if(!c.hold)setTimeout(function(){card.classList.remove("on")},(c.ms||3400));
+  }
+  function next(){
+    idx=(idx+1)%SHOTS.length;
+    var shot=SHOTS[idx],incoming=layers[1-cur],outgoing=layers[cur];
+    incoming.innerHTML="";var el=build(shot);incoming.appendChild(el);
+    function go(){
+      incoming.classList.add("on");outgoing.classList.remove("on");cur=1-cur;
+      if(idx===SHOTS.length-1){
+        card.classList.remove("on");
+        endcta.classList.add("on");fine.classList.add("on");
+      } else {
+        endcta.classList.remove("on");fine.classList.remove("on");
+        showCard(idx);
+      }
+      if(shot.v){
+        el.play().catch(function(){});
+        el.onended=next;
+        el.ontimeupdate=function(){ if(el.duration&&el.duration-el.currentTime<0.95&&!el._x){el._x=1;next();} };
+      } else { setTimeout(next,shot.dur||5200); }
+    }
+    if(shot.v){ if(el.readyState>=2)go(); else {el.onloadeddata=go; setTimeout(function(){if(!incoming.classList.contains("on"))go()},2500);} }
+    else { if(el.complete)go(); else {el.onload=go; setTimeout(function(){if(!incoming.classList.contains("on"))go()},2000);} }
+  }
+  if(reduce){
+    A.innerHTML="";var p=document.createElement("img");p.src="assets/invig/i-poster.jpg";A.appendChild(p);A.classList.add("on");
+    endcta.classList.add("on");fine.classList.add("on");showCard(0);
+    return;
+  }
+  next();
+  document.addEventListener("visibilitychange",function(){
+    var v=document.querySelector(".layer.on video");
+    if(v&&!document.hidden)v.play().catch(function(){});
   });
 })();
 </script>

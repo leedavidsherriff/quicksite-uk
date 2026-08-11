@@ -1,0 +1,187 @@
+<!doctype html>
+<!-- ⚠ FINANCIAL PROMOTION — every string on this page requires network
+     sign-off before publication. [Network] in the footer is a placeholder.
+     QuickSite landing · Portway Financial — protection & PMI for trades.
+     Pattern: quicksite-uk trade landing. Consent checkbox gates the submit
+     button — do not remove. Introduce-and-arrange only, no advice. -->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>{{businessName}} — downtime cover for tradespeople, {{Town}}</title>
+<style>
+:root{
+  --ink:#14181C; --slate:#39434C; --paper:#EDEFF1; --tape:#F2C14E; --alert:#C0492B;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  --radius:1rem;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--ink);color:var(--paper);line-height:1.6;overflow-x:hidden}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,5vw,48px)}
+.section-pad{padding:clamp(56px,9vw,110px) 0}
+.kicker{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--tape);margin-bottom:12px}
+h1,h2{line-height:1.02;font-weight:800;text-transform:uppercase;letter-spacing:.005em}
+h2{font-size:clamp(26px,4.8vw,46px)}
+h2 em{font-style:normal;color:var(--tape)}
+.lede{max-width:58ch;margin-top:14px;opacity:.86;font-size:clamp(15px,1.7vw,18px)}
+.btn{display:inline-block;border:0;border-radius:999px;padding:16px 30px;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;text-decoration:none;background:var(--tape);color:var(--ink);transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 0 34px -10px var(--tape)}
+.btn:disabled{background:#7C8A96;color:rgba(237,239,241,.6);cursor:not-allowed;transform:none;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1.5px var(--paper)}
+/* hero */
+.hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.78)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(20,24,28,.94),rgba(20,24,28,.75) 46%,rgba(20,24,28,.4)),linear-gradient(180deg,transparent 55%,rgba(20,24,28,.95))}
+.hero .wrap{position:relative;z-index:2;padding-top:120px;padding-bottom:clamp(40px,7vw,80px)}
+.hero h1{font-size:clamp(30px,6vw,64px);max-width:20ch;color:var(--paper);white-space:pre-line}
+.hero .rule{width:84px;height:5px;background:var(--tape);margin:22px 0}
+.hero .sub{max-width:52ch;opacity:.88}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+/* sum strip */
+.sum{border-radius:var(--radius);padding:clamp(24px,4vw,40px);background:rgba(255,255,255,.045);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 60px -28px rgba(242,193,78,.5);margin-top:34px}
+.sum .big{font-family:var(--mono);font-weight:700;font-size:clamp(40px,7vw,72px);line-height:1}
+.sum .eq{font-family:var(--mono);font-size:13px;opacity:.6;margin-top:10px}
+.sum .note{font-size:13.5px;opacity:.7;margin-top:14px;border-top:1px dashed rgba(237,239,241,.3);padding-top:12px;max-width:70ch}
+/* arrange */
+.grid6{display:grid;gap:14px;margin-top:36px}
+@media(min-width:700px){.grid6{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.grid6{grid-template-columns:repeat(3,1fr)}}
+.card{border-radius:var(--radius);padding:24px;background:rgba(237,239,241,.05);box-shadow:inset 0 0 0 1px rgba(237,239,241,.14)}
+.card b{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--tape)}
+.card h3{font-size:16px;text-transform:uppercase;margin:8px 0 6px}
+.card p{font-size:14px;opacity:.8}
+/* form */
+form{display:grid;gap:14px;max-width:560px;margin-top:30px}
+label{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+input[type=text],input[type=tel]{width:100%;padding:14px 15px;border-radius:12px;border:1px solid rgba(237,239,241,.28);background:rgba(237,239,241,.06);color:var(--paper);font:inherit}
+input:focus{outline:none;border-color:var(--tape);box-shadow:0 0 0 3px rgba(242,193,78,.18)}
+.consent{display:flex;gap:12px;align-items:flex-start;border-radius:14px;padding:16px;background:rgba(242,193,78,.07);box-shadow:inset 0 0 0 1.5px var(--tape);cursor:pointer;font-size:14.5px}
+.consent input{width:24px;height:24px;flex:0 0 24px;accent-color:var(--tape);margin:0}
+.gate{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+#formSuccess{display:none;border:1.5px solid var(--tape);border-radius:var(--radius);padding:18px;margin-top:6px}
+#formSuccess.show{display:block}
+footer{background:#0c0f12;padding:44px 0;font-size:13px;color:rgba(237,239,241,.6)}
+footer .wrap{display:grid;gap:10px}
+.reg{border-top:1px solid rgba(237,239,241,.16);padding-top:14px;color:rgba(237,239,241,.75)}
+.rev{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.rev.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rev{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <video src="../assets/onward/onward-hero.mp4" poster="/assets/onward/onward-hero-poster.jpg" autoplay muted loop playsinline></video>
+  <div class="wrap">
+    <span class="kicker">{{businessName}} · Portway Wellness Centre · {{Town}}</span>
+    <h1>{{tagline}}</h1>
+    <div class="rule"></div>
+    <p class="sub">{{heroSubline}}</p>
+    <div class="hero-ctas">
+      <a class="btn" href="#book">Book a free 15-minute review</a>
+      <a class="btn btn-ghost" href="#number">See the number</a>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="number">
+  <div class="wrap">
+    <span class="kicker">The tape measure</span>
+    <h2 class="rev">Twenty weeks off the tools <em>looks like this.</em></h2>
+    <div class="sum rev">
+      <div class="big">£22,000</div>
+      <p class="eq">£220 a day × 5 days × 20 weeks = £22,000 not invoiced</p>
+      <p class="note">That figure is arithmetic on example numbers — a £220 day rate, five-day weeks, twenty weeks off. It is not a quote, an estimate, or a statement of what any policy would pay. Put your own numbers in on the call.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="arrange" style="background:rgba(255,255,255,.03)">
+  <div class="wrap">
+    <span class="kicker">What we arrange</span>
+    <h2 class="rev">Descriptions only. <em>The rest is a conversation.</em></h2>
+    <p class="lede rev">{{aboutPara}}</p>
+    <div class="grid6">
+      <div class="card rev"><b>01</b><h3>Income protection</h3><p>A monthly benefit while you're unable to work through illness or injury, on the insurer's terms.</p></div>
+      <div class="card rev"><b>02</b><h3>Private medical insurance</h3><p>Private diagnosis and treatment for eligible acute conditions, subject to policy terms.</p></div>
+      <div class="card rev"><b>03</b><h3>Self-employed mortgages</h3><p>Introductions to lenders who work with one, two or three years of accounts and CIS income.</p></div>
+      <div class="card rev"><b>04</b><h3>Relevant life cover</h3><p>Death-in-service style cover set up by a limited company for an employee, including a working director.</p></div>
+      <div class="card rev"><b>05</b><h3>Life & critical illness</h3><p>A lump sum on death or on diagnosis of a condition specified in the policy, within the chosen term.</p></div>
+      <div class="card rev"><b>06</b><h3>Group schemes</h3><p>Cover arranged across a workforce rather than one person at a time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="book">
+  <div class="wrap">
+    <span class="kicker">Book</span>
+    <h2 class="rev">Fifteen minutes. <em>Nothing sold on the call.</em></h2>
+    <p class="lede rev">{{ctaLine}}</p>
+    <form novalidate>
+      <div><label for="f-name">Your name</label><input id="f-name" type="text" autocomplete="name"></div>
+      <div><label for="f-phone">Phone</label><input id="f-phone" type="tel" autocomplete="tel"></div>
+      <label class="consent"><input id="f-consent" type="checkbox">
+        <span>Yes — pass my name and number to {{businessName}} so they can call me about a free review.</span></label>
+      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+        <button class="btn" type="submit" id="submitBtn" disabled>Request my call</button>
+        <span class="gate" id="gateNote">Tick the consent box and the button will enable.</span>
+      </div>
+      <div id="formSuccess">Got it — one of the team will call to arrange a time. If you'd rather start it yourself: <a href="tel:+441656856120">01656 856120</a>.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong style="color:var(--paper)">{{businessName}}</strong>
+    <span>Portway Wellness Centre, 1 The Portway, {{Town}} CF36 3XB · <a href="tel:+441656856120">01656 856120</a> · <a href="mailto:contact@portwaygroup.com">contact@portwaygroup.com</a></span>
+    <span>{{businessName}} introduces and arranges insurance and protection. Nothing on this page is advice, a recommendation, or a quotation. Figures shown are arithmetic on example values.</span>
+    <span class="reg">{{businessName}} is an appointed representative of [Network], which is authorised and regulated by the Financial Conduct Authority.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var DEFAULTS={
+    businessName:"Portway Financial", town:"Porthcawl",
+    tagline:"You fall off a ladder on Monday.\nWhen does the money stop?",
+    heroSubline:"An insurance brokerage for tradespeople and the physically active. We introduce and arrange cover. We do not sell you anything on this website.",
+    aboutPara:"Which of these is appropriate for you, if any, is a conversation — not something a landing page can decide.",
+    ctaLine:"We ask what you do, how you're paid, and what would happen if you stopped. No obligation, and if there's nothing worth changing we'll say so."
+  };
+  var q=new URLSearchParams(location.search),vals={};
+  for(var k in DEFAULTS){vals[k]=(window.BRAND&&window.BRAND[k])||q.get(k)||DEFAULTS[k];}
+  vals.Town=vals.town.charAt(0).toUpperCase()+vals.town.slice(1);
+  function sub(s){return s.replace(/\{\{(\w+)\}\}/g,function(m,k){return k in vals?vals[k]:m;});}
+  var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n;
+  while(n=w.nextNode()){if(n.nodeValue.indexOf("{{")>-1)n.nodeValue=sub(n.nodeValue);}
+  document.title=sub(document.title);
+})();
+(function(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches){document.querySelectorAll(".rev").forEach(function(el){el.classList.add("visible")});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target);}})},{threshold:.15});
+  document.querySelectorAll(".rev").forEach(function(el,i){el.style.transitionDelay=(i%4)*0.08+"s";io.observe(el);});
+})();
+/* consent gates the button — required, do not remove */
+(function(){
+  var form=document.querySelector("form"),consent=document.getElementById("f-consent"),
+      btn=document.getElementById("submitBtn"),gate=document.getElementById("gateNote");
+  consent.addEventListener("change",function(){btn.disabled=!consent.checked;gate.style.display=consent.checked?"none":"";});
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var name=document.getElementById("f-name"),phone=document.getElementById("f-phone");
+    if(!consent.checked)return;
+    if(!name.value.trim()){name.focus();return;}
+    if(!phone.value.trim()){phone.focus();return;}
+    document.getElementById("formSuccess").classList.add("show");
+    btn.disabled=true;form.reset();gate.style.display="";
+  });
+})();
+</script>
+</body>
+</html>

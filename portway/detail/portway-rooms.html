@@ -1,0 +1,200 @@
+<!doctype html>
+<!-- QuickSite landing · Portway Wellness Centre — consultancy rooms.
+     Pattern: quicksite-uk trade landing (self-contained, token resolver,
+     fake-but-honest form). Media is root-relative /assets/… — if this file
+     moves to quicksite-uk, the assets folder travels with it or the srcs
+     swap to CloudFront. Rates are PLACEHOLDER — confirm with the centre. -->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>{{businessName}} — consulting rooms in {{Town}}</title>
+<style>
+:root{
+  --slate:#232A2E; --ink:#141A1D; --concrete:#DDD8CF; --alu:#B9BEC2;
+  --brass:#B08237; --brass-glow:#D9A85A; --white:#fff;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  --radius:1rem;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--slate);color:var(--concrete);line-height:1.6;overflow-x:hidden}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,5vw,48px)}
+.section-pad{padding:clamp(56px,9vw,110px) 0}
+.kicker{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass-glow);margin-bottom:12px}
+h1,h2{line-height:1.05;font-weight:800;letter-spacing:-.01em}
+h2{font-size:clamp(26px,4.6vw,44px)}
+h2 em{font-style:normal;color:var(--brass-glow)}
+.lede{max-width:58ch;margin-top:14px;opacity:.85;font-size:clamp(15px,1.7vw,18px)}
+.btn{display:inline-block;border:0;border-radius:999px;padding:15px 28px;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;background:var(--concrete);color:var(--ink);transition:transform .15s ease, box-shadow .15s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 0 30px -10px var(--brass-glow)}
+.btn-brass{background:var(--brass);color:#1a1305}
+.btn-ghost{background:transparent;color:var(--concrete);box-shadow:inset 0 0 0 1.5px var(--concrete)}
+/* hero */
+.hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,26,29,.6),rgba(20,26,29,.25) 40%,rgba(20,26,29,.93))}
+.hero .wrap{position:relative;z-index:2;padding-top:120px;padding-bottom:clamp(40px,7vw,80px)}
+.hero h1{font-size:clamp(34px,6.8vw,68px);max-width:16ch;color:var(--white)}
+.hero .sub{max-width:52ch;margin-top:16px;opacity:.9}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.counter{display:inline-flex;gap:10px;align-items:baseline;border:1px solid var(--brass);border-radius:999px;padding:10px 18px;margin-top:24px;background:rgba(176,130,55,.12)}
+.counter b{font-family:var(--mono);font-size:26px;color:var(--brass-glow)}
+.counter span{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-glow)}
+/* rooms */
+.rooms{display:grid;gap:14px;margin-top:36px}
+@media(min-width:760px){.rooms{grid-template-columns:repeat(2,1fr)}}
+.room{display:flex;justify-content:space-between;align-items:center;gap:14px;border-radius:var(--radius);padding:20px 22px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(176,130,55,.55)}
+.room b{font-family:var(--mono);color:var(--brass-glow)}
+.room .figs{font-family:var(--mono);font-size:14px;text-align:right}
+.room .figs small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
+.beline{margin-top:26px;font-family:var(--mono);font-size:14px;color:var(--brass-glow)}
+/* why */
+.grid4{display:grid;gap:14px;margin-top:36px}
+@media(min-width:760px){.grid4{grid-template-columns:repeat(2,1fr)}}
+.card{border-radius:var(--radius);padding:24px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(221,216,207,.14)}
+.card h3{font-size:17px;margin-bottom:8px}
+.card p{font-size:14.5px;opacity:.82}
+/* film */
+.film{border-radius:var(--radius);overflow:hidden;margin-top:34px}
+/* form */
+form{display:grid;gap:14px;max-width:520px;margin-top:30px}
+label{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.65}
+input{width:100%;padding:14px 15px;border-radius:12px;border:1px solid rgba(221,216,207,.3);background:rgba(255,255,255,.06);color:var(--concrete);font:inherit}
+input:focus{outline:none;border-color:var(--brass-glow);box-shadow:0 0 0 3px rgba(176,130,55,.2)}
+#formSuccess{display:none;border:1px solid var(--brass);border-radius:var(--radius);padding:18px;margin-top:6px}
+#formSuccess.show{display:block}
+.trust{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.55}
+/* footer */
+footer{background:var(--ink);padding:44px 0;font-size:13px;color:rgba(221,216,207,.65)}
+footer .wrap{display:grid;gap:10px}
+/* reveals */
+.rev{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.rev.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rev{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <video src="../assets/portway/portway-exterior.mp4" poster="/assets/portway/portway-exterior-poster.jpg" autoplay muted loop playsinline></video>
+  <div class="wrap">
+    <span class="kicker">{{businessName}} · {{Town}}</span>
+    <h1>{{tagline}}</h1>
+    <p class="sub">{{heroSubline}}</p>
+    <div class="counter"><b>5</b><span>of 14 rooms available</span></div>
+    <div class="hero-ctas">
+      <a class="btn btn-brass" href="#rooms">See the free rooms</a>
+      <a class="btn btn-ghost" href="#book">Book a look round</a>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="rooms">
+  <div class="wrap">
+    <span class="kicker">Rooms available</span>
+    <h2 class="rev">Five consulting rooms. <em>Monthly terms.</em></h2>
+    <p class="lede rev">{{aboutPara}}</p>
+    <div class="rooms">
+      <div class="room rev"><b>Room R1</b><div class="figs">14 m² · £380<small>per month</small></div></div>
+      <div class="room rev"><b>Room R2</b><div class="figs">15 m² · £410<small>per month · step-free</small></div></div>
+      <div class="room rev"><b>Room R3</b><div class="figs">16 m² · £440<small>per month</small></div></div>
+      <div class="room rev"><b>Room R4</b><div class="figs">17 m² · £460<small>per month · morning light</small></div></div>
+      <div class="room rev"><b>Room R5</b><div class="figs">18 m² · £480<small>per month · dual aspect</small></div></div>
+    </div>
+    <p class="beline rev">£380 a month ÷ £40 a session = ten sessions covers the room. The rest is yours.</p>
+  </div>
+</section>
+
+<section class="section-pad" id="why" style="background:rgba(0,0,0,.18)">
+  <div class="wrap">
+    <span class="kicker">Why here</span>
+    <h2 class="rev">Built as the town's surgery. <em>Still doing its job.</em></h2>
+    <div class="grid4">
+      <div class="card rev"><h3>Nine practices next door</h3><p>Physio, chiro, private GP, aesthetics, recovery. Referrals move along the corridor before they reach a search engine.</p></div>
+      <div class="card rev"><h3>Open seven days</h3><p>8am–8pm in the week, 9–6 Saturday, 10–4 Sunday. Your patients book around their lives.</p></div>
+      <div class="card rev"><h3>Parking at the door</h3><p>Accessible parking on site, the town centre a short walk. Nobody circles the block before an appointment.</p></div>
+      <div class="card rev"><h3>Consulting rooms by design</h3><p>Natural daylight, quiet corridors, doors that close. It's what the building was built for.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="film">
+  <div class="wrap">
+    <span class="kicker">The empty room</span>
+    <h2 class="rev">A bare room doesn't stay bare <em>for long.</em></h2>
+    <div class="film rev">
+      <video src="../assets/portway/portway-empty-to-full.mp4" poster="/assets/portway/portway-empty-to-full-poster.jpg" autoplay muted loop playsinline></video>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="book" style="background:rgba(0,0,0,.18)">
+  <div class="wrap">
+    <span class="kicker">Book a look round</span>
+    <h2 class="rev">Twenty minutes. <em>Then decide.</em></h2>
+    <p class="lede rev">{{ctaLine}}</p>
+    <form novalidate>
+      <div><label for="f-name">Your name</label><input id="f-name" type="text" autocomplete="name"></div>
+      <div><label for="f-practice">Your practice</label><input id="f-practice" type="text" autocomplete="organization"></div>
+      <div><label for="f-phone">Phone</label><input id="f-phone" type="tel" autocomplete="tel"></div>
+      <button class="btn btn-brass" type="submit">Request a viewing</button>
+      <div id="formSuccess">Thanks — that's with the centre team. Someone will ring you within one working day.</div>
+    </form>
+    <p class="trust">{{trustStrip}}</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong style="color:var(--concrete)">{{businessName}}</strong>
+    <span>1 The Portway, {{Town}} CF36 3XB · <a href="tel:+441656856120">01656 856120</a> · <a href="mailto:contact@portwaygroup.com">contact@portwaygroup.com</a></span>
+    <span>Room sizes approximate. Rates indicative, exclusive of VAT, confirmed on enquiry.</span>
+  </div>
+</footer>
+
+<script>
+/* PERSONALISATION RESOLVER — window.BRAND → query string → DEFAULTS */
+(function(){
+  var DEFAULTS={
+    businessName:"Portway Wellness Centre", town:"Porthcawl",
+    tagline:"The old surgery has never been busier.",
+    heroSubline:"Nine wellness businesses practise here. Five consulting rooms of 14–18 m² are still free, on simple monthly terms.",
+    aboutPara:"Every room has natural daylight and a door that closes properly. One month at a time, one month's notice — no long lease standing between you and trying it.",
+    ctaLine:"Tell us what you practise. We'll come back with the room, the rate and a time to walk round it.",
+    trustStrip:"No long leases · Wi-Fi throughout · Parking on site"
+  };
+  var q=new URLSearchParams(location.search),vals={};
+  for(var k in DEFAULTS){vals[k]=(window.BRAND&&window.BRAND[k])||q.get(k)||DEFAULTS[k];}
+  vals.Town=vals.town.charAt(0).toUpperCase()+vals.town.slice(1);
+  function sub(s){return s.replace(/\{\{(\w+)\}\}/g,function(m,k){return k in vals?vals[k]:m;});}
+  var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n;
+  while(n=w.nextNode()){if(n.nodeValue.indexOf("{{")>-1)n.nodeValue=sub(n.nodeValue);}
+  document.title=sub(document.title);
+})();
+/* reveals */
+(function(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches){document.querySelectorAll(".rev").forEach(function(el){el.classList.add("visible")});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target);}})},{threshold:.15});
+  document.querySelectorAll(".rev").forEach(function(el,i){el.style.transitionDelay=(i%4)*0.08+"s";io.observe(el);});
+})();
+/* fake-but-honest form */
+(function(){
+  var form=document.querySelector("form");
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var name=document.getElementById("f-name"),phone=document.getElementById("f-phone");
+    if(!name.value.trim()){name.focus();return;}
+    if(!phone.value.trim()){phone.focus();return;}
+    document.getElementById("formSuccess").classList.add("show");
+    form.querySelector('button[type="submit"]').disabled=true;
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>
