@@ -21,6 +21,9 @@ video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit
 .kicker{display:inline-block;background:var(--chip);color:var(--slate);font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:6px 14px;margin-bottom:18px}
 h1{font-size:clamp(30px,5vw,46px);line-height:1.08;letter-spacing:-.02em;font-weight:800;text-wrap:balance;max-width:16ch}
 .hero p.lede{font-size:19px;color:var(--slate);max-width:52ch;margin:16px 0 24px}
+.covers{margin:14px 0 0;font-size:14.5px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.coverchip{background:var(--chip);color:var(--slate);font-weight:600;font-size:13px;border-radius:999px;padding:4px 12px}
+.gt-covers{font-style:normal;color:var(--brand-deep);font-weight:600}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .btn{display:inline-block;text-decoration:none;font-weight:700;font-size:16px;border-radius:8px;padding:12px 20px}
 .btn-brand{background:var(--brand);color:#fff}
@@ -71,6 +74,21 @@ h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;font-weight:800;text-w
 .grid-trades{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:30px}
 .gt{border:1px solid var(--line);border-radius:var(--r);padding:22px;text-decoration:none;display:flex;flex-direction:column;gap:8px;transition:box-shadow .15s ease,transform .15s ease;background:var(--paper)}
 .gt:hover{box-shadow:0 14px 34px -14px rgba(15,23,42,.3);transform:translateY(-2px)}
+.gt{padding:0;overflow:hidden}
+.gt-media{position:relative;display:block;aspect-ratio:16/9;background:var(--ink)}
+.gt-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gt-media .a{opacity:0;animation:qsSwap 9s ease-in-out infinite alternate}
+.gt:nth-child(2) .gt-media .a{animation-delay:-3s}
+.gt:nth-child(3) .gt-media .a{animation-delay:-6s}
+.gt:nth-child(5) .gt-media .a{animation-delay:-4.5s}
+.gt:nth-child(6) .gt-media .a{animation-delay:-1.5s}
+.gt:nth-child(8) .gt-media .a{animation-delay:-7.5s}
+.gt:nth-child(9) .gt-media .a{animation-delay:-2.2s}
+.gt:nth-child(11) .gt-media .a{animation-delay:-5.2s}
+@keyframes qsSwap{0%,28%{opacity:0}72%,100%{opacity:1}}
+.gt-cap{position:absolute;left:10px;bottom:10px;background:rgba(10,14,25,.85);color:#fff;font-size:12px;font-weight:600;border-radius:999px;padding:4px 10px}
+.gt-body{display:flex;flex-direction:column;gap:8px;padding:18px 20px 20px;flex:1}
+@media(prefers-reduced-motion:reduce){.gt-media .a{animation:none;opacity:1}}
 .gt .tname{font-size:18px;font-weight:800;letter-spacing:-.01em}
 .gt p{color:var(--slate);font-size:14.5px;flex:1}
 .gt .tgo{color:var(--brand-deep);font-weight:700;font-size:14px}
