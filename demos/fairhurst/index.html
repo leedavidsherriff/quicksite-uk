@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fairhurst Electrical — Harrogate &amp; North Leeds</title>
+<meta name="description" content="Approved electricians in Harrogate. EV chargers, kitchen and garden lighting, hot tub supplies, garden rooms, rewires and consumer units. Fixed prices published before you ring.">
+<meta name="theme-color" content="#0B0C0D">
+<style>
+  :root{
+    --black:#0B0C0D;
+    --panel:#141618;
+    --panel-2:#1C1F22;
+    --steel:#2A2E33;
+    --line:rgba(255,255,255,.10);
+    --line-2:rgba(255,255,255,.18);
+    --ink:#F2F3F4;
+    --ink-2:#9AA0A6;
+    --ink-3:#6B7075;
+    --live:#B9F227;
+    --live-dim:#7FA81B;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--black)}
+  body{
+    margin:0;background:var(--black);color:var(--ink);
+    font-family:var(--sans);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  button{font:inherit}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{margin:0;line-height:1.05;letter-spacing:-.03em;font-weight:800}
+  h2{font-size:clamp(1.75rem,4.4vw,2.7rem);text-wrap:balance}
+  .kick{
+    font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--live);margin-bottom:.8rem
+  }
+  .lead{color:var(--ink-2);font-size:1.05rem;max-width:58ch;margin:1rem 0 0}
+  section{padding:clamp(3.5rem,7vw,6.5rem) 0;border-top:1px solid var(--line)}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+    padding:1rem 1.6rem;border-radius:3px;font-weight:800;font-size:1rem;
+    text-decoration:none;border:1px solid transparent;cursor:pointer;
+    transition:transform .1s ease,background .16s ease,border-color .16s ease
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-live{background:var(--live);color:#0B0C0D}
+  .btn-live:hover{background:#c9ff3d}
+  .btn-ghost{border-color:var(--line-2);color:var(--ink);background:rgba(255,255,255,.04)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .btn:focus-visible{outline:3px solid var(--live);outline-offset:3px}
+
+  /* ============ sticky header ============ */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:60;
+    background:rgba(11,12,13,.86);backdrop-filter:saturate(150%) blur(10px);
+    border-bottom:1px solid var(--line);
+    transform:translateY(-104%);transition:transform .3s ease
+  }
+  header.is-shown{transform:translateY(0)}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0}
+  .nav{display:none;gap:1.7rem;font-size:.92rem;font-weight:600}
+  .nav a{text-decoration:none;color:var(--ink-2)}
+  .nav a:hover{color:var(--ink)}
+  @media(min-width:940px){.nav{display:flex}}
+
+  .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;line-height:1.05}
+  .brand .mark{
+    width:34px;height:34px;border:1px solid var(--line-2);border-radius:3px;
+    display:grid;place-items:center;background:var(--panel-2);flex:none
+  }
+  .brand .mark i{
+    display:block;width:3px;height:15px;background:var(--live);
+    box-shadow:0 0 10px rgba(185,242,39,.55);border-radius:1px;
+    transform:skewX(-16deg)
+  }
+  .brand b{font-size:.98rem;font-weight:800;letter-spacing:-.01em;display:block}
+  .brand span{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;color:var(--ink-3);text-transform:uppercase}
+  .tel{font-weight:800;text-decoration:none;white-space:nowrap}
+
+  /* ============ hero ============ */
+  .hero{position:relative;border-top:0;padding:0;overflow:hidden;background:#000}
+  .stage{position:relative;width:100%;aspect-ratio:16/10;background:#050505;overflow:hidden}
+  @media(min-width:900px){
+    .hero{min-height:100svh;display:flex;align-items:stretch}
+    .stage{position:absolute;inset:0;aspect-ratio:auto;height:100%}
+  }
+  .stage img,.stage video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    transition:opacity .45s ease
+  }
+  .stage video{opacity:0;pointer-events:none}
+  .stage video.is-shown{opacity:1}
+  video::-webkit-media-controls,
+  video::-webkit-media-controls-start-playback-button,
+  video::-webkit-media-controls-panel,
+  video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none}
+  .stage .grade{
+    position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(180deg,rgba(5,6,7,.72) 0%,rgba(5,6,7,.18) 34%,rgba(5,6,7,.55) 74%,rgba(5,6,7,.94) 100%),
+      linear-gradient(90deg,rgba(5,6,7,.62) 0%,rgba(5,6,7,0) 55%)
+  }
+  /* the flicker that fires when a way energises with no clip to play */
+  .stage .flash{
+    position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;mix-blend-mode:screen
+  }
+  .stage .flash.is-firing{animation:strike .5s steps(1,end) 1}
+  @keyframes strike{
+    0%{opacity:0}8%{opacity:.16}14%{opacity:0}24%{opacity:.10}30%{opacity:0}
+    46%{opacity:.06}52%{opacity:0}100%{opacity:0}
+  }
+
+  .hero-inner{position:relative;z-index:3;width:100%;display:flex;align-items:flex-end}
+  .hero-grid{
+    display:grid;gap:clamp(1.3rem,4vw,3rem);grid-template-columns:1fr;
+    padding:clamp(1.6rem,4vw,3.4rem) 0 clamp(2rem,4vw,3.4rem);width:100%
+  }
+  @media(min-width:900px){
+    .hero-grid{
+      grid-template-columns:1fr minmax(430px,.86fr);align-items:end;
+      grid-template-areas:"top board" "bot board"
+    }
+    .hero-top{grid-area:top;align-self:end}
+    .hero-bot{grid-area:bot}
+    #board{grid-area:board}
+  }
+  /* on phones the copy + board sit on solid black under the picture,
+     and the board comes BEFORE the sell copy — it is the point of the page */
+  @media(max-width:899px){
+    .hero{display:block}
+    .hero-inner{background:var(--black)}
+    .hero .stage{border-bottom:1px solid var(--line);aspect-ratio:4/3}
+    .hero-top{order:1}
+    #board{order:2}
+    .hero-bot{order:3}
+    .topmark .tel-chip{display:none}
+  }
+
+  .topmark{
+    position:absolute;top:0;left:0;right:0;z-index:5;
+    display:flex;align-items:flex-start;justify-content:space-between;
+    padding:16px 20px;gap:1rem
+  }
+  .topmark .brand b,.topmark .brand span{text-shadow:0 1px 12px rgba(0,0,0,.7)}
+  .tel-chip{
+    display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;
+    background:rgba(11,12,13,.6);border:1px solid var(--line-2);border-radius:999px;
+    padding:.5rem 1rem;font-weight:800;font-size:.9rem;backdrop-filter:blur(6px);white-space:nowrap
+  }
+  .tel-chip i{width:6px;height:6px;border-radius:50%;background:var(--live);box-shadow:0 0 8px var(--live);flex:none}
+
+  .hero h1{
+    font-size:clamp(2.6rem,7.4vw,5.2rem);line-height:.94;text-transform:uppercase;
+    letter-spacing:-.035em;font-weight:800
+  }
+  .hero h1 em{font-style:normal;color:var(--live);text-shadow:0 0 34px rgba(185,242,39,.35)}
+  .hero .lead{font-size:clamp(1rem,2.1vw,1.14rem);margin-top:0;max-width:34rem;color:#C6CBCF}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem}
+
+  /* ============ the consumer unit ============ */
+  .unit{
+    background:linear-gradient(180deg,#1A1D20,#101214);
+    border:1px solid var(--line-2);border-radius:6px;
+    box-shadow:0 30px 70px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.06);
+    overflow:hidden
+  }
+  .unit-top{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:.7rem .9rem;border-bottom:1px solid var(--line);
+    background:repeating-linear-gradient(135deg,#1E2124 0 6px,#1A1D20 6px 12px)
+  }
+  .unit-top .id{font-family:var(--mono);font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+  .readout{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--ink-2);white-space:nowrap}
+  .readout b{color:var(--live);font-weight:600}
+
+  .rail{
+    display:grid;grid-template-columns:auto 1fr;gap:0;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 22%),
+      var(--panel)
+  }
+  .main-cell{
+    border-right:1px solid var(--line);padding:.9rem .8rem;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.5rem;
+    background:linear-gradient(180deg,#202327,#171A1D)
+  }
+  .ways{display:grid;grid-template-columns:repeat(3,1fr)}
+  @media(max-width:420px){.ways{grid-template-columns:repeat(2,1fr)}}
+
+  .way{
+    position:relative;background:none;border:0;border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);cursor:pointer;text-align:left;
+    padding:.85rem .7rem .8rem;color:var(--ink);display:block;
+    transition:background .18s ease
+  }
+  .way:hover{background:rgba(255,255,255,.035)}
+  .way:focus-visible{outline:2px solid var(--live);outline-offset:-2px}
+  .ways .way:nth-child(3n){border-right:0}
+  @media(max-width:420px){.ways .way:nth-child(3n){border-right:1px solid var(--line)}.ways .way:nth-child(2n){border-right:0}}
+  .way.is-sel{background:rgba(185,242,39,.06)}
+  .way.is-sel::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--live)
+  }
+
+  .way .no{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--ink-3);display:block}
+  .way .nm{
+    display:block;font-size:.82rem;font-weight:800;letter-spacing:-.01em;line-height:1.15;
+    margin:.3rem 0 .45rem;min-height:2.3em
+  }
+  .way .amp{font-family:var(--mono);font-size:.6rem;color:var(--ink-3);letter-spacing:.1em}
+  .way.is-live .amp{color:var(--live-dim)}
+  .way.is-live .nm{color:#fff}
+
+  /* the rocker */
+  .rocker{
+    display:block;width:26px;height:44px;border-radius:3px;flex:none;
+    background:linear-gradient(180deg,#3A3F45,#25292D);
+    border:1px solid rgba(0,0,0,.6);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.14);
+    position:relative;overflow:hidden;margin-bottom:.5rem
+  }
+  .rocker::before{
+    content:"";position:absolute;left:2px;right:2px;height:19px;border-radius:2px;
+    background:linear-gradient(180deg,#F0F1F2,#B9BDC1);
+    box-shadow:0 1px 2px rgba(0,0,0,.5);
+    top:21px;transition:top .16s cubic-bezier(.3,1.6,.5,1)
+  }
+  .way.is-live .rocker::before,.mainsw.is-live .rocker::before{top:2px}
+  .rocker::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:19px;
+    background:#101214;box-shadow:inset 0 2px 5px rgba(0,0,0,.9)
+  }
+  .way.is-live .rocker::after,.mainsw.is-live .rocker::after{
+    background:#1a2a05;box-shadow:inset 0 2px 5px rgba(0,0,0,.8)
+  }
+  .rocker i{
+    position:absolute;z-index:2;left:50%;transform:translateX(-50%);bottom:4px;
+    width:5px;height:5px;border-radius:50%;background:#31363B;transition:background .18s,box-shadow .18s
+  }
+  .way.is-live .rocker i,.mainsw.is-live .rocker i{background:var(--live);box-shadow:0 0 9px var(--live)}
+  .way .rocker{margin-bottom:.55rem}
+
+  /* tighter breakers on a phone so all six ways and the readout fit one screen */
+  @media(max-width:560px){
+    .way{padding:.7rem .6rem}
+    .way .rocker{width:22px;height:34px;margin-bottom:.45rem}
+    .way .rocker::before{height:15px;top:17px}
+    .way.is-live .rocker::before{top:2px}
+    .way .rocker::after{height:15px}
+    .way .nm{min-height:0;font-size:.8rem;margin:.25rem 0 .35rem}
+  }
+
+  .mainsw{
+    background:none;border:0;padding:0;cursor:pointer;color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;gap:.45rem
+  }
+  .mainsw:focus-visible{outline:2px solid var(--live);outline-offset:3px}
+  .mainsw .rocker{width:32px;height:56px;margin:0}
+  .mainsw .rocker::before{height:25px;top:27px}
+  .mainsw.is-live .rocker::before{top:2px}
+  .mainsw .rocker::after{height:25px}
+  .mainsw .lbl{
+    font-family:var(--mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);text-align:center;line-height:1.3
+  }
+  .mainsw.is-live .lbl{color:var(--live)}
+
+  .unit-foot{
+    padding:.85rem .9rem;border-top:1px solid var(--line);background:var(--panel-2);
+    display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap
+  }
+  .sel-info{min-width:0}
+  .sel-info .t{font-size:.95rem;font-weight:800;letter-spacing:-.01em;display:block}
+  .sel-info .d{font-size:.8rem;color:var(--ink-2);display:block;margin-top:.15rem}
+  .sel-price{font-family:var(--mono);font-size:1.02rem;font-weight:600;color:var(--live);white-space:nowrap}
+  .unit-foot.is-swapping .sel-info,.unit-foot.is-swapping .sel-price{opacity:.25;transition:opacity .12s}
+  .unit-foot .sel-info,.unit-foot .sel-price{transition:opacity .3s}
+
+  .allon{
+    display:none;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    padding:.9rem;border-top:1px solid var(--live);background:rgba(185,242,39,.09)
+  }
+  .allon.is-shown{display:flex;animation:rise .35s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .allon .msg{font-size:.86rem;line-height:1.35}
+  .allon .msg b{display:block;font-size:1rem}
+  .allon .btn{padding:.7rem 1.1rem;font-size:.88rem}
+
+  .hint{
+    font-family:var(--mono);font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-3);margin:.7rem 0 0;text-align:center
+  }
+  .sound{
+    position:absolute;right:16px;bottom:16px;z-index:5;
+    display:inline-flex;align-items:center;gap:.4rem;
+    background:rgba(11,12,13,.6);color:var(--ink);border:1px solid var(--line-2);
+    border-radius:999px;padding:.45rem .8rem;font-size:.72rem;font-weight:700;cursor:pointer;
+    backdrop-filter:blur(6px);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase
+  }
+  @media(min-width:900px){.sound{bottom:auto;top:74px;right:auto;left:20px}}
+
+  /* ============ schedule ============ */
+  .sched{border-top:1px solid var(--line);margin-top:2.2rem}
+  .srow{
+    display:grid;grid-template-columns:auto 1fr auto;gap:.3rem 1.2rem;align-items:baseline;
+    padding:1.15rem 0;border-bottom:1px solid var(--line);cursor:pointer;
+    transition:background .16s
+  }
+  .srow:hover{background:rgba(255,255,255,.03)}
+  .srow .w{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);letter-spacing:.14em;padding-top:.25rem}
+  .srow h3{font-size:1.06rem;font-weight:800}
+  .srow p{grid-column:2/3;margin:.25rem 0 0;color:var(--ink-2);font-size:.94rem;max-width:62ch}
+  .srow .p{font-family:var(--mono);font-weight:600;white-space:nowrap;font-size:1rem}
+  .srow .p small{display:block;font-size:.6rem;color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase;text-align:right}
+  @media(max-width:640px){
+    .srow{grid-template-columns:auto 1fr}
+    .srow .p{grid-column:2/3;text-align:left;margin-top:.5rem}
+    .srow .p small{text-align:left}
+  }
+
+  /* ============ work ============ */
+  .work-grid{display:grid;gap:14px;grid-template-columns:1fr;margin-top:2.2rem}
+  @media(min-width:700px){.work-grid{grid-template-columns:1fr 1fr}}
+  .card{
+    position:relative;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--panel)
+  }
+  .card img{aspect-ratio:4/3;object-fit:cover;width:100%;filter:saturate(.95)}
+  .card .cap{
+    position:absolute;left:0;right:0;bottom:0;padding:1.1rem;
+    background:linear-gradient(180deg,rgba(5,6,7,0),rgba(5,6,7,.92))
+  }
+  .card .cap b{display:block;font-size:1rem;letter-spacing:-.01em}
+  .card .cap span{font-family:var(--mono);font-size:.66rem;color:var(--ink-2);letter-spacing:.1em}
+
+  /* ============ certificate / quote ============ */
+  .cert{background:var(--panel);border:1px solid var(--line-2);border-radius:5px;overflow:hidden;margin-top:2.2rem}
+  .cert-head{
+    padding:1rem 1.2rem;border-bottom:1px solid var(--line);
+    background:repeating-linear-gradient(135deg,#1E2124 0 6px,#1A1D20 6px 12px);
+    display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center
+  }
+  .cert-head .t{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+  .cert-body{display:grid;grid-template-columns:1fr;gap:0}
+  @media(min-width:880px){.cert-body{grid-template-columns:1.15fr .85fr}}
+  .cert-fields{padding:1.4rem;display:grid;gap:1.15rem}
+  @media(min-width:880px){.cert-fields{border-right:1px solid var(--line)}}
+  .f label{
+    display:block;font-family:var(--mono);font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:.5rem
+  }
+  .f select,.f input{
+    width:100%;padding:.8rem .85rem;border-radius:3px;border:1px solid var(--line-2);
+    background:#0E1012;color:var(--ink);font:inherit;font-size:.95rem
+  }
+  .f select option{color:#111}
+  .opts{display:flex;flex-wrap:wrap;gap:.5rem}
+  .opt{
+    display:inline-flex;align-items:center;gap:.45rem;padding:.5rem .8rem;border-radius:999px;
+    border:1px solid var(--line-2);cursor:pointer;font-size:.86rem;font-weight:600;user-select:none
+  }
+  .opt input{accent-color:var(--live)}
+  .opt:has(input:checked){background:rgba(185,242,39,.12);border-color:var(--live-dim)}
+  .cert-out{padding:1.4rem;display:flex;flex-direction:column;justify-content:space-between;gap:1.1rem}
+  .cert-out .num{
+    font-family:var(--mono);font-size:clamp(1.6rem,5vw,2.3rem);font-weight:600;color:var(--live);
+    letter-spacing:-.02em;line-height:1.1
+  }
+  .cert-out .note{font-size:.84rem;color:var(--ink-2)}
+  .cert-out .lines{font-family:var(--mono);font-size:.78rem;color:var(--ink-2);border-top:1px solid var(--line);padding-top:.8rem}
+  .cert-out .lines div{display:flex;justify-content:space-between;gap:1rem;padding:.22rem 0}
+  .grab{display:grid;gap:.55rem}
+  .grab input{width:100%;padding:.8rem .85rem;border-radius:3px;border:1px solid var(--line-2);background:#0E1012;color:var(--ink);font:inherit}
+  .sent{color:var(--live);font-size:.9rem;font-weight:700}
+
+  /* ============ reviews / areas / contact ============ */
+  .revs{display:grid;gap:1.2rem;grid-template-columns:1fr;margin-top:2.2rem}
+  @media(min-width:760px){.revs{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1060px){.revs{grid-template-columns:repeat(4,1fr)}}
+  .rev{border:1px solid var(--line);border-radius:4px;padding:1.3rem;background:var(--panel)}
+  .rev .st{color:var(--live);letter-spacing:.14em;font-size:.8rem}
+  .rev p{margin:.6rem 0 .9rem;font-size:.94rem;color:#D7DADD}
+  .rev .who{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);letter-spacing:.1em}
+
+  .towns{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+  .towns span{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;
+    border:1px solid var(--line);border-radius:999px;padding:.4rem .8rem;color:var(--ink-2)
+  }
+  .trust{display:grid;gap:.7rem;grid-template-columns:1fr;margin-top:2.2rem}
+  @media(min-width:700px){.trust{grid-template-columns:repeat(4,1fr)}}
+  .trust div{
+    display:flex;align-items:center;gap:.6rem;border:1px solid var(--line);border-radius:4px;
+    padding:.85rem;font-size:.86rem;font-weight:600;background:var(--panel)
+  }
+  .trust svg{width:17px;height:17px;fill:var(--live);flex:none}
+
+  .contact-grid{display:grid;gap:2.4rem;grid-template-columns:1fr}
+  @media(min-width:880px){.contact-grid{grid-template-columns:1fr 1fr;gap:3.4rem}}
+  .big-phone{
+    display:inline-block;font-size:clamp(1.9rem,6vw,2.7rem);font-weight:800;letter-spacing:-.03em;
+    text-decoration:none;margin:.4rem 0 .3rem
+  }
+  .hours{font-family:var(--mono);font-size:.76rem;color:var(--ink-3);letter-spacing:.08em}
+  .cform{display:grid;gap:.6rem}
+  .cform input,.cform textarea{
+    width:100%;padding:.85rem;border-radius:3px;border:1px solid var(--line-2);
+    background:#0E1012;color:var(--ink);font:inherit
+  }
+  .cform textarea{min-height:104px;resize:vertical}
+
+  footer{
+    border-top:1px solid var(--line);padding:2rem 0 6rem;
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;color:var(--ink-3)
+  }
+  .mobile-bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:70;display:grid;grid-template-columns:1fr 1fr;
+    border-top:1px solid var(--line);background:rgba(11,12,13,.94);backdrop-filter:blur(10px)
+  }
+  .mobile-bar a{
+    padding:.95rem;text-align:center;text-decoration:none;font-weight:800;font-size:.94rem
+  }
+  .mobile-bar .call{color:var(--ink);border-right:1px solid var(--line)}
+  .mobile-bar .quote{background:var(--live);color:#0B0C0D}
+  @media(min-width:900px){.mobile-bar{display:none}footer{padding-bottom:2rem}}
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.06s!important}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap bar">
+    <a class="brand" href="#top">
+      <span class="mark"><i></i></span>
+      <span><b>Fairhurst Electrical</b><span>Est. 2009 · NICEIC</span></span>
+    </a>
+    <nav class="nav">
+      <a href="#board">The board</a>
+      <a href="#schedule">Prices</a>
+      <a href="#work">Recent work</a>
+      <a href="#quote">Get a price</a>
+      <a href="#areas">Areas</a>
+    </nav>
+    <a class="tel" href="tel:01423559040">01423 559 040</a>
+  </div>
+</header>
+
+<!-- ================= HERO / THE BOARD ================= -->
+<section class="hero" id="top">
+  <div class="stage" id="stage">
+    <img id="still" alt="" fetchpriority="high">
+    <video id="vid" muted playsinline preload="none" disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback"></video>
+    <div class="flash" id="flash"></div>
+    <div class="grade"></div>
+    <div class="topmark">
+      <a class="brand" href="#top">
+        <span class="mark"><i></i></span>
+        <span><b>Fairhurst Electrical</b><span>Harrogate</span></span>
+      </a>
+      <a class="tel-chip" href="tel:01423559040"><i></i>01423 559 040</a>
+    </div>
+    <button class="sound" id="soundBtn" type="button" aria-pressed="false">Sound off</button>
+  </div>
+
+  <div class="hero-inner">
+    <div class="wrap hero-grid">
+      <div class="hero-top">
+        <h1>Switch<br>something<br><em>on.</em></h1>
+      </div>
+
+      <div class="hero-bot">
+        <p class="lead">Six of the jobs we do most, wired into one board. Flick a way and that's your house at half nine on a winter night — no showroom, no salesman. Every price is published below.</p>
+        <div class="hero-actions">
+          <a class="btn btn-live" href="#quote">Get a fixed price</a>
+          <a class="btn btn-ghost" href="tel:01423559040">01423 559 040</a>
+        </div>
+      </div>
+
+      <div id="board">
+        <div class="unit">
+          <div class="unit-top">
+            <span class="id">CU-01 · 6 way + main</span>
+            <span class="readout" id="readout"><b>0</b> of 6 live</span>
+          </div>
+          <div class="rail">
+            <div class="main-cell">
+              <button class="mainsw" id="mainSw" type="button" aria-pressed="false" aria-label="Main switch — energise every circuit">
+                <span class="rocker"><i></i></span>
+                <span class="lbl">Main<br>switch</span>
+              </button>
+            </div>
+            <div class="ways" id="ways"></div>
+          </div>
+          <div class="unit-foot" id="foot">
+            <span class="sel-info">
+              <b class="t" id="selName">Main switch off</b>
+              <span class="d" id="selDesc">Flick any way to see it come on.</span>
+            </span>
+            <span class="sel-price" id="selPrice">—</span>
+          </div>
+          <div class="allon" id="allOn">
+            <span class="msg"><b>All six live — from £9,900 as one job</b>Booked together instead of six visits. Saves £1,395 and one board upgrade.</span>
+            <a class="btn btn-live" href="#quote">Price the lot</a>
+          </div>
+        </div>
+        <p class="hint">Tap a breaker</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCHEDULE ================= -->
+<section id="schedule">
+  <div class="wrap">
+    <div class="kick">Schedule of works</div>
+    <h2>The prices, before you ring us</h2>
+    <p class="lead">Fixed on the day we survey and written down. If it changes, it changes because you changed it — never because we found something we should have looked for.</p>
+    <div class="sched" id="schedList"></div>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section id="work">
+  <div class="wrap">
+    <div class="kick">Recent work</div>
+    <h2>Four we finished this month</h2>
+    <div class="work-grid">
+      <figure class="card" style="margin:0">
+        <img src="media/card-ev.webp" alt="7kW EV charger fitted to the front of a house" loading="lazy">
+        <figcaption class="cap"><b>7kW charger, tethered</b><span>PANNAL · ONE DAY · £995</span></figcaption>
+      </figure>
+      <figure class="card" style="margin:0">
+        <img src="media/card-consumer.webp" alt="New 18th edition consumer unit" loading="lazy">
+        <figcaption class="cap"><b>18th edition board + full test</b><span>KNARESBOROUGH · ONE DAY · £1,150</span></figcaption>
+      </figure>
+      <figure class="card" style="margin:0">
+        <img src="media/card-downlights.webp" alt="Recessed downlights in a finished kitchen" loading="lazy">
+        <figcaption class="cap"><b>Kitchen lighting, 14 heads + dimming</b><span>WETHERBY · TWO DAYS · £1,850</span></figcaption>
+      </figure>
+      <figure class="card" style="margin:0">
+        <img src="media/card-outdoor.webp" alt="Outdoor lighting on a house at dusk" loading="lazy">
+        <figcaption class="cap"><b>Garden &amp; fence-line lighting</b><span>BILTON · TWO DAYS · £1,450</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUOTE ================= -->
+<section id="quote">
+  <div class="wrap">
+    <div class="kick">Instant estimate</div>
+    <h2>Price it yourself, right now</h2>
+    <p class="lead">The range shows before you give us anything. We only ask for a number if you want it locking in.</p>
+
+    <div class="cert">
+      <div class="cert-head">
+        <span class="t">Estimate · Fairhurst Electrical · Harrogate</span>
+        <span class="t">No obligation</span>
+      </div>
+      <div class="cert-body">
+        <div class="cert-fields">
+          <div class="f">
+            <label for="qJob">What needs doing</label>
+            <select id="qJob">
+              <option value="rewire">Full rewire &amp; new board</option>
+              <option value="board">Consumer unit only</option>
+              <option value="kitchen" selected>Kitchen / room lighting</option>
+              <option value="ev">EV charger</option>
+              <option value="garden">Garden lighting</option>
+              <option value="tub">Hot tub supply</option>
+              <option value="room">Garden room supply</option>
+              <option value="eicr">EICR / landlord certificate</option>
+            </select>
+          </div>
+          <div class="f">
+            <label for="qSize">Size of property</label>
+            <select id="qSize">
+              <option value="1">Flat / 1–2 bed</option>
+              <option value="2" selected>3 bed semi</option>
+              <option value="3">4 bed detached</option>
+              <option value="4">5 bed +</option>
+            </select>
+          </div>
+          <div class="f">
+            <label for="qAge">Age of the wiring</label>
+            <select id="qAge">
+              <option value="new">Under 10 years</option>
+              <option value="mid" selected>10–25 years</option>
+              <option value="old">Older / unknown</option>
+            </select>
+          </div>
+          <div class="f">
+            <label>Add to it</label>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" id="oSmart"><span>Smart controls</span></label>
+              <label class="opt"><input type="checkbox" id="oOut"><span>Outside sockets</span></label>
+              <label class="opt"><input type="checkbox" id="oCert"><span>Certificate pack</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="cert-out">
+          <div>
+            <div class="kick" style="margin-bottom:.5rem">Your range</div>
+            <div class="num" id="qRange">£1,850 – £2,300</div>
+            <p class="note">Based on what jobs like yours actually came to over the last twelve months in HG and LS.</p>
+            <div class="lines" id="qLines"></div>
+          </div>
+          <div class="grab" id="qGrab">
+            <input type="text" id="qName" placeholder="Your name" aria-label="Your name">
+            <input type="tel" id="qPhone" placeholder="Phone number" aria-label="Phone number">
+            <button class="btn btn-live" type="button" id="qSend">Lock this range in</button>
+          </div>
+          <div class="sent" id="qSent" hidden>Booked — we'll ring you back today to arrange the survey.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="kick">What Harrogate says</div>
+    <h2>4.9 from 210 local jobs</h2>
+    <div class="revs">
+      <div class="rev"><div class="st">★★★★★</div><p>"Charger fitted on the Friday after I priced it on the website on the Tuesday. The number on the screen was the number on the invoice."</p><div class="who">JAMES · PANNAL</div></div>
+      <div class="rev"><div class="st">★★★★★</div><p>"Rewired the whole house around us with two kids in it. Dust sheets every day, everything tested and written up at the end."</p><div class="who">ELEANOR · BILTON</div></div>
+      <div class="rev"><div class="st">★★★★★</div><p>"The garden lighting has completely changed the back of the house. We sit out in October now."</p><div class="who">MARK · WETHERBY</div></div>
+      <div class="rev"><div class="st">★★★★★</div><p>"Turned up at ten past nine on a Sunday when the board tripped and wouldn't reset. Fixed, tested, gone by eleven."</p><div class="who">SUE · KNARESBOROUGH</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AREAS ================= -->
+<section id="areas">
+  <div class="wrap">
+    <div class="kick">Where we work</div>
+    <h2>Harrogate, Wetherby and everything between</h2>
+    <div class="towns">
+      <span>HARROGATE</span><span>KNARESBOROUGH</span><span>WETHERBY</span><span>RIPON</span><span>PANNAL</span>
+      <span>BILTON</span><span>STARBECK</span><span>KILLINGHALL</span><span>SPOFFORTH</span><span>BOROUGHBRIDGE</span>
+      <span>OTLEY</span><span>ILKLEY</span><span>NORTH LEEDS</span>
+    </div>
+    <div class="trust">
+      <div><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z"/></svg>NICEIC Approved Contractor</div>
+      <div><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z"/></svg>Part P registered</div>
+      <div><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z"/></svg>£5m public liability</div>
+      <div><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z"/></svg>Certificated, every job</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="kick">Talk to us</div>
+        <h2>Book a survey</h2>
+        <p class="lead" style="margin-bottom:1.2rem">Ring us, or leave a number and we'll call you back the same day. Emergencies answered around the clock.</p>
+        <a class="big-phone" href="tel:01423559040">01423 559 040</a>
+        <div class="hours">MON–SAT 7.30–18.00 · EMERGENCY CALLOUT 24/7</div>
+      </div>
+      <form class="cform" id="cForm">
+        <input type="text" placeholder="Your name" aria-label="Your name" required>
+        <input type="tel" placeholder="Phone number" aria-label="Phone number" required>
+        <input type="text" placeholder="Town (e.g. Pannal)" aria-label="Town">
+        <textarea placeholder="What needs doing?" aria-label="What needs doing?"></textarea>
+        <button class="btn btn-live" type="submit">Request a callback</button>
+        <div class="sent" id="cSent" hidden>Thanks — we'll be in touch today.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">FAIRHURST ELECTRICAL · HARROGATE HG1 · 01423 559 040 · NICEIC APPROVED CONTRACTOR · PART P REGISTERED</div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="call" href="tel:01423559040">Call now</a>
+  <a class="quote" href="#quote">Get a price</a>
+</div>
+
+<script>
+/* ============================================================
+   THE BOARD — every way is a Seedance clip that plays on flick.
+   Media contract, per way id:
+     media/<id>-off.jpg   dark still   (required — the poster)
+     media/<id>-on.jpg    lit still    (required — the resting lit state)
+     media/<id>.mp4       12s clip     (optional, desktop)
+     media/m/<id>.mp4     720p twin    (optional, mobile)
+   Clips are HEAD-probed. With no clips at all the board still works —
+   it cuts still-to-still with a strike of flicker. Each clip that lands
+   upgrades its own way, no code change.
+   ============================================================ */
+(function () {
+  var WAYS = [
+    { id:'kitchen', no:'WAY 1', amp:'6A',   name:'Kitchen lighting',
+      title:'Kitchen &amp; downlights', desc:'14 heads, dimmed in three scenes, plinth strip.',
+      price:'from £1,850', kw:0.4,
+      sched:'Downlights set out to the units, not the ceiling. Separate dimmed circuits for worktop, island and plinth so the room has an evening as well as a morning.' },
+    { id:'ev', no:'WAY 2', amp:'32A',  name:'EV charger',
+      title:'7kW EV charger', desc:'Tethered or socketed, load-balanced to the incomer.',
+      price:'from £995', kw:7.4,
+      sched:'7kW unit, tethered or untethered, on its own way with load balancing so the shower and the car never argue. OZEV paperwork done for you.' },
+    { id:'garden', no:'WAY 3', amp:'16A',  name:'Garden lighting',
+      title:'Garden &amp; fence line', desc:'Spikes, uplights and a wall of light down the boundary.',
+      price:'from £1,450', kw:0.3,
+      sched:'Low-level spikes down the path, uplights into whatever is worth lighting, fence-line washers on a photocell and timer. Armoured cable, buried properly.' },
+    { id:'tub', no:'WAY 4', amp:'32A',  name:'Hot tub supply',
+      title:'Hot tub supply', desc:'Armoured run, RCD isolator, deck lighting off the same trench.',
+      price:'from £850', kw:6.0,
+      sched:'SWA run from the board to a weatherproof RCD isolator by the tub, tested and certificated. Deck lights go in the same trench while it is open.' },
+    { id:'room', no:'WAY 5', amp:'40A',  name:'Garden room',
+      title:'Garden room supply', desc:'Its own sub-board, sockets, lighting and heating.',
+      price:'from £2,400', kw:4.0,
+      sched:'A proper sub-board in the room rather than an extension lead through a window: sockets, lighting, heating and data, all on their own protected supply.' },
+    { id:'board', no:'WAY 6', amp:'100A', name:'Board &amp; rewire',
+      title:'Consumer unit &amp; rewire', desc:'18th edition board, SPD, full test and certification.',
+      price:'from £3,750', kw:2.5,
+      sched:'New 18th edition board with RCBOs and surge protection, house rewired in stages so you are never without power overnight, every circuit tested and written up.' }
+  ];
+
+  var MAIN = {
+    id:'main',
+    title:'Everything, at once',
+    desc:'The whole house from the road — six ways, one evening.',
+    price:'from £9,900'
+  };
+
+  var stage   = document.getElementById('stage');
+  var still   = document.getElementById('still');
+  var vid     = document.getElementById('vid');
+  var flash   = document.getElementById('flash');
+  var waysEl  = document.getElementById('ways');
+  var mainSw  = document.getElementById('mainSw');
+  var readout = document.getElementById('readout');
+  var foot    = document.getElementById('foot');
+  var selName = document.getElementById('selName');
+  var selDesc = document.getElementById('selDesc');
+  var selPrice= document.getElementById('selPrice');
+  var allOn   = document.getElementById('allOn');
+  var soundBtn= document.getElementById('soundBtn');
+
+  var isMobile = window.matchMedia('(max-width: 899px)').matches;
+  var reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var live = {};        // id -> true when energised
+  var selected = null;  // currently painted way
+  var clipFor = {};     // id -> url, filled by the probe
+  var buttons = {};
+
+  /* ---------- build the breakers ---------- */
+  WAYS.forEach(function (w) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'way';
+    b.setAttribute('aria-pressed', 'false');
+    b.innerHTML =
+      '<span class="no">' + w.no + '</span>' +
+      '<span class="rocker"><i></i></span>' +
+      '<span class="nm">' + w.name + '</span>' +
+      '<span class="amp">' + w.amp + ' · ' + w.price.replace('from ', '') + '</span>';
+    b.addEventListener('click', function () { toggle(w); });
+    waysEl.appendChild(b);
+    buttons[w.id] = b;
+  });
+
+  /* ---------- probe which clips have landed ---------- */
+  function head(url) {
+    return fetch(url, { method: 'HEAD' })
+      .then(function (r) { return r.ok ? url : null; })
+      .catch(function () { return null; });
+  }
+  var all = WAYS.concat([MAIN]);
+  Promise.all(all.map(function (w) {
+    return head(isMobile ? 'media/m/' + w.id + '.mp4' : 'media/' + w.id + '.mp4')
+      .then(function (u) {
+        if (u) { clipFor[w.id] = u; return; }
+        // fall back to the other cut rather than losing the clip entirely
+        return head(isMobile ? 'media/' + w.id + '.mp4' : 'media/m/' + w.id + '.mp4')
+          .then(function (u2) { if (u2) clipFor[w.id] = u2; });
+      });
+  }));
+
+  /* ---------- painting the stage ---------- */
+  function imgFor(w, on) { return 'media/' + w.id + '-' + (on ? 'on' : 'off') + '.jpg'; }
+
+  function setStill(src) {
+    return new Promise(function (res) {
+      var pre = new Image();
+      pre.onload = function () { still.src = src; res(true); };
+      pre.onerror = function () { res(false); };
+      pre.src = src;
+    });
+  }
+
+  function hideVideo() {
+    vid.classList.remove('is-shown');
+    setTimeout(function () { if (!vid.classList.contains('is-shown')) { vid.pause(); vid.removeAttribute('src'); vid.load(); } }, 480);
+  }
+
+  function strike() {
+    flash.classList.remove('is-firing');
+    void flash.offsetWidth;
+    flash.classList.add('is-firing');
+    clack();
+  }
+
+  // paint(way, on) — show this way in the given state
+  function paint(w, on) {
+    selected = w;
+    setInfo(w, on);
+    var clip = clipFor[w.id];
+
+    if (on && clip && !reduced) {
+      // lit still sits underneath so the clip can hold its last frame,
+      // then hand over cleanly when the way is deselected
+      setStill(imgFor(w, true));
+      vid.src = clip;
+      vid.currentTime = 0;
+      var p = vid.play();
+      if (p && p.catch) p.catch(function () { /* blocked — the stills carry it */ });
+      vid.classList.add('is-shown');
+      clack();
+      return;
+    }
+
+    hideVideo();
+    setStill(imgFor(w, on)).then(function (ok) {
+      if (!ok) setStill(imgFor(w, false));
+    });
+    if (on) strike(); else clack();
+  }
+
+  function setInfo(w, on) {
+    foot.classList.add('is-swapping');
+    setTimeout(function () {
+      selName.innerHTML = on ? w.title : (w.title + ' — off');
+      selDesc.innerHTML = w.desc;
+      selPrice.textContent = w.price;
+      foot.classList.remove('is-swapping');
+    }, 130);
+  }
+
+  /* ---------- state ---------- */
+  function liveCount() { return WAYS.filter(function (w) { return live[w.id]; }).length; }
+
+  function sync() {
+    var n = liveCount();
+    var kw = WAYS.reduce(function (a, w) { return a + (live[w.id] ? w.kw : 0); }, 0);
+    readout.innerHTML = '<b>' + n + '</b> of 6 live' + (n ? ' · ' + kw.toFixed(1) + ' kW' : '');
+    WAYS.forEach(function (w) {
+      var b = buttons[w.id];
+      b.classList.toggle('is-live', !!live[w.id]);
+      b.setAttribute('aria-pressed', live[w.id] ? 'true' : 'false');
+      b.classList.toggle('is-sel', selected && selected.id === w.id);
+    });
+    var allLive = n === WAYS.length;
+    mainSw.classList.toggle('is-live', allLive);
+    mainSw.setAttribute('aria-pressed', allLive ? 'true' : 'false');
+    allOn.classList.toggle('is-shown', allLive);
+  }
+
+  function toggle(w) {
+    if (live[w.id] && selected && selected.id === w.id) {
+      live[w.id] = false;      // trip it back out
+      paint(w, false);
+    } else {
+      live[w.id] = true;
+      paint(w, true);
+    }
+    sync();
+  }
+
+  mainSw.addEventListener('click', function () {
+    var allLive = liveCount() === WAYS.length;
+    if (allLive) {
+      WAYS.forEach(function (w) { live[w.id] = false; });
+      paint(WAYS[0], false);
+      sync();
+      return;
+    }
+    // energise the lot: the master clip runs while the breakers snap up behind it
+    paint(MAIN, true);
+    WAYS.forEach(function (w, i) {
+      setTimeout(function () {
+        live[w.id] = true;
+        sync();
+        if (i > 0) clack(0.5);
+      }, 140 * i);
+    });
+  });
+
+  /* ---------- the clack ---------- */
+  var actx = null, soundOn = false;
+  function clack(gain) {
+    if (!soundOn) return;
+    try {
+      if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+      var t = actx.currentTime;
+      var o = actx.createOscillator(), g = actx.createGain();
+      o.type = 'square'; o.frequency.setValueAtTime(180, t);
+      o.frequency.exponentialRampToValueAtTime(60, t + 0.04);
+      g.gain.setValueAtTime((gain || 1) * 0.09, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+      o.connect(g); g.connect(actx.destination);
+      o.start(t); o.stop(t + 0.07);
+    } catch (e) { /* no audio context — silent */ }
+  }
+
+  soundBtn.addEventListener('click', function () {
+    soundOn = !soundOn;
+    vid.muted = !soundOn;
+    soundBtn.textContent = soundOn ? 'Sound on' : 'Sound off';
+    soundBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+    if (soundOn) { clack(); if (vid.src && vid.paused) vid.play().catch(function () {}); }
+  });
+
+  /* ---------- opening state: way 1, dark ---------- */
+  paint(WAYS[0], false);
+  sync();
+
+  /* ---------- schedule rows, off the same data ---------- */
+  var schedList = document.getElementById('schedList');
+  WAYS.forEach(function (w) {
+    var row = document.createElement('div');
+    row.className = 'srow';
+    row.innerHTML =
+      '<span class="w">' + w.no + '</span>' +
+      '<h3>' + w.title + '</h3>' +
+      '<span class="p">' + w.price.replace('from ', '') + '<small>from</small></span>' +
+      '<p>' + w.sched + '</p>';
+    row.addEventListener('click', function () {
+      live[w.id] = true;
+      paint(w, true);
+      sync();
+      document.getElementById('top').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    });
+    schedList.appendChild(row);
+  });
+})();
+
+/* ============ header reveal ============ */
+(function () {
+  var hdr = document.getElementById('hdr');
+  var hero = document.getElementById('top');
+  if (!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function (e) {
+    hdr.classList.toggle('is-shown', !e[0].isIntersecting);
+  }, { rootMargin: '-70% 0px 0px 0px' }).observe(hero);
+})();
+
+/* ============ instant estimate ============ */
+(function () {
+  var BASE = {
+    rewire: [3750, 4600], board: [1150, 1400], kitchen: [1850, 2300], ev: [995, 1250],
+    garden: [1450, 1900], tub: [850, 1100], room: [2400, 3100], eicr: [180, 260]
+  };
+  var SIZE = { 1: 0.82, 2: 1, 3: 1.28, 4: 1.6 };
+  var AGE  = { new: 1, mid: 1.06, old: 1.16 };
+  var NAME = {
+    rewire:'Full rewire & board', board:'Consumer unit', kitchen:'Room lighting', ev:'EV charger',
+    garden:'Garden lighting', tub:'Hot tub supply', room:'Garden room supply', eicr:'EICR'
+  };
+
+  var job = document.getElementById('qJob'), size = document.getElementById('qSize'), age = document.getElementById('qAge');
+  var smart = document.getElementById('oSmart'), out = document.getElementById('oOut'), cert = document.getElementById('oCert');
+  var range = document.getElementById('qRange'), lines = document.getElementById('qLines');
+
+  function calc() {
+    var b = BASE[job.value], s = SIZE[size.value], a = AGE[age.value];
+    var lo = b[0] * s * a, hi = b[1] * s * a;
+    var extras = [];
+    if (smart.checked) { lo += 320; hi += 480; extras.push(['Smart controls', '£320–480']); }
+    if (out.checked)   { lo += 180; hi += 260; extras.push(['Outside sockets', '£180–260']); }
+    if (cert.checked)  { lo += 90;  hi += 120; extras.push(['Certificate pack', '£90–120']); }
+    range.textContent = fmt(lo) + ' – ' + fmt(hi);
+    var html = '<div><span>' + NAME[job.value] + '</span><span>' + fmt(b[0] * s * a) + '–' + fmt(b[1] * s * a) + '</span></div>';
+    extras.forEach(function (e) { html += '<div><span>' + e[0] + '</span><span>' + e[1] + '</span></div>'; });
+    html += '<div><span>Testing &amp; certification</span><span>included</span></div>';
+    lines.innerHTML = html;
+  }
+  function fmt(n) { return '£' + (Math.round(n / 5) * 5).toLocaleString('en-GB'); }
+
+  [job, size, age, smart, out, cert].forEach(function (el) { el.addEventListener('change', calc); });
+  calc();
+
+  document.getElementById('qSend').addEventListener('click', function () {
+    document.getElementById('qGrab').hidden = true;
+    document.getElementById('qSent').hidden = false;
+  });
+  document.getElementById('cForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.querySelectorAll('input,textarea,button').forEach(function (n) { n.disabled = true; });
+    document.getElementById('cSent').hidden = false;
+  });
+})();
+</script>
+</body>
+</html>

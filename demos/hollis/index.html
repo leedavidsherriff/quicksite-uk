@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hollis Electrical — Electricians in Derby | Rewires, Lighting &amp; EV Charging</title>
+<meta name="description" content="NICEIC-approved electricians covering Derby and surrounding towns. Rewires, lighting design, exterior LED packages and EV chargers — priced upfront.">
+<style>
+  :root{
+    --ink:#0b1522;          /* deep blue-hour navy */
+    --ink-2:#101d2e;
+    --ink-3:#16273c;
+    --line:#22364e;
+    --paper:#f4f1ea;
+    --amber:#f0a94e;        /* warm window glow */
+    --amber-2:#ffc474;
+    --ice:#cfe4f5;          /* LED strip white-blue */
+    --text:#e8eef5;
+    --muted:#9fb0c2;
+    --max:1120px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--ink);color:var(--text);line-height:1.55}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+  h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.01em;line-height:1.15;margin-bottom:10px}
+  .kick{color:var(--amber);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+  .lead{color:var(--muted);max-width:640px;margin-bottom:34px}
+  section{padding:72px 0}
+
+  /* ---------- header ---------- */
+  header{position:fixed;inset:0 0 auto 0;z-index:50;background:linear-gradient(180deg,rgba(6,12,20,.85),rgba(6,12,20,0));backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:800;letter-spacing:.04em;font-size:17px;text-decoration:none}
+  .logo em{font-style:normal;color:var(--amber)}
+  .head-phone{text-decoration:none;font-weight:700;font-size:15px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:9px 16px;border-radius:999px;white-space:nowrap}
+  .head-phone:hover{background:rgba(255,255,255,.14)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;min-height:92svh;display:flex;align-items:flex-end;padding:0}
+  .hero-media{position:absolute;inset:0}
+  .hero-media video,.hero-freeze,.hero-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero-fallback{background:center/cover no-repeat url('./media/poster.jpg')}
+  .hero-media video{pointer-events:none}
+  video::-webkit-media-controls,
+  video::-webkit-media-controls-start-playback-button,
+  video::-webkit-media-controls-panel,
+  video::-webkit-media-controls-overlay-play-button{display:none !important;-webkit-appearance:none}
+  .hero-freeze{opacity:0;transition:opacity .12s linear;pointer-events:none}
+  .hero-freeze.is-shown{opacity:1}
+  .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,9,16,.5) 0%,rgba(4,9,16,.08) 45%,rgba(4,9,16,.68) 100%)}
+  .hero-copy{position:relative;width:100%;padding:0 0 96px}
+  .hero-copy h1{font-size:clamp(34px,6vw,62px);letter-spacing:-.02em;line-height:1.04;max-width:11ch}
+  .hero-copy p{margin:16px 0 26px;color:#d9e3ee;max-width:46ch;font-size:clamp(15px,1.8vw,18px)}
+  .btn{display:inline-block;background:var(--amber);color:#1d1204;font-weight:800;text-decoration:none;padding:15px 26px;border-radius:10px;border:0;font-size:16px;cursor:pointer}
+  .btn:hover{background:var(--amber-2)}
+  .btn-ghost{display:inline-block;margin-left:12px;text-decoration:none;font-weight:700;padding:14px 22px;border-radius:10px;border:1px solid rgba(255,255,255,.35)}
+  .btn-ghost:hover{border-color:#fff}
+
+  /* price chip — swaps with the playing cycle */
+  .pkg-chip{position:absolute;right:24px;bottom:88px;z-index:3;background:rgba(6,12,20,.72);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:14px 18px;text-decoration:none;max-width:270px;transition:opacity .3s ease;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .pkg-chip.is-swapping{opacity:0}
+  .pkg-chip .pkg-name{display:block;font-size:13px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+  .pkg-chip .pkg-price{display:block;font-size:24px;font-weight:800;color:var(--amber-2);margin-top:2px}
+  .pkg-chip .pkg-cta{display:block;font-size:13px;color:var(--ice);margin-top:4px}
+
+  .sound-toggle{position:absolute;left:20px;bottom:24px;z-index:3;display:flex;align-items:center;gap:8px;background:rgba(6,12,20,.72);color:var(--text);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .sound-toggle svg{width:16px;height:16px;fill:currentColor}
+  .sound-toggle .on-label{display:none}
+  .sound-toggle:not(.is-muted) .on-label{display:inline}
+  .sound-toggle:not(.is-muted) .off-label{display:none}
+
+  @media (prefers-reduced-motion: reduce){ .hero-media video{display:none} }
+
+  /* ---------- services ---------- */
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+  .svc{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .svc h3{font-size:17px;margin-bottom:6px}
+  .svc p{color:var(--muted);font-size:14px;min-height:42px}
+  .svc .price{margin-top:14px;font-size:20px;font-weight:800;color:var(--amber-2)}
+  .svc .price span{font-size:12px;color:var(--muted);font-weight:600;display:block;letter-spacing:.05em}
+
+  /* ---------- work ---------- */
+  .work-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .job{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .job .ph{aspect-ratio:4/3;background:linear-gradient(160deg,var(--ink-3),#0d1826);position:relative}
+  .job .ph img{width:100%;height:100%;object-fit:cover}
+  .job .ph .soon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#54708c;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+  .job .body{padding:16px 18px 18px}
+  .job h3{font-size:16px}
+  .job .loc{color:var(--amber);font-size:13px;font-weight:700;margin:2px 0 8px}
+  .job p{color:var(--muted);font-size:14px}
+  .job .meta{display:flex;gap:14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+  .job .meta b{color:var(--text);display:block;font-size:14px}
+
+  /* ---------- quote tool ---------- */
+  #quote{background:var(--ink-2)}
+  .quote-box{display:grid;gap:28px;grid-template-columns:1fr 1fr;align-items:start}
+  @media (max-width:820px){.quote-box{grid-template-columns:1fr}}
+  .q-form{display:grid;gap:16px}
+  .q-form label{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .q-form select,.q-form input{width:100%;margin-top:6px;background:var(--ink);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:13px 14px;font-size:16px;appearance:none}
+  .q-form select:focus,.q-form input:focus{outline:2px solid var(--amber);outline-offset:0}
+  .estimate{background:var(--ink);border:1px solid var(--line);border-radius:16px;padding:28px;position:sticky;top:84px}
+  .estimate .kick{margin-bottom:4px}
+  .est-range{font-size:clamp(30px,4.5vw,44px);font-weight:800;color:var(--amber-2);letter-spacing:-.01em;min-height:1.2em}
+  .estimate .note{color:var(--muted);font-size:13px;margin:10px 0 20px}
+  .cb-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .cb-row input{display:none}
+  .cb-row span{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer;color:var(--muted)}
+  .cb-row input:checked + span{background:rgba(240,169,78,.15);border-color:var(--amber);color:var(--amber-2)}
+  .est-contact{border-top:1px solid var(--line);padding-top:18px;display:grid;gap:10px}
+  .est-contact.is-hidden{display:none}
+  .sent-msg{color:var(--ice);font-weight:700}
+
+  /* ---------- reviews ---------- */
+  .rev-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+  .rev{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .stars{color:var(--amber);letter-spacing:2px;margin-bottom:10px}
+  .rev p{font-size:14px;color:#d5dfe9}
+  .rev .who{margin-top:14px;color:var(--muted);font-size:13px;font-weight:700}
+
+  /* ---------- areas / trust ---------- */
+  .towns{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .towns span{border:1px solid var(--line);background:var(--ink-2);border-radius:999px;padding:8px 16px;font-size:14px;color:#c9d6e2}
+  .trust-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .trust{display:flex;align-items:center;gap:10px;background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:12px 18px;font-size:14px;font-weight:700}
+  .trust svg{width:18px;height:18px;fill:var(--amber)}
+
+  /* ---------- contact ---------- */
+  #contact{background:var(--ink-2)}
+  .contact-grid{display:grid;gap:28px;grid-template-columns:1fr 1fr}
+  @media (max-width:820px){.contact-grid{grid-template-columns:1fr}}
+  .c-form{display:grid;gap:12px}
+  .c-form input,.c-form textarea{width:100%;background:var(--ink);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:13px 14px;font-size:16px;font-family:inherit}
+  .c-form textarea{min-height:110px;resize:vertical}
+  .c-form input:focus,.c-form textarea:focus{outline:2px solid var(--amber);outline-offset:0}
+  .big-phone{font-size:clamp(24px,3.5vw,34px);font-weight:800;text-decoration:none;color:var(--amber-2)}
+  .hours{color:var(--muted);font-size:14px;margin-top:8px}
+
+  footer{padding:32px 0 110px;color:#54708c;font-size:13px}
+  @media (min-width:769px){footer{padding-bottom:32px}}
+
+  /* ---------- sticky mobile bar ---------- */
+  .mobile-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+  .mobile-bar a{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 10px;font-weight:800;text-decoration:none;font-size:15px}
+  .mobile-bar .call{background:var(--ink-3);color:var(--text)}
+  .mobile-bar .quote{background:var(--amber);color:#1d1204}
+  @media (max-width:768px){
+    .mobile-bar{display:grid}
+    .btn-ghost{display:none}
+    .pkg-chip{right:16px;bottom:132px;padding:11px 14px}
+    .pkg-chip .pkg-price{font-size:20px}
+    .sound-toggle{left:16px;bottom:76px}
+    .hero-copy{padding-bottom:230px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#top">HOLLIS <em>ELECTRICAL</em></a>
+    <a class="head-phone" href="tel:01332552148">01332 552 148</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-media">
+    <video id="heroVideo" muted playsinline preload="auto"
+           disablepictureinpicture disableremoteplayback
+           controlslist="nodownload noplaybackrate noremoteplayback"
+           poster="./media/poster.jpg"></video>
+    <canvas class="hero-freeze" id="heroFreeze" aria-hidden="true"></canvas>
+    <audio id="ambience" loop preload="none" src="./media/ambience.m4a"></audio>
+  </div>
+  <div class="hero-fallback" id="heroFallback"></div>
+  <div class="hero-scrim"></div>
+
+  <button type="button" class="sound-toggle is-muted" id="soundToggle" aria-label="Tap for sound">
+    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>
+    <span class="off-label">Tap for sound</span><span class="on-label">Mute</span>
+  </button>
+
+  <a class="pkg-chip" id="pkgChip" href="#services">
+    <span class="pkg-name" id="pkgName">Full rewire &amp; lighting</span>
+    <span class="pkg-price" id="pkgPrice">from £3,495</span>
+    <span class="pkg-cta">See all prices →</span>
+  </a>
+
+  <div class="wrap hero-copy">
+    <h1>Your home, switched&nbsp;on.</h1>
+    <p>Rewires, lighting design, exterior LED packages and EV charging across <strong>Derby</strong> — priced upfront, NICEIC certified, guaranteed.</p>
+    <a class="btn" href="#quote">Get an instant price</a>
+    <a class="btn-ghost" href="tel:01332552148">Call 01332 552 148</a>
+  </div>
+</section>
+
+<!-- ================= SERVICES + PRICES ================= -->
+<section id="services">
+  <div class="wrap">
+    <div class="kick">What we do — and what it costs</div>
+    <h2>Every job, priced before we start</h2>
+    <p class="lead">No day rates, no surprises. These are the starting prices we actually charge — your exact quote takes two minutes with the price checker.</p>
+    <div class="grid">
+      <div class="svc"><h3>Full rewire</h3><p>Complete rewire with new consumer unit, sockets and switches. 3-bed typically 4–5 days.</p><div class="price">£3,495 <span>from · 3-bed house</span></div></div>
+      <div class="svc"><h3>Exterior LED package</h3><p>Eaves strip lighting, up/down wall washers and drive lights — the full show.</p><div class="price">£1,495 <span>from · fitted &amp; programmed</span></div></div>
+      <div class="svc"><h3>Consumer unit upgrade</h3><p>New metal consumer unit with RCBO protection and surge protection, fully certificated.</p><div class="price">£595 <span>from · incl. certificate</span></div></div>
+      <div class="svc"><h3>EV charger install</h3><p>7kW smart charger supplied and fitted, tethered or socketed, app set up before we leave.</p><div class="price">£895 <span>from · supply &amp; fit</span></div></div>
+      <div class="svc"><h3>Room lighting design</h3><p>LED downlights, dimming and warm scene setting — kitchens, lounges and bathrooms.</p><div class="price">£295 <span>from · per room</span></div></div>
+      <div class="svc"><h3>Garden &amp; security lighting</h3><p>Path lights, PIR floods and fence-line spikes on separate switching.</p><div class="price">£445 <span>from · supply &amp; fit</span></div></div>
+      <div class="svc"><h3>EICR safety report</h3><p>Full electrical inspection with certificate — for landlords, buyers and peace of mind.</p><div class="price">£165 <span>from · 3-bed house</span></div></div>
+      <div class="svc"><h3>Extra sockets &amp; switches</h3><p>Double sockets, USB-C faceplates, outdoor sockets and isolators, neatly chased in.</p><div class="price">£95 <span>from · per point</span></div></div>
+      <div class="svc"><h3>Smart home &amp; heating controls</h3><p>Smart switching, thermostats and doorbells wired properly — no bodged adapters.</p><div class="price">£345 <span>from · per system</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RECENT WORK ================= -->
+<section id="work">
+  <div class="wrap">
+    <div class="kick">Recent work</div>
+    <h2>Jobs we've finished lately</h2>
+    <p class="lead">Real jobs, real prices — so you know what yours should cost before anyone visits.</p>
+    <div class="work-grid">
+      <div class="job">
+        <div class="ph"><img src="./media/after-interior.jpg" alt="Rewired semi with full interior and exterior lighting at dusk"></div>
+        <div class="body"><h3>Full rewire &amp; lighting</h3><div class="loc">Mickleover</div>
+          <p>Complete rewire of a 3-bed semi — new consumer unit, LED lighting throughout, porch and drive lights.</p>
+          <div class="meta"><div><b>5 days</b>on site</div><div><b>£3,850</b>total</div><div><b>13</b>circuits</div></div></div>
+      </div>
+      <div class="job">
+        <div class="ph"><img src="./media/after-led.jpg" alt="Semi with LED eaves strip, wall washers and drive lights at dusk"></div>
+        <div class="body"><h3>Exterior LED package</h3><div class="loc">Allestree</div>
+          <p>Eaves strip around the full roofline, up/down washers and recessed drive lights on scene control.</p>
+          <div class="meta"><div><b>2 days</b>on site</div><div><b>£1,650</b>total</div><div><b>18m</b>LED strip</div></div></div>
+      </div>
+      <div class="job">
+        <div class="ph"><img src="./media/card-ev.webp" alt="Black home EV charging point on a brick house wall"></div>
+        <div class="body"><h3>EV charger</h3><div class="loc">Duffield</div>
+          <p>7kW smart charger on a dedicated circuit with surge protection, app configured and tested.</p>
+          <div class="meta"><div><b>1 day</b>on site</div><div><b>£940</b>total</div><div><b>7kW</b>smart unit</div></div></div>
+      </div>
+      <div class="job">
+        <div class="ph"><img src="./media/card-downlights.webp" alt="Kitchen ceiling with rows of recessed LED downlights"></div>
+        <div class="body"><h3>Kitchen lighting design</h3><div class="loc">Darley Abbey</div>
+          <p>Dimmable downlights, under-cabinet strip and pendants over the island on three scenes.</p>
+          <div class="meta"><div><b>2 days</b>on site</div><div><b>£780</b>total</div><div><b>14</b>fittings</div></div></div>
+      </div>
+      <div class="job">
+        <div class="ph"><img src="./media/card-consumer.webp" alt="Newly installed consumer unit with neat breakers"></div>
+        <div class="body"><h3>Consumer unit &amp; EICR</h3><div class="loc">Chaddesden</div>
+          <p>Old fuse box replaced with an RCBO board, full inspection and certificate issued same day.</p>
+          <div class="meta"><div><b>1 day</b>on site</div><div><b>£720</b>total</div><div><b>10</b>circuits</div></div></div>
+      </div>
+      <div class="job">
+        <div class="ph"><img src="./media/card-outdoor.webp" alt="House exterior at dusk with warm garden and wall lighting"></div>
+        <div class="body"><h3>Garden &amp; security lighting</h3><div class="loc">Belper</div>
+          <p>Fence-line spikes, patio wall lights and PIR floods to the drive, all separately switched.</p>
+          <div class="meta"><div><b>2 days</b>on site</div><div><b>£1,240</b>total</div><div><b>16</b>fittings</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUOTE TOOL ================= -->
+<section id="quote">
+  <div class="wrap">
+    <div class="kick">Instant price checker</div>
+    <h2>Your price in three taps</h2>
+    <p class="lead">Pick the job, tell us the house, see your price range straight away — then we'll confirm it with a free visit.</p>
+    <div class="quote-box">
+      <form class="q-form" id="qForm" autocomplete="off">
+        <div>
+          <label for="qJob">What needs doing?</label>
+          <select id="qJob">
+            <option value="rewire">Full rewire</option>
+            <option value="led">Exterior LED package</option>
+            <option value="cu">Consumer unit upgrade</option>
+            <option value="ev">EV charger</option>
+            <option value="lighting">Room lighting design</option>
+            <option value="garden">Garden &amp; security lighting</option>
+            <option value="eicr">EICR safety report</option>
+            <option value="sockets">Extra sockets &amp; switches</option>
+            <option value="smart">Smart home &amp; controls</option>
+          </select>
+        </div>
+        <div>
+          <label for="qSize">How big is the house?</label>
+          <select id="qSize">
+            <option value="1">1–2 bedrooms</option>
+            <option value="2" selected>3 bedrooms</option>
+            <option value="3">4+ bedrooms</option>
+          </select>
+        </div>
+        <div>
+          <label>Anything extra?</label>
+          <div class="cb-row">
+            <label><input type="checkbox" id="xGarden"><span>Outside lighting</span></label>
+            <label><input type="checkbox" id="xSmart"><span>Smart controls</span></label>
+            <label><input type="checkbox" id="xCert"><span>Landlord certificate</span></label>
+          </div>
+        </div>
+      </form>
+      <div class="estimate">
+        <div class="kick">Your estimated price</div>
+        <div class="est-range" id="estRange">£3,495 – £4,300</div>
+        <p class="note">Based on jobs like yours in the last 12 months. Fixed quote confirmed free, at your house, no obligation.</p>
+        <div class="est-contact" id="estContact">
+          <input type="text" id="cName" placeholder="Your name" aria-label="Your name">
+          <input type="tel" id="cPhone" placeholder="Your phone number" aria-label="Your phone number">
+          <button class="btn" type="button" id="estSend">Lock in this price range</button>
+        </div>
+        <div class="sent-msg" id="estSent" hidden>Thanks — we'll call you back today to book your free visit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="kick">What Derby says</div>
+    <h2>Rated 4.9 from 180+ local jobs</h2>
+    <div class="rev-grid" style="margin-top:26px">
+      <div class="rev"><div class="stars">★★★★★</div><p>"Rewired our whole house in four days and you'd never know they'd been. Price was the price — to the pound."</p><div class="who">Sarah · Mickleover</div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"The eaves lighting is unreal. Neighbours literally stop and look at the house on an evening."</p><div class="who">Dan · Allestree</div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"Quoted from the website, confirmed next day, charger fitted by Friday. Easiest trade I've ever dealt with."</p><div class="who">Priya · Duffield</div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"Tidy, polite, everything certificated and explained. Used them three times now."</p><div class="who">Margaret · Belper</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AREAS + TRUST ================= -->
+<section id="areas">
+  <div class="wrap">
+    <div class="kick">Where we work</div>
+    <h2>Covering Derby and the villages around it</h2>
+    <div class="towns">
+      <span>Derby</span><span>Allestree</span><span>Mickleover</span><span>Littleover</span><span>Oakwood</span><span>Chaddesden</span><span>Spondon</span><span>Alvaston</span><span>Chellaston</span><span>Duffield</span><span>Belper</span><span>Borrowash</span>
+    </div>
+    <div class="trust-row">
+      <div class="trust"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z"/></svg>NICEIC Approved Contractor</div>
+      <div class="trust"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z"/></svg>Part P Certified</div>
+      <div class="trust"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z"/></svg>£5m Public Liability</div>
+      <div class="trust"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1 14-4-4 1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z"/></svg>Every job certificated</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="kick">Talk to us</div>
+        <h2>Book a free visit</h2>
+        <p class="lead" style="margin-bottom:20px">Ring, or leave your details and we'll call you back the same day.</p>
+        <a class="big-phone" href="tel:01332552148">01332 552 148</a>
+        <div class="hours">Mon–Sat 7.30am – 6pm · Emergency callout 24/7</div>
+      </div>
+      <form class="c-form" id="cForm">
+        <input type="text" placeholder="Your name" aria-label="Your name" required>
+        <input type="tel" placeholder="Phone number" aria-label="Phone number" required>
+        <input type="text" placeholder="Town (e.g. Allestree)" aria-label="Town">
+        <textarea placeholder="What needs doing?" aria-label="What needs doing?"></textarea>
+        <button class="btn" type="submit">Request a callback</button>
+        <div class="sent-msg" id="cSent" hidden>Thanks — we'll be in touch today.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Hollis Electrical · Derby · 01332 552 148 — NICEIC Approved · Part P Registered</div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="call" href="tel:01332552148">Call now</a>
+  <a class="quote" href="#quote">Get a price</a>
+</div>
+
+<script>
+/* ============ cycle-chain hero player ============ */
+(function () {
+  var HOLD_MS = 2500;
+
+  var CYCLE_DEFS_DESKTOP = [
+    ['./media/01-interior.mp4'],
+    ['./media/02-led.mp4']
+  ];
+  var CYCLE_DEFS_MOBILE = [
+    ['./media/m/01-interior.mp4'],
+    ['./media/m/02-led.mp4']
+  ];
+  // Package chip content, indexed to the DESKTOP cycle list. After probing,
+  // meta is refiltered to match surviving cycles.
+  var CYCLE_META = [
+    { name: 'Full rewire & lighting', price: 'from £3,495' },
+    { name: 'Exterior LED package',   price: 'from £1,495' }
+  ];
+
+  var video = document.getElementById('heroVideo');
+  var freeze = document.getElementById('heroFreeze');
+  var fallback = document.getElementById('heroFallback');
+  var chip = document.getElementById('pkgChip');
+  var chipName = document.getElementById('pkgName');
+  var chipPrice = document.getElementById('pkgPrice');
+  if (!video) return;
+
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
+  var defs = isMobile ? CYCLE_DEFS_MOBILE : CYCLE_DEFS_DESKTOP;
+
+  var cycles = [];
+  var meta = [];
+  var cycleIndex = 0;
+  var clipIndex = 0;
+
+  function exists(url) {
+    return fetch(url, { method: 'HEAD' })
+      .then(function (r) { return r.ok; })
+      .catch(function () { return false; });
+  }
+
+  Promise.all(defs.map(function (clips) {
+    return Promise.all(clips.map(exists)).then(function (oks) {
+      return clips.filter(function (_, i) { return oks[i]; });
+    });
+  })).then(function (resolved) {
+    resolved.forEach(function (c, i) {
+      if (c.length) { cycles.push(c); meta.push(CYCLE_META[i]); }
+    });
+    if (!cycles.length) { fallback.classList.add('is-shown'); return; }
+    setChip(0);
+    play();
+  });
+
+  function setChip(i) {
+    if (!meta[i]) return;
+    chip.classList.add('is-swapping');
+    setTimeout(function () {
+      chipName.textContent = meta[i].name;
+      chipPrice.textContent = meta[i].price;
+      chip.classList.remove('is-swapping');
+    }, 300);
+  }
+
+  function play() {
+    video.src = cycles[cycleIndex][clipIndex];
+    video.play().catch(function () { /* autoplay blocked — poster stands in */ });
+  }
+
+  function showFreeze() {
+    try {
+      freeze.width = video.videoWidth;
+      freeze.height = video.videoHeight;
+      freeze.getContext('2d').drawImage(video, 0, 0);
+      freeze.classList.add('is-shown');
+    } catch (e) { /* not ready — skip the freeze */ }
+  }
+
+  var holdDeadline = 0;
+
+  function advanceCycle() {
+    holdDeadline = 0;
+    cycleIndex = (cycleIndex + 1) % cycles.length;
+    clipIndex = 0;
+    setChip(cycleIndex);
+    play();
+    video.addEventListener('playing', function once() {
+      freeze.classList.remove('is-shown');
+      video.removeEventListener('playing', once);
+    });
+  }
+
+  video.addEventListener('ended', function () {
+    clipIndex++;
+    if (clipIndex < cycles[cycleIndex].length) {
+      showFreeze();               /* hold the last frame over the src swap — no poster flash */
+      play();
+      video.addEventListener('playing', function once() {
+        freeze.classList.remove('is-shown');
+        video.removeEventListener('playing', once);
+      });
+      return;
+    }
+    showFreeze();
+    holdDeadline = performance.now() + HOLD_MS;
+    setTimeout(function () { if (holdDeadline) advanceCycle(); }, HOLD_MS);
+  });
+
+  video.addEventListener('error', function () {
+    if (video.src) video.dispatchEvent(new Event('ended'));
+  });
+
+  // Watchdog: browsers power-pause video and throttle timers in hidden tabs,
+  // which strands the loop with no 'ended' ever firing. Once visible again,
+  // resume a stalled clip or fire an overdue hold.
+  setInterval(function () {
+    if (document.hidden || !cycles.length) return;
+    if (holdDeadline && performance.now() > holdDeadline + 1000) { advanceCycle(); return; }
+    if (video.paused && !video.ended && !holdDeadline) {
+      video.play().catch(function () {
+        if (!video.muted) {
+          video.muted = true;
+          toggle.classList.add('is-muted');
+          toggle.setAttribute('aria-label', 'Tap for sound');
+          video.play().catch(function () {});
+        }
+      });
+    }
+  }, 2000);
+
+  /* ---- sound ---- */
+  var toggle = document.getElementById('soundToggle');
+  var ambience = document.getElementById('ambience');
+  var RAMP_MS = 300;
+
+  function rampTo(el, target) {
+    var from = el.volume, t0 = performance.now();
+    (function step(now) {
+      var k = Math.min(1, (now - t0) / RAMP_MS);
+      el.volume = from + (target - from) * k;
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  toggle.addEventListener('click', function () {
+    var turningOn = video.muted;
+    if (turningOn) {
+      video.muted = false;
+      ambience.volume = 0;
+      ambience.play().catch(function () {});
+      rampTo(ambience, 0.35);
+    } else {
+      rampTo(ambience, 0);
+      setTimeout(function () { ambience.pause(); }, RAMP_MS);
+      video.muted = true;
+    }
+    toggle.classList.toggle('is-muted', video.muted);
+    toggle.setAttribute('aria-label', video.muted ? 'Tap for sound' : 'Mute');
+  });
+})();
+
+/* ============ instant price checker ============ */
+(function () {
+  // [1-2 bed, 3 bed, 4+ bed] price bands per job
+  var PRICES = {
+    rewire:   [[2650,3400],[3495,4300],[4400,5900]],
+    led:      [[1495,1900],[1650,2300],[1900,2900]],
+    cu:       [[595,695],[595,795],[695,895]],
+    ev:       [[895,995],[895,1100],[950,1250]],
+    lighting: [[295,520],[420,780],[560,1100]],
+    garden:   [[445,780],[560,1100],[700,1400]],
+    eicr:     [[145,185],[165,225],[195,285]],
+    sockets:  [[95,240],[95,320],[120,420]],
+    smart:    [[345,620],[420,780],[520,980]]
+  };
+  var EXTRAS = { xGarden: [445,900], xSmart: [345,700], xCert: [95,145] };
+
+  var job = document.getElementById('qJob');
+  var size = document.getElementById('qSize');
+  var range = document.getElementById('estRange');
+  var boxes = ['xGarden','xSmart','xCert'].map(function (id) { return document.getElementById(id); });
+
+  function fmt(n) { return '£' + n.toLocaleString('en-GB'); }
+
+  function update() {
+    var band = PRICES[job.value][parseInt(size.value, 10) - 1];
+    var lo = band[0], hi = band[1];
+    boxes.forEach(function (b) {
+      if (b.checked) { lo += EXTRAS[b.id][0]; hi += EXTRAS[b.id][1]; }
+    });
+    range.textContent = fmt(lo) + ' – ' + fmt(hi);
+  }
+
+  [job, size].concat(boxes).forEach(function (el) {
+    el.addEventListener('change', update);
+  });
+  update();
+
+  document.getElementById('estSend').addEventListener('click', function () {
+    var name = document.getElementById('cName').value.trim();
+    var phone = document.getElementById('cPhone').value.trim();
+    if (!name || !phone) { alert('Pop your name and number in and we\'ll call you back.'); return; }
+    document.getElementById('estContact').classList.add('is-hidden');
+    document.getElementById('estSent').hidden = false;
+  });
+})();
+
+/* ============ contact form ============ */
+document.getElementById('cForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  this.querySelectorAll('input,textarea,button').forEach(function (el) { el.disabled = true; });
+  document.getElementById('cSent').hidden = false;
+});
+</script>
+</body>
+</html>
