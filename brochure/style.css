@@ -74,6 +74,14 @@ h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;font-weight:800;text-w
 .gt .tname{font-size:18px;font-weight:800;letter-spacing:-.01em}
 .gt p{color:var(--slate);font-size:14.5px;flex:1}
 .gt .tgo{color:var(--brand-deep);font-weight:700;font-size:14px}
+.proof{background:var(--ink);color:#fff;padding:26px 0}
+.proofrow{display:flex;flex-wrap:wrap;gap:18px 46px;justify-content:space-between}
+.stat strong{display:block;font-size:24px;font-weight:800;letter-spacing:-.01em}
+.stat span{font-size:13.5px;color:#CBD5E1}
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:24px}
+.review{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.review blockquote{margin:0 0 10px;font-size:16px;color:var(--ink)}
+.review figcaption{font-size:13.5px;color:var(--muted);font-weight:600}
 footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13.5px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between}
 @media(max-width:480px){
