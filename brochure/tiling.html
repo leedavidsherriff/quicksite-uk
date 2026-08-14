@@ -22,7 +22,8 @@
 </div></div>
 <main>
 <div class="wrap"><div class="crumb"><a href="index.html">← All trades</a></div></div>
-<div class="wrap"><div class="hero">
+<div class="wrap"><div class="hero hero-grid">
+<div class="hero-copy">
 <span class="kicker">QuickSite for Tilers</span>
 <h1>Websites that win tiling work.</h1>
 
@@ -31,10 +32,12 @@
 <a class="btn btn-brand" href="https://quicksite-535561e7.base44.app" target="_blank" rel="noopener">See your website in 5 seconds</a>
 <a class="btn btn-ghost" href="#film">Watch the film</a>
 </div>
+</div>
+<div class="hero-visual"><img src="og/og-tiling.jpg" alt="Their bathroom, after us" loading="eager"></div>
 </div></div>
 
 <section class="filmsec" id="film"><div class="wrap"><div class="film">
-<div class="phone"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/hf_20260721_130227_12902f00-84e3-4c42-8e4d-dd890ea000c5.mp4" poster="posters/poster-tiling.jpg" autoplay muted loop playsinline webkit-playsinline preload="metadata" disablepictureinpicture></video><span class="cap">Their bathroom, after us</span></div>
+<div class="phone"><video data-src="https://d8j0ntlcm91z4.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/hf_20260721_130227_12902f00-84e3-4c42-8e4d-dd890ea000c5.mp4" poster="posters/poster-tiling.jpg" muted loop playsinline webkit-playsinline preload="none" disablepictureinpicture></video><span class="cap">Their bathroom, after us</span></div>
 <div class="film-copy">
 <h2>Watch a bathroom change tile by tile</h2>
 <p class="sub">Old cracked tiles and mouldy grout out; large-format porcelain in, with minimal grout lines and a level finish.</p>
@@ -103,7 +106,16 @@
 </div></div>
 <a class="stickycta" href="https://quicksite-535561e7.base44.app" target="_blank" rel="noopener">See your website in 5 seconds</a>
 </main>
-<script>addEventListener('DOMContentLoaded',function(){document.querySelectorAll('video').forEach(function(v){v.muted=true;var p=function(){if(v.paused)v.play().catch(function(){});};p();v.addEventListener('canplay',p);document.addEventListener('visibilitychange',p);addEventListener('pageshow',p);});
+<script>addEventListener('DOMContentLoaded',function(){
+var vids=[].slice.call(document.querySelectorAll('video[data-src]'));
+function arm(v){if(v.src)return;v.src=v.getAttribute('data-src');v.muted=true;
+var p=function(){if(v.paused)v.play().catch(function(){});};
+v.addEventListener('canplay',p);p();
+document.addEventListener('visibilitychange',p);addEventListener('pageshow',p);}
+if('IntersectionObserver' in window){
+var vio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){arm(e.target);vio.unobserve(e.target);}});},{rootMargin:'500px 0px'});
+vids.forEach(function(v){vio.observe(v);});
+}else{vids.forEach(arm);}
 var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 if(!rm&&'IntersectionObserver' in window){
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
@@ -113,6 +125,7 @@ var cta=document.querySelector('.stickycta');
 if(cta){addEventListener('scroll',function(){cta.classList.toggle('show',scrollY>620);},{passive:true});}
 });</script>
 <footer><div class="wrap">
+<nav class="ftrades"><a href="index.html">All trades</a><a href="tiling.html">Tilers</a><a href="carpentry.html">Carpenters</a><a href="roofing.html">Roofers</a><a href="driveways.html">Driveways &amp; Patios</a><a href="plastering.html">Plasterers</a><a href="decorating.html">Decorators</a><a href="landscaping.html">Landscapers</a><a href="windows-doors.html">Window Fitters</a><a href="extensions.html">Builders</a><a href="bathrooms.html">Bathroom Fitters</a><a href="electricians.html">Electricians</a><a href="plumbing-heating.html">Plumbers &amp; Heating</a></nav>
 <div>QuickSite — websites for working trades. Bridgend, South Wales.</div>
 <div>Quick Site Digital Limited · Company no. 17355167 · <a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a></div>
 </div></footer>

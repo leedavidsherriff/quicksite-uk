@@ -2,6 +2,8 @@
 --chip:#F1F5F9;--line:#E2E8F0;--paper:#fff;--ground:#F8FAFC;
 --r:12px;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji"}
 *{margin:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{background:var(--paper);color:var(--ink);font-family:inherit;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 img,video{max-width:100%;display:block}
@@ -125,6 +127,13 @@ opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s 
 .review{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px}
 .review blockquote{margin:0 0 10px;font-size:16px;color:var(--ink)}
 .review figcaption{font-size:13.5px;color:var(--muted);font-weight:600}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,400px);gap:56px;align-items:center}
+.hero-visual img{width:100%;border-radius:16px;box-shadow:0 24px 60px -24px rgba(15,23,42,.4);display:block}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-visual{display:none}}
+a:focus-visible,.gt:focus-visible,.tcard:focus-visible,.btn:focus-visible,.bar-cta:focus-visible,.logochip:focus-visible,.stickycta:focus-visible{outline:3px solid var(--brand-deep);outline-offset:2px}
+.ftrades{display:flex;flex-wrap:wrap;gap:6px 16px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--line);width:100%}
+.ftrades a{color:var(--muted);font-weight:600;font-size:13px;text-decoration:none}
+.ftrades a:hover{color:var(--brand-deep)}
 footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13.5px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:space-between}
 @media(max-width:480px){
