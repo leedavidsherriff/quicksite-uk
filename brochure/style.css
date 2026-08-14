@@ -65,6 +65,27 @@ h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;font-weight:800;text-w
 .pchip{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:13px 20px;font-weight:700;font-size:15.5px;display:flex;justify-content:space-between;gap:14px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
 .pchip span{color:var(--brand-deep);white-space:nowrap}
 .pnote{font-size:13px;color:var(--muted);text-align:center}
+.filmsec{background:var(--ink);color:#E2E8F0}
+.filmsec h2{color:#fff}
+.filmsec .sub{color:#CBD5E1}
+.filmsec .film-copy li{color:#E2E8F0}
+.filmsec .filmnote{color:#94A3B8}
+.filmsec .phone video{box-shadow:0 30px 70px -20px rgba(0,0,0,.85)}
+.b-bar{display:flex;align-items:center;gap:10px;background:var(--chip);border-bottom:1px solid var(--line);padding:8px 12px}
+.b-dots{display:inline-flex;gap:5px}
+.b-dots i{width:9px;height:9px;border-radius:50%;background:#CBD5E1;display:inline-block}
+.b-url{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#fff;border-radius:999px;padding:3px 12px;flex:1;min-width:0}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:none}
+.stickycta{display:none}
+@media(max-width:640px){
+.stickycta{display:block;position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:40;
+background:var(--brand);color:#fff;text-align:center;font-weight:700;font-size:16px;text-decoration:none;
+border-radius:999px;padding:14px 18px;box-shadow:0 14px 34px -10px rgba(216,91,16,.55);
+opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease}
+.stickycta.show{opacity:1;pointer-events:auto;transform:none}
+}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 .band{background:var(--brand);color:#fff;text-align:center;padding:60px 0}
 .band h2{color:#fff;margin:0 auto;max-width:22ch}
 .band p{color:rgba(255,255,255,.92);font-size:17px;max-width:48ch;margin:12px auto 26px}

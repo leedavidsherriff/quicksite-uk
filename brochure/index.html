@@ -13,6 +13,7 @@
 <meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/brochure/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 <div class="bar"><div class="wrap">
@@ -30,7 +31,7 @@
 </div>
 </div></div>
 
-<section class="alt"><div class="wrap"><div class="film">
+<section class="filmsec"><div class="wrap"><div class="film">
 <div class="phone"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_3EqnuaqEWb2299IejFDCfj8sKws/hf_20260721_123149_5af9037b-5264-4975-8611-8885f0750fe0.mp4" poster="posters/poster-driveways.jpg" autoplay muted loop playsinline webkit-playsinline preload="metadata" disablepictureinpicture></video><span class="cap">Their drive, after us</span></div>
 <div class="film-copy">
 <h2>Websites where the work moves</h2>
@@ -105,8 +106,17 @@
 <a class="btn" href="https://quicksite-535561e7.base44.app" target="_blank" rel="noopener">Try it now</a>
 <p style="margin-top:18px;margin-bottom:0">Or talk to a human: <a class="mail" href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a></p>
 </div></div>
+<a class="stickycta" href="https://quicksite-535561e7.base44.app" target="_blank" rel="noopener">See your website in 5 seconds</a>
 </main>
-<script>addEventListener('DOMContentLoaded',function(){document.querySelectorAll('video').forEach(function(v){v.muted=true;var p=function(){if(v.paused)v.play().catch(function(){});};p();v.addEventListener('canplay',p);document.addEventListener('visibilitychange',p);addEventListener('pageshow',p);});});</script>
+<script>addEventListener('DOMContentLoaded',function(){document.querySelectorAll('video').forEach(function(v){v.muted=true;var p=function(){if(v.paused)v.play().catch(function(){});};p();v.addEventListener('canplay',p);document.addEventListener('visibilitychange',p);addEventListener('pageshow',p);});
+var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!rm&&'IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('section .wrap, .band .wrap').forEach(function(s){s.classList.add('reveal');io.observe(s);});
+}
+var cta=document.querySelector('.stickycta');
+if(cta){addEventListener('scroll',function(){cta.classList.toggle('show',scrollY>620);},{passive:true});}
+});</script>
 <footer><div class="wrap">
 <div>QuickSite — websites for working trades. Bridgend, South Wales.</div>
 <div>Quick Site Digital Limited · Company no. 17355167 · <a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a></div>
