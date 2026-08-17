@@ -9,7 +9,7 @@
   .wrap{max-width:760px;margin:0 auto}
   h1{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.01em}
   p{margin-top:12px}
-  img{display:block;width:100%;height:auto;margin:24px 0;border-radius:10px}
+  img{display:block;width:100%;height:auto;margin:24px 0;border-radius:10px;background:#16273c}
   .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
   a.btn{display:inline-block;background:#f5a800;color:#0d1826;font-weight:800;text-decoration:none;
     padding:14px 20px;border-radius:10px}
@@ -17,12 +17,20 @@
   .note{margin-top:26px;font-size:14px;color:#8fa1b5;border-top:1px solid #1e2d40;padding-top:18px}
 </style></head><body><div class="wrap">
   <h1>QuickSite &mdash; A3 poster</h1>
-  <p>Press and hold the poster below, then choose <b>Add to Photos</b> to keep it on this device.</p>
-  <a href="quicksite-poster.jpg"><img src="quicksite-poster.jpg" alt="QuickSite A3 poster"></a>
+  <p>Press and hold the poster, then choose <b>Add to Photos</b> to keep it on this device.</p>
+
+  <!-- The phone file loads by default. The full 3579x5031 original is 18 megapixels,
+       which mobile Safari will often refuse to decode — it shows a blank space instead
+       of an image, which is exactly what "I can't open it" looks like. -->
+  <img src="quicksite-poster-phone.jpg" alt="QuickSite A3 poster">
+
   <div class="row">
-    <a class="btn" href="quicksite-poster.jpg">Open full size</a>
+    <a class="btn" href="quicksite-poster-tablet.jpg">Bigger (tablet)</a>
     <a class="btn ghost" href="quicksite-poster-a3-print.pdf">Print PDF (A3 + bleed)</a>
+    <a class="btn ghost" href="quicksite-poster.jpg">Full size (desktop)</a>
   </div>
-  <p class="note">A3 portrait, 303&times;426mm including 3mm bleed, 300dpi. The QR on the poster
-  goes to the trade brochure. Per-location versions carry their own code bottom-right.</p>
+
+  <p class="note">A3 portrait, 303&times;426mm including 3mm bleed, 300dpi. Send the printer the
+  PDF, not a JPEG. The QR on the poster goes to the trade brochure; per-location versions carry
+  their own code bottom-right.</p>
 </div></body></html>
