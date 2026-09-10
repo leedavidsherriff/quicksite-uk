@@ -98,19 +98,36 @@ h3{font-size:clamp(16px,2vw,20px)}
   opacity:1;color:#fff;background:var(--blue);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 16px -8px rgba(18,113,183,.95);
 }
-.nav-toggle{display:none}
+/* The Menu key is the handle at every size — the island stays small and only
+   opens when you reach for it. */
+.nav-toggle{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;
+  font-size:13px;color:var(--paper);background:rgba(255,255,255,.12);border:0;cursor:pointer;
+  padding:10px 16px;border-radius:999px;white-space:nowrap;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28);
+  transition:background-color .2s ease;
+}
+.nav-toggle:hover{background:rgba(255,255,255,.2)}
+.nav-toggle .bars-ico{display:block;width:15px;height:2px;background:var(--paper);position:relative}
+.nav-toggle .bars-ico::before,.nav-toggle .bars-ico::after{content:"";position:absolute;left:0;width:15px;height:2px;background:var(--paper)}
+.nav-toggle .bars-ico::before{top:-5px} .nav-toggle .bars-ico::after{top:5px}
+
+/* DESKTOP: the island is a two-button pill that unfurls the links on hover
+   (or keyboard focus, or a click on the key — all three open it). */
+@media (min-width:1081px){
+  .nav-wrap{
+    max-width:0;opacity:0;overflow:hidden;
+    transition:max-width .55s cubic-bezier(.2,.85,.2,1),opacity .3s ease;
+  }
+  .site-head:hover .nav-wrap,
+  .site-head:focus-within .nav-wrap,
+  .nav-wrap.open{max-width:860px;opacity:1}
+  .nav{padding-right:6px}
+}
+
 @media (max-width:1080px){
   /* Six long labels can't live in a capsule on a phone — the island keeps the
      logo and a Menu key, and the links drop out as a floating glass sheet. */
-  .nav-toggle{
-    display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;
-    font-size:13px;color:var(--paper);background:rgba(255,255,255,.12);border:0;cursor:pointer;
-    padding:10px 16px;border-radius:999px;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.28);
-  }
-  .nav-toggle .bars-ico{display:block;width:15px;height:2px;background:var(--paper);position:relative}
-  .nav-toggle .bars-ico::before,.nav-toggle .bars-ico::after{content:"";position:absolute;left:0;width:15px;height:2px;background:var(--paper)}
-  .nav-toggle .bars-ico::before{top:-5px} .nav-toggle .bars-ico::after{top:5px}
   /* The island is only as wide as its logo + key, so the sheet needs its own
      width or the long labels spill outside the rounded panel. Anchored to the
      island's right edge, under the Menu key. */
