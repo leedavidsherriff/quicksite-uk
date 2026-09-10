@@ -561,6 +561,54 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 .contact-card .addr{font-size:15px;line-height:1.9;margin-top:14px}
 .contact-card .addr a{color:#8FC6F2;text-decoration:none}
 
+/* ---------- ENQUIRY FORM ----------
+   Consent gates the submit button. That is a compliance requirement, not a
+   nicety — see the note on ENQUIRY_ENDPOINT. */
+.enq{display:grid;gap:16px;margin-top:26px;max-width:560px}
+.enq .row{display:grid;gap:16px}
+@media(min-width:560px){.enq .row{grid-template-columns:1fr 1fr}}
+.enq label{display:block;font-weight:600;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;opacity:.62;margin-bottom:8px}
+.enq input[type=text],.enq input[type=tel],.enq input[type=email],.enq select,.enq textarea{
+  width:100%;padding:14px 15px;border-radius:12px;border:0;font:inherit;color:var(--paper);
+  background:rgba(0,0,0,.3);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);
+  transition:box-shadow .18s ease;
+}
+.enq textarea{min-height:96px;resize:vertical}
+.enq select{appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,rgba(244,246,250,.6) 50%),
+                   linear-gradient(135deg,rgba(244,246,250,.6) 50%,transparent 50%);
+  background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;
+  background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+.enq select option{background:#12161b;color:var(--paper)}
+.enq input:focus,.enq select:focus,.enq textarea:focus{
+  outline:none;box-shadow:inset 0 0 0 1.5px var(--blue),0 0 0 3px rgba(18,113,183,.22)}
+.enq input::placeholder,.enq textarea::placeholder{color:rgba(244,246,250,.34)}
+/* `.consent` is itself a <label>, so `.enq label` (class+element, higher
+   specificity) was making the consent wording uppercase and tiny. Override
+   it explicitly — this is a sentence the user has to actually read. */
+.enq label.consent{
+  display:flex;gap:14px;align-items:flex-start;cursor:pointer;
+  border-radius:14px;padding:16px 18px;background:rgba(18,113,183,.08);
+  box-shadow:inset 0 0 0 1.5px rgba(143,198,242,.45);
+  font-size:14.5px;line-height:1.5;font-weight:400;
+  text-transform:none;letter-spacing:normal;opacity:1;margin-bottom:0;
+}
+.consent input{
+  appearance:none;-webkit-appearance:none;width:26px;height:26px;flex:0 0 26px;margin:0;
+  border-radius:7px;cursor:pointer;background:transparent;display:grid;place-content:center;
+  box-shadow:inset 0 0 0 2px var(--blue);
+}
+.consent input::before{content:"";width:13px;height:13px;border-radius:3px;background:var(--blue);
+  transform:scale(0);transition:transform .15s ease}
+.consent input:checked::before{transform:scale(1)}
+.consent a{color:#8FC6F2}
+.enq-gate{font-size:12px;letter-spacing:.06em;opacity:.6}
+.enq-err{font-size:12.5px;color:#FF9C8A;margin-top:7px}
+.enq-sent{border-radius:16px;padding:clamp(22px,4vw,32px);
+  background:rgba(18,113,183,.12);box-shadow:inset 0 0 0 1.5px rgba(143,198,242,.5)}
+.enq-sent h3{margin-bottom:10px}
+
 /* legal / privacy page */
 .legal{max-width:76ch}
 .legal h2{font-size:clamp(20px,2.6vw,26px);margin-top:36px}
@@ -607,6 +655,9 @@ footer.foot .reg a{color:#8FC6F2}
 }
 .btn:hover::after{left:125%}
 .btn-primary{
+  /* color MUST be explicit — without it the button inherits the section's
+     colour and renders dark-on-blue on every light section. */
+  color:#fff;
   background-color:var(--blue);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.42),
@@ -845,6 +896,7 @@ body::after{
 </footer>
 
 <script>
+window.__DCS_ENQUIRY_ENDPOINT = "";
 /* Sitewide UI. Everything here is decoration — it degrades to a perfectly
    readable page with JS off, and stands down entirely under
    prefers-reduced-motion. */
@@ -897,6 +949,86 @@ body::after{
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) kick(); });
 })();
 
+/* Enquiry form. Consent gates the button — a compliance requirement, not a
+   nicety. With no endpoint configured it falls back to opening a pre-filled
+   email, so the site can take enquiries before the backend exists rather than
+   swallowing them. */
+(function(){
+  var f = document.getElementById('enqForm');
+  if (!f) return;
+  var ENDPOINT = window.__DCS_ENQUIRY_ENDPOINT || '';
+  var $ = function(id){ return document.getElementById(id); };
+  var consent = $('enqConsent'), submit = $('enqSubmit'), gate = $('enqGate');
+
+  consent.addEventListener('change', function(){
+    submit.disabled = !consent.checked;
+    gate.hidden = consent.checked;
+  });
+
+  function validate(){
+    var ok = true;
+    var name = $('enqName').value.trim();
+    var phone = $('enqPhone').value.replace(/\D/g, '');
+    $('errName').hidden = name.length >= 2;
+    $('errPhone').hidden = phone.length >= 10;
+    if (name.length < 2) ok = false;
+    if (phone.length < 10) ok = false;
+    return ok;
+  }
+
+  submit.addEventListener('click', function(){
+    if (!consent.checked || !validate()) return;
+    var data = {
+      name: $('enqName').value.trim(),
+      phone: $('enqPhone').value.trim(),
+      doing: $('enqWhat').value,
+      cover: $('enqCover').value,
+      note: $('enqNote').value.trim(),
+      consent: true,
+      page: location.pathname,
+      submittedAt: new Date().toISOString()
+    };
+    var done = function(){ f.hidden = true; $('enqSent').hidden = false; };
+
+    if (!ENDPOINT) {
+      /* No backend yet — hand it to the mail client rather than lose it.
+         We cannot tell whether the mail client actually opened, so DO NOT
+         claim it was received: say what we just tried to do and leave the
+         details on screen so nothing is silently lost. */
+      var body = 'Name: ' + data.name + '\nPhone: ' + data.phone +
+                 '\nWhat they do: ' + data.doing + '\nInterested in: ' + data.cover +
+                 '\nNotes: ' + (data.note || '-') +
+                 '\nConsent given: yes\nSubmitted: ' + data.submittedAt;
+      window.location.href = 'mailto:contact@portwaygroup.com?subject=' +
+        encodeURIComponent('Website enquiry — ' + data.name) +
+        '&body=' + encodeURIComponent(body);
+      var sent = $('enqSent');
+      sent.innerHTML =
+        '<h3>Nearly there</h3>' +
+        '<p style="opacity:.88">We\u2019ve opened your email app with the details filled in — ' +
+        'just press send. If nothing opened, ring us on <a href="tel:+441656856120">01656 856120</a> ' +
+        'or email <a href="mailto:contact@portwaygroup.com">contact@portwaygroup.com</a>.</p>' +
+        '<p style="opacity:.7;margin-top:12px;font-size:13.5px">' + data.name + ' &middot; ' +
+        data.phone + ' &middot; ' + data.cover + '</p>';
+      done();
+      return;
+    }
+    submit.disabled = true; submit.textContent = 'Sending…';
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).then(function(r){
+      if (!r.ok) throw new Error('bad status ' + r.status);
+      done();
+    }).catch(function(){
+      submit.disabled = false; submit.textContent = 'Request my call';
+      gate.hidden = false;
+      gate.textContent = 'That didn\u2019t send — please ring us on 01656 856120 instead.';
+    });
+  });
+})();
+
 /* Sticky calculator CTA. Outside the reduced-motion guard — it is a call to
    action, not an effect; it simply appears without sliding for those users.
    It stands down over the footer so it never covers the regulatory text, and
@@ -906,11 +1038,14 @@ body::after{
   if (!cta) return;
   var foot = document.querySelector('footer.foot');
   var calc = document.getElementById('gap');
+  /* Don't nag about the calculator while someone is actually filling in the
+     enquiry form — and don't sit on top of the submit button. */
+  var enq = document.getElementById('enqForm');
   function update(){
     var y = window.scrollY || document.documentElement.scrollTop;
     var past = y > Math.min(window.innerHeight * 0.6, 520);
     var blocked = false;
-    [foot, calc].forEach(function(el){
+    [foot, calc, enq].forEach(function(el){
       if (!el) return;
       var r = el.getBoundingClientRect();
       if (r.top < window.innerHeight - 40 && r.bottom > 0) blocked = true;
