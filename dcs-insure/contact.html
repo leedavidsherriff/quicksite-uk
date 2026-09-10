@@ -372,6 +372,7 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
   background:radial-gradient(circle,rgba(18,113,183,.20),transparent 62%)}
 .fig-wrap{padding-top:clamp(96px,10vw,124px);padding-bottom:clamp(32px,4vw,52px)}
 .fig-grid{display:grid;grid-template-columns:1fr;gap:30px;align-items:center}
+.fig-grid > *{min-width:0}
 @media(min-width:1000px){.fig-grid{grid-template-columns:1.02fr .98fr;gap:36px}}
 /* ---------- HERO COPY ----------
    Was a flat stack of paragraphs. Now: a floating credential chip, a headline
@@ -538,22 +539,37 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 }
 @media(min-width:1000px){ .fig-list{display:contents} }
 
-/* the index beside the figure */
-.hero-index{display:none;margin-top:30px;border-top:1px solid rgba(143,198,242,.2)}
-@media(min-width:1040px){.hero-index{display:block;max-width:430px}}
-.hx-row{
-  display:flex;align-items:center;gap:14px;padding:13px 6px;text-decoration:none;color:inherit;
-  border-bottom:1px solid rgba(143,198,242,.16);
-  transition:background-color .18s ease,padding-left .18s ease;
+/* ---------- HOME HERO COPY ----------
+   Headline lands line by line, then the panel strip glides underneath. */
+.fig-copy h1.lines{font-size:clamp(36px,5.4vw,66px);line-height:.93;max-width:none}
+.fig-copy h1.lines .ln{display:block;animation:dcs-line .9s cubic-bezier(.2,.8,.2,1) both}
+.fig-copy h1.lines .ln:nth-child(2){animation-delay:.14s}
+.fig-copy h1.lines .ln:nth-child(3){animation-delay:.3s}
+@keyframes dcs-line{from{opacity:0;transform:translateY(26px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.hero-ring{margin-top:14px;font-size:13.5px;opacity:.66}
+.hero-ring a{color:#8FC6F2;text-decoration:none;font-weight:600}
+.panel{margin-top:34px;max-width:min(540px,100%)}
+.panel-lbl{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;opacity:.55;margin-bottom:12px}
+.panel-viewport{overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+/* two identical sets, shifted by exactly one set's width — spacing lives on
+   the pills (margin), not a flex gap, so both halves are the same width and
+   the loop has no seam */
+.panel-track{display:flex;width:max-content;animation:dcs-marquee 36s linear infinite}
+.panel-track:hover{animation-play-state:paused}
+.panel-set{display:flex}
+@keyframes dcs-marquee{to{transform:translateX(-50%)}}
+.panel-pill{flex:0 0 auto;display:grid;place-items:center;height:46px;padding:0 18px;margin-right:12px;
+  border-radius:13px;background:#fff;
+  box-shadow:inset 0 -1px 0 rgba(0,0,0,.12),0 10px 22px -14px rgba(0,0,0,.8)}
+.panel-pill img{height:22px;width:auto;max-width:104px;object-fit:contain;display:block}
+@media (prefers-reduced-motion: reduce){
+  .panel-track{animation:none;width:auto}
+  .panel-set{flex-wrap:wrap;row-gap:10px}
+  .panel-set[aria-hidden]{display:none}
+  .fig-copy h1.lines .ln{animation:none}
 }
-.hx-row:hover,.hx-row:focus-visible,.hx-row.lit{background:rgba(18,113,183,.16);padding-left:12px}
-.hx-n{font-size:11px;font-weight:700;letter-spacing:.16em;color:#8FC6F2;flex:0 0 auto}
-.hx-t{font-size:14.5px;font-weight:600}
-.hx-go{margin-left:auto;color:#8FC6F2;opacity:0;transition:opacity .18s ease,transform .18s ease}
-.hx-row:hover .hx-go,.hx-row.lit .hx-go{opacity:1;transform:translateX(3px)}
-/* the matching dot, lit from the list side */
-.spot.lit .dot{transform:scale(1.3);background:var(--blue)}
-.spot.lit .spot-card{opacity:1;transform:translateY(-50%) translateX(0)}
 
 /* the body index — same figure, zoomed to this page's part */
 .body-index{position:relative;flex:0 0 auto;width:74px;height:74px}
@@ -1669,22 +1685,6 @@ window.__dcsSendEnquiry = function(data, opts){
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
-
-  /* Link the hero index to the hotspots, both ways. Hovering a row lights the
-     point on the body; hovering the body lights the row. */
-  var hxRows = document.querySelectorAll('.hx-row');
-  var spotEls = document.querySelectorAll('.fig-list .spot');
-  if (hxRows.length && spotEls.length) {
-    var pair = function(a, b){
-      var on  = function(){ a.classList.add('lit'); b.classList.add('lit'); };
-      var off = function(){ a.classList.remove('lit'); b.classList.remove('lit'); };
-      ['mouseenter','focus'].forEach(function(e){ a.addEventListener(e, on); b.addEventListener(e, on); });
-      ['mouseleave','blur'].forEach(function(e){ a.addEventListener(e, off); b.addEventListener(e, off); });
-    };
-    [].forEach.call(hxRows, function(row, k){
-      if (spotEls[k]) pair(row, spotEls[k]);
-    });
-  }
 
   /* THE TURN. Two faces back to back; after each rotation the now-hidden face
      is loaded with the next figure, so two elements cycle through any number
