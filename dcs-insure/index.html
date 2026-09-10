@@ -532,7 +532,9 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 /* the body index — same figure, zoomed to this page's part */
 .body-index{position:relative;flex:0 0 auto;width:74px;height:74px}
 .body-index-crop{position:absolute;inset:0;border-radius:50%;display:block;
-  background-image:url("assets/figure.webp");background-size:460%;
+  /* must be the normalised figure — the spot coordinates are measured
+     against that canvas, not the original generation */
+  background-image:url("assets/figure-male-footballer.webp");background-size:460%;
   box-shadow:0 0 0 1.5px rgba(143,198,242,.45),0 0 30px -10px var(--ring);
   filter:saturate(.9)}
 .body-index-n{position:absolute;right:-4px;bottom:-4px;width:24px;height:24px;border-radius:50%;
@@ -795,10 +797,15 @@ body::after{
 
       <div>
         <div class="fig-stage">
-          <span class="fig-plate"><img class="fig-img" src="assets/figure.webp" alt="A semi-professional footballer in muddy kit, standing" width="1100" height="1473" fetchpriority="high"></span>
+          <span class="fig-plate fig-plate-turn">
+            <span class="fig-flip" id="figFlip">
+              <span class="face face-a"><span class="fig-face-img" data-face="a"><img class="fig-img" src="assets/figure-male-footballer.webp" alt="A semi-professional footballer in muddy kit, standing" width="1100" height="1467" fetchpriority="high"></span></span>
+              <span class="face face-b" aria-hidden="true"><span class="fig-face-img" data-face="b"><img class="fig-img" src="assets/figure-male-builder.webp" alt="A builder in dusty workwear with a tool belt, standing" width="1100" height="1467"></span></span>
+            </span>
+          </span>
           <div class="fig-list">
       <a class="spot spot-right" href="private-medical-insurance.html"
-         style="--x:62%;--y:22%"
+         style="--x:57.5%;--y:20.5%"
          aria-label="Private Medical Insurance — Scans and specialists, without the waiting list.">
         <span class="dot" aria-hidden="true"><i>01</i></span>
         <span class="spot-card">
@@ -808,7 +815,7 @@ body::after{
         </span>
       </a>
       <a class="spot spot-right" href="life-critical-illness.html"
-         style="--x:55%;--y:31.5%"
+         style="--x:53.5%;--y:30.5%"
          aria-label="Life or Critical Illness — A lump sum for the people who depend on you.">
         <span class="dot" aria-hidden="true"><i>02</i></span>
         <span class="spot-card">
@@ -818,7 +825,7 @@ body::after{
         </span>
       </a>
       <a class="spot spot-left" href="sports-injury-accident-insurance.html"
-         style="--x:42.7%;--y:69.5%"
+         style="--x:46.3%;--y:68.5%"
          aria-label="Sports Injury & Accident — The knee that ends the season.">
         <span class="dot" aria-hidden="true"><i>03</i></span>
         <span class="spot-card">
@@ -828,7 +835,7 @@ body::after{
         </span>
       </a>
       <a class="spot spot-left" href="income-protection.html"
-         style="--x:38%;--y:92%"
+         style="--x:44.7%;--y:90.5%"
          aria-label="Income Protection — What pays you, when these can't.">
         <span class="dot" aria-hidden="true"><i>04</i></span>
         <span class="spot-card">
@@ -949,6 +956,7 @@ body::after{
 
 <script>
 window.__DCS_ENQUIRY_ENDPOINT = "";
+window.__DCS_FIGURES = [["figure-male-footballer.webp", "A semi-professional footballer in muddy kit, standing"], ["figure-male-builder.webp", "A builder in dusty workwear with a tool belt, standing"], ["figure-female-footballer.webp", "A footballer in muddy kit, standing"], ["figure-female-electrician.webp", "An electrician in workwear with a tool belt, standing"]];
 /* Sitewide UI. Everything here is decoration — it degrades to a perfectly
    readable page with JS off, and stands down entirely under
    prefers-reduced-motion. */
@@ -1112,6 +1120,33 @@ window.__DCS_ENQUIRY_ENDPOINT = "";
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
+
+  /* THE TURN. Two faces back to back; after each rotation the now-hidden face
+     is loaded with the next figure, so two elements cycle through any number
+     of people. Fires just after the scan finishes its sweep. */
+  var flip = document.getElementById('figFlip');
+  if (flip && window.__DCS_FIGURES && window.__DCS_FIGURES.length > 2) {
+    var figs = window.__DCS_FIGURES, idx = 1, flipped = false;
+    var faceA = flip.querySelector('[data-face="a"]'),
+        faceB = flip.querySelector('[data-face="b"]');
+    var swap = function(){
+      flipped = !flipped;
+      flip.classList.toggle('flipped', flipped);
+      // once the rotation is done, quietly load the next person onto the face
+      // that is now facing away
+      setTimeout(function(){
+        idx = (idx + 1) % figs.length;
+        var hidden = flipped ? faceA : faceB;
+        var next = figs[idx];
+        hidden.innerHTML = '<img class="fig-img" src="assets/' + next[0] +
+                           '" alt="" width="1100" height="1467">';
+      }, 1200);
+    };
+    setTimeout(function(){
+      swap();
+      setInterval(swap, 7500);   // matches the scan loop
+    }, 4200);                    // just after the first sweep reaches the floor
+  }
 
   /* Who it's for — cycles the role. The first value is in the HTML, so with
      JS off or reduced motion on it simply reads as a normal line. */

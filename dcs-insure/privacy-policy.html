@@ -532,7 +532,9 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 /* the body index — same figure, zoomed to this page's part */
 .body-index{position:relative;flex:0 0 auto;width:74px;height:74px}
 .body-index-crop{position:absolute;inset:0;border-radius:50%;display:block;
-  background-image:url("assets/figure.webp");background-size:460%;
+  /* must be the normalised figure — the spot coordinates are measured
+     against that canvas, not the original generation */
+  background-image:url("assets/figure-male-footballer.webp");background-size:460%;
   box-shadow:0 0 0 1.5px rgba(143,198,242,.45),0 0 30px -10px var(--ring);
   filter:saturate(.9)}
 .body-index-n{position:absolute;right:-4px;bottom:-4px;width:24px;height:24px;border-radius:50%;
@@ -897,6 +899,7 @@ body::after{
 
 <script>
 window.__DCS_ENQUIRY_ENDPOINT = "";
+window.__DCS_FIGURES = [["figure-male-footballer.webp", "A semi-professional footballer in muddy kit, standing"], ["figure-male-builder.webp", "A builder in dusty workwear with a tool belt, standing"], ["figure-female-footballer.webp", "A footballer in muddy kit, standing"], ["figure-female-electrician.webp", "An electrician in workwear with a tool belt, standing"]];
 /* Sitewide UI. Everything here is decoration — it degrades to a perfectly
    readable page with JS off, and stands down entirely under
    prefers-reduced-motion. */
@@ -1060,6 +1063,33 @@ window.__DCS_ENQUIRY_ENDPOINT = "";
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
+
+  /* THE TURN. Two faces back to back; after each rotation the now-hidden face
+     is loaded with the next figure, so two elements cycle through any number
+     of people. Fires just after the scan finishes its sweep. */
+  var flip = document.getElementById('figFlip');
+  if (flip && window.__DCS_FIGURES && window.__DCS_FIGURES.length > 2) {
+    var figs = window.__DCS_FIGURES, idx = 1, flipped = false;
+    var faceA = flip.querySelector('[data-face="a"]'),
+        faceB = flip.querySelector('[data-face="b"]');
+    var swap = function(){
+      flipped = !flipped;
+      flip.classList.toggle('flipped', flipped);
+      // once the rotation is done, quietly load the next person onto the face
+      // that is now facing away
+      setTimeout(function(){
+        idx = (idx + 1) % figs.length;
+        var hidden = flipped ? faceA : faceB;
+        var next = figs[idx];
+        hidden.innerHTML = '<img class="fig-img" src="assets/' + next[0] +
+                           '" alt="" width="1100" height="1467">';
+      }, 1200);
+    };
+    setTimeout(function(){
+      swap();
+      setInterval(swap, 7500);   // matches the scan loop
+    }, 4200);                    // just after the first sweep reaches the floor
+  }
 
   /* Who it's for — cycles the role. The first value is in the HTML, so with
      JS off or reduced motion on it simply reads as a normal line. */
