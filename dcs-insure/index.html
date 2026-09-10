@@ -538,6 +538,23 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 }
 @media(min-width:1000px){ .fig-list{display:contents} }
 
+/* the index beside the figure */
+.hero-index{display:none;margin-top:30px;border-top:1px solid rgba(143,198,242,.2)}
+@media(min-width:1040px){.hero-index{display:block;max-width:430px}}
+.hx-row{
+  display:flex;align-items:center;gap:14px;padding:13px 6px;text-decoration:none;color:inherit;
+  border-bottom:1px solid rgba(143,198,242,.16);
+  transition:background-color .18s ease,padding-left .18s ease;
+}
+.hx-row:hover,.hx-row:focus-visible,.hx-row.lit{background:rgba(18,113,183,.16);padding-left:12px}
+.hx-n{font-size:11px;font-weight:700;letter-spacing:.16em;color:#8FC6F2;flex:0 0 auto}
+.hx-t{font-size:14.5px;font-weight:600}
+.hx-go{margin-left:auto;color:#8FC6F2;opacity:0;transition:opacity .18s ease,transform .18s ease}
+.hx-row:hover .hx-go,.hx-row.lit .hx-go{opacity:1;transform:translateX(3px)}
+/* the matching dot, lit from the list side */
+.spot.lit .dot{transform:scale(1.3);background:var(--blue)}
+.spot.lit .spot-card{opacity:1;transform:translateY(-50%) translateX(0)}
+
 /* the body index — same figure, zoomed to this page's part */
 .body-index{position:relative;flex:0 0 auto;width:74px;height:74px}
 .body-index-crop{position:absolute;inset:0;border-radius:50%;display:block;
@@ -917,6 +934,13 @@ body::after{
       <a class="btn btn-primary" href="contact.html" data-review>Ask for a call back</a>
       <a class="btn btn-ghost" href="tel:+441656856120">Call 01656 856120</a>
     </div>
+    <div class="hero-index">
+      <a class="hx-row" href="private-medical-insurance.html" data-hx="0"><span class="hx-n">01</span><span class="hx-t">Private Medical Insurance</span><span class="hx-go" aria-hidden="true">&rarr;</span></a>
+      <a class="hx-row" href="life-critical-illness.html" data-hx="1"><span class="hx-n">02</span><span class="hx-t">Life or Critical Illness</span><span class="hx-go" aria-hidden="true">&rarr;</span></a>
+      <a class="hx-row" href="sports-injury-accident-insurance.html" data-hx="2"><span class="hx-n">03</span><span class="hx-t">Sports Injury & Accident</span><span class="hx-go" aria-hidden="true">&rarr;</span></a>
+      <a class="hx-row" href="income-protection.html" data-hx="3"><span class="hx-n">04</span><span class="hx-t">Income Protection</span><span class="hx-go" aria-hidden="true">&rarr;</span></a>
+    </div>
+
       </div>
 
       <div>
@@ -1708,6 +1732,22 @@ window.__dcsSendEnquiry = function(data, opts){
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
+
+  /* Link the hero index to the hotspots, both ways. Hovering a row lights the
+     point on the body; hovering the body lights the row. */
+  var hxRows = document.querySelectorAll('.hx-row');
+  var spotEls = document.querySelectorAll('.fig-list .spot');
+  if (hxRows.length && spotEls.length) {
+    var pair = function(a, b){
+      var on  = function(){ a.classList.add('lit'); b.classList.add('lit'); };
+      var off = function(){ a.classList.remove('lit'); b.classList.remove('lit'); };
+      ['mouseenter','focus'].forEach(function(e){ a.addEventListener(e, on); b.addEventListener(e, on); });
+      ['mouseleave','blur'].forEach(function(e){ a.addEventListener(e, off); b.addEventListener(e, off); });
+    };
+    [].forEach.call(hxRows, function(row, k){
+      if (spotEls[k]) pair(row, spotEls[k]);
+    });
+  }
 
   /* THE TURN. Two faces back to back; after each rotation the now-hidden face
      is loaded with the next figure, so two elements cycle through any number
