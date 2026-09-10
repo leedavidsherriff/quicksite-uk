@@ -17,7 +17,7 @@
 <meta property="og:title" content="Sports Injury Insurance for Footballers & Rugby Players | DCS Insure">
 <meta property="og:description" content="Sports injury and accident insurance arranged for semi-professional footballers, rugby players and athletes. DCS Insure introduces cover to help with the costs of getting hurt playing or training.">
 <meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/sports-injury-accident-insurance.html">
-<meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/assets/dcs-insure-logo-transparent.png">
+<meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/assets/hero-injury.webp">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{
   "@context":"https://schema.org",
@@ -621,6 +621,24 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
   background:rgba(18,113,183,.12);box-shadow:inset 0 0 0 1.5px rgba(143,198,242,.5)}
 .enq-sent h3{margin-bottom:10px}
 
+/* photographic product heroes — kills the dead space on the three pages
+   that only had text */
+.hero-photo{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.05)}
+.hero-photo::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(100deg,rgba(20,27,30,.96) 0%,rgba(20,27,30,.86) 42%,rgba(20,27,30,.45) 100%),
+  linear-gradient(180deg,rgba(20,27,30,.6) 0%,transparent 34%,rgba(20,27,30,.7) 100%)}
+.hero:has(.hero-photo) .wrap{position:relative;z-index:2}
+
+/* the thesis band — one picture that argues the whole site */
+.thesis{position:relative;overflow:hidden;background:#0d1216}
+.thesis-grid{display:grid;grid-template-columns:1fr;gap:0;align-items:center}
+@media(min-width:900px){.thesis-grid{grid-template-columns:1fr 1fr}}
+.thesis-img img{width:100%;height:100%;object-fit:cover;display:block;max-height:560px}
+.thesis-copy{padding:clamp(38px,6vw,72px) clamp(18px,5vw,56px)}
+.thesis-copy h2{max-width:16ch}
+.thesis-copy .lede{margin-top:18px}
+
 /* ---------- GUIDED REVIEW ---------- */
 .ff-hero .wrap{padding-bottom:clamp(48px,7vw,80px)}
 .ff-grid{display:grid;grid-template-columns:1fr;gap:34px}
@@ -882,6 +900,9 @@ body::after{
 <main id="main">
 
 <section class="hero">
+  <div class="hero-photo">
+    <img src="assets/hero-injury.webp" alt="An empty floodlit pitch in the rain at night" width="1600" height="900" fetchpriority="high">
+  </div>
   <div class="wrap">
     <div class="hero-head">
     <div class="body-index" aria-hidden="true">
