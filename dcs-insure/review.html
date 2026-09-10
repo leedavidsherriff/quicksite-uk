@@ -598,7 +598,8 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 /* `.consent` is itself a <label>, so `.enq label` (class+element, higher
    specificity) was making the consent wording uppercase and tiny. Override
    it explicitly — this is a sentence the user has to actually read. */
-.enq label.consent{
+.enq label.enq label .opt{font-weight:400;letter-spacing:0;text-transform:none;opacity:.75}
+.consent{
   display:flex;gap:14px;align-items:flex-start;cursor:pointer;
   border-radius:14px;padding:16px 18px;background:rgba(18,113,183,.08);
   box-shadow:inset 0 0 0 1.5px rgba(143,198,242,.45);
@@ -660,6 +661,12 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 .ff-msg{padding:12px 14px;border-radius:14px;font-size:14px;line-height:1.5}
 .ff-msg-you{background:rgba(18,113,183,.28);justify-self:end;max-width:88%}
 .ff-msg-bot{background:rgba(255,255,255,.06);max-width:95%}
+.ff-typing{display:flex;gap:5px;align-items:center;width:auto;justify-self:start}
+.ff-typing span{width:7px;height:7px;border-radius:50%;background:rgba(244,246,250,.55);
+  animation:ff-blink 1.1s ease-in-out infinite}
+.ff-typing span:nth-child(2){animation-delay:.16s}
+.ff-typing span:nth-child(3){animation-delay:.32s}
+@keyframes ff-blink{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}
 .ff-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ff-chip{font:inherit;font-size:12.5px;font-weight:600;color:#8FC6F2;cursor:pointer;
   background:rgba(18,113,183,.14);border:0;border-radius:999px;padding:8px 13px;
@@ -905,14 +912,21 @@ body::after{
                 <p class="enq-err" id="ffErrPhone" hidden>And a number to ring you on.</p>
               </div>
             </div>
-            <div>
-              <label for="ffTime">Best time to ring</label>
+            <div class="row">
+              <div>
+                <label for="ffEmail">Email <span class="opt">— so we can send you a summary</span></label>
+                <input id="ffEmail" type="email" autocomplete="email" placeholder="you@example.com">
+                <p class="enq-err" id="ffErrEmail" hidden>That email doesn't look right.</p>
+              </div>
+              <div>
+                <label for="ffTime">Best time to ring</label>
               <select id="ffTime">
                 <option>Any time in working hours</option>
                 <option>Mornings</option>
                 <option>Afternoons</option>
                 <option>After 5pm</option>
               </select>
+              </div>
             </div>
             <label class="consent">
               <input id="ffConsent" type="checkbox">
@@ -986,6 +1000,11 @@ body::after{
         </div>
       </div>
       <div>
+        <label for="shEmail">Email <span class="opt">— so we can send you a summary</span></label>
+        <input id="shEmail" type="email" autocomplete="email" placeholder="you@example.com">
+        <p class="enq-err" id="shErrEmail" hidden>That email doesn't look right.</p>
+      </div>
+      <div>
         <label for="shWhat">What do you do?</label>
         <select id="shWhat">
           <option>I play sport</option>
@@ -1050,8 +1069,8 @@ body::after{
 <script>
 window.__DCS_ENQUIRY_ENDPOINT = "";
 window.__DCS_FIGURES = [["figure-male-footballer.webp", "A semi-professional footballer in muddy kit, standing"], ["figure-male-builder.webp", "A builder in dusty workwear with a tool belt, standing"], ["figure-female-footballer.webp", "A footballer in muddy kit, standing"], ["figure-female-electrician.webp", "An electrician in workwear with a tool belt, standing"]];
-window.__DCS_FF_STEPS = [{"id": "who", "q": "First \u2014 which of these is you?", "help": "It changes what we ask next. A contracted player and a self-employed sparky have very different gaps.", "type": "choice", "key": "doing", "options": ["I play sport", "I'm on the tools", "Both", "Something else"]}, {"id": "detail-sport", "q": "What do you play, and at what level?", "help": "Level matters more than the sport. Semi-pro and contracted players get underwritten differently to weekend players.", "type": "choice", "key": "level", "only": "sport", "options": ["Semi-professional", "Professional / contracted", "Amateur or weekend", "Coaching or officiating"]}, {"id": "detail-trade", "q": "What's the trade?", "help": "Some trades are rated differently by insurers \u2014 working at height in particular. It's a factor, not a barrier.", "type": "choice", "key": "trade", "only": "trade", "options": ["Electrician", "Builder / groundworker", "Plumber or heating", "Roofer or working at height", "Carpenter or joiner", "Something else"]}, {"id": "paid", "q": "How are you paid?", "help": "This is the one that shapes everything. Cover is usually built around what actually stops when you do.", "type": "choice", "key": "paid", "options": ["Day rate, self-employed", "Weekly \u2014 match fees or wages", "Monthly salary", "A mix of things"]}, {"id": "existing", "q": "Have you got any cover already?", "help": "Plenty of people are already covered through a club, an employer or a mortgage and don't know it. Worth not paying twice.", "type": "choice", "key": "existing", "options": ["Nothing at all", "Something through a club or employer", "Something with my mortgage", "I honestly don't know"]}, {"id": "interest", "q": "What's on your mind?", "help": "Pick as many as you like, or none \u2014 the call can work that out.", "type": "multi", "key": "interest", "options": ["Sports injury / accident", "Private medical", "Income protection", "Life or critical illness", "Not sure yet"]}, {"id": "when", "q": "When would you want cover in place?", "help": "No wrong answer. It just tells us how quickly to ring.", "type": "choice", "key": "timing", "options": ["As soon as possible", "Next month or so", "Just looking for now"]}];
-window.__DCS_FF_ANSWERS = [{"k": ["deferred", "waiting period", "wait"], "q": "What's a deferred period?", "a": "It's how long you'd wait after stopping work before the policy starts paying \u2014 often somewhere between a month and six months. A longer wait usually means a cheaper premium, so it's a trade-off worth talking through."}, {"k": ["critical illness", "critical"], "q": "What counts as a critical illness?", "a": "Each insurer publishes its own list of conditions, and they differ. It's the policy document that decides, never us \u2014 which is exactly why it's worth someone reading the list with you."}, {"k": ["income protection", "income"], "q": "What is income protection?", "a": "It's designed to pay a monthly amount while you can't work through illness or injury, on the insurer's terms. For a player or someone on the tools, the detail that matters is how the policy defines 'can't work'."}, {"k": ["pmi", "private medical", "medical"], "q": "What does private medical cover do?", "a": "It's about access to private diagnosis and treatment for eligible conditions \u2014 usually speed. Terms and exclusions are the insurer's."}, {"k": ["club", "employer", "covered at work", "work cover"], "q": "My club says I'm covered \u2014 do I need this?", "a": "Maybe not, and we'd rather tell you that than sell you something twice. Club and employer cover is often narrower than people assume, so it's worth reading what you've already got."}, {"k": ["cost", "price", "how much", "premium", "quote"], "q": "How much does it cost?", "a": "We can't put a price on this website \u2014 it depends on the insurer, your job, your age and your health, and quoting without those would be misleading. That's a straight answer on the call, with no obligation."}, {"k": ["health", "medical history", "conditions", "smoker"], "q": "Will you ask about my health?", "a": "Not here. We deliberately don't collect health details online. The insurer will ask in their own application later, and we'll talk it through on the call first."}, {"k": ["advice", "recommend", "should i", "best"], "q": "Which one should I get?", "a": "That's genuinely the one thing I can't answer \u2014 DCS Insure introduces and arranges cover, and nothing on this website is advice. Someone will go through it with you properly on the call."}, {"k": ["data", "privacy", "gdpr", "details safe"], "q": "What happens to my details?", "a": "They go to DCS Insure so someone can ring you about a review, and nowhere else. The Privacy Policy at the bottom of the page sets out the lot."}];
+window.__DCS_FF_STEPS = [{"chips": ["income protection", "advice"], "id": "who", "q": "First \u2014 which of these is you?", "help": "It changes what we ask next. A contracted player and a self-employed sparky have very different gaps.", "type": "choice", "key": "doing", "options": ["I play sport", "I'm on the tools", "Both", "Something else"]}, {"chips": ["club", "income protection"], "notes": {"Professional / contracted": "If you're contracted, check what the club already provides \u2014 it's often narrower than people expect, and we'd rather you didn't pay twice."}, "id": "detail-sport", "q": "What do you play, and at what level?", "help": "Level matters more than the sport. Semi-pro and contracted players get underwritten differently to weekend players.", "type": "choice", "key": "level", "only": "sport", "options": ["Semi-professional", "Professional / contracted", "Amateur or weekend", "Coaching or officiating"]}, {"chips": ["income protection", "cost"], "notes": {"Roofer or working at height": "Worth saying now: working at height is rated differently by most insurers. It's a factor in the price, not a barrier to getting covered."}, "id": "detail-trade", "q": "What's the trade?", "help": "Some trades are rated differently by insurers \u2014 working at height in particular. It's a factor, not a barrier.", "type": "choice", "key": "trade", "only": "trade", "options": ["Electrician", "Builder / groundworker", "Plumber or heating", "Roofer or working at height", "Carpenter or joiner", "Something else"]}, {"chips": ["income protection", "deferred"], "notes": {"Day rate, self-employed": "Day rate is the one where the gap tends to be biggest \u2014 there's usually no sick pay behind it at all."}, "id": "paid", "q": "How are you paid?", "help": "This is the one that shapes everything. Cover is usually built around what actually stops when you do.", "type": "choice", "key": "paid", "options": ["Day rate, self-employed", "Weekly \u2014 match fees or wages", "Monthly salary", "A mix of things"]}, {"chips": ["club", "advice"], "notes": {"I honestly don't know": "That's the most common answer, and it's fine \u2014 digging it out is part of what the call is for."}, "id": "existing", "q": "Have you got any cover already?", "help": "Plenty of people are already covered through a club, an employer or a mortgage and don't know it. Worth not paying twice.", "type": "choice", "key": "existing", "options": ["Nothing at all", "Something through a club or employer", "Something with my mortgage", "I honestly don't know"]}, {"chips": ["critical illness", "pmi", "deferred"], "id": "interest", "q": "What's on your mind?", "help": "Pick as many as you like, or none \u2014 the call can work that out.", "type": "multi", "key": "interest", "options": ["Sports injury / accident", "Private medical", "Income protection", "Life or critical illness", "Not sure yet"]}, {"chips": ["cost", "health"], "id": "when", "q": "When would you want cover in place?", "help": "No wrong answer. It just tells us how quickly to ring.", "type": "choice", "key": "timing", "options": ["As soon as possible", "Next month or so", "Just looking for now"]}];
+window.__DCS_FF_ANSWERS = [{"k": ["deferred", "waiting period", "wait"], "q": "What's a deferred period?", "a": "It's how long you'd wait after stopping work before the policy starts paying \u2014 often somewhere between a month and six months. A longer wait usually means a cheaper premium, so it's a trade-off worth talking through."}, {"k": ["critical illness", "critical"], "q": "What counts as a critical illness?", "a": "Each insurer publishes its own list of conditions, and they differ. It's the policy document that decides, never us \u2014 which is exactly why it's worth someone reading the list with you."}, {"k": ["income protection", "income"], "q": "What is income protection?", "a": "It's designed to pay a monthly amount while you can't work through illness or injury, on the insurer's terms. For a player or someone on the tools, the detail that matters is how the policy defines 'can't work'."}, {"k": ["pmi", "private medical", "medical"], "q": "What does private medical cover do?", "a": "It's about access to private diagnosis and treatment for eligible conditions \u2014 usually speed. Terms and exclusions are the insurer's."}, {"k": ["club", "employer", "covered at work", "work cover"], "q": "My club says I'm covered \u2014 do I need this?", "a": "Maybe not, and we'd rather tell you that than sell you something twice. Club and employer cover is often narrower than people assume, so it's worth reading what you've already got."}, {"k": ["cost", "price", "how much", "premium", "quote"], "q": "How much does it cost?", "a": "We can't put a price on this website \u2014 it depends on the insurer, your job, your age and your health, and quoting without those would be misleading. That's a straight answer on the call, with no obligation."}, {"k": ["health", "medical history", "conditions", "smoker"], "q": "Will you ask about my health?", "a": "Not here. We deliberately don't collect health details online. The insurer will ask in their own application later, and we'll talk it through on the call first."}, {"k": ["advice", "recommend", "should i", "best"], "q": "Which one should I get?", "a": "That's genuinely the one thing I can't answer \u2014 DCS Insure introduces and arranges cover, and nothing on this website is advice. Someone will go through it with you properly on the call."}, {"k": ["data", "privacy", "gdpr", "details safe"], "q": "What happens to my details?", "a": "They go to DCS Insure so someone can ring you about a review, and nowhere else. The Privacy Policy at the bottom of the page sets out the lot."}, {"k": ["how long", "how quick", "when will you call", "call back"], "q": "How quickly will you ring?", "a": "Usually the same or next working day, and at the time you pick on the last question. If you'd rather not wait, the number's at the bottom of the page."}, {"k": ["obligation", "pushy", "sales", "commit", "sign up"], "q": "Am I committing to anything?", "a": "No. It's a conversation \u2014 nothing is sold on the call and nothing on this website is an application. If there's nothing worth arranging, you'll be told that."}, {"k": ["who are you", "dcs", "portway", "regulated", "fca"], "q": "Who are DCS Insure?", "a": "DCS Insure is a trading name of Portway Financial Limited, an Appointed Representative of Connect IFA Limited, which is authorised and regulated by the Financial Conduct Authority. The full statement is at the bottom of every page."}, {"k": ["age", "how old", "too old", "too young"], "q": "Does my age matter?", "a": "It's one of the things insurers price on, along with your job and your health. There's no age that rules the conversation out \u2014 it just shapes the options."}];
 /* Sitewide UI. Everything here is decoration — it degrades to a perfectly
    readable page with JS off, and stands down entirely under
    prefers-reduced-motion. */
@@ -1104,6 +1123,11 @@ window.__DCS_FF_ANSWERS = [{"k": ["deferred", "waiting period", "wait"], "q": "W
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) kick(); });
 })();
 
+window.__dcsEmailOk = function(v){
+  if (!v) return true;                       /* optional by design */
+  return /^[^@\s]+@[^@\s.]+\.[^@\s]{2,}$/.test(v.trim());
+};
+
 /* ONE delivery path for every enquiry on the site. With an endpoint it posts;
    without one it hands the details to the mail client and says so honestly —
    we cannot confirm a mail client opened, so we never claim receipt. */
@@ -1112,6 +1136,7 @@ window.__dcsSendEnquiry = function(data, opts){
   var btn = opts.button, gate = opts.gate;
   if (!ENDPOINT) {
     var body = 'Name: ' + data.name + '\nPhone: ' + data.phone +
+               '\nEmail: ' + (data.email || '-') +
                '\nWhat they do: ' + data.doing + '\nInterested in: ' + data.cover +
                '\nNotes: ' + (data.note || '-') +
                '\nConsent given: yes\nSubmitted: ' + data.submittedAt;
@@ -1183,6 +1208,7 @@ window.__dcsSendEnquiry = function(data, opts){
     $('ffBar').style.width = Math.round(((i) / (order.length + 1)) * 100) + '%';
     $('ffQ').textContent = st.q;
     $('ffHelp').textContent = st.help;
+    if (window.__ffChipsFor) window.__ffChipsFor(st);
     $('ffBack').hidden = (i === 0);
     var box = $('ffOptions');
     box.innerHTML = '';
@@ -1196,6 +1222,7 @@ window.__dcsSendEnquiry = function(data, opts){
       b.setAttribute('aria-pressed', chosen ? 'true' : 'false');
       b.innerHTML = '<span>' + opt + '</span><span class="tick">✓</span>';
       b.addEventListener('click', function(){
+        if (st.notes && st.notes[opt] && window.__ffNote) window.__ffNote(st.notes[opt]);
         if (st.type === 'multi') {
           var cur = data[st.key] || [];
           var at = cur.indexOf(opt);
@@ -1259,6 +1286,7 @@ window.__dcsSendEnquiry = function(data, opts){
     window.__dcsSendEnquiry({
       name: name,
       phone: $('ffPhone').value.trim(),
+      email: email,
       doing: data.doing || '',
       cover: (data.interest || []).join(', ') || 'Not sure yet',
       note: lines.join('\n'),
@@ -1288,31 +1316,114 @@ window.__dcsSendEnquiry = function(data, opts){
     log.appendChild(d);
     log.scrollTop = log.scrollHeight;
   }
-  function answer(q){
-    say('you', q);
-    var hit = null, low = q.toLowerCase();
-    for (var n = 0; n < ANSWERS.length; n++) {
-      for (var k = 0; k < ANSWERS[n].k.length; k++) {
-        if (low.indexOf(ANSWERS[n].k[k]) > -1) { hit = ANSWERS[n]; break; }
-      }
-      if (hit) break;
-    }
-    if (hit) {
-      say('bot', hit.a);
-    } else {
-      /* Never guess. An unanswerable question becomes something the adviser
-         is told about, which is more use than a wrong answer. */
-      asked.push(q);
-      say('bot', "That one's worth putting to the adviser rather than me guessing — " +
-                 "I've made a note of it so they can answer it on the call.");
-    }
+  /* Scored matching rather than raw substring, so typos, plurals and word
+     order don't defeat it. Still entirely deterministic — every possible
+     reply lives in ASSISTANT_ANSWERS and can be read by compliance. */
+  function normalise(t){
+    return (' ' + t.toLowerCase() + ' ')
+      .replace(/[^a-z0-9 ]+/g, ' ')
+      .replace(/\b(whats|what s)\b/g, 'what is')
+      .replace(/\b(im)\b/g, 'i am')
+      .replace(/(\w{4,})s\b/g, '$1')      // crude plural strip
+      .replace(/\s+/g, ' ');
   }
-  ANSWERS.slice(0,4).forEach(function(a){
-    var c = document.createElement('button');
-    c.type = 'button'; c.className = 'ff-chip'; c.textContent = a.q;
-    c.addEventListener('click', function(){ answer(a.q); });
-    chips.appendChild(c);
-  });
+  function score(query, entry){
+    var q = normalise(query), best = 0;
+    entry.k.concat([entry.q]).forEach(function(key){
+      var kk = normalise(key).trim();
+      if (!kk) return;
+      if (q.indexOf(' ' + kk + ' ') > -1) { best = Math.max(best, 10 + kk.length/10); return; }
+      var words = kk.split(' ').filter(function(w){ return w.length > 3; });
+      if (!words.length) return;
+      var hits = words.filter(function(w){ return q.indexOf(' ' + w) > -1; }).length;
+      if (hits) best = Math.max(best, (hits / words.length) * 6);
+    });
+    return best;
+  }
+  /* ADVICE GUARD — checked BEFORE any scoring, and it always wins.
+     Without this, "should I get income protection or critical illness?" scores
+     highest on the product name and comes back as a product explanation, which
+     is the exact thing this assistant must never do. An advice-shaped question
+     gets the refusal no matter what else it mentions. */
+  var ADVICE = [
+    /\bshould i\b/, /\bshould we\b/, /\bwhich (one|cover|policy|should|is best)\b/,
+    /\brecommend/, /\bbest for me\b/, /\bwhat would you (do|suggest|advise)\b/,
+    /\bdo i need\b/, /\bworth it\b/, /\badvise me\b/, /\bor\b.*\b(better|best)\b/
+  ];
+  function isAdvice(q){
+    var n = normalise(q);
+    for (var i = 0; i < ADVICE.length; i++) if (ADVICE[i].test(n)) return true;
+    return false;
+  }
+
+  function findAnswer(q){
+    if (isAdvice(q)) {
+      return ANSWERS.filter(function(a){ return a.k.indexOf('advice') > -1; })[0] || null;
+    }
+    var best = null, bestScore = 0;
+    ANSWERS.forEach(function(a){
+      var sc = score(q, a);
+      if (sc > bestScore) { bestScore = sc; best = a; }
+    });
+    return bestScore >= 3 ? best : null;
+  }
+
+  function related(hit){
+    /* two other questions, so there is always somewhere to go next */
+    return ANSWERS.filter(function(a){ return a !== hit; })
+                  .sort(function(){ return Math.random() - 0.5; }).slice(0,2);
+  }
+
+  function answer(q, opts){
+    opts = opts || {};
+    if (!opts.silent) say('you', q);
+    var hit = findAnswer(q);
+    thinking(function(){
+      if (hit) {
+        say('bot', hit.a);
+        setChips(related(hit));
+      } else {
+        /* Never guess. An unanswerable question becomes something the adviser
+           is told about, which is more use than a wrong answer. */
+        asked.push(q);
+        say('bot', "That one's worth putting to the adviser rather than me guessing — " +
+                   "I've made a note of it so they can answer it on the call.");
+        setChips(ANSWERS.slice(0,2));
+      }
+    });
+  }
+
+  /* a short beat before replying, so it reads as considered rather than canned */
+  function thinking(done){
+    var d = document.createElement('div');
+    d.className = 'ff-msg ff-msg-bot ff-typing';
+    d.innerHTML = '<span></span><span></span><span></span>';
+    log.appendChild(d); log.scrollTop = log.scrollHeight;
+    setTimeout(function(){ d.remove(); done(); }, 420);
+  }
+  function setChips(list){
+    chips.innerHTML = '';
+    (list || []).forEach(function(a){
+      var c = document.createElement('button');
+      c.type = 'button'; c.className = 'ff-chip'; c.textContent = a.q;
+      c.addEventListener('click', function(){ answer(a.q); });
+      chips.appendChild(c);
+    });
+  }
+  /* the chips follow the question you're on, which is most of why it feels
+     like it is paying attention */
+  window.__ffChipsFor = function(step){
+    var keys = (step && step.chips) || [];
+    var list = keys.map(function(k){
+      return ANSWERS.filter(function(a){ return a.k.indexOf(k) > -1; })[0];
+    }).filter(Boolean);
+    setChips(list.length ? list : ANSWERS.slice(0,3));
+  };
+  /* and it volunteers something useful when an answer warrants it */
+  window.__ffNote = function(text){
+    thinking(function(){ say('bot', text); });
+  };
+  setChips(ANSWERS.slice(0,3));
   $('ffAskGo').addEventListener('click', function(){
     var v = $('ffAsk').value.trim();
     if (!v) return;
@@ -1367,13 +1478,17 @@ window.__dcsSendEnquiry = function(data, opts){
 
   submit.addEventListener('click', function(){
     var name = $('shName').value.trim(),
-        phone = $('shPhone').value.replace(/\D/g, '');
+        phone = $('shPhone').value.replace(/\D/g, ''),
+        email = $('shEmail').value.trim();
     $('shErrName').hidden = name.length >= 2;
     $('shErrPhone').hidden = phone.length >= 10;
-    if (!consent.checked || name.length < 2 || phone.length < 10) return;
+    $('shErrEmail').hidden = window.__dcsEmailOk(email);
+    if (!consent.checked || name.length < 2 || phone.length < 10 ||
+        !window.__dcsEmailOk(email)) return;
     window.__dcsSendEnquiry({
       name: name,
       phone: $('shPhone').value.trim(),
+      email: email,
       doing: $('shWhat').value,
       cover: 'Not sure yet',
       note: 'Via the review sheet',
@@ -1413,10 +1528,13 @@ window.__dcsSendEnquiry = function(data, opts){
     var ok = true;
     var name = $('enqName').value.trim();
     var phone = $('enqPhone').value.replace(/\D/g, '');
+    var email = $('enqEmail').value.trim();
     $('errName').hidden = name.length >= 2;
     $('errPhone').hidden = phone.length >= 10;
+    $('errEmail').hidden = window.__dcsEmailOk(email);
     if (name.length < 2) ok = false;
     if (phone.length < 10) ok = false;
+    if (!window.__dcsEmailOk(email)) ok = false;
     return ok;
   }
 
@@ -1425,6 +1543,7 @@ window.__dcsSendEnquiry = function(data, opts){
     window.__dcsSendEnquiry({
       name: $('enqName').value.trim(),
       phone: $('enqPhone').value.trim(),
+      email: $('enqEmail').value.trim(),
       doing: $('enqWhat').value,
       cover: $('enqCover').value,
       note: $('enqNote').value.trim(),
