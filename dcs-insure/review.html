@@ -1123,6 +1123,32 @@ window.__DCS_FF_ANSWERS = [{"k": ["deferred", "waiting period", "wait"], "q": "W
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) kick(); });
 })();
 
+/* Anonymous pageview beacon. No cookies, no identifiers, hostname of the
+   referrer only, and it stands down entirely if the visitor has Do Not Track
+   set. Failures are swallowed — analytics must never affect the page. */
+(function(){
+  var EP = "https://quicksite-stats-89aa38a9.base44.app/api/functions/hit";
+  if (!EP) return;
+  try {
+    var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+    if (dnt === '1' || dnt === 'yes') return;
+    var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    if (!/^[a-z][a-z0-9-]{0,34}\.html$/.test(page)) return;
+    var ref = '';
+    if (document.referrer) {
+      try {
+        var h = new URL(document.referrer).hostname;
+        if (h && h !== location.hostname) ref = h;
+      } catch (e) {}
+    }
+    fetch(EP, {
+      method: 'POST', mode: 'cors', keepalive: true,
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify({page: "dcs-" + page, ref: ref})
+    }).catch(function(){});
+  } catch (e) {}
+})();
+
 window.__dcsEmailOk = function(v){
   if (!v) return true;                       /* optional by design */
   return /^[^@\s]+@[^@\s.]+\.[^@\s]{2,}$/.test(v.trim());

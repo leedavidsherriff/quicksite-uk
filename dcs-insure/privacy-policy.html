@@ -941,6 +941,14 @@ body::after{
     <a href="mailto:contact@portwaygroup.com">contact@portwaygroup.com</a> or write to
     DCS Insure, 1 The Portway, Porthcawl, CF36 3XB.</p>
 
+    <h2>Cookies and measurement</h2>
+    <p>This website sets no cookies and does not track you across other websites. We do count
+    how many times each page is opened, so we know which parts of the site are useful. That
+    count records the page, the day, and the website you arrived from &mdash; nothing else. It
+    does not record your IP address, your device, or anything that could identify you, and it
+    is not shared with any advertising network. If your browser sends a &ldquo;Do Not
+    Track&rdquo; signal, we don't count the visit at all.</p>
+
     <h2>Complaints</h2>
     <p>If you are unhappy with how we have handled your personal data, please tell us first so
     we can put it right. You also have the right to complain to the Information Commissioner's
@@ -1113,6 +1121,32 @@ window.__DCS_FF_ANSWERS = [{"k": ["deferred", "waiting period", "wait"], "q": "W
   if (v.readyState >= 2) kick();
   v.addEventListener('loadeddata', kick);
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) kick(); });
+})();
+
+/* Anonymous pageview beacon. No cookies, no identifiers, hostname of the
+   referrer only, and it stands down entirely if the visitor has Do Not Track
+   set. Failures are swallowed — analytics must never affect the page. */
+(function(){
+  var EP = "https://quicksite-stats-89aa38a9.base44.app/api/functions/hit";
+  if (!EP) return;
+  try {
+    var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+    if (dnt === '1' || dnt === 'yes') return;
+    var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    if (!/^[a-z][a-z0-9-]{0,34}\.html$/.test(page)) return;
+    var ref = '';
+    if (document.referrer) {
+      try {
+        var h = new URL(document.referrer).hostname;
+        if (h && h !== location.hostname) ref = h;
+      } catch (e) {}
+    }
+    fetch(EP, {
+      method: 'POST', mode: 'cors', keepalive: true,
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify({page: "dcs-" + page, ref: ref})
+    }).catch(function(){});
+  } catch (e) {}
 })();
 
 window.__dcsEmailOk = function(v){
