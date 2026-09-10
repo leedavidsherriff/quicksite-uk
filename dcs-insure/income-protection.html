@@ -269,6 +269,18 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 .weeks-val{font-size:clamp(22px,3.2vw,30px);font-weight:700;color:#6FB4E8;font-variant-numeric:tabular-nums}
 .weeks-scale{display:flex;justify-content:space-between;font-size:11px;opacity:.5;font-variant-numeric:tabular-nums;margin-top:9px}
 
+/* Hero that carries the calculator beside the copy, instead of a near-empty
+   hero handing off to a section that repeats it. */
+.hero-split{display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+@media(min-width:1040px){.hero-split{grid-template-columns:.92fr 1.08fr;gap:52px}}
+.hero-split h1{max-width:14ch}
+.hero-split .sub{max-width:44ch}
+/* Inside the split the calculator sits in a narrower column, so its own two
+   columns squeeze the blade to a stub — stack it and let the steel run full
+   width. (Viewport media queries can't see this; the column is narrow at a
+   wide viewport.) */
+.hero-split .calc-grid{grid-template-columns:1fr;gap:22px}
+
 /* ---------- THE TAPE MEASURE ----------
    Carried over from Onward: the blade is a PHOTOGRAPH of real yellow steel,
    mirror-cut into a seamless tile, not a drawn gradient. Its graduations are
@@ -409,6 +421,21 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
   54%{top:102%;opacity:0}
   100%{top:102%;opacity:0}
 }
+/* ---------- THE TURN ----------
+   The plate rotates after each scan and the athlete comes back as a tradesman.
+   Perspective lives on the stage; the plate keeps the clipping and rounding;
+   the two faces sit back-to-back inside. The hotspots are outside this
+   element on purpose, so they stay put while the body changes. */
+.fig-plate-turn{perspective:1400px}
+.fig-flip{
+  display:block;position:relative;transform-style:preserve-3d;
+  transition:transform 1.15s cubic-bezier(.66,0,.28,1);
+}
+.fig-flip.flipped{transform:rotateY(180deg)}
+.fig-flip .face{display:block;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fig-flip .face-b{position:absolute;inset:0;transform:rotateY(180deg)}
+.fig-flip .face img{width:100%;display:block}
+
 /* stagger the dot pulses so they breathe in sequence, not in lockstep */
 .spot:nth-child(1) .dot::after{animation-delay:0s}
 .spot:nth-child(2) .dot::after{animation-delay:.7s}
@@ -678,35 +705,32 @@ body::after{
 </header>
 <main id="main">
 
-<section class="hero">
+<section class="hero" id="gap">
   <div class="wrap">
-    <div class="hero-head">
+    <div class="hero-split">
+      <div>
+        <div class="hero-head">
     <div class="body-index" aria-hidden="true">
       <span class="body-index-crop" style="background-position:38% 92%"></span>
       <span class="body-index-n">04</span>
     </div>
-      <div><span class="kicker">For footballers, rugby players and sports professionals</span></div>
-    </div>
-    <h1>Income Protection</h1>
-    <div class="rule"></div>
-    <p class="sub">You get injured on Saturday, or fall off a ladder on Monday. When does the
-    money stop? Income protection pays a monthly benefit while you're unable to work through
-    illness or injury — arranged around how you're actually paid, not a desk job.</p>
+          <div><span class="kicker">For footballers, rugby players and tradespeople</span></div>
+        </div>
+        <h1>Income Protection</h1>
+        <div class="rule"></div>
+        <p class="sub">You get injured on Saturday, or fall off a ladder on Monday. When does
+        the money stop? Income protection pays a monthly benefit while you're unable to work
+        through illness or injury — arranged around how you're actually paid, not a desk job.</p>
+        <p class="sub" style="margin-top:16px;opacity:.62;font-size:14.5px">Work out the gap
+        first &mdash; it's your own two numbers, and it takes ten seconds.</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#gap">Work out the gap</a>
-      <a class="btn btn-ghost" href="contact.html">Free initial review</a>
+      <a class="btn btn-primary" href="contact.html">Free initial review</a>
+      <a class="btn btn-ghost" href="tel:+441656856120">Call 01656 856120</a>
     </div>
-  </div>
-</section>
+      </div>
 
-<section class="section section-dark" id="gap">
-  <div class="wrap">
-    <span class="kicker">The gap</span>
-    <h2>What time on the sidelines costs</h2>
-    <p class="lede">Put in what you earn in a normal week. Drag the blade for how long you'd be
-    out. The figure is your own numbers multiplied together — nothing cleverer than that.</p>
-
-    <div class="calc">
+      <div>
+        <div class="calc">
       <div class="mode" role="group" aria-label="What you do">
         <button type="button" id="modeSport" aria-pressed="true">I play</button>
         <button type="button" id="modeTrade" aria-pressed="false">I'm on the tools</button>
@@ -750,8 +774,7 @@ body::after{
         projection, or a statement of what any policy would pay. It is a sum.
       </p>
 
-      <div style="margin-top:24px">
-        <a class="btn btn-primary" href="contact.html">Talk it through</a>
+        </div>
       </div>
     </div>
   </div>
