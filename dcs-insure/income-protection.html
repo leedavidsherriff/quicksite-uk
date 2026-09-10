@@ -343,6 +343,15 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 .calc-out .lbl{font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
 .calc-fig{font-size:clamp(42px,9vw,86px);font-weight:700;line-height:1;letter-spacing:-.03em;margin-top:10px;font-variant-numeric:tabular-nums}
 .calc-sum{font-size:13px;opacity:.6;margin-top:12px;font-variant-numeric:tabular-nums}
+/* the "what you'd get back" half — quieter than the loss figure on purpose,
+   so it never reads as the headline promise */
+.calc-back{margin-top:22px;padding:18px 20px;border-radius:14px;
+  background:rgba(18,113,183,.12);box-shadow:inset 0 0 0 1px rgba(143,198,242,.3)}
+.calc-back-fig{margin-top:8px;font-size:clamp(24px,4.2vw,34px);font-weight:700;
+  line-height:1.05;font-variant-numeric:tabular-nums;color:#8FC6F2}
+.calc-back-fig em{display:block;font-style:normal;font-size:13.5px;font-weight:400;
+  color:var(--paper);opacity:.72;margin-top:5px}
+
 .calc-note{margin-top:20px;padding:16px 18px;border-radius:12px;border:1px dashed rgba(255,255,255,.3);font-size:13.5px;line-height:1.65;opacity:.78;max-width:78ch}
 .calc-note b{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;opacity:.95}
 
@@ -611,6 +620,37 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
   background:rgba(18,113,183,.12);box-shadow:inset 0 0 0 1.5px rgba(143,198,242,.5)}
 .enq-sent h3{margin-bottom:10px}
 
+/* ---------- REVIEW SHEET ----------
+   The primary CTA opens this in place rather than sending you off to another
+   page to start again. Fewer steps between wanting a call and asking for one. */
+.sheet-wrap{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:18px}
+.sheet-scrim{position:absolute;inset:0;background:rgba(6,9,12,.72);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:dcs-fade .25s ease}
+@keyframes dcs-fade{from{opacity:0}to{opacity:1}}
+.sheet{
+  position:relative;width:min(560px,100%);max-height:calc(100vh - 36px);overflow:auto;
+  border-radius:22px;padding:clamp(24px,4vw,36px);
+  background:linear-gradient(170deg,#18222c,#11161b);
+  /* colour MUST be explicit — the sheet lives at the end of <body>, outside
+     any .section-dark, so it otherwise inherits the light page's ink and
+     renders dark text on a dark panel. */
+  color:var(--paper);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 0 1px rgba(143,198,242,.22),
+             0 50px 90px -40px #000;
+  animation:dcs-rise .32s cubic-bezier(.2,.9,.25,1);
+}
+@keyframes dcs-rise{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.sheet h2{font-size:clamp(26px,4.4vw,38px);margin-top:4px}
+.sheet-lede{margin-top:12px;opacity:.84;font-size:15px;max-width:46ch}
+.sheet .enq{margin-top:22px}
+.sheet-alt{font-size:13.5px;opacity:.7;margin-top:4px}
+.sheet-alt a{color:#8FC6F2}
+.sheet-x{position:absolute;top:14px;right:16px;width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.09);color:var(--paper);border:0;font-size:24px;line-height:1;
+  cursor:pointer;transition:background-color .18s ease}
+.sheet-x:hover{background:rgba(255,255,255,.18)}
+@media (prefers-reduced-motion: reduce){.sheet,.sheet-scrim{animation:none}}
+
 /* legal / privacy page */
 .legal{max-width:76ch}
 .legal h2{font-size:clamp(20px,2.6vw,26px);margin-top:36px}
@@ -794,7 +834,7 @@ body::after{
         <p class="sub" style="margin-top:16px;opacity:.62;font-size:14.5px">Work out the gap
         first &mdash; it's your own two numbers, and it takes ten seconds.</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="contact.html">Free initial review</a>
+      <a class="btn btn-primary" href="contact.html" data-review>Free initial review</a>
       <a class="btn btn-ghost" href="tel:+441656856120">Call 01656 856120</a>
     </div>
       </div>
@@ -837,11 +877,25 @@ body::after{
         <p class="calc-sum" id="sum">&pound;450 &times; 12 weeks = &pound;5,400</p>
       </div>
 
+      <!-- The other half of the picture: what this KIND of cover is generally
+           designed to do. Deliberately a range, deliberately described as how
+           the product works rather than what anyone would be paid. -->
+      <div class="calc-back">
+        <span class="lbl">What cover like this is designed to replace</span>
+        <div class="calc-back-fig"><span id="benefit">&pound;975 &ndash; &pound;1,170</span>
+          <em>a month, while you can't work</em></div>
+        <p class="calc-sum" id="benefitBasis">Around 50&ndash;60% of your earnings — the usual
+        shape of an income protection policy.</p>
+      </div>
+
       <p class="calc-note">
-        <b>What this figure is</b>
-        <span id="discl">This is arithmetic on the two numbers you typed: your weekly playing
-        income multiplied by the weeks you selected.</span> It is not a quote, an estimate, a
-        projection, or a statement of what any policy would pay. It is a sum.
+        <b>What these figures are</b>
+        <span id="discl">The first is arithmetic on the two numbers you typed: your weekly
+        playing income multiplied by the weeks you selected.</span> The second shows the
+        proportion of earnings this kind of cover is generally built to replace, applied to
+        your own figure. Neither is a quote, an estimate, or a statement of what any policy
+        would pay you. What you'd actually be offered depends on the insurer, your job, your
+        health and the waiting period you choose &mdash; that's a conversation, not a sum.
       </p>
 
         </div>
@@ -933,7 +987,10 @@ body::after{
       outLabel = document.getElementById('outLabel'),
       discl = document.getElementById('discl'),
       bSport = document.getElementById('modeSport'),
-      bTrade = document.getElementById('modeTrade');
+      bTrade = document.getElementById('modeTrade'),
+      benefit = document.getElementById('benefit'),
+      benefitBasis = document.getElementById('benefitBasis');
+  var BAND = [0.5, 0.6];
 
   var DAYS = 5; // working days a week, used in trade mode only
   var mode = 'sport';
@@ -969,6 +1026,14 @@ body::after{
     var total = perWeek * w;
     weeksVal.textContent = wk;
     figure.textContent = gbp(total);
+    /* Monthly, because income protection pays monthly — weekly x 52 / 12. */
+    if (benefit) {
+      var monthly = perWeek * 52 / 12;
+      benefit.textContent = gbp(monthly * BAND[0]) + ' – ' + gbp(monthly * BAND[1]);
+      benefitBasis.textContent = 'Around ' + Math.round(BAND[0]*100) + '–' +
+        Math.round(BAND[1]*100) + '% of your earnings — the usual shape of an income ' +
+        'protection policy.';
+    }
     sum.textContent = (mode === 'trade')
       ? gbp(raw) + ' \u00D7 ' + DAYS + ' days \u00D7 ' + wk + ' = ' + gbp(total)
       : gbp(raw) + ' \u00D7 ' + wk + ' = ' + gbp(total);
@@ -996,6 +1061,56 @@ body::after{
 })();
 </script>
 </main>
+
+<div class="sheet-wrap" id="reviewSheet" hidden>
+  <div class="sheet-scrim" data-close></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <button class="sheet-x" type="button" aria-label="Close" data-close>&times;</button>
+    <span class="kicker">No obligation &middot; nothing sold on the call</span>
+    <h2 id="sheetTitle">Free initial review</h2>
+    <p class="sheet-lede">Leave a name and a number and we'll ring you back. Fifteen minutes —
+    we ask what you do, how you're paid, and what would happen if you stopped.</p>
+
+    <div class="enq" id="sheetForm">
+      <div class="row">
+        <div>
+          <label for="shName">Your name</label>
+          <input id="shName" type="text" autocomplete="name" placeholder="Gareth Lloyd">
+          <p class="enq-err" id="shErrName" hidden>We need a name to put on the call.</p>
+        </div>
+        <div>
+          <label for="shPhone">Phone</label>
+          <input id="shPhone" type="tel" autocomplete="tel" placeholder="07700 900789">
+          <p class="enq-err" id="shErrPhone" hidden>And a number to ring you on.</p>
+        </div>
+      </div>
+      <div>
+        <label for="shWhat">What do you do?</label>
+        <select id="shWhat">
+          <option>I play sport</option>
+          <option>I'm on the tools</option>
+          <option>Both</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <label class="consent">
+        <input id="shConsent" type="checkbox">
+        <span>Yes — pass my name and number to DCS Insure so they can call me about a free
+        initial review. See our <a href="privacy-policy.html">Privacy Policy</a>.</span>
+      </label>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+        <button class="btn btn-primary" type="button" id="shSubmit" disabled>Request my call</button>
+        <span class="enq-gate" id="shGate">Tick the box and the button will enable.</span>
+      </div>
+      <p class="sheet-alt">Rather just ring? <a href="tel:+441656856120">01656 856120</a> (Option 3)</p>
+    </div>
+
+    <div class="enq-sent" id="shSent" hidden role="status" aria-live="polite">
+      <h3>Got it.</h3>
+      <p style="opacity:.88">One of the team will call you to arrange a time.</p>
+    </div>
+  </div>
+</div>
 
 <a class="sticky-cta" id="stickyCta" href="#gap">
   <span>
@@ -1086,6 +1201,113 @@ window.__DCS_FIGURES = [["figure-male-footballer.webp", "A semi-professional foo
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) kick(); });
 })();
 
+/* ONE delivery path for every enquiry on the site. With an endpoint it posts;
+   without one it hands the details to the mail client and says so honestly —
+   we cannot confirm a mail client opened, so we never claim receipt. */
+window.__dcsSendEnquiry = function(data, opts){
+  var ENDPOINT = window.__DCS_ENQUIRY_ENDPOINT || '';
+  var btn = opts.button, gate = opts.gate;
+  if (!ENDPOINT) {
+    var body = 'Name: ' + data.name + '\nPhone: ' + data.phone +
+               '\nWhat they do: ' + data.doing + '\nInterested in: ' + data.cover +
+               '\nNotes: ' + (data.note || '-') +
+               '\nConsent given: yes\nSubmitted: ' + data.submittedAt;
+    window.location.href = 'mailto:contact@portwaygroup.com?subject=' +
+      encodeURIComponent('Website enquiry — ' + data.name) +
+      '&body=' + encodeURIComponent(body);
+    opts.onDone(
+      '<h3>Nearly there</h3>' +
+      '<p style="opacity:.88">We’ve opened your email app with the details filled in — ' +
+      'just press send. If nothing opened, ring us on ' +
+      '<a href="tel:+441656856120">01656 856120</a> or email ' +
+      '<a href="mailto:contact@portwaygroup.com">contact@portwaygroup.com</a>.</p>' +
+      '<p style="opacity:.7;margin-top:12px;font-size:13.5px">' + data.name +
+      ' &middot; ' + data.phone + '</p>');
+    return;
+  }
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  fetch(ENDPOINT, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  }).then(function(r){
+    if (!r.ok) throw new Error('bad status ' + r.status);
+    opts.onDone(null);
+  }).catch(function(){
+    if (btn) { btn.disabled = false; btn.textContent = 'Request my call'; }
+    if (gate) {
+      gate.hidden = false;
+      gate.textContent = 'That didn’t send — please ring us on 01656 856120 instead.';
+    }
+  });
+};
+
+/* The review sheet — the primary CTA opens it in place instead of navigating
+   to the contact page. Uses the same delivery path as the contact form, so
+   there is one place where an enquiry can go wrong, not two. */
+(function(){
+  var wrap = document.getElementById('reviewSheet');
+  if (!wrap) return;
+  var $ = function(id){ return document.getElementById(id); };
+  var lastFocus = null;
+
+  function open(e){
+    if (e) e.preventDefault();
+    lastFocus = document.activeElement;
+    wrap.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var f = $('shName'); if (f) f.focus();
+  }
+  function close(){
+    wrap.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  [].forEach.call(document.querySelectorAll('[data-review]'), function(a){
+    a.addEventListener('click', open);
+  });
+  [].forEach.call(wrap.querySelectorAll('[data-close]'), function(b){
+    b.addEventListener('click', close);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && !wrap.hidden) close();
+  });
+
+  var consent = $('shConsent'), submit = $('shSubmit'), gate = $('shGate');
+  consent.addEventListener('change', function(){
+    submit.disabled = !consent.checked;
+    gate.hidden = consent.checked;
+  });
+
+  submit.addEventListener('click', function(){
+    var name = $('shName').value.trim(),
+        phone = $('shPhone').value.replace(/\D/g, '');
+    $('shErrName').hidden = name.length >= 2;
+    $('shErrPhone').hidden = phone.length >= 10;
+    if (!consent.checked || name.length < 2 || phone.length < 10) return;
+    window.__dcsSendEnquiry({
+      name: name,
+      phone: $('shPhone').value.trim(),
+      doing: $('shWhat').value,
+      cover: 'Not sure yet',
+      note: 'Via the review sheet',
+      consent: true,
+      page: location.pathname,
+      submittedAt: new Date().toISOString()
+    }, {
+      button: submit,
+      gate: gate,
+      onDone: function(msg){
+        $('sheetForm').hidden = true;
+        var sent = $('shSent');
+        if (msg) sent.innerHTML = msg;
+        sent.hidden = false;
+      }
+    });
+  });
+})();
+
 /* Enquiry form. Consent gates the button — a compliance requirement, not a
    nicety. With no endpoint configured it falls back to opening a pre-filled
    email, so the site can take enquiries before the backend exists rather than
@@ -1115,7 +1337,7 @@ window.__DCS_FIGURES = [["figure-male-footballer.webp", "A semi-professional foo
 
   submit.addEventListener('click', function(){
     if (!consent.checked || !validate()) return;
-    var data = {
+    window.__dcsSendEnquiry({
       name: $('enqName').value.trim(),
       phone: $('enqPhone').value.trim(),
       doing: $('enqWhat').value,
@@ -1124,44 +1346,15 @@ window.__DCS_FIGURES = [["figure-male-footballer.webp", "A semi-professional foo
       consent: true,
       page: location.pathname,
       submittedAt: new Date().toISOString()
-    };
-    var done = function(){ f.hidden = true; $('enqSent').hidden = false; };
-
-    if (!ENDPOINT) {
-      /* No backend yet — hand it to the mail client rather than lose it.
-         We cannot tell whether the mail client actually opened, so DO NOT
-         claim it was received: say what we just tried to do and leave the
-         details on screen so nothing is silently lost. */
-      var body = 'Name: ' + data.name + '\nPhone: ' + data.phone +
-                 '\nWhat they do: ' + data.doing + '\nInterested in: ' + data.cover +
-                 '\nNotes: ' + (data.note || '-') +
-                 '\nConsent given: yes\nSubmitted: ' + data.submittedAt;
-      window.location.href = 'mailto:contact@portwaygroup.com?subject=' +
-        encodeURIComponent('Website enquiry — ' + data.name) +
-        '&body=' + encodeURIComponent(body);
-      var sent = $('enqSent');
-      sent.innerHTML =
-        '<h3>Nearly there</h3>' +
-        '<p style="opacity:.88">We\u2019ve opened your email app with the details filled in — ' +
-        'just press send. If nothing opened, ring us on <a href="tel:+441656856120">01656 856120</a> ' +
-        'or email <a href="mailto:contact@portwaygroup.com">contact@portwaygroup.com</a>.</p>' +
-        '<p style="opacity:.7;margin-top:12px;font-size:13.5px">' + data.name + ' &middot; ' +
-        data.phone + ' &middot; ' + data.cover + '</p>';
-      done();
-      return;
-    }
-    submit.disabled = true; submit.textContent = 'Sending…';
-    fetch(ENDPOINT, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
-    }).then(function(r){
-      if (!r.ok) throw new Error('bad status ' + r.status);
-      done();
-    }).catch(function(){
-      submit.disabled = false; submit.textContent = 'Request my call';
-      gate.hidden = false;
-      gate.textContent = 'That didn\u2019t send — please ring us on 01656 856120 instead.';
+    }, {
+      button: submit,
+      gate: gate,
+      onDone: function(msg){
+        f.hidden = true;
+        var sent = $('enqSent');
+        if (msg) sent.innerHTML = msg;
+        sent.hidden = false;
+      }
     });
   });
 })();
@@ -1180,7 +1373,7 @@ window.__DCS_FIGURES = [["figure-male-footballer.webp", "A semi-professional foo
   var enq = document.getElementById('enqForm');
   function update(){
     var y = window.scrollY || document.documentElement.scrollTop;
-    var past = y > Math.min(window.innerHeight * 0.6, 520);
+    var past = y > Math.min(window.innerHeight * 0.34, 280);
     var blocked = false;
     [foot, calc, enq].forEach(function(el){
       if (!el) return;
