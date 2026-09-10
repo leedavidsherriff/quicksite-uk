@@ -7,16 +7,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Contact DCS Insure | Porthcawl</title>
-<meta name="description" content="Get in touch with DCS Insure for a free initial review of your sports injury, private medical, income protection or life cover options.">
-<link rel="canonical" href="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/contact.html">
+<title>Start your free initial review | DCS Insure</title>
+<meta name="description" content="A few questions so DCS Insure can prepare before they ring you. Not an application, and we don't ask about your health online.">
+<link rel="canonical" href="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/review.html">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DCS Insure">
 <meta property="og:locale" content="en_GB">
-<meta property="og:title" content="Contact DCS Insure | Porthcawl">
-<meta property="og:description" content="Get in touch with DCS Insure for a free initial review of your sports injury, private medical, income protection or life cover options.">
-<meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/contact.html">
+<meta property="og:title" content="Start your free initial review | DCS Insure">
+<meta property="og:description" content="A few questions so DCS Insure can prepare before they ring you. Not an application, and we don't ask about your health online.">
+<meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/review.html">
 <meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/assets/dcs-insure-logo-transparent.png">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{
@@ -863,8 +863,8 @@ body::after{
       <li><a href="private-medical-insurance.html">Private Medical Insurance</a></li>
       <li><a href="income-protection.html">Income Protection</a></li>
       <li><a href="life-critical-illness.html">Life or Critical Illness</a></li>
-      <li><a href="review.html">Start a review</a></li>
-      <li><a href="contact.html" aria-current="page">Contact Us</a></li>
+      <li><a href="review.html" aria-current="page">Start a review</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </nav>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
@@ -874,105 +874,91 @@ body::after{
 </header>
 <main id="main">
 
-<section class="hero">
+<section class="hero ff-hero">
   <div class="wrap">
-    <span class="kicker">Get in touch</span>
-    <h1>Contact Us</h1>
-    <div class="rule"></div>
-    <p class="sub">Fifteen minutes on the phone. We ask what you play, how you're paid, and
-    what would happen if you stopped. There is no obligation and nothing is sold on that call.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="tel:+441656856120">Call 01656 856120</a>
-      <a class="btn btn-ghost" href="mailto:contact@portwaygroup.com">Email us</a>
-    </div>
-  </div>
-</section>
+    <div class="ff-grid">
 
-<section class="section section-dark">
-  <div class="wrap">
-    <div class="contact-grid">
-      <div class="contact-card">
-        <h3>Ask us to call you</h3>
-        <p style="margin-top:12px;opacity:.85">We ask what you do, how you're paid, and what
-        would happen if you stopped. If there's nothing worth arranging, we'll say so and
-        that's the end of it. DCS Insure introduces and arranges cover — we don't advise, and
-        nothing on this website is a quotation.</p>
+      <div class="ff-main">
+        <span class="kicker" id="ffProgressLabel">Question 1</span>
+        <div class="ff-bar" aria-hidden="true"><span id="ffBar"></span></div>
 
-        <div class="enq" id="enqForm">
-          <div class="row">
-            <div>
-              <label for="enqName">Your name</label>
-              <input id="enqName" type="text" autocomplete="name" placeholder="Gareth Lloyd">
-              <p class="enq-err" id="errName" hidden>We need a name to put on the call.</p>
+        <div id="ffStep">
+          <h1 id="ffQ">First — which of these is you?</h1>
+          <p class="sub" id="ffHelp"></p>
+          <div class="ff-options" id="ffOptions" role="group" aria-labelledby="ffQ"></div>
+        </div>
+
+        <!-- final step: who to ring -->
+        <div id="ffDetails" hidden>
+          <h1>Last bit — who do we ring?</h1>
+          <p class="sub">We don't ask about your health online. That's for the call.</p>
+          <div class="enq" style="margin-top:24px">
+            <div class="row">
+              <div>
+                <label for="ffName">Your name</label>
+                <input id="ffName" type="text" autocomplete="name" placeholder="Gareth Lloyd">
+                <p class="enq-err" id="ffErrName" hidden>We need a name to put on the call.</p>
+              </div>
+              <div>
+                <label for="ffPhone">Phone</label>
+                <input id="ffPhone" type="tel" autocomplete="tel" placeholder="07700 900789">
+                <p class="enq-err" id="ffErrPhone" hidden>And a number to ring you on.</p>
+              </div>
             </div>
             <div>
-              <label for="enqPhone">Phone</label>
-              <input id="enqPhone" type="tel" autocomplete="tel" placeholder="07700 900789">
-              <p class="enq-err" id="errPhone" hidden>And a number to ring you on.</p>
-            </div>
-          </div>
-          <div class="row">
-            <div>
-              <label for="enqWhat">What do you do?</label>
-              <select id="enqWhat">
-                <option>I play sport</option>
-                <option>I'm on the tools</option>
-                <option>Both</option>
-                <option>Something else</option>
+              <label for="ffTime">Best time to ring</label>
+              <select id="ffTime">
+                <option>Any time in working hours</option>
+                <option>Mornings</option>
+                <option>Afternoons</option>
+                <option>After 5pm</option>
               </select>
             </div>
-            <div>
-              <label for="enqCover">What's on your mind?</label>
-              <select id="enqCover">
-                <option>Not sure yet</option>
-                <option>Sports injury / accident</option>
-                <option>Private medical</option>
-                <option>Income protection</option>
-                <option>Life or critical illness</option>
-              </select>
+            <label class="consent">
+              <input id="ffConsent" type="checkbox">
+              <span>Yes — pass my answers and number to DCS Insure so they can call me about
+              a free initial review. See our <a href="privacy-policy.html">Privacy Policy</a>.</span>
+            </label>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+              <button class="btn btn-primary" type="button" id="ffSubmit" disabled>Book my review</button>
+              <span class="enq-gate" id="ffGate">Tick the box and the button will enable.</span>
             </div>
-          </div>
-          <div>
-            <label for="enqNote">Anything else (optional)</label>
-            <textarea id="enqNote" placeholder="Best time to call, what you play, anything useful."></textarea>
-          </div>
-
-          <label class="consent">
-            <input id="enqConsent" type="checkbox">
-            <span>Yes — pass my name and number to DCS Insure so they can call me about a free
-            initial review. See our <a href="privacy-policy.html">Privacy Policy</a>.</span>
-          </label>
-
-          <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
-            <button class="btn btn-primary" type="button" id="enqSubmit" disabled>Request my call</button>
-            <span class="enq-gate" id="enqGate">Tick the box and the button will enable.</span>
           </div>
         </div>
 
-        <div class="enq-sent" id="enqSent" hidden role="status" aria-live="polite">
-          <h3>Got it.</h3>
-          <p style="opacity:.88">One of the team will call you to arrange a time. If you'd
-          rather start it yourself, the number's on the right.</p>
+        <div id="ffDone" hidden role="status" aria-live="polite">
+          <h1>Booked.</h1>
+          <p class="sub">One of the team will ring you. They'll have your answers in front of
+          them, so you won't be starting from scratch.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ghost" href="{PHONE_HREF}">Or ring now — {PHONE_DISPLAY}</a>
+          </div>
+        </div>
+
+        <div class="ff-nav">
+          <button class="ff-back" type="button" id="ffBack" hidden>&larr; Back</button>
+          <span class="ff-note">Not an application. Nothing is sold on the call.</span>
         </div>
       </div>
-      <div class="contact-card">
-        <h3>DCS Insure</h3>
-        <p class="addr">
-          1 The Portway<br>Porthcawl<br>CF36 3XB<br>
-          <a href="tel:+441656856120">01656 856120</a> (Option 3)<br>
-          <a href="mailto:contact@portwaygroup.com">contact@portwaygroup.com</a>
-        </p>
-        <p class="addr" style="opacity:.66;margin-top:16px">Calls Mon&ndash;Fri 8am&ndash;6pm.</p>
-      </div>
-    </div>
-    <div class="inline-cta">
-      <p>Rather we rang you? Drop us your name and number by email and we'll call back.</p>
-      <div class="inline-cta-actions">
-        <a class="btn btn-primary" href="mailto:contact@portwaygroup.com">Email us instead</a>
-        <a class="btn btn-ghost" href="tel:+441656856120">01656 856120</a>
-      </div>
-    </div>
 
+      <!-- the assistant -->
+      <aside class="ff-aside" aria-label="Help">
+        <div class="ff-bot">
+          <div class="ff-bot-head">
+            <span class="ff-bot-dot" aria-hidden="true"></span>
+            <div><b>Any questions?</b><em>Straight answers, no sales pitch.</em></div>
+          </div>
+          <div class="ff-bot-log" id="ffBotLog"></div>
+          <div class="ff-chips" id="ffChips"></div>
+          <div class="ff-ask">
+            <input id="ffAsk" type="text" placeholder="Ask something else&hellip;"
+                   aria-label="Ask a question">
+            <button type="button" id="ffAskGo" aria-label="Send question">&rarr;</button>
+          </div>
+        </div>
+      </aside>
+
+    </div>
   </div>
 </section>
 </main>
