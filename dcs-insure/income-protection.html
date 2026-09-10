@@ -113,6 +113,77 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
    block below, deliberately in one place so nothing half-overrides it. */
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:14.5px;letter-spacing:.02em;text-decoration:none;padding:14px 26px;border-radius:999px;border:0;cursor:pointer}
 
+/* ---------- THE FOUR TILES ----------
+   Was four text boxes, which was the deadest thing on the page. Now each
+   cover is the photograph of the moment it exists for, with the words sitting
+   on the image. */
+.tiles{display:grid;grid-template-columns:1fr;gap:16px;margin-top:42px}
+@media(min-width:780px){.tiles{grid-template-columns:repeat(2,1fr)}}
+.tile{
+  position:relative;display:block;overflow:hidden;border-radius:20px;text-decoration:none;
+  color:var(--paper);min-height:300px;isolation:isolate;
+  box-shadow:0 30px 60px -40px #000,inset 0 0 0 1px rgba(143,198,242,.16);
+  transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease;
+}
+@media(min-width:780px){.tile{min-height:340px}}
+.tile img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+  transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .5s ease;
+  filter:saturate(.85) contrast(1.05);
+}
+.tile::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(13,16,20,.12) 0%,rgba(13,16,20,.55) 46%,rgba(13,16,20,.94) 100%);
+  transition:background .4s ease}
+.tile-body{position:relative;z-index:2;height:100%;min-height:inherit;display:flex;
+  flex-direction:column;justify-content:flex-end;padding:clamp(20px,3vw,28px);gap:6px}
+.tile-n{font-size:11px;font-weight:700;letter-spacing:.2em;color:#8FC6F2}
+.tile h3{font-size:clamp(18px,2.2vw,23px);line-height:1.02;margin-top:6px}
+.tile p{font-size:14.5px;opacity:.88;max-width:34ch;margin-top:4px}
+.tile-go{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;font-weight:700;color:#8FC6F2}
+.tile-go span{transition:transform .3s ease;display:inline-block}
+/* a light rim that sweeps in on hover */
+.tile-rim{position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;
+  box-shadow:inset 0 0 0 1.5px rgba(143,198,242,0);transition:box-shadow .4s ease}
+.tile:hover{transform:translateY(-4px);box-shadow:0 44px 70px -40px #000,0 0 60px -30px rgba(18,113,183,.9)}
+.tile:hover img{transform:scale(1.08);filter:saturate(1) contrast(1.08)}
+.tile:hover::after{background:linear-gradient(180deg,rgba(13,16,20,.05) 0%,rgba(13,16,20,.45) 44%,rgba(13,16,20,.92) 100%)}
+.tile:hover .tile-rim,.tile:focus-visible .tile-rim{box-shadow:inset 0 0 0 1.5px rgba(143,198,242,.75)}
+.tile:hover .tile-go span{transform:translateX(5px)}
+
+/* ---------- STICKY CALCULATOR CTA ----------
+   Loud on purpose. Appears once the hero is behind you, stands down over the
+   footer so it never sits on top of the regulatory text. */
+.sticky-cta{
+  position:fixed;left:50%;bottom:18px;z-index:60;
+  transform:translate(-50%,140%);opacity:0;pointer-events:none;
+  transition:transform .45s cubic-bezier(.2,.9,.25,1),opacity .35s ease;
+  display:flex;align-items:center;gap:16px;max-width:min(680px,calc(100vw - 24px));
+  padding:12px 12px 12px 22px;border-radius:999px;
+  background:linear-gradient(120deg,rgba(11,76,130,.96),rgba(18,113,183,.96));
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:0 20px 50px -20px rgba(0,0,0,.9),0 0 70px -24px rgba(18,113,183,.95),
+             inset 0 1px 0 rgba(255,255,255,.35);
+  text-decoration:none;color:#fff;
+}
+.sticky-cta.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.sticky-cta b{display:block;font-family:var(--display);font-size:clamp(15px,2vw,19px);
+  text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
+.sticky-cta em{display:block;font-style:normal;font-size:12.5px;opacity:.85;margin-top:2px}
+.sticky-cta .go{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--blue-deep);font-weight:800;font-size:13.5px;
+  padding:12px 20px;border-radius:999px;white-space:nowrap;
+  box-shadow:0 8px 18px -8px rgba(0,0,0,.6);
+}
+.sticky-cta .go span{display:inline-block;animation:dcs-nudge 1.8s ease-in-out infinite}
+@keyframes dcs-nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+@media(max-width:620px){
+  .sticky-cta{left:12px;right:12px;transform:translateY(140%);bottom:12px;padding:10px 10px 10px 16px;gap:10px}
+  .sticky-cta.on{transform:translateY(0)}
+  .sticky-cta em{display:none}
+  .sticky-cta .go{padding:11px 15px;font-size:12.5px}
+}
+
 /* product grid (home) */
 .pgrid{display:grid;grid-template-columns:1fr;gap:1px;margin-top:40px;background:rgba(23,26,30,.12);border:1px solid rgba(23,26,30,.12)}
 @media(min-width:700px){.pgrid{grid-template-columns:repeat(2,1fr)}}
@@ -244,6 +315,34 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 /* a soft blue wash across the top of the plate, so it reads as lit */
 .fig-plate::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(18,113,183,.16),transparent 42%)}
+/* THE SCAN — a light bar travelling down the body, then a long pause. The
+   whole idea of this page is a body you read like a diagnostic, so the motion
+   says the same thing the layout does rather than being decoration. */
+.fig-plate::after{
+  content:"";position:absolute;left:0;right:0;height:22%;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,
+    transparent,
+    rgba(111,180,232,.14) 34%,
+    rgba(160,210,250,.85) 50%,
+    rgba(111,180,232,.14) 66%,
+    transparent);
+  mix-blend-mode:screen;
+  animation:dcs-scan 7.5s cubic-bezier(.4,0,.5,1) infinite;
+}
+@keyframes dcs-scan{
+  0%{top:-18%;opacity:0}
+  8%{opacity:1}
+  46%{opacity:1}
+  54%{top:102%;opacity:0}
+  100%{top:102%;opacity:0}
+}
+/* stagger the dot pulses so they breathe in sequence, not in lockstep */
+.spot:nth-child(1) .dot::after{animation-delay:0s}
+.spot:nth-child(2) .dot::after{animation-delay:.7s}
+.spot:nth-child(3) .dot::after{animation-delay:1.4s}
+.spot:nth-child(4) .dot::after{animation-delay:2.1s}
+/* mouse parallax — set from JS, subtle */
+.fig-stage{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
 /* The photograph's own grey studio ground is lighter than the page, so its
    rectangle shows. Mask all four edges to transparent and it sits IN the
    page rather than on top of it. */
@@ -732,6 +831,14 @@ body::after{
 </script>
 </main>
 
+<a class="sticky-cta" id="stickyCta" href="#gap">
+  <span>
+    <b>What does a month out cost you?</b>
+    <em>Put your own number in — it takes ten seconds.</em>
+  </span>
+  <span class="go">Work out the gap <span aria-hidden="true">&rarr;</span></span>
+</a>
+
 <footer class="foot">
   <div class="wrap foot-in">
     <div class="foot-brand"><img src="assets/dcs-insure-logo-transparent.png" alt="DCS Insure" width="98" height="45"></div>
@@ -786,9 +893,50 @@ body::after{
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) kick(); });
 })();
 
+/* Sticky calculator CTA. Outside the reduced-motion guard — it is a call to
+   action, not an effect; it simply appears without sliding for those users.
+   It stands down over the footer so it never covers the regulatory text, and
+   over the calculator itself so it never points at what you're looking at. */
+(function(){
+  var cta = document.getElementById('stickyCta');
+  if (!cta) return;
+  var foot = document.querySelector('footer.foot');
+  var calc = document.getElementById('gap');
+  function update(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    var past = y > Math.min(window.innerHeight * 0.6, 520);
+    var blocked = false;
+    [foot, calc].forEach(function(el){
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight - 40 && r.bottom > 0) blocked = true;
+    });
+    cta.classList.toggle('on', past && !blocked);
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+})();
+
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
+
+  /* Hero parallax — the figure leans very slightly toward the cursor. Pointer
+     devices only, and tiny: 10px of travel reads as depth, more reads as a
+     gimmick. */
+  var stage = document.querySelector('.fig-stage');
+  if (stage && window.matchMedia('(hover:hover) and (min-width:1000px)').matches) {
+    var hero = document.querySelector('.figure-hero');
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      var dx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      var dy = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      stage.style.transform = 'translate3d(' + (dx * -10).toFixed(2) + 'px,' +
+                              (dy * -7).toFixed(2) + 'px,0)';
+    });
+    hero.addEventListener('mouseleave', function(){ stage.style.transform = ''; });
+  }
 
   /* Scroll reveal — sections rise in once.
      FAILSAFE, do not remove: .rev sets opacity:0, so anything that never gets
