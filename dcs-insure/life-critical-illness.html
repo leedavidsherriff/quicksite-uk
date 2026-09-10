@@ -62,40 +62,83 @@ h3{font-size:clamp(16px,2vw,20px)}
 .section-dark .kicker,.hero .kicker{color:#6FB4E8}
 .lede{max-width:62ch;margin-top:16px;font-size:clamp(15px,1.6vw,18px);opacity:.86}
 
-/* header / nav */
-.site-head{position:sticky;top:0;z-index:50;background:rgba(23,26,30,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
-.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
-.site-head img{height:36px;width:auto}
-.nav{display:flex;flex-wrap:wrap;gap:2px 4px;list-style:none;padding:0;margin:0;justify-content:flex-end}
-.nav a{display:inline-block;font-family:var(--body);font-weight:600;font-size:13px;color:var(--paper);opacity:.78;text-decoration:none;padding:9px 11px;border-radius:999px;transition:opacity .15s ease,background-color .15s ease}
-.nav a:hover{opacity:1;background:rgba(255,255,255,.08)}
-.nav a[aria-current="page"]{opacity:1;background:var(--blue);color:#fff}
+/* ---------- FLOATING NAV ----------
+   Not a header bar — a glass island that floats over the page, app-style.
+   Nothing full-bleed, nothing welded to the top edge. */
+.site-head{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:60;
+  width:max-content;max-width:calc(100vw - 20px)}
+.head-island{
+  display:flex;align-items:center;gap:8px;padding:7px 8px 7px 16px;border-radius:999px;
+  background:rgba(13,16,20,.6);
+  -webkit-backdrop-filter:blur(20px) saturate(1.7);backdrop-filter:blur(20px) saturate(1.7);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -1px 0 rgba(0,0,0,.4),
+    inset 0 0 0 1px rgba(143,198,242,.14),
+    0 18px 40px -18px rgba(0,0,0,.9);
+  transition:background-color .3s ease,box-shadow .3s ease;
+}
+/* once you've scrolled off the hero the island tightens up and darkens */
+.site-head.stuck .head-island{background:rgba(9,12,15,.82);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 0 0 1px rgba(143,198,242,.2),
+             0 22px 44px -18px rgba(0,0,0,.95)}
+/* The full lockup is unreadable at capsule size — the island wears the DCS
+   mark alone, the way an app icon would. */
+.head-logo{display:grid;place-items:center;flex:0 0 auto;width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(143,198,242,.28)}
+.head-logo img{width:21px;height:21px;display:block}
+.nav{display:flex;gap:2px;list-style:none;padding:0;margin:0}
+.nav a{
+  display:inline-block;font-family:var(--body);font-weight:600;font-size:12.5px;
+  color:var(--paper);opacity:.72;text-decoration:none;padding:9px 12px;border-radius:999px;
+  white-space:nowrap;transition:opacity .18s ease,background-color .18s ease;
+}
+.nav a:hover{opacity:1;background:rgba(255,255,255,.1)}
+.nav a[aria-current="page"]{
+  opacity:1;color:#fff;background:var(--blue);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 16px -8px rgba(18,113,183,.95);
+}
 .nav-toggle{display:none}
-@media (max-width:900px){
-  .site-head .wrap{gap:10px}
-  /* Six long labels wrap to three rows and eat the top of a phone screen —
-     collapse them behind a toggle instead. */
+@media (max-width:1080px){
+  /* Six long labels can't live in a capsule on a phone — the island keeps the
+     logo and a Menu key, and the links drop out as a floating glass sheet. */
   .nav-toggle{
     display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;
-    font-size:13px;color:var(--paper);background:rgba(255,255,255,.09);border:0;cursor:pointer;
+    font-size:13px;color:var(--paper);background:rgba(255,255,255,.12);border:0;cursor:pointer;
     padding:10px 16px;border-radius:999px;
-    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.28);
   }
   .nav-toggle .bars-ico{display:block;width:15px;height:2px;background:var(--paper);position:relative}
   .nav-toggle .bars-ico::before,.nav-toggle .bars-ico::after{content:"";position:absolute;left:0;width:15px;height:2px;background:var(--paper)}
   .nav-toggle .bars-ico::before{top:-5px} .nav-toggle .bars-ico::after{top:5px}
-  .nav{
-    display:none;flex-direction:column;align-items:stretch;width:100%;
-    gap:2px;padding-bottom:8px;
+  /* The island is only as wide as its logo + key, so the sheet needs its own
+     width or the long labels spill outside the rounded panel. Anchored to the
+     island's right edge, under the Menu key. */
+  /* Centred on the island, NOT anchored to its right edge — the island is
+     narrower than the sheet, so right:0 hangs it off the left of the screen. */
+  .nav-wrap{
+    position:absolute;top:calc(100% + 10px);left:50%;right:auto;
+    width:min(304px,calc(100vw - 28px));
+    opacity:0;transform:translateX(-50%) translateY(-8px) scale(.98);pointer-events:none;
+    transition:opacity .22s ease,transform .22s cubic-bezier(.2,.9,.3,1);
   }
-  .nav.open{display:flex}
-  .nav a{font-size:14px;padding:11px 12px;border-radius:10px}
+  .nav-wrap.open{opacity:1;transform:translateX(-50%);pointer-events:auto}
+  /* near-opaque on purpose: backdrop-filter is not guaranteed here, and a
+     see-through menu over a photographic hero is unreadable. */
+  .nav{
+    flex-direction:column;align-items:stretch;gap:2px;padding:8px;border-radius:20px;
+    background:rgba(9,12,15,.97);
+    -webkit-backdrop-filter:blur(20px) saturate(1.7);backdrop-filter:blur(20px) saturate(1.7);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 0 0 1px rgba(143,198,242,.16),
+               0 26px 50px -20px rgba(0,0,0,.95);
+  }
+  .nav a{font-size:13.5px;padding:12px 14px;border-radius:12px;white-space:normal;line-height:1.25}
 }
 
 /* hero */
 .hero{background:linear-gradient(160deg,var(--ink) 0%,var(--blue-deep) 130%);color:var(--paper);position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;width:60vw;height:60vw;border-radius:50%;top:-24%;right:-18%;background:radial-gradient(circle,rgba(18,113,183,.35),transparent 62%);filter:blur(40px);pointer-events:none}
-.hero .wrap{position:relative;z-index:2;padding-top:clamp(56px,9vw,104px);padding-bottom:clamp(56px,9vw,104px)}
+.hero .wrap{position:relative;z-index:2;padding-top:clamp(112px,11vw,140px);padding-bottom:clamp(56px,9vw,104px)}
 .hero h1{font-size:clamp(32px,5.6vw,60px);max-width:22ch;white-space:pre-line}
 .hero .rule{width:84px;height:4px;background:var(--blue);margin:24px 0}
 .hero .sub{max-width:56ch;font-size:clamp(15px,1.7vw,18px);opacity:.9}
@@ -289,12 +332,42 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 .figure-hero::before{content:"";position:absolute;width:70vw;height:70vw;left:-26%;top:-30%;
   border-radius:50%;pointer-events:none;filter:blur(90px);
   background:radial-gradient(circle,rgba(18,113,183,.20),transparent 62%)}
-.fig-wrap{padding-top:clamp(32px,4vw,52px);padding-bottom:clamp(32px,4vw,52px)}
+.fig-wrap{padding-top:clamp(96px,10vw,124px);padding-bottom:clamp(32px,4vw,52px)}
 .fig-grid{display:grid;grid-template-columns:1fr;gap:30px;align-items:center}
 @media(min-width:1000px){.fig-grid{grid-template-columns:1.02fr .98fr;gap:36px}}
-.fig-copy h1{font-size:clamp(30px,4.6vw,54px);max-width:16ch;white-space:pre-line}
+/* ---------- HERO COPY ----------
+   Was a flat stack of paragraphs. Now: a floating credential chip, a headline
+   whose last line carries the weight, and a line that cycles through who this
+   is actually for. */
+.chip{
+  display:inline-flex;align-items:center;gap:10px;padding:7px 15px 7px 8px;border-radius:999px;
+  background:rgba(255,255,255,.07);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),inset 0 0 0 1px rgba(143,198,242,.2);
+  font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(244,246,250,.9);margin-bottom:22px;
+}
+.chip .chip-dot{width:22px;height:22px;border-radius:50%;flex:0 0 22px;
+  background:url("assets/favicon.png") center/78% no-repeat,rgba(255,255,255,.1)}
+.fig-copy h1{font-size:clamp(32px,4.9vw,58px);max-width:15ch;line-height:.95}
+/* the payoff line gets the colour and the glow */
+.fig-copy h1 .hit{
+  display:block;color:#6FB4E8;
+  text-shadow:0 0 38px rgba(18,113,183,.65);
+}
 .fig-copy .rule{width:84px;height:4px;background:var(--blue);margin:22px 0}
 .fig-copy .sub{max-width:46ch;font-size:clamp(15px,1.5vw,17px);opacity:.88}
+/* who it's for — the word swaps on a timer */
+.forline{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-top:20px;
+  font-size:clamp(14px,1.5vw,16px);color:rgba(244,246,250,.62)}
+.forline .cycle{
+  position:relative;display:inline-block;min-width:11ch;font-weight:700;color:var(--paper);
+}
+.forline .cycle b{display:inline-block;font-weight:700;
+  animation:dcs-swap .5s cubic-bezier(.2,.9,.3,1)}
+@keyframes dcs-swap{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.forline .cycle::after{content:"";position:absolute;left:0;right:6px;bottom:-4px;height:2px;
+  background:linear-gradient(90deg,var(--blue),transparent)}
 
 /* The photograph carries its own studio glow, so it will always read as a
    panel against a flat page. Rather than fight that (masks, blend modes and a
@@ -323,7 +396,7 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
   background:linear-gradient(180deg,
     transparent,
     rgba(111,180,232,.14) 34%,
-    rgba(160,210,250,.85) 50%,
+    rgba(160,210,250,.62) 50%,
     rgba(111,180,232,.14) 66%,
     transparent);
   mix-blend-mode:screen;
@@ -585,13 +658,10 @@ body::after{
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-head">
-  <div class="wrap">
-    <a href="index.html" aria-label="DCS Insure — home"><img src="assets/dcs-insure-logo-transparent.png" alt="DCS Insure" width="98" height="45"></a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
-      <span class="bars-ico" aria-hidden="true"></span> Menu
-    </button>
-    <nav aria-label="Main">
+<header class="site-head" id="siteHead">
+  <div class="head-island">
+    <a class="head-logo" href="index.html" aria-label="DCS Insure — home"><img src="assets/favicon.png" alt="DCS Insure" width="21" height="21"></a>
+    <nav class="nav-wrap" id="navWrap" aria-label="Main">
       <ul class="nav" id="primary-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="sports-injury-accident-insurance.html">Sports Injury/Accident Insurance</a></li>
@@ -601,6 +671,9 @@ body::after{
       <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </nav>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+      <span class="bars-ico" aria-hidden="true"></span> Menu
+    </button>
   </div>
 </header>
 <main id="main">
@@ -734,12 +807,37 @@ Illness Cover</h1>
    this is navigation, not decoration, and must work for everyone. */
 (function(){
   var btn = document.querySelector('.nav-toggle'),
-      nav = document.getElementById('primary-nav');
-  if (!btn || !nav) return;
-  btn.addEventListener('click', function(){
-    var open = nav.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
+      wrap = document.getElementById('navWrap'),
+      head = document.getElementById('siteHead');
+  if (btn && wrap) {
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = wrap.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    /* tap anywhere else, or press Escape, to put the sheet away */
+    document.addEventListener('click', function(e){
+      if (!wrap.classList.contains('open')) return;
+      if (wrap.contains(e.target)) return;
+      wrap.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && wrap.classList.contains('open')) {
+        wrap.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        btn.focus();
+      }
+    });
+  }
+  /* the island tightens once the hero is behind you */
+  if (head) {
+    var onScroll = function(){
+      head.classList.toggle('stuck', (window.scrollY || 0) > 60);
+    };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  }
 })();
 
 /* Defensive autoplay kick for the film band. Same pattern as the sibling
@@ -782,6 +880,19 @@ Illness Cover</h1>
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
+
+  /* Who it's for — cycles the role. The first value is in the HTML, so with
+     JS off or reduced motion on it simply reads as a normal line. */
+  var cyc = document.getElementById('roleCycle');
+  if (cyc) {
+    var roles = ['semi-pro footballers','rugby players','tradespeople',
+                 'self-employed grafters','athletes'];
+    var i = 0;
+    setInterval(function(){
+      i = (i + 1) % roles.length;
+      cyc.innerHTML = '<b>' + roles[i] + '</b>';
+    }, 2400);
+  }
 
   /* Hero parallax — the figure leans very slightly toward the cursor. Pointer
      devices only, and tiny: 10px of travel reads as depth, more reads as a
