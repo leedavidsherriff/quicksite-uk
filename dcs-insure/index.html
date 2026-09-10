@@ -624,6 +624,11 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
    The primary CTA opens this in place rather than sending you off to another
    page to start again. Fewer steps between wanting a call and asking for one. */
 .sheet-wrap{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:18px}
+/* MUST come after the display rule: a class selector beats the browser's
+   [hidden] display:none rule, so without this the sheet sits open over every page
+   on load. Same applies to any element that sets display AND uses [hidden]. */
+.sheet-wrap[hidden]{display:none}
+.enq[hidden],.enq-sent[hidden],.enq-err[hidden]{display:none}
 .sheet-scrim{position:absolute;inset:0;background:rgba(6,9,12,.72);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:dcs-fade .25s ease}
 @keyframes dcs-fade{from{opacity:0}to{opacity:1}}
@@ -900,7 +905,7 @@ body::after{
     website can decide.</p>
     <div class="tiles">
       <a class="tile" href="sports-injury-accident-insurance.html">
-        <img src="assets/shot-injury.webp" alt="A physiotherapist strapping a footballer's knee" loading="lazy" width="1400" height="1045">
+        <img src="assets/shot-injury.webp" alt="A physiotherapist strapping a footballer's knee on a wet floodlit pitch" loading="lazy" width="1400" height="933">
         <span class="tile-rim"></span>
         <span class="tile-body">
           <span class="tile-n">01</span>
@@ -910,7 +915,7 @@ body::after{
         </span>
       </a>
       <a class="tile" href="private-medical-insurance.html">
-        <img src="assets/shot-mri.webp" alt="A radiographer beside an MRI scanner" loading="lazy" width="1400" height="1045">
+        <img src="assets/shot-mri.webp" alt="A patient entering an MRI scanner in a darkened room" loading="lazy" width="1400" height="933">
         <span class="tile-rim"></span>
         <span class="tile-body">
           <span class="tile-n">02</span>
@@ -920,7 +925,7 @@ body::after{
         </span>
       </a>
       <a class="tile" href="income-protection.html">
-        <img src="assets/shot-boots.webp" alt="Muddy boots left on the bench in an empty changing room" loading="lazy" width="1400" height="1045">
+        <img src="assets/shot-boots.webp" alt="Muddy boots left on a bench in an empty changing room, dust in a shaft of light" loading="lazy" width="1400" height="933">
         <span class="tile-rim"></span>
         <span class="tile-body">
           <span class="tile-n">03</span>
@@ -930,7 +935,7 @@ body::after{
         </span>
       </a>
       <a class="tile" href="life-critical-illness.html">
-        <img src="assets/shot-family.webp" alt="A father and daughter at home" loading="lazy" width="1400" height="1045">
+        <img src="assets/shot-family.webp" alt="A father holding his young daughter at a window at dusk" loading="lazy" width="1400" height="933">
         <span class="tile-rim"></span>
         <span class="tile-body">
           <span class="tile-n">04</span>

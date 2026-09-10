@@ -624,6 +624,11 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
    The primary CTA opens this in place rather than sending you off to another
    page to start again. Fewer steps between wanting a call and asking for one. */
 .sheet-wrap{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:18px}
+/* MUST come after the display rule: a class selector beats the browser's
+   [hidden] display:none rule, so without this the sheet sits open over every page
+   on load. Same applies to any element that sets display AND uses [hidden]. */
+.sheet-wrap[hidden]{display:none}
+.enq[hidden],.enq-sent[hidden],.enq-err[hidden]{display:none}
 .sheet-scrim{position:absolute;inset:0;background:rgba(6,9,12,.72);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:dcs-fade .25s ease}
 @keyframes dcs-fade{from{opacity:0}to{opacity:1}}
@@ -931,7 +936,7 @@ body::after{
         </ul>
       </div>
     <figure class="shot">
-      <img src="assets/shot-boots.webp" alt="Muddy football boots left on the bench in an empty club changing room" loading="lazy" width="900" height="675">
+      <img src="assets/shot-boots.webp" alt="Muddy football boots left on the bench in an empty club changing room" loading="lazy" width="1400" height="933">
       <figcaption>Boots on the bench. Nothing coming in.</figcaption>
     </figure>
 
