@@ -327,6 +327,27 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 }
 .blade-input:focus-visible{outline:3px solid #8FC6F2;outline-offset:4px}
 
+/* ---------- THE TRACK ----------
+   "I play" turns the tape into an athletics track: a PHOTOGRAPHED red track
+   surface, mirror-tiled like the blade, whose lane markers stand in for the
+   graduations. It wipes in over the steel from the left, so the tape visibly
+   becomes the track rather than just swapping. The readout and thumb still
+   carry the value — the markers don't map to the 52 stops either. */
+.blade-track{
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background-image:url("assets/track-strip.webp");
+  background-size:auto 100%;background-repeat:repeat-x;background-position:left center;
+  clip-path:inset(0 100% 0 0 round 8px);
+  transition:clip-path .7s cubic-bezier(.65,0,.25,1);
+}
+.calc.is-sport .blade-track{clip-path:inset(0 0 0 0 round 8px)}
+.blade{transition:box-shadow .7s ease}
+.calc.is-sport .blade{box-shadow:0 0 36px -14px rgba(214,72,52,.6),inset 0 0 0 1px rgba(0,0,0,.35)}
+/* the black thumb disappears on red — on the track it becomes a white lane marker */
+.calc.is-sport .blade-input::-webkit-slider-thumb{background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.35),0 0 18px rgba(0,0,0,.55)}
+.calc.is-sport .blade-input::-moz-range-thumb{background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.35),0 0 18px rgba(0,0,0,.55)}
+@media (prefers-reduced-motion: reduce){.blade-track{transition:none}}
+
 /* sport / trade mode switch */
 .mode{display:inline-flex;padding:4px;border-radius:999px;background:rgba(0,0,0,.32);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);margin-bottom:22px}
