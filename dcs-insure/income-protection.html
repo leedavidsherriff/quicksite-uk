@@ -943,7 +943,6 @@ body::after{
     <nav class="nav-wrap" id="navWrap" aria-label="Main">
       <ul class="nav" id="primary-nav">
       <li><a href="index.html">Home</a></li>
-      <li><a href="sports-injury-accident-insurance.html">Sports Injury/Accident Insurance</a></li>
       <li><a href="private-medical-insurance.html">Private Medical Insurance</a></li>
       <li><a href="income-protection.html" aria-current="page">Income Protection</a></li>
       <li><a href="life-critical-illness.html">Life or Critical Illness</a></li>
@@ -985,22 +984,22 @@ body::after{
       </div>
 
       <div>
-        <div class="calc is-sport">
+<div class="calc">
       <div class="mode" role="group" aria-label="What you do">
-        <button type="button" id="modeSport" aria-pressed="true">I play</button>
+        <button type="button" id="modeSport" aria-pressed="false">I play</button>
         <button type="button" id="modeTrade" aria-pressed="false">I'm on the tools</button>
-        <button type="button" id="modeGeneral" aria-pressed="false">I'm salaried</button>
+        <button type="button" id="modeGeneral" aria-pressed="true">I'm salaried</button>
       </div>
 
       <div class="calc-grid">
         <div>
-          <label for="fee" id="feeLabel">Your weekly playing income</label>
+          <label for="fee" id="feeLabel">Your monthly income</label>
           <div class="fee-wrap">
             <span class="fee-sym" aria-hidden="true">&pound;</span>
-            <input id="fee" type="text" inputmode="numeric" value="450"
+            <input id="fee" type="text" inputmode="numeric" value="1800"
                    aria-labelledby="feeLabel">
           </div>
-          <p class="calc-sum" id="feeNote">Match fees, contract pay, anything that stops when you do.</p>
+          <p class="calc-sum" id="feeNote">Salary, self-employed profit — anything that stops when you do.</p>
         </div>
         <div>
           <div class="weeks-head">
@@ -1044,8 +1043,105 @@ body::after{
         would pay you. What you'd actually be offered depends on the insurer, your job, your
         health and the waiting period you choose &mdash; that's a conversation, not a sum.
       </p>
+    </div>
 
-        </div>
+    <script>
+    (function(){
+      var fee = document.getElementById('fee'),
+          weeks = document.getElementById('weeks'),
+          weeksVal = document.getElementById('weeksVal'),
+          figure = document.getElementById('figure'),
+          sum = document.getElementById('sum'),
+          feeLabel = document.getElementById('feeLabel'),
+          feeNote = document.getElementById('feeNote'),
+          outLabel = document.getElementById('outLabel'),
+          discl = document.getElementById('discl'),
+          bSport = document.getElementById('modeSport'),
+          bTrade = document.getElementById('modeTrade'),
+          bGeneral = document.getElementById('modeGeneral'),
+          benefit = document.getElementById('benefit'),
+          benefitBasis = document.getElementById('benefitBasis');
+      var BAND = [0.5, 0.6];
+
+      var DAYS = 5; // working days a week, used in trade mode only
+      var mode = 'general';
+
+      var MODES = {
+        sport: {
+          label: 'Your weekly playing income',
+          note:  'Match fees, contract pay, anything that stops when you do.',
+          out:   'Playing income you wouldn\u2019t earn',
+          value: '450',
+          discl: 'This is arithmetic on the two numbers you typed: your weekly playing income multiplied by the weeks you selected.'
+        },
+        trade: {
+          label: 'Your day rate',
+          note:  '\u00D7 ' + DAYS + ' working days a week.',
+          out:   'Earnings not invoiced',
+          value: '220',
+          discl: 'This is arithmetic on the numbers you typed: your day rate \u00D7 ' + DAYS + ' working days \u00D7 the weeks you selected.'
+        },
+        general: {
+          label: 'Your monthly income',
+          note:  'Salary, self-employed profit — anything that stops when you do.',
+          out:   'Income you wouldn\u2019t earn',
+          value: '1800',
+          discl: 'This is arithmetic on the numbers you typed: your monthly income converted to a weekly figure, multiplied by the weeks you selected.'
+        }
+      };
+
+      var gbp = function(n){
+        return '\u00A3' + Math.round(n).toLocaleString('en-GB', {maximumFractionDigits:0});
+      };
+
+      function render(){
+        var raw = Number(String(fee.value).replace(/[^0-9.]/g, ''));
+        if (!isFinite(raw) || raw < 0) raw = 0;
+        raw = Math.min(raw, 20000);
+        var w = Number(weeks.value);
+        var wk = w + (w === 1 ? ' week' : ' weeks');
+        var perWeek = (mode === 'trade') ? raw * DAYS : (mode === 'general' ? raw * 12 / 52 : raw);
+        var total = perWeek * w;
+        weeksVal.textContent = wk;
+        figure.textContent = gbp(total);
+        if (benefit) {
+          var monthly = perWeek * 52 / 12;
+          benefit.textContent = gbp(monthly * BAND[0]) + ' \u2013 ' + gbp(monthly * BAND[1]);
+          benefitBasis.textContent = 'Around ' + Math.round(BAND[0]*100) + '\u2013' +
+            Math.round(BAND[1]*100) + '% of your earnings \u2014 the usual shape of an income ' +
+            'protection policy.';
+        }
+        sum.textContent = (mode === 'trade')
+          ? gbp(raw) + ' \u00D7 ' + DAYS + ' days \u00D7 ' + wk + ' = ' + gbp(total)
+          : (mode === 'general')
+          ? gbp(raw) + '/month \u2192 ' + gbp(perWeek) + '/week \u00D7 ' + wk + ' = ' + gbp(total)
+          : gbp(raw) + ' \u00D7 ' + wk + ' = ' + gbp(total);
+      }
+
+      function setMode(next){
+        mode = next;
+        var m = MODES[mode];
+        feeLabel.textContent = m.label;
+        feeNote.textContent = m.note;
+        outLabel.textContent = m.out;
+        discl.textContent = m.discl;
+        fee.value = m.value;
+        bSport.setAttribute('aria-pressed', mode === 'sport' ? 'true' : 'false');
+        bTrade.setAttribute('aria-pressed', mode === 'trade' ? 'true' : 'false');
+        bGeneral.setAttribute('aria-pressed', mode === 'general' ? 'true' : 'false');
+        document.querySelector('.calc').classList.toggle('is-sport', mode === 'sport');
+        render();
+      }
+
+      function touched(){ figure.dataset.userSet = '1'; render(); }
+      bSport.addEventListener('click', function(){ figure.dataset.userSet = '1'; setMode('sport'); });
+      bTrade.addEventListener('click', function(){ figure.dataset.userSet = '1'; setMode('trade'); });
+      bGeneral.addEventListener('click', function(){ figure.dataset.userSet = '1'; setMode('general'); });
+      fee.addEventListener('input', touched);
+      weeks.addEventListener('input', touched);
+      render();
+    })();
+    </script>
       </div>
     </div>
   </div>
@@ -1118,108 +1214,6 @@ body::after{
   </div>
 </section>
 
-
-<script>
-/* The gap calculator. Two modes because DCS Insure sells to sport AND trades:
-   sport is a weekly figure, the tools are a day rate x days worked. Either
-   way it multiplies the user's own numbers and says so. */
-(function(){
-  var fee = document.getElementById('fee'),
-      weeks = document.getElementById('weeks'),
-      weeksVal = document.getElementById('weeksVal'),
-      figure = document.getElementById('figure'),
-      sum = document.getElementById('sum'),
-      feeLabel = document.getElementById('feeLabel'),
-      feeNote = document.getElementById('feeNote'),
-      outLabel = document.getElementById('outLabel'),
-      discl = document.getElementById('discl'),
-      bSport = document.getElementById('modeSport'),
-      bTrade = document.getElementById('modeTrade'),
-      bGeneral = document.getElementById('modeGeneral'),
-      benefit = document.getElementById('benefit'),
-      benefitBasis = document.getElementById('benefitBasis');
-  var BAND = [0.5, 0.6];
-
-  var DAYS = 5; // working days a week, used in trade mode only
-  var mode = 'sport';
-
-  var MODES = {
-    sport: {
-      label: 'Your weekly playing income',
-      note:  'Match fees, contract pay, anything that stops when you do.',
-      out:   'Playing income you wouldn\u2019t earn',
-      value: '450',
-      discl: 'This is arithmetic on the two numbers you typed: your weekly playing income multiplied by the weeks you selected.'
-    },
-    trade: {
-      label: 'Your day rate',
-      note:  '\u00D7 ' + DAYS + ' working days a week.',
-      out:   'Earnings not invoiced',
-      value: '220',
-      discl: 'This is arithmetic on the numbers you typed: your day rate \u00D7 ' + DAYS + ' working days \u00D7 the weeks you selected.'
-    },
-    general: {
-      label: 'Your monthly income',
-      note:  'Salary, self-employed profit — anything that stops when you do.',
-      out:   'Income you wouldn\u2019t earn',
-      value: '1800',
-      discl: 'This is arithmetic on the numbers you typed: your monthly income converted to a weekly figure, multiplied by the weeks you selected.'
-    }
-  };
-
-  var gbp = function(n){
-    return '\u00A3' + Math.round(n).toLocaleString('en-GB', {maximumFractionDigits:0});
-  };
-
-  function render(){
-    var raw = Number(String(fee.value).replace(/[^0-9.]/g, ''));
-    if (!isFinite(raw) || raw < 0) raw = 0;
-    raw = Math.min(raw, 20000);
-    var w = Number(weeks.value);
-    var wk = w + (w === 1 ? ' week' : ' weeks');
-    var perWeek = (mode === 'trade') ? raw * DAYS : (mode === 'general' ? raw * 12 / 52 : raw);
-    var total = perWeek * w;
-    weeksVal.textContent = wk;
-    figure.textContent = gbp(total);
-    /* Monthly, because income protection pays monthly — weekly x 52 / 12. */
-    if (benefit) {
-      var monthly = perWeek * 52 / 12;
-      benefit.textContent = gbp(monthly * BAND[0]) + ' – ' + gbp(monthly * BAND[1]);
-      benefitBasis.textContent = 'Around ' + Math.round(BAND[0]*100) + '–' +
-        Math.round(BAND[1]*100) + '% of your earnings — the usual shape of an income ' +
-        'protection policy.';
-    }
-    sum.textContent = (mode === 'trade')
-      ? gbp(raw) + ' \u00D7 ' + DAYS + ' days \u00D7 ' + wk + ' = ' + gbp(total)
-      : (mode === 'general')
-      ? gbp(raw) + '/month \u2192 ' + gbp(perWeek) + '/week \u00D7 ' + wk + ' = ' + gbp(total)
-      : gbp(raw) + ' \u00D7 ' + wk + ' = ' + gbp(total);
-  }
-
-  function setMode(next){
-    mode = next;
-    var m = MODES[mode];
-    feeLabel.textContent = m.label;
-    feeNote.textContent = m.note;
-    outLabel.textContent = m.out;
-    discl.textContent = m.discl;
-    fee.value = m.value;
-    bSport.setAttribute('aria-pressed', mode === 'sport' ? 'true' : 'false');
-    bTrade.setAttribute('aria-pressed', mode === 'trade' ? 'true' : 'false');
-    bGeneral.setAttribute('aria-pressed', mode === 'general' ? 'true' : 'false');
-    document.querySelector('.calc').classList.toggle('is-sport', mode === 'sport');
-    render();
-  }
-
-  function touched(){ figure.dataset.userSet = '1'; render(); }
-  bSport.addEventListener('click', function(){ figure.dataset.userSet = '1'; setMode('sport'); });
-  bTrade.addEventListener('click', function(){ figure.dataset.userSet = '1'; setMode('trade'); });
-  bGeneral.addEventListener('click', function(){ figure.dataset.userSet = '1'; setMode('general'); });
-  fee.addEventListener('input', touched);
-  weeks.addEventListener('input', touched);
-  render();
-})();
-</script>
 </main>
 
 <div class="sheet-wrap" id="reviewSheet" hidden>
