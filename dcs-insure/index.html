@@ -171,6 +171,10 @@ h3{font-size:clamp(16px,2vw,20px)}
 .film-media video{width:100%;height:100%;object-fit:cover;filter:saturate(.7)}
 .film-media::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(23,26,30,.93) 0%,rgba(23,26,30,.8) 44%,rgba(11,76,130,.6) 100%)}
 .film-band .wrap{position:relative;z-index:2}
+/* Slow Ken Burns push, home hero only — the one closing-CTA film-bands on
+   every other page stay static, this is deliberately just the front door. */
+#familyGate .film-media video{animation:dcs-kenburns 22s ease-in-out infinite alternate}
+@keyframes dcs-kenburns{from{transform:scale(1)}to{transform:scale(1.09)}}
 video::-webkit-media-controls,video::-webkit-media-controls-panel,
 video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-play-button{display:none!important;-webkit-appearance:none}
 
@@ -416,7 +420,7 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
   background:url("assets/favicon.png") center/78% no-repeat,rgba(255,255,255,.1)}
 .fig-copy h1{font-size:clamp(32px,4.9vw,58px);max-width:15ch;line-height:.95}
 /* the payoff line gets the colour and the glow */
-.fig-copy h1 .hit{
+h1 .hit{
   display:block;color:#6FB4E8;
   text-shadow:0 0 38px rgba(18,113,183,.65);
 }
@@ -567,10 +571,10 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 
 /* ---------- HOME HERO COPY ----------
    Headline lands line by line, then the panel strip glides underneath. */
-.fig-copy h1.lines{font-size:clamp(36px,5.4vw,66px);line-height:.93;max-width:none}
-.fig-copy h1.lines .ln{display:block;animation:dcs-line .9s cubic-bezier(.2,.8,.2,1) both}
-.fig-copy h1.lines .ln:nth-child(2){animation-delay:.14s}
-.fig-copy h1.lines .ln:nth-child(3){animation-delay:.3s}
+h1.lines{font-size:clamp(36px,5.4vw,66px);line-height:.93;max-width:none}
+h1.lines .ln{display:block;animation:dcs-line .9s cubic-bezier(.2,.8,.2,1) both}
+h1.lines .ln:nth-child(2){animation-delay:.14s}
+h1.lines .ln:nth-child(3){animation-delay:.3s}
 @keyframes dcs-line{from{opacity:0;transform:translateY(26px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
 .hero-ring{margin-top:14px;font-size:13.5px;opacity:.66}
 .hero-ring a{color:#8FC6F2;text-decoration:none;font-weight:600}
@@ -599,7 +603,8 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
   .panel-track{animation:none;width:auto}
   .panel-set{flex-wrap:wrap;row-gap:10px}
   .panel-set[aria-hidden]{display:none}
-  .fig-copy h1.lines .ln{animation:none}
+  h1.lines .ln{animation:none}
+  #familyGate .film-media video{animation:none}
 }
 
 /* the body index — same figure, zoomed to this page's part */
@@ -968,11 +973,8 @@ body::after{
            autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
   </div>
   <div class="wrap">
-    <div class="hero-head">
-      <div><span class="kicker">Porthcawl &middot; Insurance &amp; protection</span></div>
-    </div>
-    <h1>Cover for the people
-who depend on you</h1>
+    <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Porthcawl &middot; Insurance &amp; protection</span>
+    <h1 class="lines"><span class="ln">Cover for the people</span><span class="ln hit">who depend on you.</span></h1>
     <div class="rule"></div>
     <p class="sub">Private medical insurance, income protection and life or critical illness
     cover — introduced and arranged around your own circumstances, whoever you are and
