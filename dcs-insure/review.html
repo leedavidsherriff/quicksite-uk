@@ -202,23 +202,38 @@ h3{font-size:clamp(16px,2vw,20px)}
    just the one being hovered — so the figure gets the moment. The buttons
    and phone line stay put; that's the one thing that must never fade. */
 @media(min-width:900px){
-  #familyGate .chip,#familyGate h1.lines,#familyGate .rule,#familyGate .sub{
-    transition:opacity .5s ease;
-  }
-  #familyGate:has(.hero-actions a:hover) .chip,
-  #familyGate:has(.hero-actions a:hover) h1.lines,
-  #familyGate:has(.hero-actions a:hover) .rule,
-  #familyGate:has(.hero-actions a:hover) .sub,
-  #familyGate:has(.hero-actions a:focus-visible) .chip,
-  #familyGate:has(.hero-actions a:focus-visible) h1.lines,
-  #familyGate:has(.hero-actions a:focus-visible) .rule,
-  #familyGate:has(.hero-actions a:focus-visible) .sub{
+  #familyGate :is(.chip,h1.lines,.rule,.sub,.forline){transition:opacity .5s ease}
+  #familyGate:has(.hero-actions a:hover) :is(.chip,h1.lines,.rule,.sub,.forline),
+  #familyGate:has(.hero-actions a:focus-visible) :is(.chip,h1.lines,.rule,.sub,.forline){
     opacity:.16;
   }
 }
 @media (prefers-reduced-motion: reduce){
-  #familyGate .chip,#familyGate h1.lines,#familyGate .rule,#familyGate .sub{transition:none}
+  #familyGate :is(.chip,h1.lines,.rule,.sub,.forline){transition:none}
 }
+
+/* Phones have no hover, so on a phone the ghosts become the buttons: each
+   choice is a glass row with its own person on the right, and a spotlight
+   walks down the three on a timer (index.html's script adds .lit). Same
+   three figures as the desktop ghosts. */
+.choice-face{display:none}
+@media(max-width:899px){
+  #familyGate .hero-actions{flex-direction:column;align-items:stretch;gap:10px}
+  #familyGate .btn-choice{justify-content:flex-start;min-height:92px;padding:0 22px;border-radius:22px;
+    font-size:16.5px;transition:transform .18s ease,background-color .6s ease}
+  #familyGate .btn-choice::before,#familyGate .btn-choice::after{z-index:3}
+  #familyGate .choice-label{position:relative;z-index:2;max-width:58%;line-height:1.25}
+  #familyGate .choice-face{display:block;position:absolute;top:0;right:0;bottom:0;width:50%;z-index:1;
+    background-repeat:no-repeat;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 42%);
+    mask-image:linear-gradient(90deg,transparent,#000 42%);
+    opacity:.32;filter:grayscale(.55) brightness(.7);transition:opacity .7s ease,filter .7s ease}
+  #familyGate .btn-choice.lit{background-color:rgba(255,255,255,.17)}
+  #familyGate .btn-choice.lit .choice-face{opacity:1;filter:none}
+}
+.choice-face-family{background-size:122% auto;background-position:50% 16%}
+.choice-face-sport,.choice-face-trade{background-size:210% auto;background-position:52% 14%}
+@media (prefers-reduced-motion: reduce){#familyGate .choice-face{transition:none}}
 video::-webkit-media-controls,video::-webkit-media-controls-panel,
 video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-play-button{display:none!important;-webkit-appearance:none}
 
@@ -1135,12 +1150,12 @@ body::after{
         <p class="enq-err" id="shErrEmail" hidden>That email doesn't look right.</p>
       </div>
       <div>
-        <label for="shWhat">What do you do?</label>
+        <label for="shWhat">Which fits you best?</label>
         <select id="shWhat">
+          <option>Cover for me and my family</option>
           <option>I play sport</option>
           <option>I'm on the tools</option>
-          <option>Both</option>
-          <option>Neither — it's for me or my family</option>
+          <option>Both sport and trades</option>
         </select>
       </div>
       <label class="consent">
@@ -1193,7 +1208,8 @@ body::after{
 <script>
 window.__DCS_ENQUIRY_ENDPOINT = "";
 window.__DCS_FIGURES = [["figure-male-footballer.webp", "A semi-professional footballer in muddy kit, standing"], ["figure-male-builder.webp", "A builder in dusty workwear with a tool belt, standing"], ["figure-female-footballer.webp", "A footballer in muddy kit, standing"], ["figure-female-electrician.webp", "An electrician in workwear with a tool belt, standing"]];
-window.__DCS_FF_STEPS = [{"chips": ["income protection", "advice"], "id": "who", "q": "First \u2014 which of these is you?", "help": "It changes what we ask next. A contracted player, a self-employed sparky and a salaried parent have very different gaps.", "type": "choice", "key": "doing", "options": ["I play sport", "I'm on the tools", "Both", "Neither \u2014 it's for me or my family"]}, {"chips": ["club", "income protection"], "notes": {"Professional / contracted": "If you're contracted, check what the club already provides \u2014 it's often narrower than people expect, and we'd rather you didn't pay twice."}, "id": "detail-sport", "q": "What do you play, and at what level?", "help": "Level matters more than the sport. Semi-pro and contracted players get underwritten differently to weekend players.", "type": "choice", "key": "level", "only": "sport", "options": ["Semi-professional", "Professional / contracted", "Amateur or weekend", "Coaching or officiating"]}, {"chips": ["income protection", "cost"], "notes": {"Roofer or working at height": "Worth saying now: working at height is rated differently by most insurers. It's a factor in the price, not a barrier to getting covered."}, "id": "detail-trade", "q": "What's the trade?", "help": "Some trades are rated differently by insurers \u2014 working at height in particular. It's a factor, not a barrier.", "type": "choice", "key": "trade", "only": "trade", "options": ["Electrician", "Builder / groundworker", "Plumber or heating", "Roofer or working at height", "Carpenter or joiner", "Something else"]}, {"chips": ["income protection", "deferred"], "notes": {"Day rate, self-employed": "Day rate is the one where the gap tends to be biggest \u2014 there's usually no sick pay behind it at all."}, "id": "paid", "q": "How are you paid?", "help": "This is the one that shapes everything. Cover is usually built around what actually stops when you do.", "type": "choice", "key": "paid", "options": ["Day rate, self-employed", "Weekly \u2014 match fees or wages", "Monthly salary", "A mix of things"]}, {"chips": ["club", "advice"], "notes": {"I honestly don't know": "That's the most common answer, and it's fine \u2014 digging it out is part of what the call is for."}, "id": "existing", "q": "Have you got any cover already?", "help": "Plenty of people are already covered through a club, an employer or a mortgage and don't know it. Worth not paying twice.", "type": "choice", "key": "existing", "options": ["Nothing at all", "Something through a club or employer", "Something with my mortgage", "I honestly don't know"]}, {"chips": ["critical illness", "pmi", "deferred"], "id": "interest", "q": "What's on your mind?", "help": "Pick as many as you like, or none \u2014 the call can work that out.", "type": "multi", "key": "interest", "options": ["Sports injury / accident", "Private medical", "Income protection", "Life or critical illness", "Not sure yet"]}, {"chips": ["cost", "health"], "id": "when", "q": "When would you want cover in place?", "help": "No wrong answer. It just tells us how quickly to ring.", "type": "choice", "key": "timing", "options": ["As soon as possible", "Next month or so", "Just looking for now"]}];
+window.__DCS_ROLES = [];
+window.__DCS_FF_STEPS = [{"chips": ["income protection", "advice"], "id": "who", "q": "First \u2014 which of these fits you best?", "help": "It changes what we ask next. A salaried parent, a contracted player and a self-employed sparky have very different gaps.", "type": "choice", "key": "doing", "options": ["Cover for me and my family", "I play sport", "I'm on the tools", "Both sport and trades"]}, {"chips": ["club", "income protection"], "notes": {"Professional / contracted": "If you're contracted, check what the club already provides \u2014 it's often narrower than people expect, and we'd rather you didn't pay twice."}, "id": "detail-sport", "q": "What do you play, and at what level?", "help": "Level matters more than the sport. Semi-pro and contracted players get underwritten differently to weekend players.", "type": "choice", "key": "level", "only": "sport", "options": ["Semi-professional", "Professional / contracted", "Amateur or weekend", "Coaching or officiating"]}, {"chips": ["income protection", "cost"], "notes": {"Roofer or working at height": "Worth saying now: working at height is rated differently by most insurers. It's a factor in the price, not a barrier to getting covered."}, "id": "detail-trade", "q": "What's the trade?", "help": "Some trades are rated differently by insurers \u2014 working at height in particular. It's a factor, not a barrier.", "type": "choice", "key": "trade", "only": "trade", "options": ["Electrician", "Builder / groundworker", "Plumber or heating", "Roofer or working at height", "Carpenter or joiner", "Something else"]}, {"chips": ["income protection", "deferred"], "notes": {"Day rate, self-employed": "Day rate is the one where the gap tends to be biggest \u2014 there's usually no sick pay behind it at all."}, "id": "paid", "q": "How are you paid?", "help": "This is the one that shapes everything. Cover is usually built around what actually stops when you do.", "type": "choice", "key": "paid", "options": ["Day rate, self-employed", "Weekly \u2014 match fees or wages", "Monthly salary", "A mix of things"]}, {"chips": ["club", "advice"], "notes": {"I honestly don't know": "That's the most common answer, and it's fine \u2014 digging it out is part of what the call is for."}, "id": "existing", "q": "Have you got any cover already?", "help": "Plenty of people are already covered through a club, an employer or a mortgage and don't know it. Worth not paying twice.", "type": "choice", "key": "existing", "options": ["Nothing at all", "Something through a club or employer", "Something with my mortgage", "I honestly don't know"]}, {"chips": ["critical illness", "pmi", "deferred"], "id": "interest", "q": "What's on your mind?", "help": "Pick as many as you like, or none \u2014 the call can work that out.", "type": "multi", "key": "interest", "options": ["Sports injury / accident", "Private medical", "Income protection", "Life or critical illness", "Not sure yet"]}, {"chips": ["cost", "health"], "id": "when", "q": "When would you want cover in place?", "help": "No wrong answer. It just tells us how quickly to ring.", "type": "choice", "key": "timing", "options": ["As soon as possible", "Next month or so", "Just looking for now"]}];
 window.__DCS_FF_ANSWERS = [{"k": ["deferred", "waiting period", "wait"], "q": "What's a deferred period?", "a": "It's how long you'd wait after stopping work before the policy starts paying \u2014 often somewhere between a month and six months. A longer wait usually means a cheaper premium, so it's a trade-off worth talking through."}, {"k": ["critical illness", "critical"], "q": "What counts as a critical illness?", "a": "Each insurer publishes its own list of conditions, and they differ. It's the policy document that decides, never us \u2014 which is exactly why it's worth someone reading the list with you."}, {"k": ["income protection", "income"], "q": "What is income protection?", "a": "It's designed to pay a monthly amount while you can't work through illness or injury, on the insurer's terms. Whether you're a player, on the tools or salaried, the detail that matters is how the policy defines 'can't work'."}, {"k": ["pmi", "private medical", "medical"], "q": "What does private medical cover do?", "a": "It's about access to private diagnosis and treatment for eligible conditions \u2014 usually speed. Terms and exclusions are the insurer's."}, {"k": ["club", "employer", "covered at work", "work cover"], "q": "My club says I'm covered \u2014 do I need this?", "a": "Maybe not, and we'd rather tell you that than sell you something twice. Club and employer cover is often narrower than people assume, so it's worth reading what you've already got."}, {"k": ["cost", "price", "how much", "premium", "quote"], "q": "How much does it cost?", "a": "We can't put a price on this website \u2014 it depends on the insurer, your job, your age and your health, and quoting without those would be misleading. That's a straight answer on the call, with no obligation."}, {"k": ["health", "medical history", "conditions", "smoker"], "q": "Will you ask about my health?", "a": "Not here. We deliberately don't collect health details online. The insurer will ask in their own application later, and we'll talk it through on the call first."}, {"k": ["advice", "recommend", "should i", "best"], "q": "Which one should I get?", "a": "That's genuinely the one thing I can't answer \u2014 DCS Insure introduces and arranges cover, and nothing on this website is advice. Someone will go through it with you properly on the call."}, {"k": ["data", "privacy", "gdpr", "details safe"], "q": "What happens to my details?", "a": "They go to DCS Insure so someone can ring you about a review, and nowhere else. The Privacy Policy at the bottom of the page sets out the lot."}, {"k": ["how long", "how quick", "when will you call", "call back"], "q": "How quickly will you ring?", "a": "Usually the same or next working day, and at the time you pick on the last question. If you'd rather not wait, the number's at the bottom of the page."}, {"k": ["obligation", "pushy", "sales", "commit", "sign up"], "q": "Am I committing to anything?", "a": "No. It's a conversation \u2014 nothing is sold on the call and nothing on this website is an application. If there's nothing worth arranging, you'll be told that."}, {"k": ["who are you", "dcs", "portway", "regulated", "fca"], "q": "Who are DCS Insure?", "a": "DCS Insure is a trading name of Portway Financial Limited, an Appointed Representative of Connect IFA Limited, which is authorised and regulated by the Financial Conduct Authority. The full statement is at the bottom of every page."}, {"k": ["age", "how old", "too old", "too young"], "q": "Does my age matter?", "a": "It's one of the things insurers price on, along with your job and your health. There's no age that rules the conversation out \u2014 it just shapes the options."}];
 /* Sitewide UI. Everything here is decoration — it degrades to a perfectly
    readable page with JS off, and stands down entirely under
@@ -1776,17 +1792,18 @@ window.__dcsSendEnquiry = function(data, opts){
     }, 4200);                    // just after the first sweep reaches the floor
   }
 
-  /* Who it's for — cycles the role. The first value is in the HTML, so with
-     JS off or reduced motion on it simply reads as a normal line. */
+  /* Who it's for — cycles the role. Each page sets its own list through
+     PAGES[x]["roles"]; the first value is in the HTML, so with JS off or
+     reduced motion on it simply reads as a normal line. */
   var cyc = document.getElementById('roleCycle');
-  if (cyc) {
-    var roles = ['semi-pro footballers','rugby players','tradespeople',
-                 'self-employed grafters','athletes','parents','young families',
-                 'self-employed professionals'];
+  var roles = window.__DCS_ROLES || [];
+  if (cyc && roles.length > 1) {
     var i = 0;
     setInterval(function(){
       i = (i + 1) % roles.length;
-      cyc.innerHTML = '<b>' + roles[i] + '</b>';
+      var b = document.createElement('b');
+      b.textContent = roles[i];
+      cyc.replaceChildren(b);
     }, 2400);
   }
 
