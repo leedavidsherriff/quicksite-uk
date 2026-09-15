@@ -198,6 +198,27 @@ h3{font-size:clamp(16px,2vw,20px)}
 #familyGate:has(#gateTrade:hover) .ghost-trade,
 #familyGate:has(#gateTrade:focus-visible) .ghost-trade{opacity:.62;filter:none;transform:translateY(0)}
 @media (prefers-reduced-motion: reduce){.ghost{transition:none}}
+/* The copy steps back while a ghost steps forward — whichever button, not
+   just the one being hovered — so the figure gets the moment. The buttons
+   and phone line stay put; that's the one thing that must never fade. */
+@media(min-width:900px){
+  #familyGate .chip,#familyGate h1.lines,#familyGate .rule,#familyGate .sub{
+    transition:opacity .5s ease;
+  }
+  #familyGate:has(.hero-actions a:hover) .chip,
+  #familyGate:has(.hero-actions a:hover) h1.lines,
+  #familyGate:has(.hero-actions a:hover) .rule,
+  #familyGate:has(.hero-actions a:hover) .sub,
+  #familyGate:has(.hero-actions a:focus-visible) .chip,
+  #familyGate:has(.hero-actions a:focus-visible) h1.lines,
+  #familyGate:has(.hero-actions a:focus-visible) .rule,
+  #familyGate:has(.hero-actions a:focus-visible) .sub{
+    opacity:.16;
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  #familyGate .chip,#familyGate h1.lines,#familyGate .rule,#familyGate .sub{transition:none}
+}
 video::-webkit-media-controls,video::-webkit-media-controls-panel,
 video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-play-button{display:none!important;-webkit-appearance:none}
 
