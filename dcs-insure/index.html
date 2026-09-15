@@ -175,6 +175,29 @@ h3{font-size:clamp(16px,2vw,20px)}
    every other page stay static, this is deliberately just the front door. */
 #familyGate .film-media video{animation:dcs-kenburns 22s ease-in-out infinite alternate}
 @keyframes dcs-kenburns{from{transform:scale(1)}to{transform:scale(1.09)}}
+
+/* The three destinations, ghosted into the home hero itself — each brightens
+   when its own button is hovered/focused, so the choice previews what it
+   leads to before you click. Desktop-width only: three overlapping figures
+   behind a text block that already spans the full wrap would just be noise
+   on a phone. Reuses the exact assets already generated for family.html/
+   sport.html/trades.html — no new imagery. */
+.gate-ghosts{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none;display:none}
+@media(min-width:900px){.gate-ghosts{display:block}}
+.ghost{position:absolute;bottom:0;height:82%;width:auto;
+  opacity:.13;filter:grayscale(.4) brightness(.55) saturate(.7);
+  transition:opacity .6s ease,filter .6s ease,transform .6s ease;
+}
+.ghost-family{left:1%;transform:translateY(3%)}
+.ghost-sport{left:50%;transform:translateX(-50%) translateY(3%)}
+.ghost-trade{right:1%;transform:translateY(3%)}
+#familyGate:has(#gateFamily:hover) .ghost-family,
+#familyGate:has(#gateFamily:focus-visible) .ghost-family{opacity:.62;filter:none;transform:translateY(0)}
+#familyGate:has(#gateSport:hover) .ghost-sport,
+#familyGate:has(#gateSport:focus-visible) .ghost-sport{opacity:.62;filter:none;transform:translateX(-50%) translateY(0)}
+#familyGate:has(#gateTrade:hover) .ghost-trade,
+#familyGate:has(#gateTrade:focus-visible) .ghost-trade{opacity:.62;filter:none;transform:translateY(0)}
+@media (prefers-reduced-motion: reduce){.ghost{transition:none}}
 video::-webkit-media-controls,video::-webkit-media-controls-panel,
 video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-play-button{display:none!important;-webkit-appearance:none}
 
@@ -971,6 +994,11 @@ body::after{
   <div class="film-media">
     <video src="assets/hero-prom.mp4" poster="assets/hero-prom-poster.jpg"
            autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+  </div>
+  <div class="gate-ghosts" aria-hidden="true">
+    <img class="ghost ghost-family" src="assets/figure-family.webp" alt="" width="1100" height="1467" loading="eager">
+    <img class="ghost ghost-sport" src="assets/figure-male-footballer.webp" alt="" width="1100" height="1467" loading="eager">
+    <img class="ghost ghost-trade" src="assets/figure-male-builder.webp" alt="" width="1100" height="1467" loading="eager">
   </div>
   <div class="wrap">
     <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Porthcawl &middot; Insurance &amp; protection</span>
