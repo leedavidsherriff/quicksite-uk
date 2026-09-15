@@ -342,6 +342,16 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
    Arithmetic on two numbers the user typed. Never an estimate of what any
    policy would pay — see the disclaimer, which is not decorative. */
 .calc{margin-top:38px;border-radius:18px;padding:clamp(22px,3.4vw,38px);background:rgba(255,255,255,.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 60px -30px rgba(18,113,183,.7)}
+/* Every surface inside the calculator is a white overlay on a DARK ground and
+   its text inherits the section's paper colour. On a light section (the
+   sport/trades/family landing pages) it has no dark ground, so the toggles,
+   the income box and the "designed to replace" figure all washed out. It
+   carries its own dark instrument panel there instead. */
+.section:not(.section-dark) .calc{
+  color:var(--paper);
+  background:linear-gradient(160deg,var(--ink) 0%,var(--blue-deep) 150%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 30px 60px -34px rgba(11,40,70,.75),0 0 60px -30px rgba(18,113,183,.7);
+}
 .calc-grid{display:grid;grid-template-columns:1fr;gap:26px}
 @media(min-width:820px){.calc-grid{grid-template-columns:260px 1fr;gap:44px;align-items:start}}
 .calc label{display:block;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.65;margin-bottom:9px}
@@ -414,7 +424,25 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 /* the black thumb disappears on red — on the track it becomes a white lane marker */
 .calc.is-sport .blade-input::-webkit-slider-thumb{background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.35),0 0 18px rgba(0,0,0,.55)}
 .calc.is-sport .blade-input::-moz-range-thumb{background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.35),0 0 18px rgba(0,0,0,.55)}
-@media (prefers-reduced-motion: reduce){.blade-track{transition:none}}
+/* ---------- THE CALENDAR ----------
+   "I'm salaried" gets its own measure: a PHOTOGRAPHED paper month-planner grid,
+   cut to exactly one week (seven day columns, weekend shaded blue) and tiled,
+   so every block along the blade reads as a week off work. Same wipe as the
+   track. Salaried life runs on the calendar — monthly pay, weeks, holidays —
+   which is why it isn't a tape or a track. */
+.blade-cal{
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background-image:url("assets/calendar-strip.webp");
+  background-size:auto 100%;background-repeat:repeat-x;background-position:left center;
+  clip-path:inset(0 100% 0 0 round 8px);
+  transition:clip-path .7s cubic-bezier(.65,0,.25,1);
+}
+.calc.is-general .blade-cal{clip-path:inset(0 0 0 0 round 8px)}
+.calc.is-general .blade{box-shadow:0 0 36px -14px rgba(18,113,183,.65),inset 0 0 0 1px rgba(0,0,0,.35)}
+/* on paper the thumb becomes a pen stroke in the brand blue */
+.calc.is-general .blade-input::-webkit-slider-thumb{background:var(--blue);box-shadow:0 0 0 1px rgba(255,255,255,.7),0 0 18px rgba(0,0,0,.45)}
+.calc.is-general .blade-input::-moz-range-thumb{background:var(--blue);box-shadow:0 0 0 1px rgba(255,255,255,.7),0 0 18px rgba(0,0,0,.45)}
+@media (prefers-reduced-motion: reduce){.blade-track,.blade-cal{transition:none}}
 
 /* sport / trade mode switch */
 .mode{display:inline-flex;flex-wrap:wrap;padding:4px;border-radius:999px;background:rgba(0,0,0,.32);
@@ -1201,6 +1229,7 @@ body::after{
           </div>
           <div class="blade">
             <span class="blade-track" aria-hidden="true"></span>
+            <span class="blade-cal" aria-hidden="true"></span>
             <input id="weeks" class="blade-input" type="range" min="1" max="52" step="1" value="12"
                    aria-label="Weeks off work">
           </div>
@@ -1323,6 +1352,7 @@ body::after{
         bTrade.setAttribute('aria-pressed', mode === 'trade' ? 'true' : 'false');
         bGeneral.setAttribute('aria-pressed', mode === 'general' ? 'true' : 'false');
         document.querySelector('.calc').classList.toggle('is-sport', mode === 'sport');
+        document.querySelector('.calc').classList.toggle('is-general', mode === 'general');
         render();
       }
 
