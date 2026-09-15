@@ -579,13 +579,6 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
    just bigger, because this is the one decision the whole home hero exists
    to ask. */
 .btn-choice{padding:20px 34px;font-size:17px}
-/* Fade only — the visibility switch itself is the [hidden] attribute, which
-   needs no explicit display rule here since .hero/.figure-hero never set
-   their own display (both default to block), so there's nothing for
-   [hidden] to lose to. See the DCS build log: an element that both sets
-   display AND relies on [hidden] needs its own override — this one doesn't. */
-#figureHero{transition:opacity .6s ease}
-#figureHero.entering{opacity:0}
 .panel{margin-top:34px;max-width:min(540px,100%)}
 .panel-lbl{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;opacity:.55;margin-bottom:12px}
 .panel-viewport{overflow:hidden;
@@ -993,93 +986,6 @@ who depend on you</h1>
   </div>
 </section>
 
-<section class="figure-hero" id="figureHero" hidden>
-  <div class="wrap fig-wrap">
-    <div class="fig-grid">
-      <div class="fig-copy">
-        <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Porthcawl &middot; Insurance &amp; protection</span>
-        <h1 class="lines"><span class="ln">When your body</span><span class="ln">is your business,</span><span class="ln hit">protect both.</span></h1>
-        <div class="rule"></div>
-        <p class="sub">Paid to play or paid to build — if your body stops, so does the money.
-        Four covers, each pinned to the part of you that earns.</p>
-        <p class="forline">
-          <span>Built for</span>
-          <span class="cycle" id="roleCycle"><b>semi-pro footballers</b></span>
-        </p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="contact.html" data-review>Ask for a call back</a>
-      <a class="btn btn-ghost" href="review.html">Learn more <span aria-hidden="true">&rarr;</span></a>
-    </div>
-    <p class="hero-ring">Or ring <a href="tel:+441656856120">01656 856120</a> (Option 3)</p>
-
-    <div class="panel">
-      <p class="panel-lbl">Arranged through insurers including</p>
-      <div class="panel-viewport">
-        <div class="panel-track">
-          <div class="panel-set"><span class="panel-pill"><img src="assets/providers/life-critical-illness/aviva.png" alt="Aviva" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/guardian.png" alt="Guardian" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/legal-and-general.png" alt="Legal And General" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/liverpool-victoria.jpg" alt="Liverpool Victoria" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/royal-london.png" alt="Royal London" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/scottish-widows.jpg" alt="Scottish Widows" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/vitality.png" alt="Vitality" height="22"></span><span class="panel-pill"><img src="assets/providers/pmi/bupa.png" alt="Bupa" height="22"></span><span class="panel-pill"><img src="assets/providers/pmi/the-exeter.jpg" alt="The Exeter" height="22"></span></div>
-          <div class="panel-set" aria-hidden="true"><span class="panel-pill"><img src="assets/providers/life-critical-illness/aviva.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/guardian.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/legal-and-general.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/liverpool-victoria.jpg" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/royal-london.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/scottish-widows.jpg" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/vitality.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/pmi/bupa.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/pmi/the-exeter.jpg" alt="" height="22"></span></div>
-        </div>
-      </div>
-    </div>
-
-      </div>
-
-      <div>
-        <div class="fig-stage">
-          <span class="fig-plate fig-plate-turn">
-            <span class="fig-flip" id="figFlip">
-              <span class="face face-a"><span class="fig-face-img" data-face="a"><img class="fig-img" src="assets/figure-male-footballer.webp" alt="A semi-professional footballer in muddy kit, standing" width="1100" height="1467" fetchpriority="high"></span></span>
-              <span class="face face-b" aria-hidden="true"><span class="fig-face-img" data-face="b"><img class="fig-img" src="assets/figure-male-builder.webp" alt="A builder in dusty workwear with a tool belt, standing" width="1100" height="1467"></span></span>
-            </span>
-          </span>
-          <div class="fig-list">
-      <a class="spot spot-right" href="private-medical-insurance.html"
-         style="--x:57.5%;--y:20.5%"
-         aria-label="Private Medical Insurance — Scans and specialists, without the waiting list.">
-        <span class="dot" aria-hidden="true"><i>01</i></span>
-        <span class="spot-card">
-          <b>Private Medical Insurance</b>
-          <em>Scans and specialists, without the waiting list.</em>
-          <span class="spot-go">Find out more &rarr;</span>
-        </span>
-      </a>
-      <a class="spot spot-right" href="life-critical-illness.html"
-         style="--x:53.5%;--y:30.5%"
-         aria-label="Life or Critical Illness — A lump sum for the people who depend on you.">
-        <span class="dot" aria-hidden="true"><i>02</i></span>
-        <span class="spot-card">
-          <b>Life or Critical Illness</b>
-          <em>A lump sum for the people who depend on you.</em>
-          <span class="spot-go">Find out more &rarr;</span>
-        </span>
-      </a>
-      <a class="spot spot-left" href="sports-injury-accident-insurance.html"
-         style="--x:46.3%;--y:68.5%"
-         aria-label="Sports Injury & Accident — The knee that ends the season.">
-        <span class="dot" aria-hidden="true"><i>03</i></span>
-        <span class="spot-card">
-          <b>Sports Injury & Accident</b>
-          <em>The knee that ends the season.</em>
-          <span class="spot-go">Find out more &rarr;</span>
-        </span>
-      </a>
-      <a class="spot spot-left" href="income-protection.html"
-         style="--x:44.7%;--y:90.5%"
-         aria-label="Income Protection — What pays you, when these can't.">
-        <span class="dot" aria-hidden="true"><i>04</i></span>
-        <span class="spot-card">
-          <b>Income Protection</b>
-          <em>What pays you, when these can't.</em>
-          <span class="spot-go">Find out more &rarr;</span>
-        </span>
-      </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="section" id="familyProducts">
   <div class="wrap">
     <span class="kicker">What we arrange</span>
@@ -1137,33 +1043,6 @@ who depend on you</h1>
     </div>
   </div>
 </section>
-
-<script>
-/* The family-gate hero: starts on a family video with two big choice
-   buttons. Both are REAL links to sport.html/trades.html (so no-JS or a
-   direct visit still goes somewhere useful) — JS upgrades the click into an
-   in-page reveal of the existing sport/trades turning-figure hero instead,
-   which is what Lee actually asked for: "jump into the existing hero"
-   rather than navigate away from the home page. */
-(function(){
-  var gate = document.getElementById('familyGate'),
-      reveal = document.getElementById('figureHero');
-  if (!gate || !reveal) return;
-  function show(){
-    gate.hidden = true;
-    reveal.hidden = false;
-    reveal.classList.add('entering');
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){ reveal.classList.remove('entering'); });
-    });
-    reveal.scrollIntoView({behavior: 'smooth', block: 'start'});
-  }
-  ['gateSport', 'gateTrade'].forEach(function(id){
-    var btn = document.getElementById(id);
-    if (btn) btn.addEventListener('click', function(e){ e.preventDefault(); show(); });
-  });
-})();
-</script>
 </main>
 
 <div class="sheet-wrap" id="reviewSheet" hidden>
