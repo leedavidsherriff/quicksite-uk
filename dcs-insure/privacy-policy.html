@@ -574,6 +574,18 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 @keyframes dcs-line{from{opacity:0;transform:translateY(26px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
 .hero-ring{margin-top:14px;font-size:13.5px;opacity:.66}
 .hero-ring a{color:#8FC6F2;text-decoration:none;font-weight:600}
+
+/* The family-gate choice buttons — same glass system as every other .btn,
+   just bigger, because this is the one decision the whole home hero exists
+   to ask. */
+.btn-choice{padding:20px 34px;font-size:17px}
+/* Fade only — the visibility switch itself is the [hidden] attribute, which
+   needs no explicit display rule here since .hero/.figure-hero never set
+   their own display (both default to block), so there's nothing for
+   [hidden] to lose to. See the DCS build log: an element that both sets
+   display AND relies on [hidden] needs its own override — this one doesn't. */
+#figureHero{transition:opacity .6s ease}
+#figureHero.entering{opacity:0}
 .panel{margin-top:34px;max-width:min(540px,100%)}
 .panel-lbl{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;opacity:.55;margin-bottom:12px}
 .panel-viewport{overflow:hidden;
@@ -1198,12 +1210,16 @@ window.__DCS_FF_ANSWERS = [{"k": ["deferred", "waiting period", "wait"], "q": "W
    suite sites: iOS ignores the autoplay attribute unless muted is set from
    JS, and a rejected play() must never throw. Film, not a player. */
 (function(){
-  var v = document.querySelector('.film-media video');
-  if (!v) return;
-  var kick = function(){ v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function(){}); };
-  if (v.readyState >= 2) kick();
-  v.addEventListener('loadeddata', kick);
-  document.addEventListener('visibilitychange', function(){ if (!document.hidden) kick(); });
+  var vids = document.querySelectorAll('.film-media video');
+  if (!vids.length) return;
+  vids.forEach(function(v){
+    var kick = function(){ v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function(){}); };
+    if (v.readyState >= 2) kick();
+    v.addEventListener('loadeddata', kick);
+  });
+  document.addEventListener('visibilitychange', function(){
+    if (!document.hidden) vids.forEach(function(v){ v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function(){}); });
+  });
 })();
 
 /* Anonymous pageview beacon. No cookies, no identifiers, hostname of the

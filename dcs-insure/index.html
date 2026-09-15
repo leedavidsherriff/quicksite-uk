@@ -7,15 +7,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>DCS Insure | Life, Medical & Income Protection Insurance | Porthcawl</title>
-<meta name="description" content="DCS Insure introduces and arranges private medical insurance, income protection and life & critical illness cover for families, professionals and anyone who wants the people they depend on looked after. Specialist cover for sport and trades also available.">
+<title>DCS Insure | Insurance for Sport, Trades & Family | Porthcawl</title>
+<meta name="description" content="DCS Insure introduces and arranges sports injury, private medical, income protection and life & critical illness cover — for footballers, rugby players and tradespeople whose income depends on their body holding up, and for families who want the same peace of mind.">
 <link rel="canonical" href="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DCS Insure">
 <meta property="og:locale" content="en_GB">
-<meta property="og:title" content="DCS Insure | Life, Medical & Income Protection Insurance | Porthcawl">
-<meta property="og:description" content="DCS Insure introduces and arranges private medical insurance, income protection and life & critical illness cover for families, professionals and anyone who wants the people they depend on looked after. Specialist cover for sport and trades also available.">
+<meta property="og:title" content="DCS Insure | Insurance for Sport, Trades & Family | Porthcawl">
+<meta property="og:description" content="DCS Insure introduces and arranges sports injury, private medical, income protection and life & critical illness cover — for footballers, rugby players and tradespeople whose income depends on their body holding up, and for families who want the same peace of mind.">
 <meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/">
 <meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/dcs-insure/assets/og-share.jpg">
 <meta property="og:image:type" content="image/jpeg">
@@ -574,6 +574,18 @@ video::-webkit-media-controls-start-playback-button,video::-webkit-media-control
 @keyframes dcs-line{from{opacity:0;transform:translateY(26px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
 .hero-ring{margin-top:14px;font-size:13.5px;opacity:.66}
 .hero-ring a{color:#8FC6F2;text-decoration:none;font-weight:600}
+
+/* The family-gate choice buttons — same glass system as every other .btn,
+   just bigger, because this is the one decision the whole home hero exists
+   to ask. */
+.btn-choice{padding:20px 34px;font-size:17px}
+/* Fade only — the visibility switch itself is the [hidden] attribute, which
+   needs no explicit display rule here since .hero/.figure-hero never set
+   their own display (both default to block), so there's nothing for
+   [hidden] to lose to. See the DCS build log: an element that both sets
+   display AND relies on [hidden] needs its own override — this one doesn't. */
+#figureHero{transition:opacity .6s ease}
+#figureHero.entering{opacity:0}
 .panel{margin-top:34px;max-width:min(540px,100%)}
 .panel-lbl{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;opacity:.55;margin-bottom:12px}
 .panel-viewport{overflow:hidden;
@@ -957,9 +969,10 @@ body::after{
 </header>
 <main id="main">
 
-<section class="hero">
-  <div class="hero-photo">
-    <img src="assets/shot-family.webp" alt="A father holding his young daughter at a window at dusk" width="1600" height="900" fetchpriority="high">
+<section class="hero film-band" id="familyGate">
+  <div class="film-media">
+    <video src="assets/hero-prom.mp4" poster="assets/hero-prom-poster.jpg"
+           autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
   </div>
   <div class="wrap">
     <div class="hero-head">
@@ -971,6 +984,28 @@ who depend on you</h1>
     <p class="sub">Private medical insurance, income protection and life or critical illness
     cover — introduced and arranged around your own circumstances, whoever you are and
     whatever "unable to work" would actually mean for the people who count on you.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary btn-choice" href="sport.html" id="gateSport">I play sport <span aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn-ghost btn-choice" href="trades.html" id="gateTrade">I'm on the tools <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <p class="hero-ring">Not sure either fits? <a href="#familyProducts">See general cover</a> or
+    ring <a href="tel:+441656856120">01656 856120</a> (Option 3)</p>
+  </div>
+</section>
+
+<section class="figure-hero" id="figureHero" hidden>
+  <div class="wrap fig-wrap">
+    <div class="fig-grid">
+      <div class="fig-copy">
+        <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Porthcawl &middot; Insurance &amp; protection</span>
+        <h1 class="lines"><span class="ln">When your body</span><span class="ln">is your business,</span><span class="ln hit">protect both.</span></h1>
+        <div class="rule"></div>
+        <p class="sub">Paid to play or paid to build — if your body stops, so does the money.
+        Four covers, each pinned to the part of you that earns.</p>
+        <p class="forline">
+          <span>Built for</span>
+          <span class="cycle" id="roleCycle"><b>semi-pro footballers</b></span>
+        </p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="contact.html" data-review>Ask for a call back</a>
       <a class="btn btn-ghost" href="review.html">Learn more <span aria-hidden="true">&rarr;</span></a>
@@ -987,10 +1022,65 @@ who depend on you</h1>
       </div>
     </div>
 
+      </div>
+
+      <div>
+        <div class="fig-stage">
+          <span class="fig-plate fig-plate-turn">
+            <span class="fig-flip" id="figFlip">
+              <span class="face face-a"><span class="fig-face-img" data-face="a"><img class="fig-img" src="assets/figure-male-footballer.webp" alt="A semi-professional footballer in muddy kit, standing" width="1100" height="1467" fetchpriority="high"></span></span>
+              <span class="face face-b" aria-hidden="true"><span class="fig-face-img" data-face="b"><img class="fig-img" src="assets/figure-male-builder.webp" alt="A builder in dusty workwear with a tool belt, standing" width="1100" height="1467"></span></span>
+            </span>
+          </span>
+          <div class="fig-list">
+      <a class="spot spot-right" href="private-medical-insurance.html"
+         style="--x:57.5%;--y:20.5%"
+         aria-label="Private Medical Insurance — Scans and specialists, without the waiting list.">
+        <span class="dot" aria-hidden="true"><i>01</i></span>
+        <span class="spot-card">
+          <b>Private Medical Insurance</b>
+          <em>Scans and specialists, without the waiting list.</em>
+          <span class="spot-go">Find out more &rarr;</span>
+        </span>
+      </a>
+      <a class="spot spot-right" href="life-critical-illness.html"
+         style="--x:53.5%;--y:30.5%"
+         aria-label="Life or Critical Illness — A lump sum for the people who depend on you.">
+        <span class="dot" aria-hidden="true"><i>02</i></span>
+        <span class="spot-card">
+          <b>Life or Critical Illness</b>
+          <em>A lump sum for the people who depend on you.</em>
+          <span class="spot-go">Find out more &rarr;</span>
+        </span>
+      </a>
+      <a class="spot spot-left" href="sports-injury-accident-insurance.html"
+         style="--x:46.3%;--y:68.5%"
+         aria-label="Sports Injury & Accident — The knee that ends the season.">
+        <span class="dot" aria-hidden="true"><i>03</i></span>
+        <span class="spot-card">
+          <b>Sports Injury & Accident</b>
+          <em>The knee that ends the season.</em>
+          <span class="spot-go">Find out more &rarr;</span>
+        </span>
+      </a>
+      <a class="spot spot-left" href="income-protection.html"
+         style="--x:44.7%;--y:90.5%"
+         aria-label="Income Protection — What pays you, when these can't.">
+        <span class="dot" aria-hidden="true"><i>04</i></span>
+        <span class="spot-card">
+          <b>Income Protection</b>
+          <em>What pays you, when these can't.</em>
+          <span class="spot-go">Find out more &rarr;</span>
+        </span>
+      </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="familyProducts">
   <div class="wrap">
     <span class="kicker">What we arrange</span>
     <h2>Cover built around real life</h2>
@@ -1030,26 +1120,6 @@ who depend on you</h1>
     </div>
   </div>
 </section>
-
-<section class="thesis">
-  <div class="thesis-grid">
-    <div class="thesis-img">
-      <img src="assets/shot-legs.webp" width="1100" height="1100" loading="lazy"
-           alt="A footballer's taped knee beside a builder's dusty knee pad">
-    </div>
-    <div class="thesis-copy section-dark">
-      <span class="kicker">Two ways in</span>
-      <h2>Play sport, or work a trade?</h2>
-      <p class="lede">We've built a version of this site that speaks directly to you — same
-      cover, but the numbers, the calculator and the language that actually fit how you're
-      paid, whether that's match fees or a day rate.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="sport.html">I play sport &rarr;</a>
-        <a class="btn btn-ghost" href="trades.html">I'm on the tools &rarr;</a>
-      </div>
-    </div>
-  </div>
-</section>
 <section class="section section-dark film-band">
   <div class="film-media">
     <video src="assets/hero-prom.mp4" poster="assets/hero-prom-poster.jpg"
@@ -1067,6 +1137,33 @@ who depend on you</h1>
     </div>
   </div>
 </section>
+
+<script>
+/* The family-gate hero: starts on a family video with two big choice
+   buttons. Both are REAL links to sport.html/trades.html (so no-JS or a
+   direct visit still goes somewhere useful) — JS upgrades the click into an
+   in-page reveal of the existing sport/trades turning-figure hero instead,
+   which is what Lee actually asked for: "jump into the existing hero"
+   rather than navigate away from the home page. */
+(function(){
+  var gate = document.getElementById('familyGate'),
+      reveal = document.getElementById('figureHero');
+  if (!gate || !reveal) return;
+  function show(){
+    gate.hidden = true;
+    reveal.hidden = false;
+    reveal.classList.add('entering');
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ reveal.classList.remove('entering'); });
+    });
+    reveal.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+  ['gateSport', 'gateTrade'].forEach(function(id){
+    var btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', function(e){ e.preventDefault(); show(); });
+  });
+})();
+</script>
 </main>
 
 <div class="sheet-wrap" id="reviewSheet" hidden>
@@ -1209,12 +1306,16 @@ window.__DCS_FF_ANSWERS = [{"k": ["deferred", "waiting period", "wait"], "q": "W
    suite sites: iOS ignores the autoplay attribute unless muted is set from
    JS, and a rejected play() must never throw. Film, not a player. */
 (function(){
-  var v = document.querySelector('.film-media video');
-  if (!v) return;
-  var kick = function(){ v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function(){}); };
-  if (v.readyState >= 2) kick();
-  v.addEventListener('loadeddata', kick);
-  document.addEventListener('visibilitychange', function(){ if (!document.hidden) kick(); });
+  var vids = document.querySelectorAll('.film-media video');
+  if (!vids.length) return;
+  vids.forEach(function(v){
+    var kick = function(){ v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function(){}); };
+    if (v.readyState >= 2) kick();
+    v.addEventListener('loadeddata', kick);
+  });
+  document.addEventListener('visibilitychange', function(){
+    if (!document.hidden) vids.forEach(function(v){ v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function(){}); });
+  });
 })();
 
 /* Anonymous pageview beacon. No cookies, no identifiers, hostname of the
