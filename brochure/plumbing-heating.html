@@ -17,7 +17,13 @@
 </head>
 <body>
 <div class="bar"><div class="wrap">
-<a class="logochip" href="index.html">Quick<span>Site</span></a>
+<a class="logochip" href="index.html" aria-label="QuickSite — home"><img src="quicksite-wordmark.png" alt="QuickSite" width="768" height="216"></a>
+<nav class="mainnav" aria-label="Main">
+<a href="industries.html" class="on">Industries</a>
+<a href="index.html#pricing">Pricing</a>
+<a href="about.html">About</a>
+<a href="mailto:lee@quick-site.co.uk">Contact</a>
+</nav>
 <a class="bar-cta" href="https://quicksite-535561e7.base44.app" target="_blank" rel="noopener">See your website in 5 seconds</a>
 </div></div>
 <main>
@@ -59,7 +65,7 @@
 
 <div class="proof"><div class="wrap proofrow">
 <div class="stat"><strong>12</strong><span>trades covered</span></div>
-<div class="stat"><strong>20+</strong><span>sites live today</span></div>
+<div class="stat"><strong>25</strong><span>sites live today</span></div>
 <div class="stat"><strong>Bridgend</strong><span>built in South Wales</span></div>
 <div class="stat"><strong>Days</strong><span>from yes to live</span></div>
 </div></div>
@@ -122,9 +128,30 @@ var cta=document.querySelector('.stickycta');
 if(cta){addEventListener('scroll',function(){cta.classList.toggle('show',scrollY>620);},{passive:true});}
 });</script>
 <footer><div class="wrap">
-<nav class="ftrades"><a href="index.html">All trades</a><a href="tiling.html">Tilers</a><a href="carpentry.html">Carpenters</a><a href="roofing.html">Roofers</a><a href="driveways.html">Driveways &amp; Patios</a><a href="plastering.html">Plasterers</a><a href="decorating.html">Decorators</a><a href="landscaping.html">Landscapers</a><a href="windows-doors.html">Window Fitters</a><a href="extensions.html">Builders</a><a href="bathrooms.html">Bathroom Fitters</a><a href="electricians.html">Electricians</a><a href="plumbing-heating.html">Plumbers &amp; Heating</a></nav>
-<div>QuickSite — websites for working trades. Bridgend, South Wales.</div>
-<div>Quick Site Digital Limited · Company no. 17355167 · <a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a></div>
+<nav class="ftrades" aria-label="All trades"><a href="index.html">All trades</a><a href="tiling.html">Tilers</a><a href="carpentry.html">Carpenters</a><a href="roofing.html">Roofers</a><a href="driveways.html">Driveways &amp; Patios</a><a href="plastering.html">Plasterers</a><a href="decorating.html">Decorators</a><a href="landscaping.html">Landscapers</a><a href="windows-doors.html">Window Fitters</a><a href="extensions.html">Builders</a><a href="bathrooms.html">Bathroom Fitters</a><a href="electricians.html">Electricians</a><a href="plumbing-heating.html">Plumbers &amp; Heating</a></nav>
+<div class="foot-grid">
+<div class="foot-brand">
+<span class="foot-mark"><img src="quicksite-logo.png" alt="QuickSite" width="768" height="276"></span>
+<p>Websites for working trades — built in Bridgend, South Wales, for tradespeople across the UK.</p>
+</div>
+<div class="foot-col">
+<h4>Company</h4>
+<a href="about.html">About QuickSite</a>
+<a href="industries.html">Industries we cover</a>
+<a href="index.html#pricing">Pricing</a>
+<a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a>
+</div>
+<div class="foot-col">
+<h4>Legal</h4>
+<a href="https://leedavidsherriff.github.io/quicksite-uk/privacy.html">Privacy policy</a>
+<a href="cookies.html">Cookies</a>
+<a href="https://find-and-update.company-information.service.gov.uk/company/17355167" target="_blank" rel="noopener">Companies House record</a>
+</div>
+</div>
+<div class="foot-legal">
+<p>Quick Site Digital Limited is a company registered in England &amp; Wales, company number 17355167. Registered office: 33 Bowden Hill, Lacock, Chippenham, Wiltshire SN15 2PP.</p>
+<p>&copy; 2026 Quick Site Digital Limited. All rights reserved. QuickSite is a trading name of Quick Site Digital Limited. Example prices shown on trade pages are illustrations of a tradesperson's own pricing, not ours.</p>
+</div>
 </div></footer>
 </body>
 </html>

@@ -22,8 +22,8 @@ body{margin:0;background:var(--ground);color:var(--ink);
   font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   -webkit-font-smoothing:antialiased}
 .bar{background:var(--ink);padding:14px 22px}
-.bar a{color:#fff;text-decoration:none;font-weight:800;letter-spacing:-.01em;font-size:19px}
-.bar a i{color:var(--brand);font-style:normal}
+.bar a.mark{background:#fff;border-radius:8px;padding:6px 11px;display:inline-flex;align-items:center}
+.bar a.mark img{height:28px;width:auto;display:block}
 main{max-width:680px;margin:0 auto;padding:34px 22px 80px}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:26px 26px 30px}
 h1{font-size:clamp(28px,5vw,38px);line-height:1.1;letter-spacing:-.02em;margin:0 0 6px;text-wrap:balance}
@@ -38,11 +38,14 @@ a{color:var(--brand-deep)}
 .short b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-deep);margin-bottom:6px}
 .who{border-left:3px solid var(--brand);padding-left:16px;margin:12px 0 0}
 .who p{margin:0 0 4px}
+footer{margin-top:26px;display:grid;gap:8px}
+footer p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.6}
+footer a{color:var(--muted);font-weight:600}
 footer{color:var(--muted);font-size:14px;text-align:center;padding:26px 22px 0}
 </style>
 </head>
 <body>
-<div class="bar"><a href="./index.html">Quick<i>Site</i></a></div>
+<div class="bar"><a class="mark" href="./brochure/index.html" aria-label="QuickSite — home"><img src="./brochure/quicksite-wordmark.png" alt="QuickSite" width="768" height="216"></a></div>
 <main>
 <div class="card">
 <h1>Privacy Policy</h1>
@@ -96,7 +99,7 @@ footer{color:var(--muted);font-size:14px;text-align:center;padding:26px 22px 0}
 <p>You can ask us to give you a copy of your details, correct them, delete them, or stop using them. You can also withdraw your consent at any time. Email <a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a> and we will deal with it within one month. There is no charge.</p>
 
 <h2>Cookies and measurement</h2>
-<p>We do not use advertising or tracking cookies on this site. We do count page views so we know which pages get read: that record is the page name, the domain of the site you arrived from, and the date. No cookie, no IP address, no name, and nothing that identifies you or your device. The demo sites we build carry the same simple counter.</p>
+<p>We do not use cookies on this site at all — not our own, and none from anyone else. There is more detail on the <a href="./brochure/cookies.html">cookies page</a>. We do count page views so we know which pages get read: that record is the page name, the domain of the site you arrived from, and the date. No cookie, no IP address, no name, and nothing that identifies you or your device. The demo sites we build carry the same simple counter.</p>
 
 <h2>Complaints</h2>
 <p>If you are unhappy with how we have handled your details, please tell us first at <a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a>. You can also complain to the Information Commissioner's Office, the UK regulator, at <a href="https://ico.org.uk/make-a-complaint/" rel="noopener">ico.org.uk/make-a-complaint</a> or on 0303 123 1113.</p>
@@ -104,7 +107,11 @@ footer{color:var(--muted);font-size:14px;text-align:center;padding:26px 22px 0}
 <h2>Changes to this policy</h2>
 <p>If we change how we use your details we will update this page, and the date at the top will tell you when it last changed.</p>
 </div>
-<footer>Quick Site Digital Limited · Websites for working trades</footer>
+<footer>
+<p><a href="./brochure/index.html">Websites for working trades</a> &middot; <a href="./brochure/cookies.html">Cookies</a> &middot; <a href="https://find-and-update.company-information.service.gov.uk/company/17355167" rel="noopener">Companies House</a></p>
+<p>Quick Site Digital Limited is a company registered in England &amp; Wales, company number 17355167. Registered office: 33 Bowden Hill, Lacock, Chippenham, Wiltshire SN15 2PP.</p>
+<p>&copy; 2026 Quick Site Digital Limited. All rights reserved.</p>
+</footer>
 </main>
 </body>
 </html>
