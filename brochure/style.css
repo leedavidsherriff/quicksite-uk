@@ -133,12 +133,11 @@ opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s 
 .proofrow{display:flex;flex-wrap:wrap;gap:18px 46px;justify-content:space-between}
 .stat strong{display:block;font-size:24px;font-weight:800;letter-spacing:-.01em}
 .stat span{font-size:13.5px;color:#CBD5E1}
-.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:24px}
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:20px;margin-top:26px}
 .review{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
 .rshot{display:block;text-decoration:none;border-bottom:1px solid var(--line)}
 .rshot img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;display:block}
 .review blockquote{margin:0;padding:22px 22px 12px;font-size:16.5px;color:var(--ink);flex:1}
-.review blockquote::before{content:"C";color:var(--brand);font-size:34px;line-height:0;vertical-align:-6px;margin-right:3px}
 .review figcaption{font-size:13.5px;color:var(--muted);font-weight:600;padding:0 22px 20px}
 .review figcaption strong{color:var(--ink);font-weight:700}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,400px);gap:56px;align-items:center}
