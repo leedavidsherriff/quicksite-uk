@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Free Claude setup — Quicksite</title>
+  <meta name="description" content="Free Claude setup for local businesses from Quicksite Ltd. Optional advanced training from £250/day. WhatsApp 07933 666396."/>
+  <meta name="theme-color" content="#D97757"/>
+  <link rel="canonical" href="https://leedavidsherriff.github.io/quicksite-uk/automation/"/>
+  <meta property="og:title" content="Free Claude setup — Quicksite"/>
+  <meta property="og:description" content="We’ll get Claude ready for your team. Free setup; optional training."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/automation/"/>
+  <style>
+    :root {
+      --coral: #D97757;
+      --cream: #FFF7F0;
+      --ink: #2D2926;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    .glow {
+      pointer-events: none;
+      position: fixed;
+      inset: 0 0 auto;
+      height: 18rem;
+      background: radial-gradient(ellipse 80% 70% at 50% -10%, rgba(217,119,87,0.22), transparent 70%);
+    }
+    header, main, footer {
+      position: relative;
+      z-index: 1;
+      max-width: 32rem;
+      margin: 0 auto;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+    }
+    .badge {
+      background: var(--coral);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.875rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+    }
+    .ltd { font-size: 0.75rem; color: rgba(45,41,38,0.6); font-weight: 500; }
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin: 0;
+    }
+    h1 {
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0.75rem 0 0;
+    }
+    .lede {
+      margin: 1rem 0 0;
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: rgba(45,41,38,0.8);
+    }
+    .card {
+      margin-top: 2rem;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(217,119,87,0.18);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: 0 1px 2px rgba(45,41,38,0.04);
+    }
+    .card h2 { margin: 0; font-size: 1.125rem; font-weight: 800; }
+    .card ul { list-style: none; margin: 1rem 0 0; padding: 0; }
+    .card li {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+    }
+    .card li:last-child { margin-bottom: 0; }
+    .tick {
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-top: 0.1rem;
+      border-radius: 999px;
+      background: rgba(217,119,87,0.14);
+      color: var(--coral);
+      display: grid;
+      place-items: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+    .train {
+      margin-top: 1rem;
+      background: rgba(217,119,87,0.10);
+      border: 1px solid rgba(217,119,87,0.22);
+      border-radius: 1rem;
+      padding: 1.25rem;
+    }
+    .train h2 { margin: 0; font-size: 1.125rem; font-weight: 800; }
+    .train p { margin: 0.5rem 0 0; font-size: 0.95rem; line-height: 1.55; color: rgba(45,41,38,0.8); }
+    .train .price { margin-top: 0.75rem; font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+    .train .price span { color: var(--coral); }
+    .team {
+      margin: 1.5rem 0 0;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: rgba(45,41,38,0.8);
+    }
+    .ctas { margin-top: 2rem; display: grid; gap: 0.75rem; }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      font-size: 1.125rem;
+      font-weight: 700;
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+    }
+    .btn-primary {
+      background: var(--coral);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(217,119,87,0.35);
+    }
+    .btn-primary:hover { filter: brightness(0.96); }
+    .btn-outline {
+      color: var(--coral);
+      box-shadow: inset 0 0 0 2px var(--coral);
+    }
+    .btn-outline:hover { background: #fff; }
+    .contact {
+      margin: 1.25rem 0 0;
+      text-align: center;
+      font-size: 0.875rem;
+      color: rgba(45,41,38,0.6);
+    }
+    .contact a { color: inherit; }
+    footer {
+      padding-top: 0.5rem;
+      padding-bottom: 2.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: rgba(45,41,38,0.5);
+    }
+    footer p { margin: 0.75rem 0 0; }
+    footer p:first-child { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div class="glow" aria-hidden="true"></div>
+  <header>
+    <span class="badge">Quicksite</span>
+    <span class="ltd">Quicksite Ltd</span>
+  </header>
+  <main>
+    <p class="eyebrow">For local businesses</p>
+    <h1>Free Claude setup</h1>
+    <p class="lede">We’ll sit with you, get Claude working for your kind of business, and leave you with a few simple habits you can actually keep. No jargon. No pressure. The setup is free.</p>
+
+    <section class="card" aria-labelledby="included">
+      <h2 id="included">What’s included</h2>
+      <ul>
+        <li><span class="tick" aria-hidden="true">✓</span><span>A walkthrough of your Claude account and workspace</span></li>
+        <li><span class="tick" aria-hidden="true">✓</span><span>Starters written for your kind of business</span></li>
+        <li><span class="tick" aria-hidden="true">✓</span><span>Simple habits so it sticks</span></li>
+        <li><span class="tick" aria-hidden="true">✓</span><span>WhatsApp support if you get stuck</span></li>
+      </ul>
+    </section>
+
+    <section class="train" aria-labelledby="training">
+      <h2 id="training">Optional advanced training</h2>
+      <p>Want to go further? We can train you on sales, admin, content, finances and more — whatever will actually help your business.</p>
+      <p class="price">Average <span>£250 per full day</span></p>
+    </section>
+
+    <p class="team">We’re a husband and wife team with almost a decade of experience each.</p>
+
+    <div class="ctas">
+      <a class="btn btn-primary" href="https://wa.me/447933666396">Message on WhatsApp</a>
+      <a class="btn btn-outline" href="mailto:Lee@quick-site.co.uk?subject=Free%20Claude%20setup">Email Lee</a>
+    </div>
+
+    <p class="contact">
+      <a href="https://wa.me/447933666396">07933 666396</a>
+      ·
+      <a href="mailto:Lee@quick-site.co.uk">Lee@quick-site.co.uk</a>
+    </p>
+  </main>
+  <footer>
+    <p>Quicksite Ltd</p>
+    <p>Claude is a trademark of Anthropic. Quicksite is not affiliated with or endorsed by Anthropic.</p>
+  </footer>
+</body>
+</html>
