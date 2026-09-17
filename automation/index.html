@@ -236,19 +236,97 @@
     footer p { margin: 0.65rem 0 0; }
     footer p:first-child { margin-top: 0; }
     .sub { margin: 0.65rem 0 0; font-size: 0.92rem; color: var(--muted); }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+    .claude-mark {
+      height: 1.55rem;
+      width: auto;
+      display: block;
+    }
+    .claude-symbol {
+      width: 1.7rem;
+      height: 1.7rem;
+      display: block;
+    }
+    .plus {
+      color: rgba(45,41,38,0.35);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .logo-note {
+      margin: 0.55rem 0 0;
+      font-size: 0.72rem;
+      color: rgba(45,41,38,0.5);
+      line-height: 1.35;
+    }
+    .hero-fig {
+      margin: 1.35rem 0 0;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(217,119,87,0.18);
+      box-shadow: 0 8px 24px rgba(217,119,87,0.12);
+      background: #fff;
+    }
+    .hero-fig img {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+    }
+    .hero-fig figcaption {
+      padding: 0.65rem 0.9rem;
+      font-size: 0.78rem;
+      color: rgba(45,41,38,0.55);
+      background: rgba(255,255,255,0.9);
+    }
+    .media-split {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 0.9rem;
+    }
+    @media (min-width: 560px) {
+      .media-split.with-img {
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: center;
+      }
+    }
+    .media-split img {
+      width: 100%;
+      height: auto;
+      border-radius: 0.85rem;
+      border: 1px solid rgba(217,119,87,0.18);
+      display: block;
+    }
   </style>
 </head>
 <body>
   <div class="glow" aria-hidden="true"></div>
   <div class="wrap">
     <header>
-      <span class="badge">Quicksite</span>
+      <div class="brand-row" aria-label="Quicksite and Claude">
+        <span class="badge">Quicksite</span>
+        <span class="plus" aria-hidden="true">×</span>
+        <img class="claude-symbol" src="assets/claude-symbol.svg" alt=""/>
+        <img class="claude-mark" src="assets/claude-wordmark.svg" alt="Claude"/>
+      </div>
       <span class="ltd">Quicksite Ltd</span>
     </header>
+    <p class="logo-note">Claude® is a trademark of Anthropic. Quicksite is an independent setup &amp; training partner — not affiliated with or endorsed by Anthropic.</p>
 
     <p class="eyebrow">For local businesses</p>
     <h1>Free Claude setup</h1>
     <p class="lede">We’ll sit with you, get Claude working for your kind of business, and leave you with a few simple habits you can actually keep. No jargon. No pressure. The setup is free.</p>
+
+    <figure class="hero-fig">
+      <img src="assets/hero.png" width="1600" height="900" alt="Friendly local business owner getting set up with Claude on a laptop"/>
+      <figcaption>Plain-English Claude setup for real local businesses — free to start.</figcaption>
+    </figure>
+
 
     <div class="hero-ctas">
       <a class="btn btn-primary" href="https://wa.me/447933666396">Message on WhatsApp</a>
@@ -309,15 +387,20 @@
 
     <section class="block" aria-labelledby="training">
       <div class="tint">
-        <h2 id="training">Optional advanced training</h2>
-        <p class="sub">When you want to go further, we run practical sessions tailored to your business — not generic AI lectures.</p>
-        <ul class="check">
-          <li><span class="tick" aria-hidden="true">✓</span><span><strong>Sales</strong> — follow-ups, quotes, proposals, and customer replies</span></li>
-          <li><span class="tick" aria-hidden="true">✓</span><span><strong>Admin</strong> — emails, scheduling notes, checklists, and paperwork drafts</span></li>
-          <li><span class="tick" aria-hidden="true">✓</span><span><strong>Content</strong> — posts, website copy, leaflets, and job write-ups</span></li>
-          <li><span class="tick" aria-hidden="true">✓</span><span><strong>Finances</strong> — clearer summaries, chase notes, and simple reporting habits</span></li>
-        </ul>
-        <p class="price">Average <em>£250 per full day</em> · half-days and packages available on request</p>
+        <div class="media-split with-img">
+          <div>
+            <h2 id="training">Optional advanced training</h2>
+            <p class="sub">When you want to go further, we run practical sessions tailored to your business — not generic AI lectures.</p>
+            <ul class="check">
+              <li><span class="tick" aria-hidden="true">✓</span><span><strong>Sales</strong> — follow-ups, quotes, proposals, and customer replies</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span><span><strong>Admin</strong> — emails, scheduling notes, checklists, and paperwork drafts</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span><span><strong>Content</strong> — posts, website copy, leaflets, and job write-ups</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span><span><strong>Finances</strong> — clearer summaries, chase notes, and simple reporting habits</span></li>
+            </ul>
+            <p class="price">Average <em>£250 per full day</em> · half-days and packages available on request</p>
+          </div>
+          <img src="assets/accent.png" width="900" height="900" alt="Warm coral abstract artwork suggesting helpful AI for small business"/>
+        </div>
       </div>
     </section>
 
