@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Free to try trade websites — QuickSite</title>
+  <meta name="description" content="QuickSite builds trade websites free to try. Keep live for £30/month on a simple contract. No catch. WhatsApp 07933 666396."/>
+  <meta name="theme-color" content="#F26F21"/>
+  <link rel="canonical" href="https://leedavidsherriff.github.io/quicksite-uk/websites/"/>
+  <link rel="icon" href="assets/favicon.png"/>
+  <meta property="og:title" content="Free to try trade websites — QuickSite"/>
+  <meta property="og:description" content="We build it first. £0 to see it. £30/month to keep it. Contract. No catch."/>
+  <meta property="og:type" content="website"/>
+  <style>
+    :root {
+      --brand: #F26F21;
+      --brand-deep: #D85B10;
+      --ink: #0F172A;
+      --slate: #334155;
+      --muted: #64748B;
+      --line: #E2E8F0;
+      --paper: #fff;
+      --ground: #F8FAFC;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--ground);
+      color: var(--ink);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .bar {
+      background: var(--brand);
+      color: #fff;
+      padding: 0.85rem 1.25rem;
+    }
+    .bar-inner {
+      max-width: 36rem;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .logochip {
+      background: #fff;
+      border-radius: 8px;
+      padding: 6px 10px;
+      display: inline-flex;
+    }
+    .logochip img { height: 28px; width: auto; display: block; }
+    .bar-note { font-size: 0.8rem; font-weight: 600; opacity: 0.95; }
+    .wrap { max-width: 36rem; margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; }
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-deep);
+      margin: 0;
+    }
+    h1 {
+      font-size: clamp(1.85rem, 5.5vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      margin: 0.65rem 0 0;
+    }
+    h1 span { color: var(--brand-deep); }
+    .lede { margin: 0.9rem 0 0; color: var(--slate); font-size: 1.05rem; }
+    .ctas { margin-top: 1.35rem; display: grid; gap: 0.65rem; }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 0.95rem 1.1rem;
+      border-radius: 0.75rem;
+    }
+    .btn-brand { background: var(--brand); color: #fff; }
+    .btn-brand:hover { background: var(--brand-deep); }
+    .btn-outline {
+      color: var(--brand-deep);
+      box-shadow: inset 0 0 0 2px var(--brand);
+      background: transparent;
+    }
+    .btn-outline:hover { background: #fff; }
+    .prices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.55rem;
+      margin-top: 1.35rem;
+    }
+    .chip {
+      background: #fff;
+      border: 1px solid var(--brand);
+      border-radius: 0.75rem;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+    }
+    .chip strong { display: block; color: var(--brand-deep); font-size: 1.15rem; }
+    .chip span { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 600; margin-top: 0.2rem; }
+    section { margin-top: 1.75rem; }
+    h2 { font-size: 1.15rem; font-weight: 800; margin: 0 0 0.75rem; }
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding: 1.1rem;
+    }
+    .reviews { display: grid; gap: 0.85rem; }
+    .review {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .review img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 180px;
+      object-fit: cover;
+      object-position: top center;
+      border-bottom: 1px solid var(--line);
+    }
+    .review .body { padding: 0.9rem 1rem 1rem; }
+    .review blockquote {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--slate);
+      line-height: 1.45;
+    }
+    .review figcaption {
+      margin-top: 0.55rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .review figcaption strong { color: var(--ink); }
+    ul.check { list-style: none; margin: 0; padding: 0; }
+    ul.check li {
+      display: flex;
+      gap: 0.65rem;
+      margin-bottom: 0.65rem;
+      font-size: 0.95rem;
+    }
+    ul.check li:last-child { margin-bottom: 0; }
+    .tick {
+      flex-shrink: 0;
+      width: 1.2rem;
+      height: 1.2rem;
+      margin-top: 0.1rem;
+      border-radius: 999px;
+      background: rgba(242,111,33,0.15);
+      color: var(--brand-deep);
+      display: grid;
+      place-items: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .dark {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 1rem;
+      padding: 1.1rem;
+      margin-top: 1rem;
+      font-weight: 700;
+    }
+    .dark span { color: #FDBA74; }
+    .contact {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .contact a { color: inherit; }
+    footer {
+      max-width: 36rem;
+      margin: 0 auto;
+      padding: 0 1.25rem 2.5rem;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <div class="bar-inner">
+      <a class="logochip" href="https://quick-site.co.uk" aria-label="QuickSite">
+        <img src="assets/quicksite-mark.webp" alt="QuickSite" width="140" height="44"/>
+      </a>
+      <span class="bar-note">Bridgend · South Wales</span>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <p class="eyebrow">For working trades</p>
+    <h1>Your trade website.<br/><span>Free to try.</span></h1>
+    <p class="lede">We build it first and send you the link. Keep it live for <strong>£30 a month</strong> on a simple contract. <strong>No catch.</strong></p>
+
+    <div class="ctas">
+      <a class="btn btn-brand" href="https://wa.me/447933666396?text=Hi%20Lee%20%E2%80%94%20I%20want%20a%20free%20trade%20website%20try">Message on WhatsApp</a>
+      <a class="btn btn-outline" href="mailto:Lee@quick-site.co.uk?subject=Free%20trade%20website%20try">Email Lee</a>
+    </div>
+
+    <div class="prices" aria-label="Pricing">
+      <div class="chip"><strong>£0</strong><span>to see it</span></div>
+      <div class="chip"><strong>£30</strong><span>/month to keep</span></div>
+      <div class="chip"><strong>Contract</strong><span>clear &amp; simple</span></div>
+    </div>
+
+    <section aria-labelledby="how">
+      <div class="card">
+        <h2 id="how">How it works</h2>
+        <ul class="check">
+          <li><span class="tick">✓</span><span>Tell us your trade and town</span></li>
+          <li><span class="tick">✓</span><span>We build a real site and send the link — usually within 24 hours</span></li>
+          <li><span class="tick">✓</span><span>£0 to try. Nothing owed if you walk away</span></li>
+          <li><span class="tick">✓</span><span>£30/month to keep it live — hosting, film, pricing chips, updates</span></li>
+          <li><span class="tick">✓</span><span>Simple contract. No catch.</span></li>
+        </ul>
+        <div class="dark">No setup fee. No design deposit. <span>No catch.</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="say">
+      <h2 id="say">What they say</h2>
+      <div class="reviews">
+        <figure class="review">
+          <img src="assets/dcs-insure.jpg" width="900" height="520" alt="DCS Insure website"/>
+          <div class="body">
+            <blockquote>“I'd been putting off getting a proper website after bad experiences previously. QuickSite had one up for me in days — looks like it cost thousands, and I'm paying £30 a month. Clients have already commented on it. Wish I'd done it sooner.”</blockquote>
+            <figcaption><strong>Dale</strong> · DCS Insure</figcaption>
+          </div>
+        </figure>
+        <figure class="review">
+          <img src="assets/pgm.jpg" width="900" height="520" alt="PGM Construction website"/>
+          <div class="body">
+            <blockquote>“As a builder I don't have time to mess around with tech. Lee sorted everything — site looks professional, it's got our pricing on there, and it just works. Exactly what we needed.”</blockquote>
+            <figcaption><strong>Jon</strong> · PGM Construction</figcaption>
+          </div>
+        </figure>
+        <figure class="review">
+          <img src="assets/right-price.jpg" width="900" height="520" alt="Right Price Builders website"/>
+          <div class="body">
+            <blockquote>“Been using QuickSite for a few months now. The leads coming through the site are real — people who've already had a look around and know what they want. It pays for itself every month.”</blockquote>
+            <figcaption><strong>Lee</strong> · Right Price Builders</figcaption>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="ctas">
+        <a class="btn btn-brand" href="https://wa.me/447933666396?text=Hi%20Lee%20%E2%80%94%20I%20want%20a%20free%20trade%20website%20try">WhatsApp 07933 666396</a>
+        <a class="btn btn-outline" href="mailto:Lee@quick-site.co.uk?subject=Free%20trade%20website%20try">Email Lee@quick-site.co.uk</a>
+      </div>
+      <p class="contact">
+        <a href="https://wa.me/447933666396">07933 666396</a>
+        ·
+        <a href="mailto:Lee@quick-site.co.uk">Lee@quick-site.co.uk</a>
+        ·
+        <a href="https://quick-site.co.uk">quick-site.co.uk</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Quick Site Digital Limited · QuickSite is a trading name.</p>
+    <p>Example from-prices on trade sites illustrate a tradesperson’s own pricing, not QuickSite’s fee.</p>
+  </footer>
+</body>
+</html>
