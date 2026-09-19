@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Free on-site Claude setup — Quicksite</title>
+  <meta name="description" content="Free on-site Claude setup for local UK businesses from Quicksite Ltd. Optional advanced training on sales, admin, content and finances — average £250/full day. WhatsApp 07933 666396."/>
+  <meta name="theme-color" content="#D97757"/>
+  <link rel="canonical" href="https://leedavidsherriff.github.io/quicksite-uk/automation/"/>
+  <meta property="og:title" content="Free on-site Claude setup — Quicksite"/>
+  <meta property="og:description" content="We’ll come to you and get Claude ready for your team. Free on-site setup; optional training for sales, admin, content and finances."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/automation/"/>
+  <style>
+    :root {
+      --coral: #D97757;
+      --cream: #FFF7F0;
+      --ink: #2D2926;
+      --muted: rgba(45,41,38,0.72);
+      --line: rgba(217,119,87,0.2);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    .glow {
+      pointer-events: none;
+      position: fixed;
+      inset: 0 0 auto;
+      height: 20rem;
+      background: radial-gradient(ellipse 80% 70% at 50% -10%, rgba(217,119,87,0.22), transparent 70%);
+    }
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 36rem;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+    }
+    .badge {
+      background: var(--coral);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.875rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+    }
+    .ltd { font-size: 0.75rem; color: rgba(45,41,38,0.55); font-weight: 500; }
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin: 0;
+    }
+    h1 {
+      font-size: clamp(2rem, 6vw, 2.85rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0.75rem 0 0;
+    }
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 0;
+    }
+    .lede {
+      margin: 1rem 0 0;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+    .hero-ctas {
+      margin-top: 1.5rem;
+      display: grid;
+      gap: 0.65rem;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.95rem 1.15rem;
+      border-radius: 0.75rem;
+    }
+    .btn-primary {
+      background: var(--coral);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(217,119,87,0.35);
+    }
+    .btn-primary:hover { filter: brightness(0.96); }
+    .btn-outline {
+      color: var(--coral);
+      box-shadow: inset 0 0 0 2px var(--coral);
+      background: transparent;
+    }
+    .btn-outline:hover { background: #fff; }
+    section.block { margin-top: 2rem; }
+    .card {
+      background: rgba(255,255,255,0.85);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: 0 1px 2px rgba(45,41,38,0.04);
+    }
+    .card + .card { margin-top: 0.85rem; }
+    .tint {
+      background: rgba(217,119,87,0.10);
+      border: 1px solid rgba(217,119,87,0.22);
+      border-radius: 1rem;
+      padding: 1.25rem;
+    }
+    ul.check { list-style: none; margin: 1rem 0 0; padding: 0; }
+    ul.check li {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      margin-bottom: 0.7rem;
+      color: var(--ink);
+    }
+    ul.check li:last-child { margin-bottom: 0; }
+    .tick {
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-top: 0.1rem;
+      border-radius: 999px;
+      background: rgba(217,119,87,0.14);
+      color: var(--coral);
+      display: grid;
+      place-items: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+    }
+    .steps { margin: 1rem 0 0; padding: 0; list-style: none; counter-reset: step; }
+    .steps li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .steps li:last-child { margin-bottom: 0; }
+    .steps li::before {
+      content: counter(step);
+      width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      background: var(--coral);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: grid;
+      place-items: center;
+    }
+    .steps strong { display: block; font-size: 0.98rem; margin-bottom: 0.15rem; }
+    .steps span { display: block; font-size: 0.92rem; color: var(--muted); }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.9rem;
+    }
+    .chip {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+    .price { margin-top: 0.85rem; font-size: 0.98rem; font-weight: 700; }
+    .price em { font-style: normal; color: var(--coral); }
+    .team {
+      margin-top: 1.75rem;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+    .faq details {
+      border-top: 1px solid var(--line);
+      padding: 0.85rem 0;
+    }
+    .faq details:first-of-type { border-top: none; padding-top: 0; }
+    .faq summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      list-style: none;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      float: right;
+      color: var(--coral);
+      font-weight: 800;
+    }
+    .faq details[open] summary::after { content: "–"; }
+    .faq p {
+      margin: 0.55rem 0 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .contact {
+      margin: 1.1rem 0 0;
+      text-align: center;
+      font-size: 0.875rem;
+      color: rgba(45,41,38,0.55);
+    }
+    .contact a { color: inherit; }
+    footer {
+      max-width: 36rem;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 2.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: rgba(45,41,38,0.5);
+      position: relative;
+      z-index: 1;
+    }
+    footer p { margin: 0.65rem 0 0; }
+    footer p:first-child { margin-top: 0; }
+    .sub { margin: 0.65rem 0 0; font-size: 0.92rem; color: var(--muted); }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+    .claude-mark {
+      height: 1.55rem;
+      width: auto;
+      display: block;
+    }
+    .claude-symbol {
+      width: 1.7rem;
+      height: 1.7rem;
+      display: block;
+    }
+    .plus {
+      color: rgba(45,41,38,0.35);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .logo-note {
+      margin: 0.55rem 0 0;
+      font-size: 0.72rem;
+      color: rgba(45,41,38,0.5);
+      line-height: 1.35;
+    }
+    .hero-fig {
+      margin: 1.35rem 0 0;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(217,119,87,0.18);
+      box-shadow: 0 8px 24px rgba(217,119,87,0.12);
+      background: #fff;
+    }
+    .hero-fig img {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+    }
+    .hero-fig figcaption {
+      padding: 0.65rem 0.9rem;
+      font-size: 0.78rem;
+      color: rgba(45,41,38,0.55);
+      background: rgba(255,255,255,0.9);
+    }
+    .media-split {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 0.9rem;
+    }
+    @media (min-width: 560px) {
+      .media-split.with-img {
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: center;
+      }
+    }
+    .media-split img {
+      width: 100%;
+      height: auto;
+      border-radius: 0.85rem;
+      border: 1px solid rgba(217,119,87,0.18);
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <header>
+      <div class="brand-row" aria-label="Quicksite and Claude">
+        <span class="badge">Quicksite</span>
+        <span class="plus" aria-hidden="true">×</span>
+        <img class="claude-symbol" src="assets/claude-symbol.svg" alt=""/>
+        <img class="claude-mark" src="assets/claude-wordmark.svg" alt="Claude"/>
+      </div>
+      <span class="ltd">Quicksite Ltd</span>
+    </header>
+    <p class="logo-note">Claude® is a trademark of Anthropic. Quicksite is an independent setup &amp; training partner — not affiliated with or endorsed by Anthropic.</p>
+
+    <p class="eyebrow">For local businesses</p>
+    <h1>Free on-site Claude setup</h1>
+    <p class="lede">We’ll come to your business, get Claude working for your kind of work, and leave you with a few simple habits you can actually keep. No jargon. No pressure. The on-site setup is free.</p>
+
+    <figure class="hero-fig">
+      <img src="assets/hero.png" width="1600" height="900" alt="Friendly local business owner getting set up with Claude on a laptop"/>
+      <figcaption>Plain-English on-site Claude setup for real local businesses — free to start.</figcaption>
+    </figure>
+
+
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://wa.me/447933666396">Message on WhatsApp</a>
+      <a class="btn btn-outline" href="mailto:Lee@quick-site.co.uk?subject=Free%20on-site%20Claude%20setup">Email Lee</a>
+    </div>
+
+    <section class="block" aria-labelledby="who">
+      <div class="card">
+        <h2 id="who">Who this is for</h2>
+        <p class="sub">Owners and small teams who want AI help without a tech department — trades, shops, offices, and service businesses across the UK.</p>
+        <div class="chips" aria-label="Example business types">
+          <span class="chip">Trades &amp; builders</span>
+          <span class="chip">Shops &amp; hospitality</span>
+          <span class="chip">Offices &amp; admin</span>
+          <span class="chip">Sales teams</span>
+          <span class="chip">Solo owners</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="how">
+      <div class="card">
+        <h2 id="how">How the free on-site setup works</h2>
+        <ol class="steps">
+          <li>
+            <div>
+              <strong>You message us</strong>
+              <span>WhatsApp or email — tell us what you do and what eats your time.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>We come on-site and get Claude ready with you</strong>
+              <span>At your place of work — account and workspace walkthrough, set up for your tools and the jobs you actually do.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>You leave with habits that stick</strong>
+              <span>Simple starters plus WhatsApp support if you get stuck afterwards.</span>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="included">
+      <div class="card">
+        <h2 id="included">What’s included in free on-site setup</h2>
+        <ul class="check">
+          <li><span class="tick" aria-hidden="true">✓</span><span>An on-site walkthrough of your Claude account and workspace</span></li>
+          <li><span class="tick" aria-hidden="true">✓</span><span>Starters written for your kind of business</span></li>
+          <li><span class="tick" aria-hidden="true">✓</span><span>Simple daily habits so the team actually uses it</span></li>
+          <li><span class="tick" aria-hidden="true">✓</span><span>WhatsApp support to get you unstuck</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="training">
+      <div class="tint">
+        <div class="media-split with-img">
+          <div>
+            <h2 id="training">Optional advanced training</h2>
+            <p class="sub">When you want to go further, we run practical sessions tailored to your business — not generic AI lectures.</p>
+            <ul class="check">
+              <li><span class="tick" aria-hidden="true">✓</span><span><strong>Sales</strong> — follow-ups, quotes, proposals, and customer replies</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span><span><strong>Admin</strong> — emails, scheduling notes, checklists, and paperwork drafts</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span><span><strong>Content</strong> — posts, website copy, leaflets, and job write-ups</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span><span><strong>Finances</strong> — clearer summaries, chase notes, and simple reporting habits</span></li>
+            </ul>
+            <p class="price">Average <em>£250 per full day</em> · half-days and packages available on request</p>
+          </div>
+          <img src="assets/accent.png" width="900" height="900" alt="Warm coral abstract artwork suggesting helpful AI for small business"/>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="why">
+      <div class="card">
+        <h2 id="why">Why Quicksite</h2>
+        <p class="sub">We’re a husband and wife team with almost a decade of experience each. We explain things in plain English and stick around until it clicks — independent on-site Claude setup and training for local businesses, not a big-agency pitch.</p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="faq">
+      <div class="card faq">
+        <h2 id="faq">Common questions</h2>
+        <details>
+          <summary>Do I need to pay for Claude?</summary>
+          <p>You’ll need your own Claude account (free or paid, depending what you use). Our on-site setup session with you is free.</p>
+        </details>
+        <details>
+          <summary>Is training required?</summary>
+          <p>No. Free on-site setup stands alone. Training is optional when you want deeper workflows for sales, admin, content, or finances.</p>
+        </details>
+        <details>
+          <summary>How do we do the session?</summary>
+          <p>Message us on WhatsApp or email and we’ll book a short free on-site setup that fits your diary. We’ll confirm the details when you get in touch.</p>
+        </details>
+        <details>
+          <summary>Are you part of Anthropic?</summary>
+          <p>No. Quicksite Ltd is independent. Claude is a trademark of Anthropic; we are not affiliated with or endorsed by Anthropic.</p>
+        </details>
+      </div>
+    </section>
+
+    <p class="team">Ready when you are — say hello and we’ll get Claude working on-site for your business.</p>
+
+    <div class="hero-ctas" style="margin-top:1.25rem">
+      <a class="btn btn-primary" href="https://wa.me/447933666396">WhatsApp 07933 666396</a>
+      <a class="btn btn-outline" href="mailto:Lee@quick-site.co.uk?subject=Free%20on-site%20Claude%20setup">Email Lee@quick-site.co.uk</a>
+    </div>
+    <p class="contact">
+      <a href="https://wa.me/447933666396">07933 666396</a>
+      ·
+      <a href="mailto:Lee@quick-site.co.uk">Lee@quick-site.co.uk</a>
+      ·
+      <a href="https://quick-site.co.uk">quick-site.co.uk</a>
+    </p>
+  </div>
+
+  <footer>
+    <p>Quicksite Ltd</p>
+    <p>Claude is a trademark of Anthropic. Quicksite is not affiliated with or endorsed by Anthropic.</p>
+  </footer>
+</body>
+</html>
