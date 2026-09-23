@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /quicksite-uk/brochure/work.html
+
+Sitemap: https://leedavidsherriff.github.io/quicksite-uk/brochure/sitemap.xml

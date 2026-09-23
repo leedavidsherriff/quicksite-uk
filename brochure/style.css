@@ -26,7 +26,35 @@ video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit
 .mainnav::-webkit-scrollbar{display:none}
 .bar-cta{margin-left:auto}
 }
+.faqs{display:grid;gap:10px;margin-top:26px;max-width:ineherit}
+.faq{border:1px solid var(--line);border-radius:var(--r);background:var(--paper);overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:12px;font-weight:700}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";margin-left:auto;font-size:20px;font-weight:700;color:var(--brand);line-height:1}
+.faq[open] summary::after{content:"2"}
+.faq summary h3{font-size:16.5px;font-weight:700;margin:0;letter-spacing:-.01em}
+.faq summary:hover{background:var(--ground)}
+.faq .faq-a{padding:0 20px 18px}
+.faq .faq-a p{color:var(--slate);font-size:15.5px;max-width:70ch}
+.alt .faq{border-color:transparent;box-shadow:0 1px 3px rgba(15,23,42,.07)}
+.tradepills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.tradepill{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14.5px;font-weight:600;color:var(--slate);text-decoration:none;white-space:nowrap}
+.tradepill:hover{border-color:var(--brand);color:var(--brand-deep)}
+.alt .tradepill{background:var(--paper)}
+.townrow{margin-top:34px}
+/* a town with one demo shouldn't stretch that card to 1080px wide */
+.townrow .tcards{grid-template-columns:repeat(auto-fit,minmax(280px,430px));justify-content:start}
+.townrow h3{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.townrow>p{color:var(--slate);font-size:15.5px;margin-top:6px;max-width:70ch}
+.townrow>p a{color:var(--brand-deep);font-weight:700;text-decoration:none;white-space:nowrap}
+.areacard .gt-body{padding:22px}
+.areameta{font-size:13px;color:var(--muted);font-weight:600}
+.herolist{font-size:15px;color:var(--muted);max-width:60ch;margin:-8px 0 22px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;z-index:100;font-weight:700;text-decoration:none}
+.skip:focus{left:0}
 .crumb{font-size:14px;color:var(--muted);padding:18px 0 0}
+.crumb .sep{opacity:.5;padding:0 2px}
+.crumb [aria-current]{color:var(--slate);font-weight:600}
 .crumb a{color:var(--muted);text-decoration:none}
 .crumb a:hover{color:var(--brand-deep)}
 .hero{padding:44px 0 34px}
