@@ -226,7 +226,7 @@ footer .wrap{display:block}
 .legal li{margin-bottom:6px}
 .legal a{color:var(--brand-deep);font-weight:600}
 .legal .short{background:#FDF1E7;border-radius:12px;padding:18px 20px;margin-bottom:26px}
-.legal .short b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-deep);margin-bottom:6px}
+.legal .short b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#A6440A;margin-bottom:6px}
 .legal .who{border-left:3px solid var(--brand);padding-left:16px;margin:12px 0 0}
 .legal .who p{margin:0 0 4px}
 .legal .short p{color:var(--ink);margin:0;font-size:17px}
