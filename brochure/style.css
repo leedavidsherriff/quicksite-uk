@@ -183,10 +183,6 @@ opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s 
 .gt .tname{font-size:18px;font-weight:800;letter-spacing:-.01em}
 .gt p{color:var(--slate);font-size:14.5px;flex:1}
 .gt .tgo{color:var(--brand-deep);font-weight:700;font-size:14px}
-.proof{background:var(--ink);color:#fff;padding:26px 0}
-.proofrow{display:flex;flex-wrap:wrap;gap:18px 46px;justify-content:space-between}
-.stat strong{display:block;font-size:24px;font-weight:800;letter-spacing:-.01em}
-.stat span{font-size:13.5px;color:#CBD5E1}
 .reviews{columns:2 360px;column-gap:20px;margin-top:26px}
 /* columns, not a grid: a quote with no screenshot is a third the height of one with,
    and in a grid row it stretched into a mostly empty card */
@@ -300,5 +296,7 @@ h1{max-width:none}
 .deck-hint{text-align:center;color:#94A3B8;font-size:13px;margin-top:8px}
 .deck-points{list-style:none;padding:0;margin:26px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;color:#E2E8F0;font-size:15px}
 .deck-points li{padding-left:18px;position:relative}
+@media (hover:none){.deck-hint .hover-only{display:none}}
+@media (max-width:600px){.deck-points{flex-direction:column;align-items:flex-start;width:max-content;max-width:100%}}
 .deck-points li::before{content:"";position:absolute;left:0;top:7px;width:9px;height:9px;border-radius:3px;background:var(--brand)}
 @media(max-width:640px){.deck{height:440px;--cw:188px}.deck-btn{display:none}.deck-name{font-size:16px}}
