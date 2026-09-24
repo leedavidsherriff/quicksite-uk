@@ -105,6 +105,7 @@ var shades=cards.map(function(c){return c.querySelector('.shade');});
 var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 var pos=+deck.getAttribute('data-start')||0, target=pos, vel=0;
 var hover=-1, press=-1, swell=cards.map(function(){return 0;});
+var last=cards.map(function(){return {};});
 var dragging=false, startX=0, startPos=0, lastX=0, lastT=0, flick=0, moved=0;
 var elName=document.querySelector('.deck-name'),
     elCount=document.querySelector('.deck-count'), elLink=document.querySelector('.deck-link');
@@ -168,16 +169,21 @@ function frame(now){
     var want=(i===hover||i===press)?1:0; swell[i]+=(want-swell[i])*(rm?1:0.16);
     var s=swell[i];
     var push=0; if(hotO!==null && i!==hover){ var rel=o-hotO; push=(rel<0?-1:1)*Math.max(0,1.7-Math.abs(rel))*34*hotS; }
-    var bob=rm?0:Math.sin(now/950+i*1.9)*7*(1-s);
+    var bob=rm?0:Math.round(Math.sin(now/950+i*1.9)*7*(1-s)*2)/2;
     var x=o*sp+push, y=Math.min(a,4)*15+bob-s*26, r=o*5*(1-s);
     var sc=Math.max(0.58,1-a*0.085)*(1+s*0.17);
-    var c=cards[i];
-    c.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0) rotate('+r.toFixed(2)+'deg) scale('+sc.toFixed(3)+')';
-    c.style.zIndex = s>0.03 ? '250' : String(100-Math.round(a*10));
-    c.style.opacity = a>5.3 ? '0' : a>4.5 ? ((5.3-a)/0.8).toFixed(3) : '1';
-    c.style.visibility = a>5.3 ? 'hidden' : 'visible';
-    shades[i].style.opacity=Math.max(0,Math.min(a,4)*0.12-s*0.1).toFixed(3);
-    c.classList.toggle('is-hot', s>0.5);
+    var c=cards[i], k=last[i];
+    /* write only what changed: rewriting every card's style 60 times a second,
+       even when it's identical, was most of the homepage's main-thread time */
+    var tf='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0) rotate('+r.toFixed(2)+'deg) scale('+sc.toFixed(3)+')';
+    if(tf!==k.tf){ c.style.transform=tf; k.tf=tf; }
+    var zi = s>0.03 ? '250' : String(100-Math.round(a*10));
+    if(zi!==k.zi){ c.style.zIndex=zi; k.zi=zi; }
+    var op = a>5.3 ? '0' : a>4.5 ? ((5.3-a)/0.8).toFixed(2) : '1';
+    if(op!==k.op){ c.style.opacity=op; c.style.visibility = op==='0' ? 'hidden' : 'visible'; k.op=op; }
+    var sh=Math.max(0,Math.min(a,4)*0.12-s*0.1).toFixed(2);
+    if(sh!==k.sh){ shades[i].style.opacity=sh; k.sh=sh; }
+    var hot=s>0.5; if(hot!==k.hot){ c.classList.toggle('is-hot', hot); k.hot=hot; }
   }
   label();
   requestAnimationFrame(frame);
