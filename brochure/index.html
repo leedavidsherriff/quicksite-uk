@@ -40,7 +40,7 @@
 <a class="dock-cta" href="brief.html"><span class="full">Get your website built</span><span class="short">Get started</span></a>
 <button class="dock-menu" type="button" aria-expanded="false" aria-controls="docknav" aria-label="Menu"><span></span><span></span></button>
 </header>
-<div class="dock-space" aria-hidden="true"></div>
+<div class="dock-space on-ink" aria-hidden="true"></div>
 <script>(function(){
 var d=document.getElementById('dock'); if(!d) return;
 var m=d.querySelector('.dock-menu');
@@ -53,20 +53,16 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape' && d.class
 document.addEventListener('click', function(e){ if(d.classList.contains('open') && !d.contains(e.target)) shut(); });
 })();</script>
 <main id="main">
-<div class="wrap"><div class="hero">
+<section class="filmsec deck-sec" id="film">
+<div class="wrap"><div class="deck-hero">
 <span class="kicker">Websites for working trades</span>
 <h1>Your trade deserves a better website.</h1>
 <p class="lede">QuickSite builds websites that actually win work. They show your work actually happening and put honest prices in front of customers. Pick your trade — we'll have your site built within 24 hours.</p>
 <div class="cta-row">
-<a class="btn btn-brand" href="#trades">Find your trade</a>
-<a class="btn btn-ghost" href="brief.html">Start your brief</a>
+<a class="btn btn-brand" href="brief.html">Start your brief</a>
+<a class="btn btn-onink" href="#trades">Find your trade</a>
 </div>
-</div></div>
-
-<section class="filmsec deck-sec" id="film">
-<div class="wrap"><div class="deck-head">
-<h2>Websites where the work moves</h2>
-<p class="sub">Every trade gets a film like this &mdash; the job transforming in front of the customer, playing right in the page. Here are all 12 of them. No stock photos of smiling men in hard hats.</p>
+<ul class="offer-chips"><li>Free to see it</li><li>£30 a month to keep</li><li>No contract</li></ul>
 </div></div>
 <div class="deck" tabindex="0" data-start="3" role="region" aria-roledescription="carousel" aria-label="Trade films. Drag, or use the left and right arrow keys.">
 <div class="deck-stage">
@@ -87,6 +83,8 @@ document.addEventListener('click', function(e){ if(d.classList.contains('open') 
 <button class="deck-btn next" type="button" aria-label="Next film">&rsaquo;</button>
 </div>
 <div class="wrap">
+<h2 class="deck-h2">Websites where the work moves</h2>
+<p class="deck-sub">Every trade gets a film like this &mdash; the job transforming in front of the customer, playing right in the page. Here are all 12 of them.</p>
 <div class="deck-foot" aria-live="polite">
 <span class="deck-now"><span class="deck-count">04 / 12</span><strong class="deck-name">Driveways &amp; Patios</strong></span>
 <a class="deck-link" href="driveways.html">See the driveway pitch &rarr;</a>
@@ -119,14 +117,28 @@ function wrap(o){ o=((o%n)+n)%n; return o>n/2 ? o-n : o; }
 function front(){ return ((Math.round(pos)%n)+n)%n; }
 function pad(x){ return (x<10?'0':'')+x; }
 
-/* ---- video: arm once the deck is near the screen, run every visible card ---- */
-var armed=false, visible=false;
-function arm(){ if(armed) return; armed=true;
-  vids.forEach(function(v){ v.muted=true; v.setAttribute('muted',''); v.src=v.getAttribute('data-deck-src'); }); }
-function sync(){ if(!armed) return;
+/* ---- video: nothing until the page has loaded, then the front film, then its
+   neighbours one at a time, nearest first. Arming all twelve at once made the
+   homepage fetch 8MB and decode nine films in its first second (Lighthouse 60). */
+var armed=[], ready=false, visible=false, queueT=0;
+function armOne(i){ if(armed[i]) return; armed[i]=true; var v=vids[i];
+  v.muted=true; v.setAttribute('muted',''); v.src=v.getAttribute('data-deck-src'); }
+function pump(){
+  queueT=0; if(!ready || !visible) return;
+  var best=-1, bd=99;
+  for(var i=0;i<n;i++){ var d=Math.abs(wrap(i-pos)); if(!armed[i] && d<4.6 && d<bd){ bd=d; best=i; } }
+  if(best<0) return;
+  armOne(best); sync();
+  queueT=setTimeout(pump, bd<0.5 ? 150 : 380);
+}
+function sync(){
   for(var i=0;i<n;i++){ var v=vids[i], run=visible && Math.abs(wrap(i-pos))<4.6;
+    if(run && !armed[i]){ if(!queueT) pump(); continue; }
+    if(!armed[i]) continue;
     if(run && v.paused) v.play().catch(function(){});
     else if(!run && !v.paused) v.pause(); } }
+function whenLoaded(){ ready=true; pump(); }
+if(document.readyState==='complete') setTimeout(whenLoaded,0); else addEventListener('load', function(){ setTimeout(whenLoaded,150); });
 vids.forEach(function(v){ v.addEventListener('canplay', sync); });
 document.addEventListener('visibilitychange', function(){ if(!document.hidden) sync(); });
 addEventListener('pageshow', sync);
@@ -173,9 +185,9 @@ function frame(now){
 function start(){ if(!running && visible){ running=true; requestAnimationFrame(frame); } }
 
 if('IntersectionObserver' in window){
-  new IntersectionObserver(function(es){ es.forEach(function(e){ visible=e.isIntersecting; if(visible){ arm(); start(); } sync(); }); },
-    {rootMargin:'250px 0px'}).observe(deck);
-} else { visible=true; arm(); start(); }
+  new IntersectionObserver(function(es){ es.forEach(function(e){ visible=e.isIntersecting; if(visible){ start(); pump(); } sync(); }); },
+    {rootMargin:'100px 0px'}).observe(deck);
+} else { visible=true; start(); pump(); }
 
 /* ---- drag / flick / tap ---- */
 function cardAt(x,y){ var el=document.elementFromPoint(x,y); return el && el.closest ? el.closest('.dcard') : null; }
@@ -238,7 +250,7 @@ label();
 <div class="stat"><strong>70+</strong><span>trade sites built</span></div>
 <div class="stat"><strong>12</strong><span>trades covered</span></div>
 <div class="stat"><strong>UK-wide</strong><span>any trade, any town</span></div>
-<div class="stat"><strong>Days</strong><span>from yes to live</span></div>
+<div class="stat"><strong>24 hrs</strong><span>from brief to live site</span></div>
 </div></div>
 
 <section id="trades"><div class="wrap">
@@ -425,7 +437,7 @@ if(cta){addEventListener('scroll',function(){cta.classList.toggle('show',scrollY
 <p>Websites for working trades — built for tradespeople anywhere in the UK.</p>
 </div>
 <div class="foot-col">
-<h4>Company</h4>
+<h2 class="foot-h">Company</h2>
 <a href="about.html">About QuickSite</a>
 <a href="industries.html">Industries we cover</a>
 <a href="work.html">Our work</a>
@@ -433,8 +445,8 @@ if(cta){addEventListener('scroll',function(){cta.classList.toggle('show',scrollY
 <a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a>
 </div>
 <div class="foot-col">
-<h4>Legal</h4>
-<a href="https://leedavidsherriff.github.io/quicksite-uk/privacy.html">Privacy policy</a>
+<h2 class="foot-h">Legal</h2>
+<a href="privacy.html">Privacy policy</a>
 <a href="cookies.html">Cookies</a>
 <a href="https://find-and-update.company-information.service.gov.uk/company/17355167" target="_blank" rel="noopener">Companies House record</a>
 </div>

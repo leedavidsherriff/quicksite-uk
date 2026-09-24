@@ -1,4 +1,4 @@
-:root{--brand:#F26F21;--brand-deep:#D85B10;--ink:#0F172A;--slate:#334155;--muted:#64748B;
+:root{--brand:#F26F21;--brand-deep:#C5510C;--on-brand:#0F172A;--ink:#0F172A;--slate:#334155;--muted:#64748B;
 --chip:#F1F5F9;--line:#E2E8F0;--paper:#fff;--ground:#F8FAFC;
 --r:12px;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji"}
 *{margin:0;box-sizing:border-box}
@@ -10,7 +10,7 @@ img,video{max-width:100%;display:block}
 video::-webkit-media-controls,video::-webkit-media-controls-start-playback-button,
 video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none;opacity:0!important}
 .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
-/* ---- header: floating glass dock (Lee picked option A, 24 Sep 2026) ----
+/* ---- header: floating glass dock ----
    No bar. A frosted pill floats over the page, detached from the edge, and
    tightens up once you scroll. It's dark glass on purpose: the logo's orange Q
    and "Site" vanish on the old orange bar. */
@@ -23,8 +23,8 @@ html{scroll-padding-top:96px}
 .dock-nav a{color:#E2E8F0;text-decoration:none;font-weight:600;font-size:14.5px;padding:8px 12px;border-radius:999px;white-space:nowrap}
 .dock-nav a:hover{background:rgba(255,255,255,.08);color:#fff}
 .dock-nav a.on{background:rgba(255,255,255,.13);color:#fff}
-.dock-cta{order:3;flex:none;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;font-size:14.5px;border-radius:999px;padding:11px 18px;white-space:nowrap}
-.dock-cta:hover{background:var(--brand-deep)}
+.dock-cta{order:3;flex:none;background:var(--brand);color:var(--on-brand);text-decoration:none;font-weight:700;font-size:14.5px;border-radius:999px;padding:11px 18px;white-space:nowrap}
+.dock-cta:hover{background:#FF8740}
 .dock-cta .short{display:none}
 .dock-menu{display:none}
 .dock.is-small{top:8px;padding:6px 6px 6px 14px;background:rgba(15,23,42,.9)}
@@ -56,7 +56,7 @@ html{scroll-padding-top:96px}
 .faq summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:12px;font-weight:700}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";margin-left:auto;font-size:20px;font-weight:700;color:var(--brand);line-height:1}
-.faq[open] summary::after{content:"2"}
+.faq[open] summary::after{content:"−"}
 .faq summary h3{font-size:16.5px;font-weight:700;margin:0;letter-spacing:-.01em}
 .faq summary:hover{background:var(--ground)}
 .faq .faq-a{padding:0 20px 18px}
@@ -91,8 +91,8 @@ h1{font-size:clamp(30px,5vw,46px);line-height:1.08;letter-spacing:-.02em;font-we
 .gt-covers{font-style:normal;color:var(--brand-deep);font-weight:600}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .btn{display:inline-block;text-decoration:none;font-weight:700;font-size:16px;border-radius:8px;padding:12px 20px}
-.btn-brand{background:var(--brand);color:#fff}
-.btn-brand:hover{background:var(--brand-deep)}
+.btn-brand{background:var(--brand);color:var(--on-brand)}
+.btn-brand:hover{background:#FF8740}
 .btn-ghost{background:var(--chip);color:var(--ink)}
 .btn-ghost:hover{background:var(--line)}
 section{padding:52px 0}
@@ -149,18 +149,18 @@ h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;font-weight:800;text-w
 .stickycta{display:none}
 @media(max-width:640px){
 .stickycta{display:block;position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:40;
-background:var(--brand);color:#fff;text-align:center;font-weight:700;font-size:16px;text-decoration:none;
+background:var(--brand);color:var(--on-brand);text-align:center;font-weight:700;font-size:16px;text-decoration:none;
 border-radius:999px;padding:14px 18px;box-shadow:0 14px 34px -10px rgba(216,91,16,.55);
 opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease}
 .stickycta.show{opacity:1;pointer-events:auto;transform:none}
 }
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
-.band{background:var(--brand);color:#fff;text-align:center;padding:60px 0}
-.band h2{color:#fff;margin:0 auto;max-width:22ch}
-.band p{color:rgba(255,255,255,.92);font-size:17px;max-width:48ch;margin:12px auto 26px}
-.band .btn{background:#fff;color:var(--brand-deep)}
-.band .btn:hover{background:#FFF7F2}
-.band a.mail{color:#fff;font-weight:600}
+.band{background:var(--brand);color:var(--on-brand);text-align:center;padding:60px 0}
+.band h2{color:var(--on-brand);margin:0 auto;max-width:22ch}
+.band p{color:var(--on-brand);font-size:17px;max-width:48ch;margin:12px auto 26px}
+.band .btn{background:var(--ink);color:#fff}
+.band .btn:hover{background:#1E293B}
+.band a.mail{color:var(--on-brand);font-weight:700}
 .grid-trades.is-collapsed .gt-more{display:none}
 .grid-trades{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:30px}
 .gt{border:1px solid var(--line);border-radius:var(--r);padding:22px;text-decoration:none;display:flex;flex-direction:column;gap:8px;transition:box-shadow .15s ease,transform .15s ease;background:var(--paper)}
@@ -187,7 +187,11 @@ opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s 
 .proofrow{display:flex;flex-wrap:wrap;gap:18px 46px;justify-content:space-between}
 .stat strong{display:block;font-size:24px;font-weight:800;letter-spacing:-.01em}
 .stat span{font-size:13.5px;color:#CBD5E1}
-.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:20px;margin-top:26px}
+.reviews{columns:2 360px;column-gap:20px;margin-top:26px}
+/* columns, not a grid: a quote with no screenshot is a third the height of one with,
+   and in a grid row it stretched into a mostly empty card */
+.reviews .review{break-inside:avoid;margin-bottom:20px}
+.review:not(:has(.rshot)){border-left:4px solid var(--brand)}
 .review{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
 .rshot{display:block;text-decoration:none;border-bottom:1px solid var(--line)}
 .rshot img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;display:block}
@@ -207,7 +211,7 @@ footer .wrap{display:block}
 .foot-mark{display:inline-flex;margin-bottom:14px}
 .foot-mark img{height:40px;width:auto;display:block}
 .foot-brand p{color:var(--slate);font-size:14px;max-width:34ch}
-.foot-col h4{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:800;margin-bottom:10px}
+.foot-col .foot-h{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:800;margin-bottom:10px}
 .foot-col a{display:block;color:var(--muted);text-decoration:none;font-size:14px;margin-bottom:7px;word-break:break-word}
 .foot-col a:hover{color:var(--brand-deep)}
 .foot-legal{border-top:1px solid var(--line);margin-top:26px;padding-top:18px;display:grid;gap:7px}
@@ -223,6 +227,8 @@ footer .wrap{display:block}
 .legal a{color:var(--brand-deep);font-weight:600}
 .legal .short{background:#FDF1E7;border-radius:12px;padding:18px 20px;margin-bottom:26px}
 .legal .short b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-deep);margin-bottom:6px}
+.legal .who{border-left:3px solid var(--brand);padding-left:16px;margin:12px 0 0}
+.legal .who p{margin:0 0 4px}
 .legal .short p{color:var(--ink);margin:0;font-size:17px}
 .factgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:26px}
 .fact{border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;background:var(--paper)}
@@ -230,7 +236,7 @@ footer .wrap{display:block}
 .fact dd{margin:0;font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.45}
 .steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:28px}
 .step{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--paper)}
-.step::before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:15px;margin-bottom:12px}
+.step::before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--brand);color:var(--on-brand);font-weight:800;font-size:15px;margin-bottom:12px}
 .step h3{font-size:16.5px;font-weight:700;margin-bottom:7px}
 .step p{color:var(--slate);font-size:15px}
 .aboutmark{display:flex;align-items:center;gap:22px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-top:26px}
@@ -243,9 +249,19 @@ footer .wrap{display:block}
 .price .chipstack{order:-1}
 h1{max-width:none}
 }
-.deck-sec{padding:58px 0 50px;overflow:hidden}
-.deck-head{text-align:center;max-width:660px;margin:0 auto}
-.deck-head .sub{margin:12px auto 0}
+.deck-sec{padding:18px 0 50px;overflow:hidden}
+.dock-space.on-ink{background:var(--ink)}
+.deck-hero{text-align:center;max-width:780px;margin:0 auto;padding:22px 0 0}
+.deck-hero .kicker{background:rgba(255,255,255,.08);color:#CBD5E1}
+.deck-hero h1{color:#fff;max-width:none;margin:0 auto;font-size:clamp(32px,5vw,54px)}
+.deck-hero .lede{color:#CBD5E1;margin:16px auto 24px;max-width:60ch}
+.deck-hero .cta-row{justify-content:center}
+.btn-onink{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.btn-onink:hover{background:rgba(255,255,255,.18)}
+.offer-chips{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;color:#94A3B8;font-size:14px;font-weight:600}
+.offer-chips li::before{content:"✓";color:var(--brand);margin-right:6px;font-weight:800}
+.deck-h2{color:#fff;text-align:center;font-size:clamp(22px,3vw,28px);margin-top:4px}
+.deck-sub{color:#94A3B8;text-align:center;font-size:15px;max-width:62ch;margin:8px auto 14px}
 .deck{position:relative;height:clamp(470px,50vw,610px);margin-top:14px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;outline:none;--cw:clamp(196px,20vw,262px)}
 .deck.grabbing,.deck.grabbing .dcard{cursor:grabbing}
 .deck:focus-visible{outline:3px solid var(--brand);outline-offset:-6px;border-radius:18px}
