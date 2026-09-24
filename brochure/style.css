@@ -10,23 +10,48 @@ img,video{max-width:100%;display:block}
 video::-webkit-media-controls,video::-webkit-media-controls-start-playback-button,
 video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none;opacity:0!important}
 .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
-.bar{background:var(--brand)}
-.bar .wrap{display:flex;align-items:center;padding-top:11px;padding-bottom:11px;gap:14px}
-.logochip{background:#fff;border-radius:8px;padding:6px 12px;display:inline-flex;align-items:center;text-decoration:none;flex:none}
-.logochip img{height:36px;width:auto;display:block}
-.mainnav{display:flex;align-items:center;gap:20px;margin-left:18px;margin-right:auto}
-.mainnav a{color:#fff;text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap;padding:3px 0;border-bottom:2px solid transparent;opacity:.93}
-.mainnav a:hover{opacity:1;border-bottom-color:rgba(255,255,255,.7)}
-.mainnav a.on{opacity:1;border-bottom-color:#fff}
-.bar-cta{color:#fff;text-decoration:none;font-weight:600;font-size:15px;border:1.5px solid rgba(255,255,255,.75);border-radius:8px;padding:8px 14px;white-space:nowrap;flex:none}
-.bar-cta:hover{background:#fff;color:var(--brand)}
+/* ---- header: floating glass dock (Lee picked option A, 24 Sep 2026) ----
+   No bar. A frosted pill floats over the page, detached from the edge, and
+   tightens up once you scroll. It's dark glass on purpose: the logo's orange Q
+   and "Site" vanish on the old orange bar. */
+html{scroll-padding-top:96px}
+.dock{position:fixed;z-index:500;top:14px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 24px);display:flex;align-items:center;gap:20px;padding:8px 8px 8px 18px;border-radius:999px;background:rgba(15,23,42,.88);-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 44px -18px rgba(2,6,23,.65);transition:top .3s ease,padding .3s ease,background .3s ease}
+.dock-space{height:92px}
+.dock-logo{display:flex;flex:none;order:1}
+.dock-logo img{height:36px;width:auto;display:block;transition:height .3s ease}
+.dock-nav{display:flex;align-items:center;gap:2px;order:2}
+.dock-nav a{color:#E2E8F0;text-decoration:none;font-weight:600;font-size:14.5px;padding:8px 12px;border-radius:999px;white-space:nowrap}
+.dock-nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+.dock-nav a.on{background:rgba(255,255,255,.13);color:#fff}
+.dock-cta{order:3;flex:none;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;font-size:14.5px;border-radius:999px;padding:11px 18px;white-space:nowrap}
+.dock-cta:hover{background:var(--brand-deep)}
+.dock-cta .short{display:none}
+.dock-menu{display:none}
+.dock.is-small{top:8px;padding:6px 6px 6px 14px;background:rgba(15,23,42,.9)}
+.dock.is-small .dock-logo img{height:29px}
+.dock.is-small .dock-cta{padding:9px 16px}
+.dock a:focus-visible,.dock button:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
 @media(max-width:940px){
-.bar .wrap{flex-wrap:wrap;gap:10px 14px}
-.mainnav{order:3;width:100%;margin:0;gap:18px;overflow-x:auto;scrollbar-width:none}
-.mainnav::-webkit-scrollbar{display:none}
-.bar-cta{margin-left:auto}
+.dock{width:calc(100% - 20px);flex-wrap:wrap;gap:8px;border-radius:24px;padding:8px 8px 8px 16px}
+.dock-cta{margin-left:auto}
+.dock-menu{order:4;display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:transparent;cursor:pointer;padding:0 12px}
+.dock-menu span{display:block;height:2px;background:#fff;border-radius:2px;transition:transform .2s ease}
+.dock.open .dock-menu span:first-child{transform:translateY(3.5px) rotate(45deg)}
+.dock.open .dock-menu span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+.dock-nav{order:5;display:none;width:100%;flex-direction:column;align-items:stretch;gap:2px;padding:6px 0 4px}
+.dock.open .dock-nav{display:flex}
+.dock-nav a{padding:13px 14px;font-size:16px;border-radius:14px}
 }
-.faqs{display:grid;gap:10px;margin-top:26px;max-width:ineherit}
+@media(max-width:560px){
+.dock-logo img,.dock.is-small .dock-logo img{height:27px}
+.dock-cta .full{display:none}.dock-cta .short{display:inline}
+.dock-cta,.dock.is-small .dock-cta{padding:10px 14px;font-size:14px}
+.dock-space{height:80px}
+}
+/* the dock carries the CTA on every screen now, so the old sticky bottom bar
+   would just be a second orange button */
+.stickycta{display:none!important}
+.faqs{display:grid;gap:10px;margin-top:26px;}
 .faq{border:1px solid var(--line);border-radius:var(--r);background:var(--paper);overflow:hidden}
 .faq summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:12px;font-weight:700}
 .faq summary::-webkit-details-marker{display:none}
@@ -179,8 +204,8 @@ a:focus-visible,.gt:focus-visible,.tcard:focus-visible,.btn:focus-visible,.bar-c
 footer{background:var(--ground);border-top:1px solid var(--line);padding:34px 0 30px;color:var(--muted);font-size:13.5px}
 footer .wrap{display:block}
 .foot-grid{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(2,minmax(0,1fr));gap:26px 34px;align-items:start}
-.foot-mark{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 13px;display:inline-flex;margin-bottom:14px}
-.foot-mark img{height:42px;width:auto;display:block}
+.foot-mark{display:inline-flex;margin-bottom:14px}
+.foot-mark img{height:40px;width:auto;display:block}
 .foot-brand p{color:var(--slate);font-size:14px;max-width:34ch}
 .foot-col h4{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:800;margin-bottom:10px}
 .foot-col a{display:block;color:var(--muted);text-decoration:none;font-size:14px;margin-bottom:7px;word-break:break-word}
@@ -211,14 +236,6 @@ footer .wrap{display:block}
 .aboutmark{display:flex;align-items:center;gap:22px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin-top:26px}
 .aboutmark img{width:260px;max-width:100%}
 .aboutmark p{color:var(--slate);font-size:15px;max-width:38ch;margin:0}
-@media(max-width:560px){
-/* keep the mark and the CTA on ONE row on a phone — a three-deck orange
-   bar eats the whole fold before the headline gets a look in */
-.bar-cta{font-size:12px;padding:6px 9px;letter-spacing:-.01em}
-.logochip{padding:5px 8px}
-.logochip img{height:24px}
-.mainnav{gap:16px}
-.mainnav a{font-size:14px}
 }
 @media(max-width:860px){
 .film,.price{grid-template-columns:1fr}
