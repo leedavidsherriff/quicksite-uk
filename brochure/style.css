@@ -266,12 +266,17 @@ h1{max-width:none}
 .deck.grabbing,.deck.grabbing .dcard{cursor:grabbing}
 .deck:focus-visible{outline:3px solid var(--brand);outline-offset:-6px;border-radius:18px}
 .deck-stage{position:absolute;inset:0}
-.dcard{position:absolute;left:50%;top:50%;width:var(--cw);aspect-ratio:9/16;margin-left:calc(var(--cw) / -2);margin-top:calc(var(--cw) * -0.8889);border-radius:24px;overflow:hidden;background:#0B1120;box-shadow:0 28px 60px -22px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.09);will-change:transform;transform-origin:50% 62%;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:box-shadow .25s ease}
+.dcard{position:absolute;left:50%;top:50%;width:var(--cw);aspect-ratio:9/16;margin-left:calc(var(--cw) / -2);margin-top:calc(var(--cw) * -0.8889);will-change:transform;transform-origin:50% 62%;cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* the idle bob is CSS, so an untouched deck runs no JavaScript at all */
+.dface{position:absolute;inset:0;border-radius:24px;overflow:hidden;background:#0B1120;box-shadow:0 28px 60px -22px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.09);transition:box-shadow .25s ease;animation:dbob 6.5s ease-in-out infinite;animation-delay:var(--bd,0s)}
+@keyframes dbob{0%,100%{transform:translateY(-5px)}50%{transform:translateY(5px)}}
+.dcard.is-hot .dface{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.dface{animation:none}}
 .dcard video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
 .dcard .shade{position:absolute;inset:0;background:#0B1120;opacity:0;pointer-events:none}
 .dcard .dtag{position:absolute;top:12px;left:12px;background:rgba(10,14,25,.8);color:#fff;font-size:12px;font-weight:700;border-radius:999px;padding:5px 11px;letter-spacing:.01em}
-.dcard.is-active{box-shadow:0 38px 84px -24px rgba(0,0,0,.95),0 0 0 2px rgba(242,111,33,.95)}
-.dcard.is-hot{box-shadow:0 44px 96px -22px rgba(0,0,0,.95),0 0 0 2px rgba(255,255,255,.55)}
+.dcard.is-active .dface{box-shadow:0 38px 84px -24px rgba(0,0,0,.95),0 0 0 2px rgba(242,111,33,.95)}
+.dcard.is-hot .dface{box-shadow:0 44px 96px -22px rgba(0,0,0,.95),0 0 0 2px rgba(255,255,255,.55)}
 .deck-btn{position:absolute;top:50%;margin-top:-24px;z-index:300;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(15,23,42,.72);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .deck-btn:hover{background:var(--brand);border-color:var(--brand)}
 .deck-btn:focus-visible{outline:3px solid #fff;outline-offset:2px}
