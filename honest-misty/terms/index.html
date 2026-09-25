@@ -75,8 +75,20 @@
         document.head.appendChild(m);
       }
     </script>
-    <script type="module" crossorigin src="/quicksite-uk/honest-misty/assets/index-Bn1Vabrf.js"></script>
-    <link rel="stylesheet" crossorigin href="/quicksite-uk/honest-misty/assets/index-Y3dcPJaR.css">
+    <script>
+      // If a deploy lands while this page is open, the old script file is gone:
+      // reload once to pick up the new version instead of showing a dead page.
+      window.addEventListener('error', function (e) {
+        var t = e.target;
+        if (t && t.tagName === 'SCRIPT' && t.type === 'module') {
+          try { if (sessionStorage.getItem('hm-reloaded')) return; sessionStorage.setItem('hm-reloaded', '1'); } catch (_) {}
+          location.reload();
+        }
+      }, true);
+      window.addEventListener('load', function () { setTimeout(function () { try { sessionStorage.removeItem('hm-reloaded'); } catch (_) {} }, 5000); });
+    </script>
+    <script type="module" crossorigin src="/quicksite-uk/honest-misty/assets/index-C9ns95a6.js"></script>
+    <link rel="stylesheet" crossorigin href="/quicksite-uk/honest-misty/assets/index-BGhB31ne.css">
   </head>
   <body>
     <div id="root"></div>
