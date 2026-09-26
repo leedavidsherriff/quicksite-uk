@@ -17,6 +17,11 @@ PROSPECTS = [
     ('west-wales-rubbish', 'West Wales Rubbish Removals', 'Llanelli', '07740 179232'),
     ('allgone-waste-merthyr', 'ALLGONE Waste Management', 'Merthyr Tydfil', '07908 388064'),
     ('a-edwards-rubbish', 'A Edwards Rubbish Removal', 'Tonypandy', '07545 154576'),
+    ('ethical-waste-cardiff', 'Ethical Waste Management and Removals', 'Cardiff', '07857 754612'),
+    ('richards-clearance', 'CE & N Richards House & Garden Clearance', 'Carmarthen', '07980 989223'),
+    ('harris-metals-waste', 'Harris Metals and Waste Removals', 'Newport', '07534 686774'),
+    ('gf-waste-barry', 'G.F Waste Collection', 'Barry', '07462 011176'),
+    ('williams-waste-llanelli', 'Williams Waste Disposal and Garden Services', 'Llanelli', '07376 958999'),
 ]
 
 for slug, name, town, phone in PROSPECTS:
