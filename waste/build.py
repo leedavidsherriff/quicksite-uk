@@ -29,6 +29,12 @@ PROSPECTS = [
     ('goodstosell-clearance', 'Goodstosell House Clearance & Removals', 'Neath', '07732 257729'),
 ]
 
+# Wales-wide sweep (26 Sep): rows filtered against the sheet by add_wales.py.
+import csv, os
+EXTRA = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wales.json')
+if os.path.exists(EXTRA):
+    PROSPECTS += [tuple(r) for r in json.load(open(EXTRA))]
+
 for slug, name, town, phone in PROSPECTS:
     target = WORKER + '?' + urllib.parse.urlencode({'name': name, 'town': town, 'phone': phone}, quote_via=urllib.parse.quote)
     n, t = html.escape(name), html.escape(town)
