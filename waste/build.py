@@ -12,6 +12,11 @@ PROSPECTS = [
     ('sm-waste-removals', 'S&M Waste Removals', 'Bridgend', '07981 165549'),
     ('ricks-rubbish-removals', "Rick's Rubbish Removals", 'Pyle', '07495 734978'),
     ('van-about-town', 'Van About Town', 'Bridgend', '07398 167288'),
+    ('clear-out-4-you', 'Clear Out 4 You', 'Porthcawl', '07896 426667'),
+    ('swansea-waste-removals', 'Swansea Waste Removals & Rubbish Clearance', 'Swansea', '07460 492690'),
+    ('west-wales-rubbish', 'West Wales Rubbish Removals', 'Llanelli', '07740 179232'),
+    ('allgone-waste-merthyr', 'ALLGONE Waste Management', 'Merthyr Tydfil', '07908 388064'),
+    ('a-edwards-rubbish', 'A Edwards Rubbish Removal', 'Tonypandy', '07545 154576'),
 ]
 
 for slug, name, town, phone in PROSPECTS:
