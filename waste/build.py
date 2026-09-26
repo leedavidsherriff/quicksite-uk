@@ -22,6 +22,11 @@ PROSPECTS = [
     ('harris-metals-waste', 'Harris Metals and Waste Removals', 'Newport', '07534 686774'),
     ('gf-waste-barry', 'G.F Waste Collection', 'Barry', '07462 011176'),
     ('williams-waste-llanelli', 'Williams Waste Disposal and Garden Services', 'Llanelli', '07376 958999'),
+    ('gavenny-waste', 'Gavenny Waste', 'Abergavenny', '07727 363544'),
+    ('valley-removals-waste', 'Valley Removals and Waste Disposal', 'Ammanford', '07939 024404'),
+    ('pembs-domestic-waste', 'Pembrokeshire Domestic Waste Collection', 'Pembroke Dock', '07595 822115'),
+    ('ph-house-clearance', 'PH House Clearance', 'Haverfordwest', '07737 456638'),
+    ('goodstosell-clearance', 'Goodstosell House Clearance & Removals', 'Neath', '07732 257729'),
 ]
 
 for slug, name, town, phone in PROSPECTS:
