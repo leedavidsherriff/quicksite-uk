@@ -1,0 +1,363 @@
+<!doctype html>
+<!-- The trade quiz: the landing page for the QuickSite Meta ads.
+     Five taps -> a buyer type -> contact details -> sent to Lee by WhatsApp or email.
+     Nothing is stored here. Films, logo and consent banner come from ../brochure/.
+     Copy lives in double-quoted JS strings; use typographic ’ in copy anyway. -->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Which website does your trade need? — QuickSite</title>
+<meta name="description" content="Five taps and we’ll tell you what kind of website would actually bring you work. Then we build you three designs, free to see. £30 a month only once it’s live.">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Which website does your trade need?">
+<meta property="og:description" content="Five taps, then three designs built for you. Free to see them, £30 a month only once it’s live.">
+<meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/brochure/og.jpg">
+<meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/quiz/">
+<meta name="theme-color" content="#F26F21">
+<link rel="icon" type="image/png" href="../brochure/favicon.png">
+<link rel="apple-touch-icon" href="../brochure/brand/icon-180.png">
+<script src="../brochure/consent.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Same tokens as the brochure's brief.html, so the ad, the quiz and the brochure read as one thing */
+  :root{
+    --orange:#F26F21; --navy:#0F172A; --slate:#F8FAFC;
+    --peach:#FFF0E5; --orangeText:#B34A0B; --muted:#5A6472; --border:#E3E8EF; --cardbg:#FFFFFF;
+    --text:var(--navy); --bg:var(--slate); --err:#C0392B;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --orangeText:#FF8A45; --bg:#0D1117; --text:#E9EEF5; --muted:#A5B0BF; --border:#242C38; --cardbg:#161C25; --peach:#221913; --err:#FF7A6B; color-scheme:dark; }
+  }
+  :root[data-theme="dark"]{ --orangeText:#FF8A45; --bg:#0D1117; --text:#E9EEF5; --muted:#A5B0BF; --border:#242C38; --cardbg:#161C25; --peach:#221913; --err:#FF7A6B; color-scheme:dark; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Plus Jakarta Sans",Helvetica,Arial,sans-serif;line-height:1.5;}
+  .wrap{max-width:580px;margin:0 auto;padding:24px 16px 60px;}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .brandmark{display:inline-flex;background:#fff;border:1px solid var(--border);border-radius:10px;padding:6px 10px;text-decoration:none;}
+  .brandmark img{height:30px;width:auto;display:block;}
+  .counter{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;}
+  .bar{height:6px;background:var(--border);border-radius:999px;margin:18px 0 0;overflow:hidden;}
+  .bar i{display:block;height:100%;width:0;background:var(--orange);border-radius:999px;transition:width .3s ease;}
+
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:0.16em;color:var(--orangeText);margin-top:26px;}
+  h1{font-size:clamp(24px,6.5vw,30px);line-height:1.14;font-weight:800;letter-spacing:-0.025em;margin:8px 0 0;text-wrap:balance;}
+  p.lead{margin:9px 0 0;font-size:15px;color:var(--muted);max-width:48ch;}
+  .card{animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){.card{animation:none;} .bar i{transition:none;}}
+
+  .opts{margin-top:18px;display:flex;flex-direction:column;gap:9px;}
+  .opts.two{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  @media (max-width:430px){.opts.two{grid-template-columns:1fr;}}
+  .opt{border:1px solid var(--border);background:var(--cardbg);border-radius:13px;padding:15px 17px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;width:100%;font-family:inherit;color:inherit;}
+  .opt small{display:block;font-size:12.5px;font-weight:500;color:var(--muted);margin-top:2px;}
+  @media (hover:hover){.opt:hover{border-color:var(--orange);}}
+  .opt:active{background:var(--peach);}
+  .opt:focus-visible,.btn:focus-visible,.backbtn:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
+  .opt .arrow{color:var(--orangeText);font-size:17px;flex-shrink:0;}
+  .backbtn{background:none;border:none;color:var(--muted);font-size:13.5px;font-weight:700;cursor:pointer;padding:8px 0;margin-top:14px;font-family:inherit;}
+
+  /* result */
+  .type-pill{display:inline-block;margin-top:24px;background:var(--navy);color:#fff;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:800;letter-spacing:.08em;}
+  :root[data-theme="dark"] .type-pill{background:var(--orange);color:var(--navy);}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .type-pill{background:var(--orange);color:var(--navy);}}
+  .quote{margin-top:14px;font-size:clamp(22px,5.6vw,27px);font-weight:800;letter-spacing:-.02em;line-height:1.18;text-wrap:balance;}
+  .quote .o{color:var(--orangeText);}
+  .res-grid{margin-top:20px;display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:start;}
+  @media (max-width:430px){.res-grid{grid-template-columns:110px 1fr;gap:14px;}}
+  .phone{border-radius:20px;overflow:hidden;border:5px solid var(--navy);background:#000;aspect-ratio:9/16;max-width:100%;}
+  .phone video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
+  .phone video::-webkit-media-controls,.phone video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none;}
+  .builds h3{margin:0 0 8px;font-size:12px;letter-spacing:.12em;color:var(--muted);font-weight:800;}
+  .builds ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .builds li{background:var(--cardbg);border:1px solid var(--border);border-radius:12px;padding:11px 13px;font-size:14px;}
+  .builds li b{display:block;font-size:14.5px;}
+  .builds li span{color:var(--muted);font-size:13px;}
+  .pricebar{margin-top:18px;background:var(--navy);color:#fff;border-radius:12px;padding:15px 18px;font-size:14.5px;font-weight:700;}
+  .pricebar .o{color:var(--orange);}
+  :root[data-theme="dark"] .pricebar{background:var(--cardbg);border:1px solid var(--border);}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pricebar{background:var(--cardbg);border:1px solid var(--border);}}
+
+  .btn{appearance:none;border:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;text-decoration:none;width:100%;}
+  .btn-primary{background:var(--orange);color:var(--navy);}
+  .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text);}
+  .btn-wa{background:#25D366;color:#08380f;}
+  .btn-mail{background:var(--navy);color:#fff;}
+  :root[data-theme="dark"] .btn-mail{background:var(--cardbg);color:var(--text);border:1px solid var(--border);}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn-mail{background:var(--cardbg);color:var(--text);border:1px solid var(--border);}}
+  .actions{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+  .fine{font-size:12.5px;color:var(--muted);margin:12px 0 0;}
+
+  .fields{margin-top:18px;display:flex;flex-direction:column;gap:14px;}
+  label{font-size:12.5px;font-weight:700;letter-spacing:0.04em;color:var(--muted);display:block;margin-bottom:6px;}
+  input{width:100%;border:1px solid var(--border);background:var(--cardbg);color:var(--text);border-radius:11px;padding:12px 14px;font-size:16px;font-family:inherit;}
+  input:focus{outline:2px solid var(--orange);outline-offset:1px;}
+  .err{font-size:13px;color:var(--err);margin:8px 0 0;font-weight:600;}
+
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);}
+  footer a,footer button{color:var(--muted);}
+  [data-cookie-settings]{background:none;border:0;padding:0;font:inherit;text-decoration:underline;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="brandmark" href="../brochure/" aria-label="QuickSite — home"><img src="../brochure/brand/logo-on-light.png" alt="QuickSite — websites, built in minutes" width="613" height="150"></a>
+    <div class="counter" id="counter" aria-live="polite"></div>
+  </div>
+  <div class="bar"><i id="barfill"></i></div>
+
+  <main id="stage"></main>
+
+  <footer>
+    Your answers only reach us when you press send. Nothing is stored on this page.<br>
+    <a href="../privacy.html">Privacy policy</a> · <a href="../brochure/cookies.html">Cookies</a><span data-cookie-settings-wrap hidden> · <button type="button" data-cookie-settings hidden>Cookie settings</button></span><br>
+    QuickSite is a trading name of Quick Site Digital Limited · Lee@quick-site.co.uk
+  </footer>
+</div>
+
+<script>
+(function(){
+  var WA = "447933666396", MAIL = "Lee@quick-site.co.uk";
+  var STATS = "https://quicksite-stats-89aa38a9.base44.app/api/functions/hit";
+  var TYPE_KEYS = ["g","b","f","r"];
+
+  // [label, brochure slug, plural]
+  var TRADES = [
+    ["Builder / extensions","extensions","builders"],["Roofer","roofing","roofers"],
+    ["Electrician","electricians","electricians"],["Plumber / heating","plumbing-heating","plumbers"],
+    ["Bathroom fitter","bathrooms","bathroom fitters"],["Tiler","tiling","tilers"],
+    ["Carpenter / kitchens","carpentry","carpenters"],["Driveways & patios","driveways","driveway firms"],
+    ["Landscaper","landscaping","landscapers"],["Plasterer","plastering","plasterers"],
+    ["Decorator","decorating","decorators"],["Windows & doors","windows-doors","window fitters"]
+  ];
+
+  // Scores: g = word-of-mouth grafter, b = burned before, f = flat out, r = ready for bigger jobs.
+  // Every option has a short "k" so the stats counter can log it as quiz-<step>-<k>.html.
+  var STEPS = [
+    { id:"trade", eyebrow:"FIVE TAPS", q:"What’s your trade?",
+      lead:"Then we’ll show you what kind of website would actually bring you work.", two:true,
+      opts: TRADES.map(function(t){ return {t:t[0], v:t[1], k:t[1]}; }) },
+
+    { id:"source", eyebrow:"RIGHT NOW", q:"Where does most of your work come from?",
+      lead:"There’s no wrong answer.",
+      opts:[
+        {t:"Word of mouth", s:"Past customers, mates, the van", k:"mouth", sc:{g:3}},
+        {t:"My Facebook page", s:"Posts, groups, Messenger", k:"facebook", sc:{g:2,r:1}},
+        {t:"Checkatrade, MyBuilder or Bark", s:"Paying for leads or a listing", k:"leadsites", sc:{r:3}},
+        {t:"My website", s:"Or it’s meant to", k:"website", sc:{b:3}},
+        {t:"Something else", k:"other", sc:{}}
+      ]},
+
+    { id:"sounds", eyebrow:"THE BIG ONE", q:"Which of these sounds most like you?",
+      lead:"Pick the one you’d say to a mate.",
+      opts:[
+        {t:"“People ask for my website and I’ve got nothing to send them”", k:"nothing", sc:{g:4}},
+        {t:"“I paid good money for a website and never got a call off it”", k:"paid", sc:{b:4}},
+        {t:"“I’m flat out. I haven’t got time to sort a website”", k:"busy", sc:{f:4}},
+        {t:"“I want bigger jobs, not tyre-kickers”", k:"bigger", sc:{r:4}}
+      ]},
+
+    { id:"worth", eyebrow:"WHAT WOULD MAKE IT WORTH IT", q:"A good website should…",
+      opts:[
+        {t:"Make me look as proper as the big firms", k:"proper", sc:{g:2,b:1}},
+        {t:"Put prices up front so timewasters filter themselves out", k:"prices", sc:{r:3}},
+        {t:"Actually bring in work, for once", k:"work", sc:{b:3}},
+        {t:"Just be done, without me chasing it", k:"done", sc:{f:3}}
+      ]},
+
+    { id:"putoff", eyebrow:"LAST ONE", q:"What’s stopped you so far?",
+      opts:[
+        {t:"The cost", s:"Agencies want hundreds up front", k:"cost", sc:{g:1,b:1}},
+        {t:"Being tied into a contract", k:"contract", sc:{b:3}},
+        {t:"Time", s:"Evenings are for quotes and invoices", k:"time", sc:{f:3}},
+        {t:"Not sure it’d pay for itself", k:"payoff", sc:{r:2,b:1}},
+        {t:"Nothing. I just haven’t got round to it", k:"nothing", sc:{f:1,g:1}}
+      ]}
+  ];
+
+  // Every promise here is one the brochure already makes: three designs, £0 to see them,
+  // £30 a month once live, 24 hours, changes included, no tie-in first.
+  var TYPES = {
+    g:{ name:"THE WORD-OF-MOUTH GRAFTER", short:"Word-of-mouth grafter",
+        quote:"You’re busy off recommendations. You just need <span class=\"o\">somewhere proper to send people.</span>",
+        builds:[
+          ["Your work, shown properly","Your trade’s film and your best jobs, so the recommendation lands"],
+          ["One-tap WhatsApp","The people your mates send you can reach you in a second"],
+          ["Your Facebook, linked up","Keep posting where you post. The site backs it up"]
+        ]},
+    b:{ name:"BURNED BEFORE", short:"Burned before",
+        quote:"You’ve paid for a website before and got nothing. So this time, <span class=\"o\">see it before you pay a penny.</span>",
+        builds:[
+          ["Three designs, free to look at","Real links on your phone, not mock-ups and a deposit"],
+          ["Built to get calls","Your prices, your towns, and a quote form that lands in your phone"],
+          ["No tie-in first","£30 a month once it’s live. Don’t like the designs? You owe nothing"]
+        ]},
+    f:{ name:"FLAT OUT", short:"Flat out",
+        quote:"You haven’t got time for a website. Good, because <span class=\"o\">you won’t need any.</span>",
+        builds:[
+          ["The hard bit’s done","Three quick details and we do the rest"],
+          ["Three designs in 24 hours","Open them on the job, send them to whoever you like"],
+          ["Changes by WhatsApp","Send a photo or a price and we update it. Included"]
+        ]},
+    r:{ name:"READY FOR BIGGER JOBS", short:"Ready for bigger jobs",
+        quote:"You don’t need more enquiries. You need <span class=\"o\">better ones.</span>",
+        builds:[
+          ["Guide prices on the page","Customers arrive already knowing roughly what it costs"],
+          ["An instant price calculator","They answer a few questions and get a guide price before they call"],
+          ["The jobs you want, first","Lead with the big work, so that’s what gets asked for"]
+        ]}
+  };
+
+  var D = {}, C = {name:"", business:"", town:""}, hist = [], sentOnce = false;
+  var stage = document.getElementById("stage");
+  var params = new URLSearchParams(location.search);
+  var AD = /^[a-z0-9-]{1,20}$/.test(params.get("ad") || "") ? params.get("ad") : "";
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+
+  // Anonymous counter: an event name and the referring domain, nothing anyone types.
+  function hit(name){
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
+    try{
+      var rf = ""; try{ rf = document.referrer ? new URL(document.referrer).hostname : ""; }catch(e){}
+      fetch(STATS,{method:"POST",mode:"cors",keepalive:true,headers:{"Content-Type":"text/plain"},
+        body:JSON.stringify({page:name+".html",ref:rf})}).catch(function(){});
+    }catch(e){}
+  }
+  // Meta pixel events only exist if the visitor pressed Accept (consent.js loads fbq then).
+  function px(ev, data){ try{ if (window.fbq) window.fbq("track", ev, data); }catch(e){} }
+
+  function progress(i){
+    var n = STEPS.length;
+    document.getElementById("counter").textContent = i < n ? (i+1)+" of "+n : (i === n ? "Your result" : "Last step");
+    document.getElementById("barfill").style.width = (i < n ? (i/n)*100 : (i === n ? 90 : 100)) + "%";
+  }
+  function top(){ try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){ window.scrollTo(0,0); } }
+
+  function show(i){
+    progress(i);
+    if (i === STEPS.length) return result();
+    if (i > STEPS.length) return contact();
+    var s = STEPS[i];
+    var h = "<div class=\"card\"><div class=\"eyebrow\">"+s.eyebrow+"</div><h1 tabindex=\"-1\">"+s.q+"</h1>" +
+            (s.lead ? "<p class=\"lead\">"+s.lead+"</p>" : "") +
+            "<div class=\"opts"+(s.two?" two":"")+"\">";
+    s.opts.forEach(function(o,k){
+      h += "<button type=\"button\" class=\"opt\" data-k=\""+k+"\"><span>"+o.t+(o.s?"<small>"+o.s+"</small>":"")+"</span><span class=\"arrow\" aria-hidden=\"true\">&rarr;</span></button>";
+    });
+    h += "</div>" + (i ? "<button type=\"button\" class=\"backbtn\" id=\"back\">&larr; Back</button>" : "") + "</div>";
+    stage.innerHTML = h;
+    [].forEach.call(stage.querySelectorAll(".opt"), function(b){
+      b.addEventListener("click", function(){
+        var o = s.opts[+b.getAttribute("data-k")];
+        D[s.id] = {v:o.v || o.t, t:o.t.replace(/[“”]/g,""), sc:o.sc || {}};
+        hit("quiz-"+s.id+"-"+o.k);
+        hist.push(i); show(i+1); top();
+      });
+    });
+    var back = document.getElementById("back");
+    if (back) back.addEventListener("click", function(){ show(hist.pop()); });
+    if (i) stage.querySelector("h1").focus({preventScroll:true});
+  }
+
+  function pickType(){
+    var t = {g:0,b:0,f:0,r:0};
+    STEPS.forEach(function(s){ var sc = (D[s.id]||{}).sc || {}; for (var k in sc) t[k] += sc[k]; });
+    // "Which sounds like you" is worth 4, so a tie goes to it
+    var best = TYPE_KEYS.slice().sort(function(a,b){ return t[b]-t[a]; })[0];
+    var own = D.sounds && TYPE_KEYS.filter(function(k){ return D.sounds.sc[k]; })[0];
+    return (own && t[own] === t[best]) ? own : best;
+  }
+  function trade(){ var v = D.trade && D.trade.v; return TRADES.filter(function(x){ return x[1]===v; })[0] || TRADES[0]; }
+
+  function result(){
+    D.type = pickType();
+    var T = TYPES[D.type], tr = trade();
+    hit("quiz-result-"+D.type);
+    px("ViewContent", {content_name:"quiz-result-"+D.type, content_category:tr[1]});
+    var li = T.builds.map(function(b){ return "<li><b>"+b[0]+"</b><span>"+b[1]+"</span></li>"; }).join("");
+    stage.innerHTML =
+      "<div class=\"card\"><span class=\"type-pill\">YOU’RE "+T.name+"</span>" +
+      "<h1 class=\"quote\" tabindex=\"-1\">"+T.quote+"</h1>" +
+      "<div class=\"res-grid\"><div class=\"phone\"><video src=\"../brochure/deck/sm/"+tr[1]+".mp4\" poster=\"../brochure/posters-sm/poster-"+tr[1]+".jpg\" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback aria-label=\"A film of a job for "+esc(tr[2])+" changing from before to after\"></video></div>" +
+      "<div class=\"builds\"><h3>WHAT WE’D BUILD YOU</h3><ul>"+li+"</ul></div></div>" +
+      "<div class=\"pricebar\">£0 to see three designs · <span class=\"o\">£30 a month</span> only once it’s live</div>" +
+      "<div class=\"actions\"><button type=\"button\" class=\"btn btn-primary\" id=\"go\">Get my three designs &rarr;</button>" +
+      "<a class=\"btn btn-ghost\" href=\"../brochure/"+tr[1]+".html\">See websites for "+esc(tr[2])+"</a></div>" +
+      "<p class=\"fine\">Three quick details and you’re done. Links to your designs within 24 hours.</p>" +
+      "<button type=\"button\" class=\"backbtn\" id=\"back\">&larr; Change an answer</button></div>";
+    var v = stage.querySelector("video");
+    if (v){
+      v.muted = true;
+      var tryPlay = function(){ var p = v.play(); if (p && p.catch) p.catch(function(){}); };
+      tryPlay(); v.addEventListener("canplay", tryPlay, {once:true});
+    }
+    document.getElementById("go").addEventListener("click", function(){ hit("quiz-contact"); hist.push(STEPS.length); show(STEPS.length+1); top(); });
+    document.getElementById("back").addEventListener("click", function(){ show(hist.pop()); });
+    stage.querySelector("h1").focus({preventScroll:true});
+  }
+
+  function message(){
+    var T = TYPES[D.type], tr = trade();
+    var lines = ["QuickSite quiz: please build my three designs", "",
+      "Name: "+C.name.trim()];
+    if (C.business.trim()) lines.push("Business: "+C.business.trim());
+    if (C.town.trim()) lines.push("Town: "+C.town.trim());
+    lines.push("Trade: "+tr[0], "",
+      "Type: "+T.short,
+      "Work comes from: "+D.source.t,
+      "Sounds like me: "+D.sounds.t,
+      "A good site should: "+D.worth.t,
+      "What stopped me: "+D.putoff.t);
+    if (AD) lines.push("", "Ad: "+AD);
+    return lines.join("\n");
+  }
+
+  function contact(){
+    var h = "<div class=\"card\"><div class=\"eyebrow\">LAST STEP</div><h1 tabindex=\"-1\">Who are we building this for?</h1>" +
+      "<p class=\"lead\">So we know whose designs they are. Only your name is needed.</p>" +
+      "<div class=\"fields\">" +
+      "<div><label for=\"f-name\">Your name</label><input id=\"f-name\" autocomplete=\"name\" value=\""+esc(C.name)+"\"></div>" +
+      "<div><label for=\"f-business\">Business name, if you’ve got one</label><input id=\"f-business\" autocomplete=\"organization\" placeholder=\"e.g. Jones Roofing\" value=\""+esc(C.business)+"\"></div>" +
+      "<div><label for=\"f-town\">Main town</label><input id=\"f-town\" autocomplete=\"address-level2\" placeholder=\"e.g. Bridgend\" value=\""+esc(C.town)+"\"></div>" +
+      "</div><p class=\"err\" id=\"err\" hidden>Pop your name in first, so we know who it’s for.</p>" +
+      "<div class=\"actions\"><a class=\"btn btn-wa\" id=\"wa\" href=\"#\" target=\"_blank\" rel=\"noopener\">Send by WhatsApp</a>" +
+      "<a class=\"btn btn-mail\" id=\"mail\" href=\"#\">Send by email</a></div>" +
+      "<p class=\"fine\">It opens WhatsApp or your email with everything filled in. Press send there and it comes straight to Lee.</p>" +
+      "<button type=\"button\" class=\"backbtn\" id=\"back\">&larr; Back to my result</button></div>";
+    stage.innerHTML = h;
+    ["name","business","town"].forEach(function(k){
+      document.getElementById("f-"+k).addEventListener("input", function(e){ C[k] = e.target.value; update(); if (k==="name" && C.name.trim()) document.getElementById("err").hidden = true; });
+    });
+    function update(){
+      var text = message(), T = TYPES[D.type];
+      document.getElementById("wa").href = "https://wa.me/"+WA+"?text="+encodeURIComponent(text);
+      document.getElementById("mail").href = "mailto:"+MAIL+"?subject="+encodeURIComponent("QuickSite quiz: "+(C.business.trim()||C.name.trim()||"new enquiry")+" ("+T.short+")")+"&body="+encodeURIComponent(text);
+    }
+    function send(kind){
+      return function(e){
+        if (!C.name.trim()){ e.preventDefault(); var er = document.getElementById("err"); er.hidden = false; document.getElementById("f-name").focus(); return; }
+        update();
+        hit("quiz-sent-"+kind);
+        if (!sentOnce){ sentOnce = true; px("Lead", {content_name:"quiz-"+kind, content_category:D.type}); }
+      };
+    }
+    update();
+    document.getElementById("wa").addEventListener("click", send("whatsapp"));
+    document.getElementById("mail").addEventListener("click", send("email"));
+    document.getElementById("back").addEventListener("click", function(){ show(hist.pop()); });
+    stage.querySelector("h1").focus({preventScroll:true});
+  }
+
+  hit("quiz" + (AD ? "-ad-"+AD : ""));
+  show(0);
+})();
+</script>
+</body>
+</html>
