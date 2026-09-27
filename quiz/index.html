@@ -184,28 +184,28 @@
   // Every promise here is one the brochure already makes: three designs, £0 to see them,
   // £30 a month once live, 24 hours, changes included, no tie-in first.
   var TYPES = {
-    g:{ name:"THE WORD-OF-MOUTH GRAFTER", short:"Word-of-mouth grafter",
+    g:{ name:"YOU’RE A WORD-OF-MOUTH GRAFTER", short:"Word-of-mouth grafter",
         quote:"You’re busy off recommendations. You just need <span class=\"o\">somewhere proper to send people.</span>",
         builds:[
           ["Your work, shown properly","Your trade’s film and your best jobs, so the recommendation lands"],
           ["One-tap WhatsApp","The people your mates send you can reach you in a second"],
           ["Your Facebook, linked up","Keep posting where you post. The site backs it up"]
         ]},
-    b:{ name:"BURNED BEFORE", short:"Burned before",
+    b:{ name:"YOU’VE BEEN BURNED BEFORE", short:"Burned before",
         quote:"You’ve paid for a website before and got nothing. So this time, <span class=\"o\">see it before you pay a penny.</span>",
         builds:[
           ["Three designs, free to look at","Real links on your phone, not mock-ups and a deposit"],
           ["Built to get calls","Your prices, your towns, and a quote form that lands in your phone"],
           ["No tie-in first","£30 a month once it’s live. Don’t like the designs? You owe nothing"]
         ]},
-    f:{ name:"FLAT OUT", short:"Flat out",
+    f:{ name:"YOU’RE FLAT OUT", short:"Flat out",
         quote:"You haven’t got time for a website. Good, because <span class=\"o\">you won’t need any.</span>",
         builds:[
           ["The hard bit’s done","Three quick details and we do the rest"],
           ["Three designs in 24 hours","Open them on the job, send them to whoever you like"],
           ["Changes by WhatsApp","Send a photo or a price and we update it. Included"]
         ]},
-    r:{ name:"READY FOR BIGGER JOBS", short:"Ready for bigger jobs",
+    r:{ name:"YOU’RE READY FOR BIGGER JOBS", short:"Ready for bigger jobs",
         quote:"You don’t need more enquiries. You need <span class=\"o\">better ones.</span>",
         builds:[
           ["Guide prices on the page","Customers arrive already knowing roughly what it costs"],
@@ -283,7 +283,7 @@
     px("ViewContent", {content_name:"quiz-result-"+D.type, content_category:tr[1]});
     var li = T.builds.map(function(b){ return "<li><b>"+b[0]+"</b><span>"+b[1]+"</span></li>"; }).join("");
     stage.innerHTML =
-      "<div class=\"card\"><span class=\"type-pill\">YOU’RE "+T.name+"</span>" +
+      "<div class=\"card\"><span class=\"type-pill\">"+T.name+"</span>" +
       "<h1 class=\"quote\" tabindex=\"-1\">"+T.quote+"</h1>" +
       "<div class=\"res-grid\"><div class=\"phone\"><video src=\"../brochure/deck/sm/"+tr[1]+".mp4\" poster=\"../brochure/posters-sm/poster-"+tr[1]+".jpg\" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback aria-label=\"A film of a job for "+esc(tr[2])+" changing from before to after\"></video></div>" +
       "<div class=\"builds\"><h3>WHAT WE’D BUILD YOU</h3><ul>"+li+"</ul></div></div>" +
