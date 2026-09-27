@@ -204,3 +204,20 @@ footer a{color:var(--kerb-2)}
 .fbf{transition:opacity .25s ease,transform .25s ease}
 .fbf.fbf--away{opacity:0;transform:translateY(16px);pointer-events:none;visibility:hidden}
 @media (prefers-reduced-motion: reduce){ .fbf{transition:none} }
+
+/* Facebook pill -> badge. The label's max-width animates; the pill is fixed, so nothing else moves. */
+.fbf{gap:0;transition:opacity .25s ease,transform .25s ease,padding .5s cubic-bezier(.2,.7,.2,1)}
+.fbf__t{display:inline-block;overflow:hidden;white-space:nowrap;max-width:16em;margin-left:12px;
+  transition:max-width .5s cubic-bezier(.2,.7,.2,1),margin-left .5s cubic-bezier(.2,.7,.2,1),opacity .3s ease}
+.fbf.fbf--mini{padding:8px;min-width:48px;min-height:48px}
+.fbf--mini .fbf__t{max-width:0;margin-left:0;opacity:0}
+@media (hover:hover){ .fbf--mini:hover{padding:14px 26px 14px 14px} .fbf--mini:hover .fbf__t{max-width:16em;margin-left:12px;opacity:1} }
+.fbf--mini:focus-visible{padding:14px 26px 14px 14px}
+.fbf--mini:focus-visible .fbf__t{max-width:16em;margin-left:12px;opacity:1}
+@media (max-width:899px){
+  .fbf__t{margin-left:9px}
+  .fbf.fbf--mini{padding:11px}
+  .fbf--mini:focus-visible{padding:9px 16px 9px 9px}
+  .fbf--mini:focus-visible .fbf__t{margin-left:9px}
+}
+@media (prefers-reduced-motion: reduce){ .fbf,.fbf__t{transition:none} }

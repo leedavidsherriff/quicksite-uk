@@ -158,3 +158,18 @@
   }
   arm(); var t; window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(arm, 150); });
 })();
+
+/* Facebook pill: ~4s after it first shows, shrink to the round "f" badge for the rest of the page view
+   (hover / keyboard focus expands it again via CSS; a tap on touch just follows the link) */
+(function(){
+  var fb = document.querySelector('.fbf'); if (!fb) return;
+  var t = null, done = false, mo;
+  function shown(){ return !fb.classList.contains('fbf--away') && getComputedStyle(fb).visibility !== 'hidden'; }
+  function check(){
+    if (done) return;
+    if (shown()) { if (!t) t = setTimeout(function(){ done = true; fb.classList.add('fbf--mini'); if (mo) mo.disconnect(); }, 4000); }
+    else if (t) { clearTimeout(t); t = null; }
+  }
+  if ('MutationObserver' in window) { mo = new MutationObserver(check); mo.observe(fb, { attributes: true, attributeFilter: ['class'] }); }
+  check();
+})();
