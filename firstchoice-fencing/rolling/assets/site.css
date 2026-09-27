@@ -521,3 +521,50 @@ input:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
   .hero-clip{display:none}
   .topcall__dot{animation:none}
 }
+
+/* ---------- Our work: before/after per job (heather dusk, serif) ---------- */
+.work{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,3vw,34px)}
+@media(min-width:760px){.work{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.wk{margin:0;min-width:0}
+.wk-stage{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:var(--r);background:var(--dusk-2);box-shadow:0 0 0 1px var(--line),0 24px 50px -30px rgba(0,0,0,.8);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.wk[data-wk] .wk-stage{cursor:ew-resize}
+.wk-stage:focus-visible{outline:2px solid var(--gold-ink);outline-offset:3px}
+.wk-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;-webkit-user-drag:none}
+.wk-before{clip-path:inset(0 calc(100% - var(--cut,50%)) 0 0);filter:saturate(.9)}
+.wk-line{position:absolute;top:0;bottom:0;left:var(--cut,50%);width:1px;background:linear-gradient(transparent,var(--gold) 18%,var(--gold) 82%,transparent);pointer-events:none}
+.wk-line i{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);padding:8px 12px;border-radius:999px;background:rgba(19,24,36,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(217,179,96,.55);color:var(--gold-ink);font:500 italic 15px/1 var(--serif);white-space:nowrap}
+.wk-line i::before{content:"\2039 \203A"}
+.is-anim .wk-before{transition:clip-path .55s cubic-bezier(.2,.7,.2,1)}
+.is-anim .wk-line{transition:left .55s cubic-bezier(.2,.7,.2,1)}
+.wk-tag{position:absolute;bottom:12px;padding:6px 11px;border-radius:999px;background:rgba(19,24,36,.8);font:500 italic 14px/1 var(--serif);color:var(--ink-2);pointer-events:none}
+.wk-tag--b{left:12px}.wk-tag--a{right:12px;color:var(--gold-ink)}
+.wk figcaption{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:start;padding:16px 4px 0}
+.wk-title{grid-column:1;font:500 clamp(21px,2vw,25px)/1.15 var(--serif);color:var(--ink);margin:0;letter-spacing:-.01em}
+.wk-cap{grid-column:1;margin:0;color:var(--ink-3);font-size:15px;max-width:46ch}
+.wk-btns{grid-column:2;grid-row:1 / span 2;display:inline-flex;padding:3px;border-radius:999px;border:1px solid var(--line-2);background:var(--dusk)}
+.wk-btns button{all:unset;cursor:pointer;font:600 12px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:10px 13px;border-radius:999px}
+.wk-btns button[aria-pressed="true"]{background:var(--heather-deep);color:#fff;box-shadow:inset 0 0 0 1px rgba(183,163,209,.5)}
+.wk-btns button:focus-visible{outline:2px solid var(--gold-ink);outline-offset:1px}
+@media(max-width:520px){.wk figcaption{grid-template-columns:minmax(0,1fr)}.wk-btns{grid-column:1;grid-row:auto;justify-self:start;margin-top:8px}}
+
+/* ---------- floating "Follow us on Facebook" (glass-button kit, Facebook blue; the f is CSS type, no logo file) ---------- */
+.fbf{position:fixed;z-index:48;left:calc(14px + env(safe-area-inset-left));bottom:calc(14px + env(safe-area-inset-bottom));
+  --gb-glass:#1877F2;--gb-ink:#fff;--gb-lamp:var(--gold-ink);
+  background:linear-gradient(180deg,#1877F2,#166FE5);
+  gap:12px;padding:14px 26px 14px 14px;font-family:var(--sans);font-size:19px;font-weight:750;line-height:1;white-space:nowrap;
+  text-shadow:0 1px 1px rgba(0,0,0,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -12px 24px -14px rgba(0,0,0,.45),0 16px 36px -14px rgba(8,40,110,.75)}
+.fbf:hover{background:linear-gradient(180deg,#2a83f5,#1877F2)}
+.fbf__f{flex:none;width:32px;height:32px;border-radius:50%;background:#fff;color:#1877F2;display:grid;place-items:center;
+  font:800 24px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;padding-top:4px;box-sizing:border-box;text-shadow:none}
+@media (max-width:600px){
+  .fbf{font-size:15px;gap:9px;padding:9px 16px 9px 9px}
+  .fbf__f{width:26px;height:26px;font-size:19px;padding-top:3px}
+}
+
+@media (max-width:1240px){ .fbf{left:calc(10px + env(safe-area-inset-left));bottom:calc(84px + env(safe-area-inset-bottom))} body{padding-bottom:160px} }
+@media (max-width:900px){ body:has(#mbar) .fbf{bottom:calc(150px + env(safe-area-inset-bottom))} body:has(#mbar){padding-bottom:230px} }
+
+.fbf{transition:opacity .25s ease,transform .25s ease}
+.fbf.fbf--away{opacity:0;transform:translateY(16px);pointer-events:none;visibility:hidden}
+@media (prefers-reduced-motion: reduce){ .fbf{transition:none} }
