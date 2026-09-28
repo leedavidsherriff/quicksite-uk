@@ -238,6 +238,7 @@ footer .word{color:#fff;margin-bottom:18px}
 footer .word b{color:var(--sun)}
 footer .reg{max-width:900px;line-height:1.65}
 footer .tbc{background:rgba(255,197,61,.18);color:var(--sun);padding:1px 6px;border-radius:5px;font-weight:600}
+footer .reg a{color:#fff}
 footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
 
 /* ================= FUNNEL ================= */
@@ -485,7 +486,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
   <div class="wrap">
     <div class="word">head<b>room</b></div>
     <p class="reg" id="regText"></p>
-    <div class="links"><a href="#">Privacy notice</a><a href="#">Complaints</a><a href="#">How we’re paid</a><a href="https://register.fca.org.uk/" rel="noopener">FCA register</a></div>
+    <div class="links"><a href="https://register.fca.org.uk/" rel="noopener">FCA register</a><a href="https://www.financial-ombudsman.org.uk/" rel="noopener">Financial Ombudsman</a><a href="https://ico.org.uk/" rel="noopener">ICO</a></div>
   </div>
 </footer>
 
@@ -515,8 +516,8 @@ const CONFIG = {
   testsOn: true,                        // false = everyone sees version "a" of every test
   draft: true,                          // review copy: no counting, no leads sent. false only at launch
   draftBanner: false,                   // true shows a "DRAFT for review" strip along the bottom
-  // Compliance — every [TBC] must be filled by Dale's firm / its network before this goes anywhere public.
-  reg: "Headroom is a trading name of <span class='tbc'>[Company Ltd — TBC]</span>, registered in England and Wales no. <span class='tbc'>[TBC]</span>, registered office <span class='tbc'>[TBC]</span>. <span class='tbc'>[Company Ltd]</span> is an appointed representative of <span class='tbc'>[Principal — TBC]</span>, which is authorised and regulated by the Financial Conduct Authority for credit broking (FRN <span class='tbc'>[TBC]</span>). We are a credit broker, not a lender, and we do not give financial advice. We may receive a commission from lenders; we’ll tell you the nature of it before you proceed. Finance is subject to status and affordability. Not all business finance is regulated by the FCA. ICO registration <span class='tbc'>[TBC]</span>."
+  // Compliance wording: same regulated entity as DCS Insure (Portway Financial Ltd). Dale confirmed credit-broking cover, 28 Sep 2026.
+  reg: "Headroom is a trading name of Portway Financial Limited, which is an Appointed Representative of Connect IFA Limited 441505, which is Authorised and Regulated by the Financial Conduct Authority and is entered on the Financial Services Register (<a href='https://register.fca.org.uk/' rel='noopener'>register.fca.org.uk</a>) under reference 1011427. Portway Financial Limited is a company registered in England and Wales, company number 14917868. Registered office: 1 The Portway, Porthcawl, CF36 3XB. Registered with the Information Commissioner’s Office under reference ZB625186.<br><br>We are a credit broker, not a lender, and we do not give financial advice. We may receive a commission from lenders and will tell you the nature of it before you proceed. Finance is subject to status and affordability. Not all business finance is regulated by the Financial Conduct Authority.<br><br>To make a complaint, write to: Compliance Department, Connect IFA Ltd, 39 Station Lane, Hornchurch, RM12 6JL, or call 01708 676110. If we can’t resolve it between us, you may be entitled to refer it to the <a href='https://www.financial-ombudsman.org.uk/' rel='noopener'>Financial Ombudsman Service</a>.<br><br>Contact: 01656 856120 · contact@portwaygroup.com"
 };
 
 /* ================= SELF-TESTING =================
