@@ -486,7 +486,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
   <div class="wrap">
     <div class="word">head<b>room</b></div>
     <p class="reg" id="regText"></p>
-    <div class="links"><a href="https://register.fca.org.uk/" rel="noopener">FCA register</a><a href="https://www.financial-ombudsman.org.uk/" rel="noopener">Financial Ombudsman</a><a href="https://ico.org.uk/" rel="noopener">ICO</a></div>
+    <div class="links"><a href="privacy.html">Privacy notice</a><a href="https://register.fca.org.uk/" rel="noopener">FCA register</a><a href="https://www.financial-ombudsman.org.uk/" rel="noopener">Financial Ombudsman</a><a href="https://ico.org.uk/" rel="noopener">ICO</a></div>
   </div>
 </footer>
 
@@ -566,7 +566,7 @@ const gbp = n => "£" + Math.round(n).toLocaleString("en-GB");
 const short = n => n>=1e6?"£"+(n/1e6)+"m":n>=1e3?"£"+(n/1e3)+"k":"£"+n;
 $("#regText").innerHTML = CONFIG.reg;
 function hit(name){
-  if(CONFIG.draft || !CONFIG.stats || /^(localhost|127\.|\[::1\])/.test(location.hostname) || location.protocol==="file:") return;
+  if(CONFIG.draft || navigator.doNotTrack==="1" || window.doNotTrack==="1" || !CONFIG.stats || /^(localhost|127\.|\[::1\])/.test(location.hostname) || location.protocol==="file:") return;
   const page=("hr-"+name).toLowerCase().replace(/[^a-z0-9-]/g,"-").slice(0,40)+".html";
   try{ fetch(CONFIG.stats,{method:"POST",mode:"cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify({page,ref:document.referrer||""})}).catch(()=>{}); }catch(e){}
 }
@@ -617,7 +617,7 @@ function consentBanner(){
   let c=null; try{ c=localStorage.getItem("hr-consent"); }catch(e){}
   if(c==="yes") return loadPixel(); if(c==="no") return;
   const b=document.createElement("div"); b.className="consentbar";
-  b.innerHTML=`<p>Can we use a Meta cookie to measure our adverts? It isn’t needed for the site to work.</p><div><button class="btn light" data-c="no">No thanks</button><button class="btn" data-c="yes">That’s fine</button></div>`;
+  b.innerHTML=`<p>Can we use a Meta cookie to measure our adverts? It isn’t needed for the site to work. <a href="privacy.html">Privacy notice</a></p><div><button class="btn light" data-c="no">No thanks</button><button class="btn" data-c="yes">That’s fine</button></div>`;
   b.onclick=e=>{ const v=e.target.closest("[data-c]"); if(!v) return; try{ localStorage.setItem("hr-consent",v.dataset.c); }catch(err){} if(v.dataset.c==="yes") loadPixel(); b.remove(); };
   document.body.appendChild(b);
 }
@@ -846,7 +846,7 @@ function contact(){
   FB.innerHTML=`<div class="q">${guide("Brilliant. Who should we ring?")}<div class="count">Last bit</div><h2>Where can we reach you?</h2><p class="help">A real person calls, usually the same working day. No hard sell.</p>
     ${fld("name","Your name","text","given-name")}${fld("biz","Business name","text","organization")}${fld("phone","Mobile number","tel","tel")}${fld("email","Email","email","email")}
     <div class="field"><label>Best time to call</label><div class="presets" id="calltime">${["Morning","Lunchtime","Afternoon","After 5pm","Any time"].map(t=>`<button type="button" data-t="${t}"${A.calltime===t?' class="on"':""}>${t}</button>`).join("")}</div></div>
-    <label class="consent"><input type="checkbox" id="ok"> <span>I’m happy for ${CONFIG.brand} to contact me about business finance, and I’ve read the <a href="#">privacy notice</a>. Nothing is shared with a lender without my say-so.</span></label>
+    <label class="consent"><input type="checkbox" id="ok"> <span>I’m happy for ${CONFIG.brand} to contact me about business finance, and I’ve read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a>. Nothing is shared with a lender without my say-so.</span></label>
     <div class="field" id="okf"><div class="err">Please tick to let us contact you.</div></div>
     <div class="sendrow"><button class="btn" id="sendWa">Send by WhatsApp <span class="arr">→</span></button><button class="btn sun" id="sendMail">Send by email</button></div>
     <p class="fineprint">We’re a credit broker, not a lender. Finance is subject to status. We don’t run a credit search at this stage.</p>
