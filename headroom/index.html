@@ -346,7 +346,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
 <header class="top">
   <div class="dock">
     <span class="word">head<b>room</b></span>
-    <nav><a href="#how-much">How much</a><a href="#routes">Funding types</a><a href="#how">How it works</a><a href="#faq">Questions</a></nav>
+    <nav><a href="#how-much">How much</a><a href="#routes">Funding types</a><a href="#how">How it works</a><a href="guides/">Guides</a><a href="#faq">Questions</a></nav>
     <button class="btn" data-go>Check what fits <span class="arr">→</span></button>
   </div>
 </header>
@@ -486,7 +486,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
   <div class="wrap">
     <div class="word">head<b>room</b></div>
     <p class="reg" id="regText"></p>
-    <div class="links"><a href="privacy.html">Privacy notice</a><a href="https://register.fca.org.uk/" rel="noopener">FCA register</a><a href="https://www.financial-ombudsman.org.uk/" rel="noopener">Financial Ombudsman</a><a href="https://ico.org.uk/" rel="noopener">ICO</a></div>
+    <div class="links"><a href="guides/">Finance guides</a><a href="privacy.html">Privacy notice</a><a href="https://register.fca.org.uk/" rel="noopener">FCA register</a><a href="https://www.financial-ombudsman.org.uk/" rel="noopener">Financial Ombudsman</a><a href="https://ico.org.uk/" rel="noopener">ICO</a></div>
   </div>
 </footer>
 
@@ -903,7 +903,8 @@ function confetti(){
 /* ads land straight in the funnel: ?go=1 (optionally &ad=tag) */
 loadCounts().then(c=>{
   chooseAll(c); applyHook(); if(!Q.get("go")) seen("hook");
-  if(Q.get("go")) openFunnel(null,{fromAd:true});
+  const P=Q.get("p"); // guide pages pass the finance type they were about
+  if(Q.get("go")) openFunnel(null,{fromAd:true, product:PRODUCTS.some(x=>x.id===P)?P:undefined});
   consentBanner();
   if(CONFIG.draft && CONFIG.draftBanner){ const d=document.createElement("div"); d.className="draftbar"; d.innerHTML="<b>DRAFT for review</b> · not a live service · nothing you enter is sent anywhere"; document.body.appendChild(d); }
 });
