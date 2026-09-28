@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Headroom Lead Funnel</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FFF8EB;--cream2:#FFF1D6;--card:#FFFFFF;--line:#EEE4D0;--sky:#2F6BFF;--skyDeep:#1F4FD6;--skySoft:#E7EEFF;--sun:#FFC53D;--sunSoft:#FFF0C2;--coral:#FF7A59;--coralSoft:#FFE4DB;--mint:#22B98F;--mintSoft:#DDF6EE;--ink:#1B2440;--muted:#5B6480}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:15.5px/1.6 Inter,system-ui,sans-serif;padding-inline:16px}
+.wrap{max-width:1040px;margin:0 auto;padding-block:36px 70px}
+h1,h2,h3{font-family:Nunito,Inter,sans-serif;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5vw,50px)}
+h2{font-size:28px;margin-top:52px}
+h3{font-size:19px}
+.word b{color:var(--sky)}
+.lede{color:var(--muted);font-size:17px;max-width:62ch;margin:12px 0 0}
+.flag{margin-top:22px;padding:16px 18px;border-radius:18px;background:var(--coralSoft);max-width:78ch}
+.flag b{color:#B23A1E}
+.sec-lede{color:var(--muted);margin:8px 0 0;max-width:64ch}
+
+/* funnel map */
+.map{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:stretch}
+.stop{background:var(--card);border-radius:16px;padding:12px 14px;flex:1 1 150px;min-width:0}
+.stop small{display:block;font:700 11.5px Inter;color:var(--skyDeep);letter-spacing:.05em;text-transform:uppercase}
+.stop b{display:block;font:900 16px/1.25 Nunito;margin-top:3px}
+.stop span{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+.stop.hot{background:var(--sky);color:#fff}.stop.hot small,.stop.hot span{color:#DCE6FF}
+
+/* ads */
+.ads{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
+@media (max-width:760px){.ads{grid-template-columns:1fr}}
+.ad{background:var(--card);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+.ad .top{padding:14px 16px 10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ad .tag{font:800 12px Inter;background:var(--skySoft);color:var(--skyDeep);padding:5px 10px;border-radius:99px}
+.ad .pt{padding:0 16px 12px;font-size:14.5px;white-space:pre-line}
+.ad img{width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--cream2)}
+.ad .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;background:#F6F1E6}
+.ad .foot b{font:900 16px/1.25 Nunito}
+.ad .foot small{display:block;color:var(--muted);font-size:12.5px}
+.ad .cta{flex:0 0 auto;font:800 13px Inter;background:#E4DED2;border-radius:8px;padding:8px 12px}
+.ad .meta{padding:12px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.link{display:flex;gap:8px;align-items:center}
+.link code{flex:1;min-width:0;overflow-x:auto;white-space:nowrap;font:500 12.5px ui-monospace,monospace;background:var(--cream);padding:8px 10px;border-radius:10px}
+.cp{flex:0 0 auto;border:0;cursor:pointer;font:800 13px Inter;color:#fff;background:var(--sky);border-radius:99px;padding:8px 13px}
+.cp:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.opens{font-size:13px;color:var(--muted)}
+.opens b{color:var(--ink)}
+
+/* two-col lists */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
+.box{background:var(--card);border-radius:22px;padding:22px}
+.box ul,.box ol{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+.box li{padding-left:2px}
+
+/* follow-ups */
+.msgs{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.msg{background:var(--card);border-radius:20px;padding:18px 20px;display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:start}
+@media (max-width:640px){.msg{grid-template-columns:1fr}}
+.msg .when{font:900 15px/1.3 Nunito;color:var(--skyDeep)}
+.msg .when small{display:block;font:600 12.5px Inter;color:var(--muted);margin-top:3px}
+.msg p{margin:0;background:#E7FFDB;border-radius:14px 14px 14px 4px;padding:11px 14px;font-size:14.5px;white-space:pre-line}
+
+.checks{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.chk{display:grid;grid-template-columns:34px 1fr;gap:12px;background:var(--card);border-radius:18px;padding:14px 16px;align-items:start}
+.chk i{font-style:normal;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:900 14px Inter;color:#fff;background:var(--coral)}
+.chk.ok i{background:var(--mint)}
+.chk b{display:block}
+.chk span{color:var(--muted);font-size:14px}
+footer{margin-top:50px;color:var(--muted);font-size:13px}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="word" style="font:900 22px Nunito">head<b>room</b></div>
+  <h1 style="margin-top:14px">The lead funnel</h1>
+  <p class="lede">Four Facebook and Instagram ads, each with its own link into Penny’s questions. Every tap is counted anonymously, so we can see which ad brings leads and where people give up. Each finished enquiry lands on WhatsApp or email, ready for a call.</p>
+  <div class="flag"><b>Not live yet.</b> Nothing here can run until Dale’s firm confirms FCA credit-broking cover, the principal’s compliance team signs off the page and these ads, and the ads run from an FCA-verified advertiser account. The checklist at the bottom has the full list.</div>
+
+  <h2>How a lead travels</h2>
+  <div class="map">
+    <div class="stop"><small>1 · Ad</small><b>Penny on a van, VAT bill, invoices or the bank</b><span>Special ad category: financial products</span></div>
+    <div class="stop"><small>2 · Opens</small><b>Straight into the questions</b><span>Penny repeats what the ad said</span></div>
+    <div class="stop"><small>3 · 7–8 taps</small><b>Need, amount, how they trade</b><span>Ads with a known need skip question 1</span></div>
+    <div class="stop"><small>4 · Options</small><b>2–3 finance types that fit</b><span>“Where a conversation would begin”</span></div>
+    <div class="stop"><small>5 · Contact</small><b>Name, business, mobile, email, call time</b><span>Consent tick required</span></div>
+    <div class="stop hot"><small>6 · Lead</small><b>WhatsApp or email to us</b><span>Reply within 5 minutes</span></div>
+  </div>
+
+  <h2>The four ads</h2>
+  <p class="sec-lede">Feed format, 1080×1350. The images have no text in them, so the words live in the ad itself. These links point at the review copy for now, and get swapped for the real address at launch.</p>
+  <div class="ads" id="ads"></div>
+
+  <h2>Replying to a lead</h2>
+  <p class="sec-lede">Leads go cold in minutes. Each enquiry arrives with the person’s name, need, amount and best time to call, so these fill in quickly. Send from the business WhatsApp, never a personal number.</p>
+  <div class="msgs" id="msgs"></div>
+
+  <div class="cols">
+    <div class="box"><h3>On the first call</h3><ol>
+      <li>Confirm what they told Penny: need, amount, how soon.</li>
+      <li>Check how they’re set up. A sole trader or partnership borrowing £25k or less is regulated credit, and the lead is flagged when it is.</li>
+      <li>Ask about recent bank statements, accounts, and any existing finance.</li>
+      <li>Explain the routes plainly, including rates, fees and total repayable before anything is agreed.</li>
+      <li>Say how we’re paid (lender commission) before introducing a lender.</li>
+      <li>Get their go-ahead before sharing details with any lender.</li>
+    </ol></div>
+    <div class="box"><h3>Reading the funnel</h3><ul>
+      <li><b>dash.html</b> shows opens, drop-off at each question, leads per ad and which finance type comes up most. It works once the site is on its real address.</li>
+      <li>Give each ad about £10 a day for a week, then move budget to whichever brings the most leads per open.</li>
+      <li>If most people stop at one question, that question is the problem. Reword it or drop it.</li>
+      <li>The counter stores no names or numbers, only which button was tapped.</li>
+    </ul></div>
+  </div>
+
+  <h2>Before the first ad</h2>
+  <div class="checks">
+    <div class="chk ok"><i>✓</i><div><b>Site and questions built</b><span>Penny, 8 questions, finance-type matching, contact step with consent and best time to call.</span></div></div>
+    <div class="chk ok"><i>✓</i><div><b>Ad angles and tracking built</b><span>Four ad links, anonymous tap counts, dashboard.</span></div></div>
+    <div class="chk"><i>!</i><div><b>FCA credit-broking cover</b><span>Dale to ask Connect IFA whether Portway Financial’s appointment covers credit broking, or arrange cover with a credit-broking principal. Fills the [TBC] footer.</span></div></div>
+    <div class="chk"><i>!</i><div><b>Financial promotion sign-off</b><span>The principal’s compliance team approves the page and all four ads before anything is published.</span></div></div>
+    <div class="chk"><i>!</i><div><b>Meta: FCA-verified advertiser</b><span>UK financial-services ads have to come from a verified, FCA-authorised advertiser, so this runs from the authorised firm’s ad account and page, not QuickSite’s. Choose the financial products special ad category, which limits targeting to broad UK areas.</span></div></div>
+    <div class="chk"><i>!</i><div><b>Where leads go</b><span>A business WhatsApp number and a leads email address to put in the site’s settings.</span></div></div>
+    <div class="chk"><i>!</i><div><b>Privacy notice, complaints page, ICO registration</b><span>Linked from the consent tick and the footer.</span></div></div>
+    <div class="chk"><i>!</i><div><b>Name and web address</b><span>“Headroom” is a working name. Check it’s free at Companies House and on the FCA register before buying the domain.</span></div></div>
+  </div>
+
+  <footer>Penny and the ad images are Higgsfield renders. Ad copy avoids rates, approval promises and speed claims, and every ad says we’re a broker, not a lender.</footer>
+</div>
+
+<script>
+const BASE="https://leedavidsherriff.github.io/quicksite-uk/headroom/";
+const ADS=[
+  {tag:"van",img:"media/ad-van-sm.jpg",opens:"Skips to “how much?” with Penny saying “A van — lovely.”",
+   pt:"New van, bigger van, or the old one’s finally died?\n\nTell Penny what you need in a couple of minutes. We’ll look at which kinds of finance suit a business like yours, then a real person rings you to talk it through.\n\nNo hard credit check to start. Free, no obligation.\n\nWe’re a credit broker, not a lender. Finance subject to status.",
+   head:"Need a van? See what fits",desc:"A few taps. A real person calls."},
+  {tag:"vat",img:"media/ad-vat-sm.jpg",opens:"Skips to “how much?” with Penny saying “Let’s get that VAT bill sorted.”",
+   pt:"VAT bill landed and cash is tight this quarter?\n\nYou’ve got options. Answer a few quick questions and we’ll show you the kinds of business finance that could help, then call to explain them in plain English.\n\nNo hard credit check to start. Free, no obligation.\n\nWe’re a credit broker, not a lender. Finance subject to status.",
+   head:"VAT bill due? Let’s sort it",desc:"See your options in a few taps."},
+  {tag:"invoice",img:"media/ad-invoice-sm.jpg",opens:"Skips to “how much?” with Penny saying “Waiting on invoices is the worst.”",
+   pt:"Done the work, sent the invoice, still waiting 60 days?\n\nInvoice finance can turn unpaid invoices into cash now. Tell Penny about your business and we’ll see if it fits, alongside the other options.\n\nNo hard credit check to start. Free, no obligation.\n\nWe’re a credit broker, not a lender. Finance subject to status.",
+   head:"Waiting to get paid?",desc:"Unlock cash tied up in invoices."},
+  {tag:"bank",img:"media/ad-bank-sm.jpg",opens:"Starts at question 1 with Penny saying “Banks aren’t the only option.”",
+   pt:"Bank said no, or just too slow?\n\nBanks are one lender among many. Tell Penny what your business needs and we’ll look at the routes that fit, from asset finance to cash advances. If nothing does yet, we’ll tell you straight.\n\nNo hard credit check to start. Free, no obligation.\n\nWe’re a credit broker, not a lender. Finance subject to status.",
+   head:"Bank said no? There’s another way",desc:"Check what fits in a few taps."},
+];
+const MSGS=[
+  {when:"Within 5 minutes",sub:"as soon as it lands",t:"Hi {name}, it’s Dale from Headroom. Thanks for telling Penny about {need}. I’ve had a look and there are a couple of routes worth talking through. You said {calltime} suits. Shall I ring then, or is now any good?"},
+  {when:"No reply, 2 hours",sub:"same day",t:"Hi {name}, Dale again from Headroom. No rush at all. When’s a good 10 minutes for a quick call about the {amount}? Or reply here if you’d rather message."},
+  {when:"Next morning",sub:"last nudge",t:"Morning {name}. I don’t want to pester you, so this is my last message. If you’d still like to talk through options for {biz}, just reply “call me” and I’ll ring when it suits."},
+  {when:"Nothing fits yet",sub:"be straight with them",t:"Hi {name}, I’ve looked at options for {biz} and honestly nothing is a good fit right now, mainly because {reason}. Once {what_changes}, things open up a lot. Happy to check again then. No charge, no obligation."},
+];
+const copyBtn=(txt,label="Copy")=>{ const b=document.createElement("button"); b.className="cp"; b.type="button"; b.textContent=label;
+  b.onclick=()=>{ navigator.clipboard.writeText(txt).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent=label,1400);}).catch(()=>{b.textContent="Select and copy";}); }; return b; };
+const adsEl=document.getElementById("ads");
+ADS.forEach(a=>{
+  const url=BASE+"?go=1&ad="+a.tag, el=document.createElement("article"); el.className="ad";
+  el.innerHTML=`<div class="top"><span class="tag">ad=${a.tag}</span><span style="font-size:13px;color:var(--muted)">Headroom · Sponsored</span></div>
+   <div class="pt"></div><img src="${a.img}" alt="Ad image: Penny, ${a.tag} angle" loading="lazy" width="720" height="900">
+   <div class="foot"><div><b>${a.head}</b><small>${a.desc}</small></div><span class="cta">Learn more</span></div>
+   <div class="meta"><div class="link"><code>${url}</code></div><div class="opens"><b>Lands:</b> ${a.opens}</div><div class="link" data-row></div></div>`;
+  el.querySelector(".pt").textContent=a.pt;
+  el.querySelector(".link").appendChild(copyBtn(url,"Copy link"));
+  const row=el.querySelector("[data-row]"); row.appendChild(copyBtn(a.pt,"Copy text")); row.appendChild(copyBtn(a.head,"Copy headline"));
+  adsEl.appendChild(el);
+});
+const mEl=document.getElementById("msgs");
+MSGS.forEach(m=>{ const el=document.createElement("div"); el.className="msg"; el.innerHTML=`<div class="when">${m.when}<small>${m.sub}</small></div><p></p><div></div>`; el.querySelector("p").textContent=m.t; el.lastChild.appendChild(copyBtn(m.t)); mEl.appendChild(el); });
+</script>
+
+</body>
+</html>
