@@ -777,7 +777,8 @@ function showStep(i, back){
     const r=$("#fRange"), out=$("#fAmt");
     const set=v=>{ A.amount=toAmt(v); r.style.setProperty("--p",v+"%"); out.textContent=gbp(A.amount)+(A.amount>=1e6?"+":""); };
     set(+r.value); r.oninput=()=>set(+r.value);
-    $$(".presets button").forEach(b=>b.onclick=()=>{ r.value=toVal(+b.dataset.v); set(+r.value); });
+    // the slider only holds whole steps, so a preset keeps its own exact amount rather than the rounded slider position
+    $$(".presets button").forEach(b=>b.onclick=()=>{ const v=+b.dataset.v; r.value=toVal(v); set(+r.value); A.amount=v; out.textContent=gbp(v); });
     $("#fNext").onclick=()=>{ hit("amount-"+(A.amount<1e4?"lt10k":A.amount<5e4?"10-50k":A.amount<2.5e5?"50-250k":"250k-plus")); next(i); };
   } else {
     $$(".opt",FB).forEach(b=>b.onclick=()=>{ A[s.id]=b.dataset.v; $$(".opt",FB).forEach(x=>x.classList.remove("picked")); b.classList.add("picked"); hit(s.id+"-"+b.dataset.v); phaseFill(); setTimeout(()=>next(i),280); });
@@ -805,7 +806,7 @@ function routes(){
 }
 
 function matching(){
-  curScreen="match"; phaseFill();
+  curScreen="match"; phaseFill(); F.scrollTop=0;
   const R=routes(), n=Math.max(1,R.length);
   FB.innerHTML=`<div class="q match"><div class="thinker"><img src="media/penny-think.webp" width="814" height="1100" alt="Penny looking through a magnifying glass"></div>
     <h2>Penny’s having a look…</h2><div class="slots">${Array.from({length:n},()=>`<div class="slot"><img alt=""></div>`).join("")}</div><div class="status" id="mStat">Reading your answers</div></div>`;
@@ -821,7 +822,7 @@ function matching(){
 }
 
 function result(){
-  curScreen="result"; phaseFill();
+  curScreen="result"; phaseFill(); F.scrollTop=0;
   const R=routes();
   const regulated=(A.entity==="sole"||A.entity==="partner") && A.amount<=25000;
   const warn=(A.trading==="lt6"||A.entity==="notyet")?`<div class="warn"><b>Straight talk:</b> most lenders want 6+ months of trading. It’s still worth a call — some will look, and we’ll tell you what would open more doors.</div>`:"";
@@ -842,7 +843,7 @@ function label(id){ const o=opt(id); return o?o[1].toLowerCase():"your business"
 function raw(id){ const o=opt(id); return o?o[1]:"—"; }
 
 function contact(){
-  curScreen="contact"; phaseFill();
+  curScreen="contact"; phaseFill(); F.scrollTop=0;
   FB.innerHTML=`<div class="q">${guide("Brilliant. Who should we ring?")}<div class="count">Last bit</div><h2>Where can we reach you?</h2><p class="help">A real person calls, usually the same working day. No hard sell.</p>
     ${fld("name","Your name","text","given-name")}${fld("biz","Business name","text","organization")}${fld("phone","Mobile number","tel","tel")}${fld("email","Email","email","email")}
     <div class="field"><label>Best time to call</label><div class="presets" id="calltime">${["Morning","Lunchtime","Afternoon","After 5pm","Any time"].map(t=>`<button type="button" data-t="${t}"${A.calltime===t?' class="on"':""}>${t}</button>`).join("")}</div></div>
@@ -883,7 +884,7 @@ function send(kind){
   window.open(url,"_blank"); done(lines,false);
 }
 function done(lines,demo){
-  curScreen="done"; phaseFill();
+  curScreen="done"; phaseFill(); F.scrollTop=0;
   FB.innerHTML=`<div class="q done"><div class="cheer"><img src="media/penny-cheer.webp" width="813" height="1100" alt="Penny celebrating"></div><h2 style="margin-top:12px">Done! We’ll give you a ring.</h2><p class="help" style="margin:10px auto 0;max-width:40ch">Keep your phone handy. Changed your mind? Just reply and say so — no hard feelings.</p>
     ${!demo?`<div class="warn" style="text-align:left;margin-top:24px">WhatsApp or email didn’t open? Copy your details and send them to <b>${CONFIG.leadWhatsApp?"+"+CONFIG.leadWhatsApp:CONFIG.leadEmail}</b>.<button class="btn nextbtn" id="copyLead" style="margin-top:12px">Copy my details</button><pre id="leadTxt" style="white-space:pre-wrap;font:12.5px/1.5 ui-monospace,monospace;margin:10px 0 0">${lines.replace(/</g,"&lt;")}</pre></div>`:""}
     ${demo?`<div class="warn" style="text-align:left;margin-top:24px"><b>Demo mode</b> — no lead number/email set in CONFIG, so nothing was sent. This is what would arrive:<pre style="white-space:pre-wrap;font:12.5px/1.5 ui-monospace,monospace;margin:10px 0 0">${lines.replace(/</g,"&lt;")}</pre></div>`:""}
