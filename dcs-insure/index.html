@@ -39,11 +39,12 @@
   "parentOrganization":{"@type":"Organization","name":"Portway Group"},
   "knowsAbout":["Sports injury insurance","Income protection for footballers","Income protection for rugby players","Private medical insurance for athletes","Life and critical illness cover","Family income protection","Private medical insurance for families","Income protection for the self-employed"]
 }</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the review really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. There's no charge for the initial review and no obligation to take anything out. If you do go ahead with a policy, we'll explain how we're paid before you decide."}}, {"@type": "Question", "name": "Do I have to go ahead?", "acceptedAnswer": {"@type": "Answer", "text": "No. The review is a conversation. Nothing is sold on that call, and if cover doesn't make sense for you, that's fine."}}, {"@type": "Question", "name": "I already have cover through work. Do I need more?", "acceptedAnswer": {"@type": "Answer", "text": "Maybe not. Workplace cover varies a lot, and some of it stops if you change jobs. It's worth knowing what yours actually does, and we can look at that with you."}}, {"@type": "Question", "name": "I'm self-employed. Can I still get income protection?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Income protection can be arranged for the self-employed, including tradespeople paid by the day. What an insurer offers depends on your work, your earnings and your health."}}, {"@type": "Question", "name": "Will you ask about my health?", "acceptedAnswer": {"@type": "Answer", "text": "Not on this website. When you apply, insurers ask health questions, and we'll explain why they matter and what they mean for your cover."}}, {"@type": "Question", "name": "Which insurers do you use?", "acceptedAnswer": {"@type": "Answer", "text": "We arrange cover through insurers on our panel, including Aviva, Bupa, Guardian, Legal & General, Liverpool Victoria, Royal London, Scottish Widows, The Exeter and Vitality. Which one suits you is part of the conversation."}}, {"@type": "Question", "name": "Where are you based?", "acceptedAnswer": {"@type": "Answer", "text": "1 The Portway, Porthcawl. Most reviews happen over the phone, so we can help wherever you are in the UK."}}]}</script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap');
 :root{
   --blue:#1271B7; --blue-deep:#0B4C82; --ink:#171A1E; --charcoal:#4D4D4F; --paper:#F4F6FA;
-  --display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --display:'Nunito','Inter',sans-serif;
   --body:'Inter',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0}
@@ -754,7 +755,11 @@ h1.lines .ln:nth-child(3){animation-delay:.3s}
 /* `.consent` is itself a <label>, so `.enq label` (class+element, higher
    specificity) was making the consent wording uppercase and tiny. Override
    it explicitly — this is a sentence the user has to actually read. */
-.enq label.enq label .opt{font-weight:400;letter-spacing:0;text-transform:none;opacity:.75}
+/* (This line used to read `.enq label.enq label .opt`, a garbled selector
+   that matched nothing, so the consent sentence stayed uppercase 11px on the
+   live site. Fixed 30 Sep 2026.) */
+.enq label .opt{font-weight:400;letter-spacing:0;text-transform:none;opacity:.75}
+.enq label.consent{font-size:14.5px;font-weight:400;letter-spacing:normal;text-transform:none;opacity:1;margin-bottom:0}
 .consent{
   display:flex;gap:14px;align-items:flex-start;cursor:pointer;
   border-radius:14px;padding:16px 18px;background:rgba(18,113,183,.08);
@@ -1030,23 +1035,434 @@ body::after{
   .rev{opacity:1;transform:none}
   body::after{display:none}
 }
+
+.cc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
+@media(min-width:960px){.cc-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
+.cc{position:relative;border-radius:18px;overflow:hidden;background:var(--ink);color:var(--paper);
+  min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;
+  box-shadow:0 22px 50px -30px rgba(23,26,30,.8)}
+@media(min-width:960px){.cc{min-height:420px}}
+.cc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.cc:hover img{transform:scale(1.05)}
+.cc::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 25%,rgba(9,12,15,.92) 78%)}
+.cc-body{position:relative;z-index:1;padding:16px}
+@media(min-width:960px){.cc-body{padding:22px}}
+.cc-moment{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6FB4E8;margin-bottom:6px}
+.cc h3{font-size:clamp(19px,2.2vw,26px)}
+.cc p{font-size:13.5px;opacity:.85;margin-top:6px;line-height:1.45}
+.cc-links{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px}
+.cc-links a{font-size:13px;font-weight:700;color:#fff;text-decoration:none;border-bottom:1px solid rgba(111,180,232,.6);padding-bottom:1px}
+.cc-links a:hover{border-color:#fff}
+@media(max-width:560px){.cc p{display:none}.cc{min-height:240px}}
+.close-band .panel{margin-top:44px}
+
+:root{
+  --cream:#FFF8EB; --cream2:#FFF1D6; --card:#FFFFFF; --line:#EEE4D0;
+  --blue:#1271B7; --blue-deep:#0B4C82; --blue-hi:#3A91D6; --blue-soft:#E4F0FA; --blue-ring:#A8CDEB;
+  --sun:#FFC53D; --sun-soft:#FFF0C2; --coral:#FF7A59; --coral-soft:#FFE4DB; --mint:#22B98F; --mint-soft:#DDF6EE;
+  --ink:#1B2440; --muted:#5B6480; --paper:#1B2440;
+  --shadow:0 18px 40px -22px rgba(27,36,64,.35);
+  --lift:0 0 0 1px rgba(27,36,64,.06),0 18px 40px -22px rgba(27,36,64,.35);
+  --ring:rgba(18,113,183,.9); --ring-soft:rgba(18,113,183,.35);
+}
+body{background:var(--cream);color:var(--ink)}
+body::after{display:none}
+h1,h2,h3{font-family:var(--display);font-weight:900;text-transform:none;letter-spacing:-.025em;line-height:1.05}
+h2{font-size:clamp(32px,4.6vw,54px)}
+h3{font-size:clamp(18px,2vw,22px);letter-spacing:-.015em}
+.kicker{display:inline-block;font:800 12.5px/1.2 var(--body);letter-spacing:.05em;text-transform:none;
+  color:var(--blue-deep);background:var(--blue-soft);padding:8px 13px;border-radius:999px;margin-bottom:16px}
+.section-dark .kicker,.hero .kicker{color:var(--blue-deep)}
+.lede{opacity:1;color:var(--muted)}
+:focus-visible,.section-dark :focus-visible,.hero :focus-visible{outline-color:var(--coral)}
+.section{padding:clamp(56px,8vw,100px) 0}
+.section-dark{background:#fff;color:var(--ink)}
+.section-dark::before{display:none}
+
+/* ---------- the dock ---------- */
+.site-head{top:12px}
+.head-island{gap:12px;padding:7px 7px 7px 16px;background:rgba(255,255,255,.86);
+  box-shadow:var(--lift)}
+.site-head.stuck .head-island{background:rgba(255,255,255,.95);
+  box-shadow:0 0 0 1px rgba(27,36,64,.08),0 18px 40px -20px rgba(27,36,64,.45)}
+.head-logo{width:auto;height:auto;border-radius:0;background:none;box-shadow:none}
+.head-logo img{width:auto;height:34px}
+.nav a{color:var(--ink);opacity:.8;font-weight:700;font-size:14px;padding:10px 12px}
+.nav a:hover{opacity:1;background:var(--blue-soft)}
+.nav a[aria-current="page"]{opacity:1;color:var(--blue-deep);background:var(--blue-soft);box-shadow:none}
+.nl-short{display:none}
+.site-head .head-cta{padding:12px 18px;font-size:14.5px;white-space:nowrap}
+.nav-toggle{color:var(--ink);background:var(--blue-soft);box-shadow:none}
+.nav-toggle:hover{background:#D3E6F5}
+@media(min-width:1081px){
+  .nav-wrap{max-width:none;opacity:1;overflow:visible}
+  .nav{padding-right:0}
+  .nav-toggle,.nav .sheet-only{display:none}
+  .nl-long{display:none}.nl-short{display:inline}
+}
+@media(max-width:1080px){
+  .nav{background:rgba(255,255,255,.98);box-shadow:0 0 0 1px rgba(27,36,64,.06),0 26px 50px -20px rgba(27,36,64,.5)}
+  .nav a{font-size:15px;opacity:.9}
+}
+@media(max-width:560px){.site-head .head-cta{display:none}.head-logo img{height:30px}}
+
+/* ---------- buttons: Headroom's glossy pill, DCS blue ---------- */
+.btn{font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:0;padding:16px 26px;color:#fff;
+  background-color:var(--blue);
+  background-image:linear-gradient(180deg,var(--blue-hi),var(--blue) 55%,var(--blue-deep));
+  box-shadow:0 0 0 2px rgba(255,255,255,.55) inset,0 0 0 3px var(--blue-ring),0 12px 26px -8px rgba(18,113,183,.6);
+  transition:transform .25s cubic-bezier(.3,1.5,.5,1),box-shadow .25s ease}
+.btn::before{display:none}
+.btn::after,.section:not(.section-dark) .btn::after{top:3px;left:12px;right:12px;width:auto;height:42%;border-radius:999px;
+  transform:none;transition:none;background:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,0))}
+.btn:hover::after{left:12px}
+.btn:hover{transform:translateY(-3px) scale(1.03);
+  box-shadow:0 0 0 2px rgba(255,255,255,.6) inset,0 0 0 4px var(--blue-ring),0 18px 34px -8px rgba(18,113,183,.7)}
+.btn:active{transform:scale(.97)}
+.btn-primary,.btn-primary:hover{color:#fff;background-color:var(--blue)}
+/* consent gates the submit button — make the locked state look locked */
+.btn:disabled,.btn:disabled:hover{opacity:.45;cursor:not-allowed;transform:none;filter:saturate(.5)}
+.btn .arr{display:inline-block;transition:transform .25s ease}
+.btn:hover .arr{transform:translateX(4px)}
+.btn-ghost,.section:not(.section-dark) .btn-ghost,.section-dark .btn-ghost{
+  color:var(--ink);background-image:none;background-color:rgba(255,255,255,.82);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  box-shadow:0 0 0 2px var(--sun) inset,0 10px 24px -12px rgba(255,197,61,.9)}
+.btn-ghost:hover,.section:not(.section-dark) .btn-ghost:hover,.section-dark .btn-ghost:hover{
+  background-color:#fff;box-shadow:0 0 0 2px var(--sun) inset,0 0 0 4px var(--sun-soft),0 16px 30px -12px rgba(242,174,18,.7)}
+.btn-ghost::after,.section:not(.section-dark) .btn-ghost::after{display:none}
+.btn-sun,.section .btn-sun{color:var(--ink);background-color:var(--sun);
+  background-image:linear-gradient(180deg,#FFD767,var(--sun) 60%,#F2AE12);
+  box-shadow:0 0 0 2px rgba(255,255,255,.6) inset,0 0 0 3px #FFE59A,0 12px 26px -8px rgba(242,174,18,.8)}
+.btn-sun:hover,.section .btn-sun:hover{box-shadow:0 0 0 2px rgba(255,255,255,.7) inset,0 0 0 4px #FFE59A,0 18px 34px -8px rgba(242,174,18,.85)}
+
+/* ---------- heroes go light ---------- */
+.hero,.figure-hero{background:transparent;color:var(--ink)}
+.hero::before,.figure-hero::before{background:radial-gradient(circle,rgba(255,197,61,.30),transparent 62%);
+  top:-34%;right:-22%;left:auto;width:62vw;height:62vw;filter:blur(40px)}
+.hero::after,.figure-hero::after{content:"";position:absolute;width:52vw;height:52vw;left:-22%;bottom:-46%;border-radius:50%;
+  background:radial-gradient(circle,rgba(18,113,183,.13),transparent 62%);filter:blur(40px);pointer-events:none;z-index:0}
+.hero .rule,.fig-copy .rule{width:64px;height:6px;border-radius:99px;background:var(--sun)}
+.hero .sub,.fig-copy .sub{color:var(--muted);opacity:1}
+.hero-ring{opacity:1;color:var(--muted)}
+.hero-ring a{color:var(--blue)}
+h1 .hit{display:table;color:var(--blue);text-shadow:none;padding:0 .06em;margin-left:-.06em;
+  background:linear-gradient(var(--sun),var(--sun)) no-repeat 0 88%/100% .3em;border-radius:.12em}
+.chip{background:#fff;color:var(--ink);box-shadow:var(--lift);letter-spacing:.02em;text-transform:none;
+  font-size:13px;font-weight:700;-webkit-backdrop-filter:none;backdrop-filter:none}
+.chip .chip-dot{background:url("assets/favicon.png") center/78% no-repeat,var(--blue-soft)}
+.forline{color:var(--muted)}
+.forline .cycle{color:var(--ink)}
+
+/* product heroes: the photograph becomes a card beside the copy */
+.hero-photo::after{display:none}
+.hero-photo img{filter:none}
+@media(min-width:1000px){
+  .hero:has(.hero-photo){min-height:640px}
+  .hero-photo{inset:auto;top:118px;bottom:56px;right:max(24px,calc((100vw - 1120px)/2 + 56px));
+    width:min(38vw,460px);border-radius:32px;box-shadow:0 0 0 8px #fff,0 40px 70px -34px rgba(27,36,64,.55)}
+  .hero:has(.hero-photo) .wrap > *{max-width:calc(100% - min(38vw,460px) - 56px)}
+}
+@media(max-width:999px){
+  .hero-photo{position:relative;inset:auto;z-index:1;height:clamp(190px,50vw,320px);
+    margin:92px clamp(18px,5vw,56px) 0;border-radius:24px;box-shadow:0 0 0 6px #fff,var(--shadow)}
+  .hero:has(.hero-photo) .wrap{padding-top:30px}
+}
+.body-index-crop{box-shadow:0 0 0 3px #fff,0 8px 20px -8px rgba(27,36,64,.5)}
+
+/* landing-page figure heroes */
+.fig-plate{box-shadow:0 0 0 8px #fff,0 40px 70px -34px rgba(27,36,64,.6)}
+.fig-plate::before{background:linear-gradient(180deg,rgba(18,113,183,.10),transparent 42%)}
+.spot-card{background:#fff;color:var(--ink);box-shadow:var(--lift);-webkit-backdrop-filter:none;backdrop-filter:none}
+.spot-card b{text-transform:none;font-weight:900;letter-spacing:-.01em}
+.spot-card em{opacity:1;color:var(--muted)}
+.spot-go{color:var(--blue)}
+.dot{background:var(--blue);box-shadow:0 0 0 3px #fff,0 6px 14px -4px rgba(27,36,64,.5)}
+@media(max-width:999px){.fig-list .spot{background:#fff;box-shadow:var(--lift)}}
+.panel-lbl{opacity:1;color:var(--muted)}
+.panel-pill{box-shadow:0 0 0 1px rgba(27,36,64,.06),0 10px 22px -16px rgba(27,36,64,.5)}
+
+/* ---------- body content ---------- */
+.providers .lbl{opacity:1;color:var(--muted);letter-spacing:.06em}
+.points li{opacity:1}
+.points li::before{background:var(--sun);border-radius:50%;width:10px;height:10px}
+.pgrid a{background:var(--card)}
+.shot img{border-radius:24px;box-shadow:var(--shadow)}
+.shot figcaption{letter-spacing:.02em;text-transform:none;font-weight:600;color:var(--muted);opacity:1;font-size:13px}
+.inline-cta,.section-dark .inline-cta{background:var(--card);box-shadow:var(--lift);border-radius:24px}
+.section-dark .inline-cta{background:var(--cream)}
+.inline-cta p{font-family:var(--display);font-weight:800;font-size:18px;line-height:1.35}
+
+/* ---------- the calculator becomes Headroom's white "have a play" card ---------- */
+.calc,.section:not(.section-dark) .calc,.section-dark .calc{color:var(--ink);background:var(--card);
+  box-shadow:var(--lift);border-radius:28px}
+.section-dark .calc{background:var(--cream)}
+.calc::after{display:none}
+.calc label{opacity:1;color:var(--muted);letter-spacing:.08em}
+.fee-wrap{background:var(--cream);box-shadow:inset 0 0 0 1.5px var(--line)}
+.section-dark .fee-wrap{background:#fff}
+.fee-wrap:focus-within{box-shadow:inset 0 0 0 2px var(--blue),0 0 0 4px var(--blue-soft)}
+.fee-sym{color:var(--blue);background:rgba(18,113,183,.06)}
+.fee-wrap input{color:var(--ink)}
+.weeks-val{color:var(--blue);font-family:var(--display);font-weight:900}
+.weeks-scale{opacity:1;color:var(--muted)}
+.mode{background:var(--cream);box-shadow:inset 0 0 0 1.5px var(--line)}
+.mode button{color:var(--ink);opacity:.72}
+.mode button[aria-pressed="true"]{color:#fff;opacity:1;background:var(--blue);box-shadow:0 8px 18px -10px rgba(18,113,183,.9)}
+.calc-out{border-top:1.5px dashed var(--line)}
+.calc-out .lbl{opacity:1;color:var(--muted)}
+.calc-fig{font-family:var(--display);font-weight:900;color:var(--blue)}
+.calc-sum{opacity:1;color:var(--muted)}
+.calc-back{background:var(--mint-soft);box-shadow:none}
+.calc-back-fig{color:#0E7A5C;font-family:var(--display);font-weight:900}
+.calc-back-fig em{color:var(--ink);opacity:.78;font-family:var(--body);font-weight:400}
+.calc-note{border:1.5px dashed var(--line);opacity:1;color:var(--muted)}
+.blade{box-shadow:0 10px 24px -14px rgba(27,36,64,.5),inset 0 0 0 1px rgba(0,0,0,.2)}
+
+/* ---------- cover cards: white, photo on top ---------- */
+.cc{background:var(--card);color:var(--ink);min-height:0;justify-content:flex-start;border-radius:26px;
+  box-shadow:var(--lift);transition:transform .4s cubic-bezier(.3,1.5,.5,1),box-shadow .3s ease}
+@media(min-width:960px){.cc{min-height:0}}
+.cc img{position:relative;inset:auto;width:calc(100% - 20px);height:auto;aspect-ratio:4/3;margin:10px 10px 0;
+  border-radius:20px;transition:transform .5s cubic-bezier(.3,1.5,.5,1)}
+.cc::after{display:none}
+.cc:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 0 0 1px rgba(27,36,64,.06),0 26px 50px -24px rgba(27,36,64,.45)}
+.cc:hover img{transform:scale(1.03)}
+.cc-body{padding:14px 20px 20px;display:flex;flex-direction:column;flex:1}
+.cc-moment{color:var(--blue);letter-spacing:.04em;text-transform:none;font-size:12.5px;font-weight:800}
+.cc h3{font-size:clamp(20px,2vw,23px)}
+.cc p{color:var(--muted);opacity:1;font-size:14.5px;flex:1}
+.cc-links a{color:var(--blue);border-bottom:0;font-family:var(--display);font-weight:800;font-size:15px;padding:0}
+.cc-links a:hover{color:var(--blue-deep)}
+@media(max-width:560px){.cc img{aspect-ratio:1/1}.cc-body{padding:12px 14px 16px}.cc h3{font-size:18px}.cc-moment{font-size:11.5px}}
+
+/* ---------- forms, sheet and guided review on light ---------- */
+.enq label{opacity:1;color:var(--muted)}
+.enq input[type=text],.enq input[type=tel],.enq input[type=email],.enq select,.enq textarea{
+  color:var(--ink);background-color:#fff;box-shadow:inset 0 0 0 1.5px var(--line)}
+.enq select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),
+  linear-gradient(135deg,var(--muted) 50%,transparent 50%)}
+.enq select option{background:#fff;color:var(--ink)}
+.enq input:focus,.enq select:focus,.enq textarea:focus{box-shadow:inset 0 0 0 2px var(--blue),0 0 0 4px var(--blue-soft)}
+.enq input::placeholder,.enq textarea::placeholder{color:rgba(91,100,128,.6)}
+.consent{background:var(--blue-soft);box-shadow:none}
+.enq label.consent{color:var(--ink)}
+.consent a{color:var(--blue)}
+.enq-gate{opacity:1;color:var(--muted)}
+.enq-err{color:#C2412A}
+.enq-sent{background:var(--mint-soft);box-shadow:none}
+.contact-card{background:var(--cream);box-shadow:var(--lift)}
+.contact-card .addr a{color:var(--blue)}
+.sheet-scrim{background:rgba(27,36,64,.45)}
+.sheet{background:var(--cream);color:var(--ink);box-shadow:0 50px 90px -40px rgba(27,36,64,.7)}
+.sheet-lede{color:var(--muted);opacity:1}
+.sheet-alt{opacity:1;color:var(--muted)}
+.sheet-alt a{color:var(--blue)}
+.sheet-x{background:#fff;color:var(--ink);box-shadow:0 0 0 1px rgba(27,36,64,.08)}
+.sheet-x:hover{background:var(--blue-soft)}
+.ff-bar{background:var(--line)}
+.ff-opt{color:var(--ink);background:#fff;font-weight:600;
+  box-shadow:0 0 0 1.5px var(--line),0 8px 20px -16px rgba(27,36,64,.4)}
+.ff-opt:hover{background:var(--blue-soft)}
+.ff-opt[aria-pressed="true"]{background:var(--blue-soft);box-shadow:inset 0 0 0 2px var(--blue)}
+.ff-opt .tick{color:var(--blue)}
+.ff-back{color:var(--ink)}
+.ff-note{opacity:1;color:var(--muted)}
+.ff-bot{background:#fff;box-shadow:var(--lift)}
+.ff-bot-head b{text-transform:none;font-weight:900}
+.ff-bot-head em{opacity:1;color:var(--muted)}
+.ff-msg-you{background:var(--blue);color:#fff}
+.ff-msg-bot{background:var(--cream)}
+.ff-typing span{background:var(--muted)}
+.ff-chip{color:var(--blue-deep);background:var(--blue-soft);box-shadow:none}
+.ff-chip:hover{background:#D3E6F5}
+.ff-ask input{color:var(--ink);background:var(--cream);box-shadow:inset 0 0 0 1.5px var(--line)}
+.sticky-cta{background:linear-gradient(120deg,var(--blue-deep),var(--blue));
+  box-shadow:0 20px 50px -20px rgba(27,36,64,.6),inset 0 1px 0 rgba(255,255,255,.35)}
+.sticky-cta b{text-transform:none;font-weight:900;letter-spacing:-.01em}
+.sticky-cta .go{background:var(--sun);color:var(--ink)}
+
+/* ---------- the closing card: Headroom's blue box ---------- */
+.final-band,.film-band:not(#familyGate){background:transparent;color:#fff;overflow:visible;
+  padding:clamp(24px,4vw,40px) 0 clamp(64px,9vw,110px)}
+.film-band:not(#familyGate) .film-media{display:none}
+.final-band > .wrap,.film-band:not(#familyGate) > .wrap{position:relative;overflow:hidden;z-index:1;
+  max-width:1040px;width:calc(100% - 2*clamp(18px,5vw,56px));margin:0 auto;padding:clamp(34px,5.5vw,64px);
+  border-radius:clamp(28px,4vw,40px);background:linear-gradient(135deg,var(--blue),#3E97DD);
+  box-shadow:0 30px 60px -30px rgba(18,113,183,.7)}
+.final-band > .wrap::before,.film-band:not(#familyGate) > .wrap::before{content:"";position:absolute;z-index:-1;
+  right:-90px;bottom:-140px;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.08);
+  box-shadow:0 0 0 70px rgba(255,255,255,.05)}
+.final-band .kicker,.film-band:not(#familyGate) .kicker{background:rgba(255,255,255,.18);color:#fff}
+.final-band h2,.film-band:not(#familyGate) h2{font-size:clamp(36px,5.4vw,64px);color:#fff}
+.final-band .lede,.film-band:not(#familyGate) .lede{color:#E2EEF9;opacity:1}
+.final-band .panel-lbl{color:#E2EEF9}
+.section.final-band .btn-primary,.film-band:not(#familyGate) .btn-primary{color:var(--ink);background-color:var(--sun);
+  background-image:linear-gradient(180deg,#FFD767,var(--sun) 60%,#F2AE12);
+  box-shadow:0 0 0 2px rgba(255,255,255,.6) inset,0 0 0 3px #FFE59A,0 12px 26px -8px rgba(242,174,18,.8)}
+.section.final-band .btn-ghost,.film-band:not(#familyGate) .btn-ghost{color:#fff;background-color:rgba(255,255,255,.14);
+  box-shadow:0 0 0 2px rgba(255,255,255,.6) inset}
+.section.final-band .btn-ghost:hover,.film-band:not(#familyGate) .btn-ghost:hover{background-color:rgba(255,255,255,.24);
+  box-shadow:0 0 0 2px #fff inset,0 16px 30px -14px rgba(0,0,0,.35)}
+
+/* ---------- footer ---------- */
+footer.foot{background:#1B2440;color:#A9B1C7}
+footer.foot .addr a,footer.foot .reg a{color:#fff}
+footer.foot .reg{border-top-color:rgba(255,255,255,.12);color:#A9B1C7}
+.foot-brand img{box-sizing:content-box;background:#fff;border-radius:14px;padding:9px 13px;width:auto;height:40px}
+
+/* ================= HOME: the Headroom-style sections ================= */
+.hh{position:relative;overflow:hidden;isolation:isolate;padding:clamp(104px,11vw,132px) 0 clamp(26px,4vw,46px)}
+.hh::before{content:"";position:absolute;z-index:-1;width:62vw;height:62vw;top:-34%;right:-22%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,197,61,.32),transparent 62%);filter:blur(40px)}
+.hh::after{content:"";position:absolute;z-index:-1;width:52vw;height:52vw;left:-22%;bottom:-40%;border-radius:50%;
+  background:radial-gradient(circle,rgba(18,113,183,.14),transparent 62%);filter:blur(40px)}
+.hh-grid{display:grid;grid-template-columns:1fr;gap:38px;align-items:center}
+.hh-grid > *{min-width:0}
+@media(min-width:1000px){.hh-grid{grid-template-columns:1.06fr .94fr;gap:44px}}
+.hh h1.lines{font-size:clamp(42px,6.2vw,80px);line-height:1.0;margin-top:20px}
+.hh .sub{font-size:clamp(16px,1.6vw,19px);color:var(--muted);max-width:46ch;margin-top:22px}
+.hh .forline{margin-top:16px}
+.hh-choices{display:grid;gap:10px;margin-top:26px;max-width:500px}
+.hh-choice{display:flex;align-items:center;gap:14px;padding:9px 12px 9px 9px;border-radius:999px;text-decoration:none;
+  color:var(--ink);background:#fff;font:800 17px/1.2 var(--display);box-shadow:var(--lift);
+  transition:transform .25s cubic-bezier(.3,1.5,.5,1),box-shadow .25s ease,background-color .25s ease}
+.hh-face{flex:0 0 52px;width:52px;height:52px;border-radius:50%;background-color:#141B1E;background-repeat:no-repeat;
+  box-shadow:0 0 0 2px #fff,0 0 0 3px var(--line)}
+.hh-face-family{background-size:150% auto;background-position:50% 20%}
+.hh-face-sport,.hh-face-trade{background-size:250% auto;background-position:52% 11%}
+.hh-choice .go{margin-left:auto;flex:0 0 40px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  background:var(--blue-soft);color:var(--blue);font-size:18px;transition:transform .25s ease,background-color .25s ease,color .25s ease}
+.hh-choice:hover,.hh-choice.lit{transform:translateX(4px);box-shadow:0 0 0 2px var(--blue) inset,0 16px 30px -18px rgba(18,113,183,.6)}
+.hh-choice:hover .go,.hh-choice.lit .go{background:var(--blue);color:#fff;transform:translateX(2px)}
+.ticks{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:14.5px;font-weight:600;color:var(--muted)}
+.ticks span::before{content:"\2713";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;
+  background:var(--mint-soft);color:var(--mint);font-weight:900;font-size:12px;margin-right:7px}
+.hh .hero-ring{margin-top:14px}
+
+.hh-art{position:relative;width:100%;max-width:440px;margin:0 auto}
+.hh-plate{position:relative;aspect-ratio:3/4;border-radius:32px;overflow:hidden;background:#141B1E;
+  box-shadow:0 0 0 8px #fff,0 40px 70px -34px rgba(27,36,64,.6)}
+.hh-plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);
+  transition:opacity .7s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.hh-plate img.on{opacity:1;transform:none}
+.hh-plate::after{content:"";position:absolute;left:0;right:0;height:22%;z-index:2;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(180deg,transparent,rgba(111,180,232,.14) 34%,rgba(160,210,250,.55) 50%,rgba(111,180,232,.14) 66%,transparent);
+  animation:dcs-scan 7.5s cubic-bezier(.4,0,.5,1) infinite}
+.hh-float{position:absolute;z-index:3;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:18px;
+  background:#fff;color:var(--ink);text-decoration:none;box-shadow:var(--lift);max-width:230px;
+  animation:hh-bob 5.5s ease-in-out infinite;transition:box-shadow .25s ease}
+.hh-float:hover{box-shadow:0 0 0 2px var(--blue) inset,0 18px 40px -22px rgba(27,36,64,.5)}
+.hh-float img{flex:0 0 42px;width:42px;height:42px;border-radius:12px;object-fit:cover}
+.hh-float b{display:block;font:900 15px/1.15 var(--display);letter-spacing:-.01em}
+.hh-float em{display:block;font-style:normal;font-size:12px;line-height:1.35;color:var(--muted);margin-top:2px}
+.hh-f1{left:-15%;top:10%}
+.hh-f2{right:-13%;top:44%;animation-delay:-1.8s}
+.hh-f3{left:-9%;bottom:7%;animation-delay:-3.6s}
+@keyframes hh-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:1180px){.hh-f1{left:-6%}.hh-f2{right:-5%}.hh-f3{left:-3%}}
+@media(max-width:999px){
+  .hh-art{max-width:360px}
+  .hh-f1{left:-4%;top:6%}.hh-f2{right:-4%;top:46%}.hh-f3{left:-4%;bottom:5%}
+  .hh-float{max-width:200px;padding:7px 12px 7px 7px}
+  .hh-float img{flex-basis:36px;width:36px;height:36px}
+  .hh-float em{display:none}
+}
+
+.hh-marq{overflow:hidden;padding:18px 0;position:relative;z-index:2}
+.hh-marq .band{background:var(--blue);color:#fff;white-space:nowrap;padding:18px 0;
+  font:900 clamp(18px,2.2vw,26px)/1 var(--display);transform:rotate(-1.2deg) scale(1.03)}
+.hh-marq .track{display:inline-flex;animation:hh-marq 42s linear infinite}
+/* spacing lives on the phrases (margin), not a flex gap, so both halves are
+   the same width and the -50% loop has no seam */
+.hh-marq .track span{margin-right:44px}
+.hh-marq .track span::after{content:"\25CF";color:var(--sun);margin-left:44px;font-size:.6em;vertical-align:.2em}
+@keyframes hh-marq{to{transform:translateX(-50%)}}
+
+.hh-head{max-width:720px}
+.hh-head .lede{margin-top:14px}
+.hh-play .calc{margin-top:34px}
+
+.cc-grid{margin-top:40px}
+.cc-unsure{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;
+  padding:clamp(20px,3vw,28px) clamp(22px,3.4vw,34px);border-radius:26px;background:var(--sun);color:var(--ink);
+  box-shadow:0 18px 40px -24px rgba(242,174,18,.8)}
+.cc-unsure h3{font-size:clamp(20px,2.4vw,26px)}
+.cc-unsure p{margin-top:4px;color:#5A4300;max-width:52ch}
+.cc-unsure .btn{background-image:none;background-color:#fff;color:var(--ink);box-shadow:0 0 0 2px rgba(255,255,255,.7) inset,0 12px 24px -14px rgba(90,67,0,.6)}
+.cc-unsure .btn::after{display:none}
+.hh-cover .panel{margin-top:42px;max-width:none}
+
+.hh-steps .wrap{display:grid;grid-template-columns:1fr;gap:34px;align-items:start}
+@media(min-width:960px){.hh-steps .wrap{grid-template-columns:.9fr 1.1fr;gap:56px}}
+.steps{display:flex;flex-direction:column;gap:14px}
+.step{position:relative;background:var(--card);border-radius:26px;padding:24px 26px 24px 96px;box-shadow:var(--lift)}
+.step .num{position:absolute;left:22px;top:22px;width:54px;height:54px;border-radius:18px;display:grid;place-items:center;
+  font:900 26px var(--display);color:#fff;background:var(--c);transform:rotate(-6deg)}
+.step h3{font-size:clamp(20px,2.2vw,24px)}
+.step p{color:var(--muted);margin-top:6px}
+
+.ww{display:grid;grid-template-columns:1fr;gap:16px;margin-top:34px}
+@media(min-width:820px){.ww{grid-template-columns:1fr 1fr}}
+.ww > div{border-radius:26px;padding:clamp(24px,3vw,32px)}
+.ww .will{background:var(--mint-soft)}
+.ww .wont{background:var(--coral-soft)}
+.ww h3{font-size:clamp(22px,2.4vw,28px);margin-bottom:14px}
+.ww ul{list-style:none;padding:0;display:grid;gap:12px}
+.ww li{position:relative;padding-left:34px;color:#394260}
+.ww li b{color:var(--ink)}
+.ww li::before{position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+  color:#fff;font-weight:900;font-size:12px}
+.ww .will li::before{content:"\2713";background:var(--mint)}
+.ww .wont li::before{content:"\2715";background:var(--coral)}
+
+.faq{margin-top:34px;max-width:840px;display:flex;flex-direction:column;gap:10px}
+.faq details{background:var(--card);border-radius:20px;padding:0 22px;box-shadow:0 8px 24px -18px rgba(27,36,64,.4)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 44px 20px 0;font:800 clamp(17px,1.8vw,19px)/1.3 var(--display);position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:0;top:15px;width:30px;height:30px;border-radius:50%;background:var(--blue-soft);
+  color:var(--blue);font:900 22px/30px var(--display);text-align:center;transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.faq details[open] summary::after{transform:rotate(135deg)}
+.faq details p{margin:0 0 20px;color:var(--muted);max-width:66ch}
+
+/* h1.lines .ln (0,2,1) sets display:block and outranks a plain `h1 .hit`, which
+   left the yellow marker running the full width of the column. display:table
+   keeps the line on its own row but shrinks the marker to the words. */
+h1.lines .ln.hit{display:table}
+.hh h1.lines{font-size:clamp(38px,4.3vw,60px)}
+@media(min-width:1000px){.hh h1.lines .ln{white-space:nowrap}}
+/* Grid items default to min-width:auto, so the income box's natural width
+   pushed both calculator columns ~30px past the card on phones (live site
+   too). */
+.calc-grid > *{min-width:0}
+@media(max-width:480px){
+  .mode{flex-wrap:nowrap}
+  .mode button{padding:8px 10px;font-size:12.5px}
+  .hh-choice:hover,.hh-choice.lit{transform:none}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hh-float,.hh-marq .track,.hh-plate::after{animation:none}
+  .hh-marq .track{width:auto}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="siteHead">
   <div class="head-island">
-    <a class="head-logo" href="index.html" aria-label="DCS Insure — home"><img src="assets/favicon.png" alt="DCS Insure" width="21" height="21"></a>
+    <a class="head-logo" href="index.html" aria-label="DCS Insure — home"><img src="assets/dcs-logo-tight.png" alt="DCS Insure" width="127" height="44"></a>
     <nav class="nav-wrap" id="navWrap" aria-label="Main">
       <ul class="nav" id="primary-nav">
-      <li><a href="index.html" aria-current="page">Home</a></li>
-      <li><a href="private-medical-insurance.html">Private Medical Insurance</a></li>
-      <li><a href="income-protection.html">Income Protection</a></li>
-      <li><a href="life-critical-illness.html">Life or Critical Illness</a></li>
-      <li><a href="review.html">Start a review</a></li>
-      <li><a href="contact.html">Contact Us</a></li>
+      <li class="sheet-only"><a href="index.html" aria-current="page"><span class="nl-long">Home</span><span class="nl-short">Home</span></a></li>
+      <li><a href="private-medical-insurance.html"><span class="nl-long">Private Medical Insurance</span><span class="nl-short">Private medical</span></a></li>
+      <li><a href="income-protection.html"><span class="nl-long">Income Protection</span><span class="nl-short">Income protection</span></a></li>
+      <li><a href="life-critical-illness.html"><span class="nl-long">Life or Critical Illness</span><span class="nl-short">Life cover</span></a></li>
+      <li class="sheet-only"><a href="review.html"><span class="nl-long">Start a review</span><span class="nl-short">Start a review</span></a></li>
+      <li><a href="contact.html"><span class="nl-long">Contact Us</span><span class="nl-short">Contact</span></a></li>
       </ul>
     </nav>
+    <a class="btn btn-primary head-cta" href="review.html">Start a review <span class="arr" aria-hidden="true">&rarr;</span></a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
       <span class="bars-ico" aria-hidden="true"></span> Menu
     </button>
@@ -1054,81 +1470,330 @@ body::after{
 </header>
 <main id="main">
 
-<section class="hero film-band" id="familyGate">
-  <div class="film-media">
-    <video src="assets/hero-prom.mp4" poster="assets/hero-prom-poster.jpg"
-           autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
-  </div>
-  <div class="gate-ghosts" aria-hidden="true">
-    <img class="ghost ghost-family" src="assets/figure-family.webp" alt="" width="1100" height="1467" loading="eager">
-    <img class="ghost ghost-sport" src="assets/figure-male-footballer.webp" alt="" width="1100" height="1467" loading="eager">
-    <img class="ghost ghost-trade" src="assets/figure-male-builder.webp" alt="" width="1100" height="1467" loading="eager">
-  </div>
-  <div class="wrap">
-    <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Porthcawl &middot; Insurance &amp; protection</span>
-    <h1 class="lines"><span class="ln">Cover for</span><span class="ln">the people who</span><span class="ln hit">depend on you.</span></h1>
-    <div class="rule"></div>
-    <p class="sub">Private medical insurance, income protection and life or critical illness
-    cover — introduced and arranged around what you can actually afford, whoever you are and
-    whatever "unable to work" would actually mean for the people who count on you.</p>
-    <p class="forline">
-      <span>Built for</span>
-      <span class="cycle" id="roleCycle"><b>mums</b></span>
-    </p>
-    <div class="hero-actions">
-      <a class="btn btn-ghost btn-choice" href="family.html" id="gateFamily"><span class="choice-label">Cover me and my family <span aria-hidden="true">&rarr;</span></span><span class="choice-face choice-face-family" style="background-image:url(assets/figure-family.webp)" aria-hidden="true"></span></a>
-      <a class="btn btn-ghost btn-choice" href="sport.html" id="gateSport"><span class="choice-label">I play sport <span aria-hidden="true">&rarr;</span></span><span class="choice-face choice-face-sport" style="background-image:url(assets/figure-male-footballer.webp)" aria-hidden="true"></span></a>
-      <a class="btn btn-ghost btn-choice" href="trades.html" id="gateTrade"><span class="choice-label">I'm on the tools <span aria-hidden="true">&rarr;</span></span><span class="choice-face choice-face-trade" style="background-image:url(assets/figure-male-builder.webp)" aria-hidden="true"></span></a>
+<section class="hh" id="home">
+  <div class="wrap hh-grid">
+    <div class="hh-copy">
+      <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Porthcawl &middot; Insurance &amp; protection</span>
+      <h1 class="lines"><span class="ln">Cover for</span><span class="ln">the people who</span><span class="ln hit">depend on you.</span></h1>
+      <p class="sub">Private medical insurance, income protection and life or critical illness
+      cover — introduced and arranged around what you can actually afford, whoever you are and
+      whatever "unable to work" would actually mean for the people who count on you.</p>
+      <p class="forline">
+        <span>Built for</span>
+        <span class="cycle" id="roleCycle"><b>mums</b></span>
+      </p>
+      <div class="hh-choices">
+        <a class="hh-choice" href="family.html" data-fig="0"><span class="hh-face hh-face-family" style="background-image:url(assets/figure-family.webp)" aria-hidden="true"></span>Cover me and my family<span class="go" aria-hidden="true">&rarr;</span></a>
+        <a class="hh-choice" href="sport.html" data-fig="1"><span class="hh-face hh-face-sport" style="background-image:url(assets/figure-male-footballer.webp)" aria-hidden="true"></span>I play sport<span class="go" aria-hidden="true">&rarr;</span></a>
+        <a class="hh-choice" href="trades.html" data-fig="2"><span class="hh-face hh-face-trade" style="background-image:url(assets/figure-male-builder.webp)" aria-hidden="true"></span>I'm on the tools<span class="go" aria-hidden="true">&rarr;</span></a>
+      </div>
+      <p class="ticks"><span>No obligation</span><span>Nothing sold on the first call</span><span>Real people in Porthcawl</span></p>
+      <p class="hero-ring">Or ring <a href="tel:+441656856120">01656 856120</a> (Option 3)</p>
     </div>
-    <p class="hero-ring">Or ring <a href="tel:+441656856120">01656 856120</a> (Option 3)</p>
+
+    <div class="hh-art">
+      <div class="hh-plate" id="hhPlate">
+        <img class="on" src="assets/figure-family.webp" alt="A family of four standing together" width="1100" height="1467" fetchpriority="high">
+        <img src="assets/figure-male-footballer.webp" alt="" aria-hidden="true" width="1100" height="1467" loading="lazy" decoding="async">
+        <img src="assets/figure-male-builder.webp" alt="" aria-hidden="true" width="1100" height="1467" loading="lazy" decoding="async">
+      </div>
+      <a class="hh-float hh-f1" href="private-medical-insurance.html"><img src="assets/shot-mri.webp" alt="" width="42" height="42"><span><b>Private medical</b><em>Private diagnosis and treatment</em></span></a>
+      <a class="hh-float hh-f2" href="income-protection.html"><img src="assets/shot-kitchen.webp" alt="" width="42" height="42"><span><b>Income protection</b><em>A monthly benefit while you can't earn</em></span></a>
+      <a class="hh-float hh-f3" href="life-critical-illness.html"><img src="assets/shot-family.webp" alt="" width="42" height="42"><span><b>Life &amp; critical illness</b><em>A lump sum when it matters most</em></span></a>
+    </div>
   </div>
 </section>
 
-<section class="section" id="familyProducts">
+<div class="hh-marq" aria-hidden="true"><div class="band"><div class="track"><span>Someone depends on you</span><span>The bills don't pause</span><span>The wait is the worst part</span><span>Your body is your business</span><span>Protect both</span><span>Someone depends on you</span><span>The bills don't pause</span><span>The wait is the worst part</span><span>Your body is your business</span><span>Protect both</span></div></div></div>
+
+<section class="section hh-play" id="gap">
   <div class="wrap">
-    <span class="kicker">What we arrange</span>
-    <h2>Cover built around real life</h2>
-    <p class="lede">Three things, described plainly. Which of these is right for you, if
-    any, is a conversation — not something a website can decide.</p>
-    <div class="tiles">
-      <a class="tile" href="private-medical-insurance.html">
-        <img src="assets/shot-mri.webp" alt="A patient entering an MRI scanner in a darkened room" loading="lazy" width="1400" height="933">
-        <span class="tile-rim"></span>
-        <span class="tile-body">
-          <span class="tile-n">01</span>
-          <h3>Private Medical Insurance</h3>
-          <p>Private diagnosis and treatment, so a wait doesn't cost you weeks of worry.</p>
-          <span class="tile-go">Find out more <span>&rarr;</span></span>
-        </span>
-      </a>
-      <a class="tile" href="income-protection.html">
-        <img src="assets/shot-boots.webp" alt="Muddy boots left on a bench in an empty changing room, dust in a shaft of light" loading="lazy" width="1400" height="933">
-        <span class="tile-rim"></span>
-        <span class="tile-body">
-          <span class="tile-n">02</span>
-          <h3>Income Protection</h3>
+    <div class="hh-head">
+      <span class="kicker">Have a play</span>
+      <h2>What does a month out cost you?</h2>
+      <p class="lede">Put your own number in — it takes ten seconds. Pick whichever sounds like you:
+      playing, on the tools, or salaried.</p>
+    </div>
+    <div class="calc is-general">
+      <div class="mode" role="group" aria-label="What you do">
+        <button type="button" id="modeSport" aria-pressed="false">I play</button>
+        <button type="button" id="modeTrade" aria-pressed="false">I'm on the tools</button>
+        <button type="button" id="modeGeneral" aria-pressed="true">I'm salaried</button>
+      </div>
+
+      <div class="calc-grid">
+        <div>
+          <label for="fee" id="feeLabel">Your monthly income</label>
+          <div class="fee-wrap">
+            <span class="fee-sym" aria-hidden="true">&pound;</span>
+            <input id="fee" type="text" inputmode="numeric" value="1800"
+                   aria-labelledby="feeLabel">
+          </div>
+          <p class="calc-sum" id="feeNote">Salary, self-employed profit — anything that stops when you do.</p>
+        </div>
+        <div>
+          <div class="weeks-head">
+            <label for="weeks" style="margin-bottom:0">Weeks off work</label>
+            <span class="weeks-val" id="weeksVal" aria-hidden="true">12 weeks</span>
+          </div>
+          <div class="blade">
+            <span class="blade-track" aria-hidden="true"></span>
+            <span class="blade-cal" aria-hidden="true"></span>
+            <input id="weeks" class="blade-input" type="range" min="1" max="52" step="1" value="12"
+                   aria-label="Weeks off work">
+          </div>
+          <div class="weeks-scale" aria-hidden="true">
+            <span>1</span><span>13</span><span>26</span><span>39</span><span>52</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-out" role="status" aria-live="polite">
+        <span class="lbl" id="outLabel">Income you wouldn't earn</span>
+        <div class="calc-fig" id="figure">&pound;5,400</div>
+        <p class="calc-sum" id="sum">&pound;450 &times; 12 weeks = &pound;5,400</p>
+      </div>
+
+      <!-- The other half of the picture: what this KIND of cover is generally
+           designed to do. Deliberately a range, deliberately described as how
+           the product works rather than what anyone would be paid. -->
+      <div class="calc-back">
+        <span class="lbl">What cover like this is designed to replace</span>
+        <div class="calc-back-fig"><span id="benefit">&pound;975 &ndash; &pound;1,170</span>
+          <em>a month, while you can't work</em></div>
+        <p class="calc-sum" id="benefitBasis">Around 50&ndash;60% of your earnings — the usual
+        shape of an income protection policy.</p>
+      </div>
+
+      <p class="calc-note">
+        <b>What these figures are</b>
+        <span id="discl">The first is arithmetic on the two numbers you typed: your weekly
+        playing income multiplied by the weeks you selected.</span> The second shows the
+        proportion of earnings this kind of cover is generally built to replace, applied to
+        your own figure. Neither is a quote, an estimate, or a statement of what any policy
+        would pay you. What you'd actually be offered depends on the insurer, your job, your
+        health and the waiting period you choose &mdash; that's a conversation, not a sum.
+      </p>
+    </div>
+
+    <script>
+    (function(){
+      var fee = document.getElementById('fee'),
+          weeks = document.getElementById('weeks'),
+          weeksVal = document.getElementById('weeksVal'),
+          figure = document.getElementById('figure'),
+          sum = document.getElementById('sum'),
+          feeLabel = document.getElementById('feeLabel'),
+          feeNote = document.getElementById('feeNote'),
+          outLabel = document.getElementById('outLabel'),
+          discl = document.getElementById('discl'),
+          bSport = document.getElementById('modeSport'),
+          bTrade = document.getElementById('modeTrade'),
+          bGeneral = document.getElementById('modeGeneral'),
+          benefit = document.getElementById('benefit'),
+          benefitBasis = document.getElementById('benefitBasis');
+      var BAND = [0.5, 0.6];
+
+      var DAYS = 5; // working days a week, used in trade mode only
+      var mode = 'general';
+
+      var MODES = {
+        sport: {
+          label: 'Your weekly playing income',
+          note:  'Match fees, contract pay, anything that stops when you do.',
+          out:   'Playing income you wouldn\u2019t earn',
+          value: '450',
+          discl: 'This is arithmetic on the two numbers you typed: your weekly playing income multiplied by the weeks you selected.'
+        },
+        trade: {
+          label: 'Your day rate',
+          note:  '\u00D7 ' + DAYS + ' working days a week.',
+          out:   'Earnings not invoiced',
+          value: '220',
+          discl: 'This is arithmetic on the numbers you typed: your day rate \u00D7 ' + DAYS + ' working days \u00D7 the weeks you selected.'
+        },
+        general: {
+          label: 'Your monthly income',
+          note:  'Salary, self-employed profit — anything that stops when you do.',
+          out:   'Income you wouldn\u2019t earn',
+          value: '1800',
+          discl: 'This is arithmetic on the numbers you typed: your monthly income converted to a weekly figure, multiplied by the weeks you selected.'
+        }
+      };
+
+      var gbp = function(n){
+        return '\u00A3' + Math.round(n).toLocaleString('en-GB', {maximumFractionDigits:0});
+      };
+
+      function render(){
+        var raw = Number(String(fee.value).replace(/[^0-9.]/g, ''));
+        if (!isFinite(raw) || raw < 0) raw = 0;
+        raw = Math.min(raw, 20000);
+        var w = Number(weeks.value);
+        var wk = w + (w === 1 ? ' week' : ' weeks');
+        var perWeek = (mode === 'trade') ? raw * DAYS : (mode === 'general' ? raw * 12 / 52 : raw);
+        var total = perWeek * w;
+        weeksVal.textContent = wk;
+        figure.textContent = gbp(total);
+        if (benefit) {
+          var monthly = perWeek * 52 / 12;
+          benefit.textContent = gbp(monthly * BAND[0]) + ' \u2013 ' + gbp(monthly * BAND[1]);
+          benefitBasis.textContent = 'Around ' + Math.round(BAND[0]*100) + '\u2013' +
+            Math.round(BAND[1]*100) + '% of your earnings \u2014 the usual shape of an income ' +
+            'protection policy.';
+        }
+        sum.textContent = (mode === 'trade')
+          ? gbp(raw) + ' \u00D7 ' + DAYS + ' days \u00D7 ' + wk + ' = ' + gbp(total)
+          : (mode === 'general')
+          ? gbp(raw) + '/month \u2192 ' + gbp(perWeek) + '/week \u00D7 ' + wk + ' = ' + gbp(total)
+          : gbp(raw) + ' \u00D7 ' + wk + ' = ' + gbp(total);
+      }
+
+      function setMode(next){
+        mode = next;
+        var m = MODES[mode];
+        feeLabel.textContent = m.label;
+        feeNote.textContent = m.note;
+        outLabel.textContent = m.out;
+        discl.textContent = m.discl;
+        fee.value = m.value;
+        bSport.setAttribute('aria-pressed', mode === 'sport' ? 'true' : 'false');
+        bTrade.setAttribute('aria-pressed', mode === 'trade' ? 'true' : 'false');
+        bGeneral.setAttribute('aria-pressed', mode === 'general' ? 'true' : 'false');
+        document.querySelector('.calc').classList.toggle('is-sport', mode === 'sport');
+        document.querySelector('.calc').classList.toggle('is-general', mode === 'general');
+        render();
+      }
+
+      function touched(){ figure.dataset.userSet = '1'; render(); }
+      bSport.addEventListener('click', function(){ figure.dataset.userSet = '1'; setMode('sport'); });
+      bTrade.addEventListener('click', function(){ figure.dataset.userSet = '1'; setMode('trade'); });
+      bGeneral.addEventListener('click', function(){ figure.dataset.userSet = '1'; setMode('general'); });
+      fee.addEventListener('input', touched);
+      weeks.addEventListener('input', touched);
+      render();
+    })();
+    </script>
+  </div>
+</section>
+
+
+<section class="section hh-cover" id="cover">
+  <div class="wrap">
+    <div class="hh-head">
+      <span class="kicker">What we arrange</span>
+      <h2>Different cover for different worries.</h2>
+      <p class="lede">Which of these is right for you, if any, is a conversation — not something
+      a website can decide.</p>
+    </div>
+    <div class="cc-grid">
+      <article class="cc">
+        <img src="assets/shot-family.webp" alt="A father holding his young daughter at a window at dusk" loading="lazy" decoding="async">
+        <div class="cc-body">
+          <span class="cc-moment">Someone depends on you</span>
+          <h3>Life &amp; critical illness</h3>
+          <p>A lump sum if you die, or on diagnosis of a condition named in the policy.</p>
+          <div class="cc-links"><a href="life-critical-illness.html">Find out more <span aria-hidden="true">&rarr;</span></a></div>
+        </div>
+      </article>
+      <article class="cc">
+        <img src="assets/shot-kitchen.webp" alt="A mother at the kitchen table late at night with bills and a laptop" loading="lazy" decoding="async">
+        <div class="cc-body">
+          <span class="cc-moment">The bills don't pause</span>
+          <h3>Income protection</h3>
           <p>A monthly benefit while you're unable to work through illness or injury.</p>
-          <span class="tile-go">Find out more <span>&rarr;</span></span>
-        </span>
-      </a>
-      <a class="tile" href="life-critical-illness.html">
-        <img src="assets/shot-family.webp" alt="A father holding his young daughter at a window at dusk" loading="lazy" width="1400" height="933">
-        <span class="tile-rim"></span>
-        <span class="tile-body">
-          <span class="tile-n">03</span>
-          <h3>Life or Critical Illness</h3>
-          <p>A lump sum on death, or on diagnosis of a condition named in the policy.</p>
-          <span class="tile-go">Find out more <span>&rarr;</span></span>
-        </span>
-      </a>
+          <div class="cc-links"><a href="income-protection.html">Find out more <span aria-hidden="true">&rarr;</span></a></div>
+        </div>
+      </article>
+      <article class="cc">
+        <img src="assets/shot-mri.webp" alt="A patient entering an MRI scanner in a darkened room" loading="lazy" decoding="async">
+        <div class="cc-body">
+          <span class="cc-moment">The wait is the worst part</span>
+          <h3>Private medical</h3>
+          <p>Private diagnosis and treatment, for you or the whole family.</p>
+          <div class="cc-links"><a href="private-medical-insurance.html">Find out more <span aria-hidden="true">&rarr;</span></a></div>
+        </div>
+      </article>
+      <article class="cc">
+        <img src="assets/shot-legs.webp" alt="Two knees side by side: one taped for football, one in a dusty work knee pad" loading="lazy" decoding="async">
+        <div class="cc-body">
+          <span class="cc-moment">Your body is your business</span>
+          <h3>Sport &amp; trades</h3>
+          <p>Cover built around playing income or a day rate.</p>
+          <div class="cc-links"><a href="sport.html">I play sport <span aria-hidden="true">&rarr;</span></a><a href="trades.html">I'm on the tools <span aria-hidden="true">&rarr;</span></a></div>
+        </div>
+      </article>
+    </div>
+    <div class="cc-unsure">
+      <div>
+        <h3>Not sure which?</h3>
+        <p>Most people aren't. Answer a few quick questions and one of the team will talk it
+        through with you.</p>
+      </div>
+      <a class="btn" href="review.html">Start my review <span class="arr" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="panel">
+      <p class="panel-lbl">Arranged through insurers including</p>
+      <div class="panel-viewport">
+        <div class="panel-track">
+          <div class="panel-set"><span class="panel-pill"><img src="assets/providers/life-critical-illness/aviva.png" alt="Aviva" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/guardian.png" alt="Guardian" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/legal-and-general.png" alt="Legal And General" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/liverpool-victoria.jpg" alt="Liverpool Victoria" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/royal-london.png" alt="Royal London" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/scottish-widows.jpg" alt="Scottish Widows" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/vitality.png" alt="Vitality" height="22"></span><span class="panel-pill"><img src="assets/providers/pmi/bupa.png" alt="Bupa" height="22"></span><span class="panel-pill"><img src="assets/providers/pmi/the-exeter.jpg" alt="The Exeter" height="22"></span></div>
+          <div class="panel-set" aria-hidden="true"><span class="panel-pill"><img src="assets/providers/life-critical-illness/aviva.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/guardian.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/legal-and-general.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/liverpool-victoria.jpg" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/royal-london.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/scottish-widows.jpg" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/life-critical-illness/vitality.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/pmi/bupa.png" alt="" height="22"></span><span class="panel-pill"><img src="assets/providers/pmi/the-exeter.jpg" alt="" height="22"></span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-<section class="section section-dark film-band">
-  <div class="film-media">
-    <video src="assets/hero-prom.mp4" poster="assets/hero-prom-poster.jpg"
-           autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+
+
+<section class="section hh-steps" id="how">
+  <div class="wrap">
+    <div class="hh-head">
+      <span class="kicker">How it works</span>
+      <h2>Three steps. Plain English.</h2>
+      <p class="lede">Most people are done in a couple of minutes, then it's one phone call.</p>
+    </div>
+    <div class="steps">
+      <div class="step" style="--c:var(--blue)"><span class="num" aria-hidden="true">1</span><h3>Tell us about you</h3><p>A few quick taps: what you do, how you're paid and who depends on you. We don't ask about your health online.</p></div>
+      <div class="step" style="--c:var(--coral)"><span class="num" aria-hidden="true">2</span><h3>We talk it through</h3><p>One of the team rings at a time that suits you. Fifteen minutes on the phone, in plain English.</p></div>
+      <div class="step" style="--c:var(--mint)"><span class="num" aria-hidden="true">3</span><h3>You decide</h3><p>If cover makes sense, we arrange it with an insurer on our panel. There's no obligation, and nothing is sold on that first call.</p></div>
+    </div>
   </div>
+</section>
+
+
+<section class="section hh-ww">
+  <div class="wrap">
+    <div class="hh-head">
+      <span class="kicker">Straight talking</span>
+      <h2>What we are. What we're not.</h2>
+    </div>
+    <div class="ww">
+      <div class="will"><h3>We will</h3><ul><li><b>Explain it plainly.</b> What a policy covers, what it doesn't, and what it costs, before you commit to anything.</li><li><b>Work around your budget.</b> Cover arranged around what you can actually afford.</li><li><b>Tell you how we're paid.</b> Before you decide on anything.</li></ul></div>
+      <div class="wont"><h3>We won't</h3><ul><li><b>Quote you on a website.</b> Every price depends on you, so it comes from a conversation.</li><li><b>Ask about your health online.</b> That's for the call, where it can be handled properly.</li><li><b>Sell your details.</b> We never sell your personal data to anyone.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hh-faq" id="questions">
+  <div class="wrap">
+    <div class="hh-head">
+      <span class="kicker">Questions</span>
+      <h2>The things people ask.</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Is the review really free?</summary><p>Yes. There's no charge for the initial review and no obligation to take anything out. If you do go ahead with a policy, we'll explain how we're paid before you decide.</p></details>
+      <details><summary>Do I have to go ahead?</summary><p>No. The review is a conversation. Nothing is sold on that call, and if cover doesn't make sense for you, that's fine.</p></details>
+      <details><summary>I already have cover through work. Do I need more?</summary><p>Maybe not. Workplace cover varies a lot, and some of it stops if you change jobs. It's worth knowing what yours actually does, and we can look at that with you.</p></details>
+      <details><summary>I'm self-employed. Can I still get income protection?</summary><p>Yes. Income protection can be arranged for the self-employed, including tradespeople paid by the day. What an insurer offers depends on your work, your earnings and your health.</p></details>
+      <details><summary>Will you ask about my health?</summary><p>Not on this website. When you apply, insurers ask health questions, and we'll explain why they matter and what they mean for your cover.</p></details>
+      <details><summary>Which insurers do you use?</summary><p>We arrange cover through insurers on our panel, including Aviva, Bupa, Guardian, Legal &amp; General, Liverpool Victoria, Royal London, Scottish Widows, The Exeter and Vitality. Which one suits you is part of the conversation.</p></details>
+      <details><summary>Where are you based?</summary><p>1 The Portway, Porthcawl. Most reviews happen over the phone, so we can help wherever you are in the UK.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="section final-band">
   <div class="wrap">
     <span class="kicker">Next step</span>
     <h2>Free initial review</h2>
@@ -1136,37 +1801,39 @@ body::after{
     what would happen if you couldn't — or if it's someone else's cover you're thinking about.
     There is no obligation and nothing is sold on that call.</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="contact.html">Get in touch</a>
+      <a class="btn btn-primary" href="review.html">Book a free initial review <span class="arr" aria-hidden="true">&rarr;</span></a>
       <a class="btn btn-ghost" href="tel:+441656856120">01656 856120 (Option 3)</a>
     </div>
   </div>
 </section>
 
 <script>
-/* Phone spotlight for the three choice rows — see the .choice-face CSS.
-   Only runs below the desktop breakpoint (desktop has the hover ghosts
-   instead); reduced motion lights all three and never cycles. */
+/* The hero plate follows the three choices: it cycles family -> sport ->
+   trades with the matching button lit, and holds on whichever one you hover
+   or focus. Crossfades, not the landing pages' turn: the family photo isn't
+   registered to the single figures, so a flip between them would jump.
+   Reduced motion: no cycling, hover still swaps. */
 (function(){
-  var btns = Array.prototype.slice.call(document.querySelectorAll('#familyGate .btn-choice'));
-  if (!btns.length) return;
-  var mq = window.matchMedia('(max-width: 899px)');
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    btns.forEach(function(b){ b.classList.add('lit'); });
-    return;
+  var plate = document.getElementById('hhPlate');
+  if (!plate) return;
+  var imgs = plate.querySelectorAll('img');
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.hh-choice'));
+  var cur = 0, held = false;
+  function show(n){
+    cur = n;
+    for (var k = 0; k < imgs.length; k++) imgs[k].classList.toggle('on', k === n);
+    btns.forEach(function(b){ b.classList.toggle('lit', +b.getAttribute('data-fig') === n); });
   }
-  var i = 0, timer = null;
-  function light(n){ btns.forEach(function(b, k){ b.classList.toggle('lit', k === n); }); }
-  function start(){
-    if (timer || !mq.matches) return;
-    light(i);
-    timer = setInterval(function(){ i = (i + 1) % btns.length; light(i); }, 2600);
-  }
-  function stop(){
-    clearInterval(timer); timer = null;
-    btns.forEach(function(b){ b.classList.remove('lit'); });
-  }
-  if (mq.addEventListener) mq.addEventListener('change', function(){ if (mq.matches) start(); else stop(); });
-  start();
+  btns.forEach(function(b){
+    var n = +b.getAttribute('data-fig');
+    function hold(){ held = true; show(n); }
+    function release(){ held = false; }
+    b.addEventListener('mouseenter', hold); b.addEventListener('focus', hold);
+    b.addEventListener('mouseleave', release); b.addEventListener('blur', release);
+  });
+  show(0);
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  setInterval(function(){ if (!held && !document.hidden) show((cur + 1) % imgs.length); }, 3600);
 })();
 </script>
 </main>
@@ -1238,7 +1905,7 @@ body::after{
 
 <footer class="foot">
   <div class="wrap foot-in">
-    <div class="foot-brand"><img src="assets/dcs-insure-logo-transparent.png" alt="DCS Insure" width="98" height="45"></div>
+    <div class="foot-brand"><img src="assets/dcs-logo-tight.png" alt="DCS Insure" width="116" height="40" loading="lazy"></div>
     <p>DCS Insure introduces and arranges insurance and protection. Nothing on this website is
     advice, a recommendation, or a quotation. Which of these products, if any, is suitable for
     you is a conversation, not something a website can decide.</p>
@@ -1263,7 +1930,7 @@ body::after{
 </footer>
 
 <script>
-window.__DCS_ENQUIRY_ENDPOINT = "";
+window.__DCS_ENQUIRY_ENDPOINT = "https://dcs-enquiries.honest-misty-photo-reader.workers.dev/enquiry";
 window.__DCS_FIGURES = [["figure-male-footballer.webp", "A semi-professional footballer in muddy kit, standing"], ["figure-male-builder.webp", "A builder in dusty workwear with a tool belt, standing"], ["figure-female-footballer.webp", "A footballer in muddy kit, standing"], ["figure-female-electrician.webp", "An electrician in workwear with a tool belt, standing"]];
 window.__DCS_ROLES = ["mums", "dads", "young families", "grandparents", "semi-pro footballers", "rugby players", "tradespeople", "the self-employed"];
 window.__DCS_FF_STEPS = [{"chips": ["income protection", "advice"], "id": "who", "q": "First \u2014 which of these fits you best?", "help": "It changes what we ask next. A salaried parent, a contracted player and a self-employed sparky have very different gaps.", "type": "choice", "key": "doing", "options": ["Cover for me and my family", "I play sport", "I'm on the tools", "Both sport and trades"]}, {"chips": ["club", "income protection"], "notes": {"Professional / contracted": "If you're contracted, check what the club already provides \u2014 it's often narrower than people expect, and we'd rather you didn't pay twice."}, "id": "detail-sport", "q": "What do you play, and at what level?", "help": "Level matters more than the sport. Semi-pro and contracted players get underwritten differently to weekend players.", "type": "choice", "key": "level", "only": "sport", "options": ["Semi-professional", "Professional / contracted", "Amateur or weekend", "Coaching or officiating"]}, {"chips": ["income protection", "cost"], "notes": {"Roofer or working at height": "Worth saying now: working at height is rated differently by most insurers. It's a factor in the price, not a barrier to getting covered."}, "id": "detail-trade", "q": "What's the trade?", "help": "Some trades are rated differently by insurers \u2014 working at height in particular. It's a factor, not a barrier.", "type": "choice", "key": "trade", "only": "trade", "options": ["Electrician", "Builder / groundworker", "Plumber or heating", "Roofer or working at height", "Carpenter or joiner", "Something else"]}, {"chips": ["income protection", "deferred"], "notes": {"Day rate, self-employed": "Day rate is the one where the gap tends to be biggest \u2014 there's usually no sick pay behind it at all."}, "id": "paid", "q": "How are you paid?", "help": "This is the one that shapes everything. Cover is usually built around what actually stops when you do.", "type": "choice", "key": "paid", "options": ["Day rate, self-employed", "Weekly \u2014 match fees or wages", "Monthly salary", "A mix of things"]}, {"chips": ["club", "advice"], "notes": {"I honestly don't know": "That's the most common answer, and it's fine \u2014 digging it out is part of what the call is for."}, "id": "existing", "q": "Have you got any cover already?", "help": "Plenty of people are already covered through a club, an employer or a mortgage and don't know it. Worth not paying twice.", "type": "choice", "key": "existing", "options": ["Nothing at all", "Something through a club or employer", "Something with my mortgage", "I honestly don't know"]}, {"chips": ["critical illness", "pmi", "deferred"], "id": "interest", "q": "What's on your mind?", "help": "Pick as many as you like, or none \u2014 the call can work that out.", "type": "multi", "key": "interest", "options": ["Sports injury / accident", "Private medical", "Income protection", "Life or critical illness", "Not sure yet"]}, {"chips": ["cost", "health"], "id": "when", "q": "When would you want cover in place?", "help": "No wrong answer. It just tells us how quickly to ring.", "type": "choice", "key": "timing", "options": ["As soon as possible", "Next month or so", "Just looking for now"]}];
@@ -1331,6 +1998,11 @@ window.__DCS_FF_ANSWERS = [{"k": ["deferred", "waiting period", "wait"], "q": "W
   var EP = "https://quicksite-stats-89aa38a9.base44.app/api/functions/hit";
   if (!EP) return;
   try {
+    /* Real visitors on the real domain only: not the review copy, not local
+       previews, and not automated browsers (screenshot and test runs were
+       being counted as visits). */
+    if (navigator.webdriver) return;
+    if (!/(^|\.)dcsinsure\.com$/.test(location.hostname)) return;
     var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
     if (dnt === '1' || dnt === 'yes') return;
     var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
