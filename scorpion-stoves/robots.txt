@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /gareth.html
-Disallow: /welcome.html
-Disallow: /soon.html
-
-Sitemap: https://scorpionstoves.com/sitemap.xml
