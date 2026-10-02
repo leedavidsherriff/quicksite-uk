@@ -9,13 +9,21 @@
 <meta name="theme-color" content="#141210">
 <meta property="og:title" content="Scorpion Stoves — log burners &amp; fireplaces fitted across South Wales">
 <meta property="og:description" content="Gareth fits log burners and fireplaces across Bridgend, Swansea, Cardiff and South Wales. Six fireplaces with guide prices, a free survey, and most fits done in two days.">
-<meta property="og:image" content="og-image.jpg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Scorpion Stoves">
+<meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/scorpion-stoves/">
+<meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/scorpion-stoves/og-image.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gareth from Scorpion Stoves waving beside a finished fireplace">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=8168416d">
+<link rel="stylesheet" href="assets/site.css?v=5bb25c42">
+<noscript><style>.is-locked .fm__p{font-size:inherit}.is-locked .fm__p::after{content:none}.is-locked .fp__price{display:block}.is-locked .fp__lock,.gate{display:none}</style></noscript>
 </head>
 <body class="pg-index">
 <a class="skip" href="#main">Skip to content</a>
@@ -65,21 +73,16 @@
 </section>
 
 <section class="sec" id="fireplaces">
-  <div class="wrap" id="fm">
+  <div class="wrap is-locked" id="fm">
     <div class="fm-head">
       <figure class="gar gar--in " data-hop><img class="gar__still" src="media/gareth/fires-point-1000.webp" srcset="media/gareth/fires-point-640.webp 640w, media/gareth/fires-point-1000.webp 1000w" sizes="(max-width: 860px) 60vw, 340px" width="1000" height="1569" alt="Gareth pointing at the six fireplaces" loading="lazy"></figure>
       <div class="sec__head rv">
         <p class="kicker">Six fireplaces, six guide prices</p>
         <h2>Pick your fireplace. Gareth does the rest.</h2>
-        <p class="lead">Each price is the guide for a typical room, and Gareth confirms it in writing after the free survey. Just want the fire? Switch to supply only or fire fitted.</p>
+        <p class="lead">Each price is the guide for a typical room, and Gareth confirms it in writing after the free survey.</p>
       </div>
       <div class="fm-ctrl">
-        <div class="seg" id="fm-mode" role="group" aria-label="What you need">
-          <button type="button" data-m="supply" aria-pressed="false">Supply only</button>
-          <button type="button" data-m="fitted" aria-pressed="false">Fire fitted</button>
-          <button type="button" data-m="full" aria-pressed="true">The whole fireplace</button>
-        </div>
-        <p class="seg-note" id="fm-note">Everything: fire, surround, tiling, hearth, making good and the first burn.</p>
+        <div class="gate" id="fm-gate" data-gate><p class="gate__q"><b>First, what do you need?</b> <span>Pick one and the prices appear.</span></p><div class="gate__opts" role="radiogroup" aria-label="What do you need?"><button type="button" class="gate__opt" data-m="full" role="radio" aria-checked="false"><span class="gate__tag">What most people want</span><span class="gate__tick" aria-hidden="true">✓</span><b>The whole fireplace</b><span class="gate__sub">Fire, surround and fitting</span><span class="gate__note">Everything: fire, surround, tiling, hearth, making good and the first burn.</span></button><button type="button" class="gate__opt" data-m="fitted" role="radio" aria-checked="false"><span class="gate__tick" aria-hidden="true">✓</span><b>Fire fitted</b><span class="gate__sub">Just the fire, fitted</span><span class="gate__note">The fire supplied and installed by Gareth. No surround or tiling.</span></button><button type="button" class="gate__opt" data-m="supply" role="radio" aria-checked="false"><span class="gate__tick" aria-hidden="true">✓</span><b>Supply only</b><span class="gate__sub">Just the fire, delivered</span><span class="gate__note">The fire delivered to your door. You arrange your own fitting.</span></button></div></div>
       </div>
     </div>
     <div class="fm">
@@ -89,6 +92,7 @@
   <p class="fp__fuel" data-fp-fuel>Wood · Two days</p>
   <h3 data-fp-name>The Slate</h3>
   <p class="fp__price"><b data-fp-price>£3,950</b> <span data-fp-mode>guide price, the full job</span></p>
+  <p class="fp__lock" data-fp-lock>Choose <b>what you need</b> above to see the price.</p>
   <ul class="fp__spec" data-fp-spec><li>5kW cast-iron stove</li><li>Handmade glazed tiles laid herringbone</li><li>Wide honed slate hearth, bullnosed edge</li><li>Moulded painted mantel on carved corbels</li></ul>
   <div class="ctas">
     <a class="gbtn" href="order.html?tier=slate" data-fp-order><i class="gbtn__rim"></i><span>Price this one up</span></a>
@@ -281,6 +285,6 @@
 </nav>
 
 <script src="assets/prices.js?v=49984057"></script>
-<script src="assets/site.js?v=ef9d962a"></script>
+<script src="assets/site.js?v=b4d1b682"></script>
 </body>
 </html>

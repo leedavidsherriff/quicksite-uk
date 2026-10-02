@@ -227,17 +227,45 @@
     })();
   }
 
+  /* ---------- "what do you need?" gate ----------
+     Lee, 2 Oct 2026: supply only vs fitted must be impossible to miss, so the
+     menu and the order show no prices until a card is picked. The pick is kept
+     for the visit (sessionStorage) and travels to the order page as ?mode=. */
+  var MODE_KEY = "ss.mode";
+  function okMode(m) { return m === "supply" || m === "fitted" || m === "full"; }
+  function savedMode() {
+    var m = qs.get("mode"); if (okMode(m)) return m;
+    try { m = sessionStorage.getItem(MODE_KEY); } catch (e) { m = null; }
+    return okMode(m) ? m : null;
+  }
+  function gateInit(g, onPick, first) {
+    var opts = $$(".gate__opt", g);
+    function set(m, user) {
+      opts.forEach(function (o) { o.setAttribute("aria-checked", o.getAttribute("data-m") === m); });
+      g.classList.add("is-picked");
+      if (user) { try { sessionStorage.setItem(MODE_KEY, m); } catch (e) {} }
+      onPick(m, user);
+    }
+    opts.forEach(function (o) { o.addEventListener("click", function () { set(o.getAttribute("data-m"), true); }); });
+    g.addEventListener("keydown", function (e) {   // arrow keys move between the radio cards
+      var i = opts.indexOf(document.activeElement); if (i < 0) return;
+      var d = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+      if (!d) return; e.preventDefault(); opts[(i + d + opts.length) % opts.length].focus();
+    });
+    if (first) set(first, false);
+  }
+
   /* ---------- the fireplace menu (home) ---------- */
   var fm = $("#fm");
   if (fm) {
-    var fmMode = "full", fmTier = "slate";
-    var rows = $$(".fm__row", fm), seg = $("#fm-mode"), note = $("#fm-note");
+    var fmMode = null, fmTier = "slate";
+    var rows = $$(".fm__row", fm);
     function paintPrices() {
       rows.forEach(function (r) { var f = fire(r.getAttribute("data-tier")); countTo($(".fm__p", r), f[fmMode]); });
       preview();
     }
     function preview() {
-      var f = fire(fmTier), m = modeOf(fmMode);
+      var f = fire(fmTier), m = fmMode ? modeOf(fmMode) : null;
       var img = $("[data-fp-img]", fm);
       if (img.getAttribute("src") !== f.img) {
         img.classList.add("is-swapping");
@@ -245,10 +273,9 @@
       }
       $("[data-fp-name]", fm).textContent = f.name;
       $("[data-fp-fuel]", fm).textContent = f.fuel.charAt(0).toUpperCase() + f.fuel.slice(1) + " · " + f.days;
-      countTo($("[data-fp-price]", fm), f[fmMode]);
-      $("[data-fp-mode]", fm).textContent = "guide price, " + m.short;
+      if (m) { countTo($("[data-fp-price]", fm), f[fmMode]); $("[data-fp-mode]", fm).textContent = "guide price, " + m.short; }
       $("[data-fp-spec]", fm).innerHTML = f.spec.map(function (s) { return "<li>" + s + "</li>"; }).join("");
-      $("[data-fp-order]", fm).href = "order.html?tier=" + f.id + (fmMode === "full" ? "" : "&mode=" + fmMode);
+      $("[data-fp-order]", fm).href = "order.html?tier=" + f.id + (fmMode ? "&mode=" + fmMode : "");
       $("[data-fp-try]", fm).href = "choose.html?tier=" + f.id + "#tryit";
     }
     rows.forEach(function (r) {
@@ -259,16 +286,17 @@
         if (matchMedia("(max-width: 900px)").matches) { var fp = $(".fp", fm); var top = fp.getBoundingClientRect().top; if (top < 0 || top > innerHeight * 0.5) fp.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); }
       });
     });
-    $$("button", seg).forEach(function (b) {
-      b.addEventListener("click", function () {
-        fmMode = b.getAttribute("data-m");
-        $$("button", seg).forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
-        note.textContent = modeOf(fmMode).note;
-        paintPrices();
-      });
-    });
-    rows.forEach(function (r) { var el = $(".fm__p", r); el.setAttribute("data-n", fire(r.getAttribute("data-tier")).full); });
-    $("[data-fp-price]", fm).setAttribute("data-n", fire(fmTier).full);
+    // prices count up from nothing the first time they're revealed
+    rows.forEach(function (r) { $(".fm__p", r).setAttribute("data-n", 0); });
+    $("[data-fp-price]", fm).setAttribute("data-n", 0);
+    gateInit($("#fm-gate"), function (m, user) {
+      fmMode = m; fm.classList.remove("is-locked"); paintPrices();
+      if (user && matchMedia("(max-width: 900px)").matches) {
+        var list = $(".fm__list", fm), top = list.getBoundingClientRect().top;
+        if (top > innerHeight * 0.75) list.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      }
+    }, savedMode());
+    preview();
   }
 
   /* ---------- before / after ---------- */
@@ -294,7 +322,10 @@
       for (var i = 0; i < need.length; i++) {
         var el = $(need[i][0], form), v = el.value.trim();
         if (!v || (need[i][2] && !need[i][2](v))) {
-          msg.hidden = false; msg.className = "msg msg--err"; msg.textContent = need[i][1]; el.focus(); return;
+          msg.hidden = false; msg.className = "msg msg--err"; msg.textContent = need[i][1];
+          if (el.type === "hidden") { var g = $("[data-gate]"); if (g) { g.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }); g.classList.remove("is-nudge"); void g.offsetWidth; g.classList.add("is-nudge"); } }
+          else el.focus();
+          return;
         }
       }
       msg.hidden = false; msg.className = "msg msg--ok";
@@ -323,15 +354,15 @@
   /* ---------- order builder ---------- */
   var ob = $("#ob");
   if (ob) {
-    var state = { mode: "full", tier: "classic", extras: {} };
-    var want = qs.get("tier"), wantMode = qs.get("mode");
+    var state = { mode: null, tier: "classic", extras: {} };
+    var want = qs.get("tier");
     if (want && fire(want)) state.tier = want;
-    if (wantMode && (wantMode === "supply" || wantMode === "fitted" || wantMode === "full")) state.mode = wantMode;
-    var oFires = $("#o-fires"), oEx = $("#o-extras"), oSeg = $("#o-mode"), oNote = $("#o-note");
+    var oFires = $("#o-fires"), oEx = $("#o-extras");
 
     function allowed(x) { return x.tiers.indexOf(state.tier) !== -1 && x.modes.indexOf(state.mode) !== -1; }
     function calc(s) {
       s = s || state;
+      if (!s.mode) return { lines: [], total: 0 };
       var f = fire(s.tier), lines = [[f.name + " (" + modeOf(s.mode).short + ")", f[s.mode]]], total = f[s.mode];
       EXTRAS.forEach(function (x) {
         if (s.extras[x.id] && x.tiers.indexOf(s.tier) !== -1 && x.modes.indexOf(s.mode) !== -1) { lines.push([x.name, x.price]); total += x.price; }
@@ -345,37 +376,36 @@
         var on = f.id === state.tier;
         return '<label class="ofire' + (on ? " is-on" : "") + '"><input type="radio" name="ofire" value="' + f.id + '"' + (on ? " checked" : "") + '>' +
           '<img src="' + f.thumb + '" alt="" width="96" height="58" loading="lazy">' +
-          '<span><b>' + f.name + '</b><small>' + f.fuel.charAt(0).toUpperCase() + f.fuel.slice(1) + ' · ' + f.days + '</small><em>' + money(f[state.mode]) + '</em></span></label>';
+          '<span><b>' + f.name + '</b><small>' + f.fuel.charAt(0).toUpperCase() + f.fuel.slice(1) + ' · ' + f.days + '</small>' + (state.mode ? '<em>' + money(f[state.mode]) + '</em>' : '') + '</span></label>';
       }).join("");
     }
     function renderExtras() {
       var any = false;
       oEx.innerHTML = EXTRAS.map(function (x) {
-        var ok = allowed(x); if (ok) any = true; else delete state.extras[x.id];
-        var why = !ok ? (x.tiers.indexOf(state.tier) === -1 ? "Not needed with " + fire(state.tier).name : "Needs Gareth on site, so not with supply only") : "";
+        var ok = !!state.mode && allowed(x); if (ok) any = true; else delete state.extras[x.id];
+        var why = !state.mode ? "" : !ok ? (x.tiers.indexOf(state.tier) === -1 ? "Not needed with " + fire(state.tier).name : "Needs Gareth on site, so not with supply only") : "";
         return '<div class="ox' + (ok ? "" : " is-off") + '"><label class="ox__row"><input type="checkbox" value="' + x.id + '"' + (state.extras[x.id] ? " checked" : "") + (ok ? "" : " disabled") + '>' +
           '<span><b>' + x.name + '</b>' + (why ? '<small>' + why + '</small>' : "") + '</span>' +
           '<button class="ox__i" type="button" aria-expanded="false" aria-controls="oxi-' + x.id + '" aria-label="More about ' + x.name + '">i</button>' +
-          '<em>' + money(x.price) + '</em></label>' +
+          (state.mode ? '<em>' + money(x.price) + '</em>' : '') + '</label>' +
           '<div class="ox__info" id="oxi-' + x.id + '" hidden><img src="' + x.img + '" alt="" width="84" height="84"><div><p>' + x.why + '</p><p>' + x.need + '</p></div></div></div>';
       }).join("");
-      var none = $("#o-noextras"); if (none) none.hidden = any;
+      var none = $("#o-noextras"); if (none) none.hidden = any || !state.mode;
     }
     function renderSum() {
       var r = calc();
+      if (!state.mode) { $("#o-lines").innerHTML = '<li class="est__wait">Pick what you need in step 1 to start your order.</li>'; $("#o-total").textContent = "–"; $("#o-total").setAttribute("data-n", 0); return; }
       $("#o-lines").innerHTML = r.lines.map(function (l) { return "<li><span>" + l[0] + "</span><b>" + money(l[1]) + "</b></li>"; }).join("");
       countTo($("#o-total"), r.total);
     }
     function all() { renderFires(); renderExtras(); renderSum(); }
-    $$("button", oSeg).forEach(function (b) {
-      b.setAttribute("aria-pressed", b.getAttribute("data-m") === state.mode);
-      b.addEventListener("click", function () {
-        state.mode = b.getAttribute("data-m");
-        $$("button", oSeg).forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
-        oNote.textContent = modeOf(state.mode).note; all();
-      });
-    });
-    oNote.textContent = modeOf(state.mode).note;
+    gateInit($("#o-gate"), function (m, user) {
+      state.mode = m; $("#o-modeval").value = m; ob.classList.remove("is-locked"); all();
+      if (user && matchMedia("(max-width: 1000px)").matches) {
+        var nx = $("[data-needs-mode]", ob), top = nx.getBoundingClientRect().top;
+        if (top > innerHeight * 0.7) nx.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      }
+    }, savedMode());
     oFires.addEventListener("change", function (e) { if (e.target.name === "ofire") { state.tier = e.target.value; all(); } });
     oEx.addEventListener("change", function (e) { if (e.target.type === "checkbox") { state.extras[e.target.value] = e.target.checked; renderSum(); } });
     oEx.addEventListener("click", function (e) {
@@ -398,7 +428,7 @@
         (val(f, "#o-when") ? "\nWhen: " + val(f, "#o-when") : "") + (val(f, "#o-chim") ? "\nChimney: " + val(f, "#o-chim") : "") +
         (val(f, "#o-notes") ? "\nNotes: " + val(f, "#o-notes") : "") +
         "\n(sent from the Scorpion Stoves website, nothing paid yet)";
-    }, [["#o-name", "Just need your name to send the order."], ["#o-phone", "And a phone number so Gareth can ring to book the survey.", phoneOk], ["#o-pc", "Your postcode, so Gareth knows where the job is."]]);
+    }, [["#o-modeval", "First pick what you need, up at step 1."], ["#o-name", "Just need your name to send the order."], ["#o-phone", "And a phone number so Gareth can ring to book the survey.", phoneOk], ["#o-pc", "Your postcode, so Gareth knows where the job is."]]);
   }
 
   /* ---------- try it on your wall (room tool) ----------
