@@ -164,10 +164,10 @@
       n < 6 ? "Now we're talking. Send it over and Guy will tell you what he'd change." :
       "That's a proper Superhome. Guy wants to hear about this one.";
     setPose(shark || n >= 6 ? "wow" : n >= 3 ? "thumbs" : "think");
-    var send = $("#specSend"), dream = $("#dream");
+    var send = $("#specSend");
     send.onclick = function () {
-      if (dream) dream.value = "About " + s.toLocaleString("en-GB") + " sq ft with: " + (picked.join(", ") || "no toys yet") +
-        ". Guide " + money(lo) + " to " + money(hi) + ".";
+      window.__spec = { keys: $$(".spec__chips input").filter(function (c) { return c.checked; }).map(function (c) { return c.dataset.k; }), mid: (lo + hi) / 2 };
+      if (window.__wizFromSpec) window.__wizFromSpec(window.__spec);
     };
   }
   if (sqft) {
@@ -179,10 +179,104 @@
   /* ---------- Monaco count ---------- */
   // (static "3": the number is the point, not the animation)
 
-  /* ---------- brief ----------
-     Demo: nothing is sent anywhere. On Guy's live site this goes to his WhatsApp. */
+  /* ---------- Build with Guy: six-step wizard ----------
+     Demo: nothing is sent anywhere. On Guy's live site the brief goes to his WhatsApp. */
+  var wiz = $("#wiz");
+  if (wiz) {
+    var steps = $$(".step", wiz), at = 1, LAST = 6;
+    var next = $("#wizNext"), back = $("#wizBack"), msg = $("#briefMsg"), gImg = $("#wizGuy"), say = $("#wizSay");
+    var BANDS = ["Under £2m", "£2m to £4m", "£4m to £7m", "£7m to £10m", "£10m+"];
+    var BAND_LINE = ["Plenty to work with. Get the layout right first.", "Now that's a proper Superhome budget.",
+      "Pools, cinemas, the lot. Let's talk.", "Glass floors and a champagne room? Go on then.", "World's most expensive house? I'm listening."];
+    var SPEC_TO_TOY = { pool: "Indoor pool", spa: "Spa: sauna and steam", cinema: "Home cinema", glass: "Glass floor", stair: "Statement staircase",
+      auto: "Full home automation", champ: "Champagne room", gym: "Gym", shark: "Shark tank" };
+    var f = $("#brief");
+    function val(n) { var el = f.querySelector('[name="' + n + '"]:checked') || f.querySelector('[name="' + n + '"]'); return el && el.type !== "radio" ? el.value.trim() : (el && el.checked ? el.value : ""); }
+    function ok(n) {
+      if (n === 1) return !!val("plot");
+      if (n === 2) return !!$("#where").value.trim();
+      if (n === 3) return !!val("vibe");
+      if (n === 6) return !!f.name.value.trim() && !!f.contact.value.trim();
+      return true;
+    }
+    var NEED = { 1: "Pick one to crack on.", 2: "Tap an area or type a town.", 3: "Pick the one that feels like you.", 6: "Name and a way to reach you, please." };
+    function guy(pose, line) {
+      if (reduce) { gImg.src = "assets/guy/" + pose + ".webp"; say.textContent = line; return; }
+      gImg.classList.add("swap"); say.classList.add("swap");
+      setTimeout(function () { gImg.src = "assets/guy/" + pose + ".webp"; say.textContent = line; gImg.classList.remove("swap"); say.classList.remove("swap"); }, 180);
+    }
+    function show(n) {
+      at = n;
+      steps.forEach(function (st) { st.classList.toggle("is-on", +st.dataset.step === n); });
+      var st = steps.filter(function (x) { return +x.dataset.step === n; })[0];
+      guy(st.dataset.guy, st.dataset.say);
+      $("#wizFill").style.width = Math.min(100, n / LAST * 100) + "%";
+      $("#wizNo").textContent = Math.min(n, LAST);
+      back.hidden = n === 1 || n > LAST;
+      $("span", next).textContent = n === LAST ? "Send to Guy" : "Next";
+      msg.textContent = "";
+      if (n === 5) budget();
+    }
+    function go(d) {
+      if (d > 0 && !ok(at)) { msg.textContent = NEED[at]; return; }
+      if (d > 0 && at === LAST) return finish();
+      show(Math.max(1, at + d));
+      var r = wiz.getBoundingClientRect(); if (r.top < 0) wiz.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }
+    next.addEventListener("click", function () { go(1); });
+    back.addEventListener("click", function () { go(-1); });
+    // single-choice steps move on by themselves
+    $$('input[type=radio]', wiz).forEach(function (r) { r.addEventListener("change", function () { setTimeout(function () { go(1); }, reduce ? 0 : 420); }); });
+    // area chips fill the town box
+    $$(".chips button", wiz).forEach(function (b) {
+      b.addEventListener("click", function () {
+        $$(".chips button", wiz).forEach(function (x) { x.classList.toggle("on", x === b); });
+        $("#where").value = b.textContent; setTimeout(function () { go(1); }, reduce ? 0 : 300);
+      });
+    });
+    $("#where").addEventListener("input", function () { $$(".chips button", wiz).forEach(function (x) { x.classList.remove("on"); }); });
+    $("#where").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); go(1); } });
+    // must-haves: Guy reacts to the big ones
+    $$("#toys input").forEach(function (c) {
+      c.addEventListener("change", function () {
+        if (!c.checked) return;
+        var v = c.value;
+        if (v === "Shark tank") guy("wow", "A shark tank. I've done one before. Love it.");
+        else if (v === "Helipad") guy("wow", "Helipad? Now we're talking.");
+        else if (v === "Champagne room") guy("thumbs", "Hermitage has one. Good shout.");
+        else if (v === "Indoor pool") guy("present", "Bigger than the average house. Sorted.");
+      });
+    });
+    function budget() { var i = +$("#budget").value; $("#budgetOut").textContent = BANDS[i]; $("#budgetLine").textContent = BAND_LINE[i]; }
+    $("#budget").addEventListener("input", function () { budget(); if (+this.value >= 3) guy("wow", BAND_LINE[+this.value]); });
+    // the spec tool hands over its picks
+    window.__wizFromSpec = function (sp) {
+      $$("#toys input").forEach(function (c) { c.checked = sp.keys.some(function (k) { return SPEC_TO_TOY[k] === c.value; }); });
+      var m = sp.mid; $("#budget").value = m < 2e6 ? 0 : m < 4e6 ? 1 : m < 7e6 ? 2 : m < 1e7 ? 3 : 4;
+      show(1); msg.textContent = "Your spec's loaded in. Start with the plot.";
+    };
+    function esc(t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
+    function finish() {
+      var vibe = f.querySelector('[name="vibe"]:checked'), toys = $$("#toys input").filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+      var img = vibe ? vibe.nextElementSibling.style.backgroundImage : "";
+      $("#ticket").innerHTML = '<div class="ticket__img" style="background-image:' + esc(img.replace(/"/g, "'")) + '"></div><div>' +
+        '<h3>' + esc(f.name.value.trim().split(" ")[0]) + "'s Superhome</h3><dl>" +
+        "<dt>Starting with</dt><dd>" + esc(val("plot")) + "</dd>" +
+        "<dt>Where</dt><dd>" + esc($("#where").value.trim()) + "</dd>" +
+        "<dt>Vibe</dt><dd>" + esc(vibe ? vibe.value : "") + "</dd>" +
+        "<dt>Must-haves</dt><dd>" + esc(toys.join(", ") || "Guy's choice") + "</dd>" +
+        "<dt>Budget</dt><dd>" + esc(BANDS[+$("#budget").value]) + "</dd></dl></div>";
+      show(7); $("#wizFill").style.width = "100%";
+    }
+    $("#wizAgain").addEventListener("click", function () { f.reset(); $$(".chips button", wiz).forEach(function (x) { x.classList.remove("on"); }); show(1); });
+    f.addEventListener("submit", function (e) { e.preventDefault(); go(1); });
+    show(1);
+  }
+
+  /* ---------- plain brief (stay page) ----------
+     Demo: nothing is sent anywhere. */
   var brief = $("#brief");
-  if (brief) brief.addEventListener("submit", function (e) {
+  if (brief && !wiz) brief.addEventListener("submit", function (e) {
     e.preventDefault();
     var name = brief.name.value.trim();
     $("#briefMsg").textContent = name
