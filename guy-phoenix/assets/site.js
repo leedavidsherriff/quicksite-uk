@@ -25,12 +25,16 @@
   var top = $(".top");
   function onScroll() {
     if (top) top.classList.toggle("solid", window.scrollY > window.innerHeight * 0.6);
+    if (promo) promo.classList.toggle("show", window.scrollY > window.innerHeight * 0.7 && !nearBuild());
     if (mcBg && !reduce) {
       var r = mcBg.parentNode.getBoundingClientRect();
       mcBg.style.transform = "translateY(" + (r.top * -0.12).toFixed(1) + "px)";
     }
   }
   var mcBg = $(".monaco__bg");
+  var promo = $(".promo"), build = $("#build") || $("#dates");
+  // keep the promo out of the way of the enquiry form at the bottom
+  function nearBuild() { return build && build.getBoundingClientRect().top < window.innerHeight * 0.85; }
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
   /* ---------- reveal on scroll ---------- */
