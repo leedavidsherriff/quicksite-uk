@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en-GB"><head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAYLORD · Decorator in Caerphilly</title>
+<meta name="description" content="TAYLORD: decorator in Caerphilly. Hi, I&#x27;m Nikita. Tailored decorating: tick what you want and I&#x27;ll price it up.">
+<meta property="og:title" content="TAYLORD"><meta property="og:description" content="Hi, I&#x27;m Nikita. Tailored decorating: tick what you want and I&#x27;ll price it up."><meta property="og:image" content="media/c-wave.webp">
+<meta name="theme-color" content="#161616"><link rel="icon" href="media/c-head.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;800&family=Jost:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", "name": "TAYLORD", "telephone": "+447980318258", "areaServed": "Caerphilly, Cardiff and around"}</script>
+<style>
+/* ===== GLASS BUTTON: verbatim from ~/quicksite-kit/glass-button/component.html ===== */
+
+.gbtn{
+  --gb-lamp:#6fe3ff;           /* the fluorescent colour */
+  --gb-rim:1.6px;              /* border thickness */
+  --gb-spin:4.5s;
+  --gb-glass:rgba(255,255,255,.09);
+  --gb-ink:#fff;
+
+  position:relative; isolation:isolate;
+  display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+  padding:16px 26px; border:0; border-radius:999px;
+  font:inherit; font-weight:750; letter-spacing:.01em; color:var(--gb-ink);
+  text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03)),
+    var(--gb-glass);
+  backdrop-filter:blur(12px) saturate(140%);
+  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),
+             inset 0 -12px 24px -14px rgba(0,0,0,.5);
+}
+
+/* the ring: masked to the border only, with the lamp spinning inside it */
+.gbtn__rim{
+  position:absolute; inset:0; border-radius:inherit; z-index:1;
+  padding:var(--gb-rim); pointer-events:none; overflow:hidden;
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite:exclude;
+}
+.gbtn__rim::before{
+  content:""; position:absolute; left:50%; top:50%;
+  width:240%; aspect-ratio:1;                 /* square, so corners stay lit */
+  background:conic-gradient(from 0deg,
+      rgba(255,255,255,.06) 0deg,
+      var(--gb-lamp) 18deg,
+      rgba(255,255,255,.06) 56deg,
+      rgba(255,255,255,.06) 180deg,
+      var(--gb-lamp) 198deg,
+      rgba(255,255,255,.06) 236deg,
+      rgba(255,255,255,.06) 360deg);
+  animation:gbtn-spin var(--gb-spin) linear infinite;
+  will-change:transform;
+}
+@keyframes gbtn-spin{
+  from{ transform:translate(-50%,-50%) rotate(0turn); }
+  to  { transform:translate(-50%,-50%) rotate(1turn); }
+}
+
+.gbtn > span{ position:relative; z-index:2; }
+
+.gbtn:hover{ --gb-spin:2.4s; }
+.gbtn:active{ transform:translateY(1px); }
+.gbtn:focus-visible{ outline:2px solid var(--gb-lamp); outline-offset:3px; }
+
+.gbtn--quiet{ --gb-glass:rgba(255,255,255,.045); --gb-ink:rgba(255,255,255,.92); }
+
+/* on a light page the glass darkens rather than lightens */
+.gbtn--onlight{
+  --gb-glass:rgba(12,16,20,.62); --gb-ink:#fff;
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02)),
+             var(--gb-glass);
+}
+
+/* Motion is the problem, not the light: hold the rim lit, stop it moving. */
+@media (prefers-reduced-motion: reduce){
+  .gbtn__rim::before{ animation:none;
+    background:conic-gradient(from 0deg, var(--gb-lamp), rgba(255,255,255,.30),
+                              var(--gb-lamp), rgba(255,255,255,.30), var(--gb-lamp)); }
+  .gbtn:hover{ --gb-spin:4.5s; }
+}
+
+/* ===== end glass button ===== */
+:root{--ink:#161616;--paper:#f7f3ee;--brand:#c98b6b;--brand2:#161616;--d:"Cormorant Garamond",Georgia,serif;--b:"Jost",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 var(--b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}a{color:inherit}
+.gbtn{--gb-lamp:#f6c4a6}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+body{background:var(--paper);color:var(--ink);background-image:radial-gradient(color-mix(in srgb,var(--ink) 9%,transparent) 1px,transparent 1px);background-size:22px 22px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:2px solid var(--ink)}
+.top b{font:800 15px var(--b)}.top a{font:700 15px var(--b);text-decoration:none;border-bottom:2px solid var(--brand)}
+.w{width:min(1120px,100% - 32px);margin-inline:auto}
+.intro{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;padding:44px 0 26px}
+.stamp{display:inline-block;border:4px solid var(--brand);color:var(--brand);padding:10px 16px;font:800 13px var(--b);letter-spacing:.2em;text-transform:uppercase;transform:rotate(-4deg);margin-bottom:14px}
+h1{font:700 clamp(46px,9vw,104px)/.92 var(--d);margin:0;letter-spacing:-.02em}
+h1 span{display:block;color:var(--brand)}
+.intro p{font-size:clamp(17px,2.2vw,21px);max-width:44ch;margin:16px 0 0}
+.intro img{width:min(240px,40vw);filter:drop-shadow(0 18px 24px rgba(0,0,0,.25))}
+@media (max-width:720px){.intro{grid-template-columns:1fr}.intro img{order:-1;width:150px;justify-self:end;margin-bottom:0}}
+.desk{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:start;padding-bottom:70px}
+.list{display:grid;gap:12px}
+.it{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:14px 16px;box-shadow:4px 4px 0 var(--ink)}
+.it input[type=checkbox]{width:26px;height:26px;accent-color:var(--brand)}
+.it label{font:700 17px var(--b);cursor:pointer}.it label small{display:block;font-weight:600;opacity:.65;font-size:13px}
+.q{display:flex;align-items:center;gap:6px}.q button{width:36px;height:36px;border-radius:10px;border:2px solid var(--ink);background:var(--paper);font:800 18px var(--b);cursor:pointer}
+.q output{min-width:2ch;text-align:center;font:800 18px var(--b)}
+.it:not(.on) .q{opacity:.35;pointer-events:none}
+.paper{position:sticky;top:18px;background:#fffdf8;border:2px solid var(--ink);border-radius:4px;padding:26px 24px 30px;font:500 15px/1.5 "Courier New",monospace;box-shadow:0 20px 40px rgba(0,0,0,.14)}
+.paper::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:12px;background:linear-gradient(-45deg,transparent 8px,#fffdf8 0) 0 0/16px 12px,linear-gradient(45deg,transparent 8px,#fffdf8 0) 0 0/16px 12px}
+.paper h3{margin:0 0 4px;font:700 22px var(--d)}.paper .sm{font-size:12px;opacity:.7;margin-bottom:14px}
+.ln{display:flex;gap:6px;align-items:baseline;animation:print .35s ease}
+.ln span:nth-child(2){flex:1;border-bottom:2px dotted rgba(0,0,0,.35);transform:translateY(-4px)}
+@keyframes print{from{opacity:0;transform:translateY(-6px)}}
+.tt{margin-top:14px;padding-top:12px;border-top:2px dashed var(--ink);display:flex;justify-content:space-between;font-weight:800;font-size:18px}
+.paper .gbtn{margin-top:18px;width:100%}
+.pin{position:absolute;right:-30px;top:-46px;width:120px;transform:rotate(6deg);pointer-events:none}
+@media (max-width:860px){.desk{grid-template-columns:1fr}.paper{position:relative;top:0}.pin{right:-8px;width:96px}}
+.band{background:var(--ink);color:var(--paper);padding:60px 0}
+.band h2{font:700 clamp(32px,5vw,52px)/1 var(--d);margin:0 0 20px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cols div{padding:16px;border:1px solid rgba(255,255,255,.2);border-radius:14px}.cols b{display:block;font:700 34px/1 var(--d);color:var(--brand2)}.cols span{opacity:.8;font-size:14px}
+.chipz{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.chipz span{padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.3);font-weight:700;font-size:14px}
+.qt{margin-top:24px;font:600 20px/1.4 var(--b)}.qt cite{display:block;font-style:normal;font-size:13px;margin-top:6px;color:var(--brand2)}
+.ft{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:22px 16px 30px;font-size:13px;opacity:.7}
+
+</style></head><body>
+<div class="top"><b>TAYLORD</b><a href="tel:+447980318258">07980 318258</a></div>
+<main>
+<div class="w intro">
+  <div><span class="stamp">Caerphilly · free quotes</span><h1>TAYLORD<span>Painting &amp; Decorating</span></h1><p>Hi, I&#x27;m Nikita. Tailored decorating: tick what you want and I&#x27;ll price it up.</p></div>
+  <img src="media/c-wave.webp" alt="Cartoon Nikita waving" width="600" height="900">
+</div>
+<div class="w desk">
+  <div class="list rv"><div class="it" data-lo="260" data-hi="420" data-n="Paint a bedroom" data-u="room"><input type="checkbox" id="i0" aria-label="Paint a bedroom"><label for="i0">Paint a bedroom<small>£260–£420 per room</small></label>
+<div class="q" role="group" aria-label="How many"><button type="button" data-d="-1" aria-label="Fewer">−</button><output>1</output><button type="button" data-d="1" aria-label="More">+</button></div></div><div class="it" data-lo="350" data-hi="550" data-n="Living room with woodwork" data-u="room"><input type="checkbox" id="i1" aria-label="Living room with woodwork"><label for="i1">Living room with woodwork<small>£350–£550 per room</small></label>
+<div class="q" role="group" aria-label="How many"><button type="button" data-d="-1" aria-label="Fewer">−</button><output>1</output><button type="button" data-d="1" aria-label="More">+</button></div></div><div class="it" data-lo="350" data-hi="700" data-n="Sculpted or textured feature wall" data-u="wall"><input type="checkbox" id="i2" aria-label="Sculpted or textured feature wall"><label for="i2">Sculpted or textured feature wall<small>£350–£700 per wall</small></label>
+<div class="q" role="group" aria-label="How many"><button type="button" data-d="-1" aria-label="Fewer">−</button><output>1</output><button type="button" data-d="1" aria-label="More">+</button></div></div><div class="it" data-lo="160" data-hi="280" data-n="Feature wallpaper wall" data-u="wall"><input type="checkbox" id="i3" aria-label="Feature wallpaper wall"><label for="i3">Feature wallpaper wall<small>£160–£280 per wall</small></label>
+<div class="q" role="group" aria-label="How many"><button type="button" data-d="-1" aria-label="Fewer">−</button><output>1</output><button type="button" data-d="1" aria-label="More">+</button></div></div><div class="it" data-lo="650" data-hi="1000" data-n="Hall, stairs and landing" data-u="job"><input type="checkbox" id="i4" aria-label="Hall, stairs and landing"><label for="i4">Hall, stairs and landing<small>£650–£1,000 per job</small></label>
+<div class="q" role="group" aria-label="How many"><button type="button" data-d="-1" aria-label="Fewer">−</button><output>1</output><button type="button" data-d="1" aria-label="More">+</button></div></div></div>
+  <div class="paper rv" aria-live="polite"><img class="pin" src="media/c-point.webp" alt="" width="600" height="900">
+    <h3>Your job docket</h3><div class="sm">TAYLORD · guide prices for Caerphilly, Cardiff and around</div>
+    <div id="lines"><div class="ln"><span>Tick a job to start</span><span></span><span></span></div></div>
+    <div class="tt"><span>Guide total</span><span id="tot">£0</span></div>
+    <a class="gbtn gbtn--onlight" id="waBtn" href="https://wa.me/447980318258?text=Hi%20Nikita%2C%20can%20I%20get%20a%20price%20please%3F"><i class="gbtn__rim"></i><span>Send my docket to Nikita</span></a>
+    <div class="sm" style="margin-top:12px">Guides only. Nikita fixes the price in writing after a free look.</div>
+  </div>
+</div>
+<section class="band"><div class="w"><h2>Why people book Nikita</h2><div class="cols"><div><b>436</b><span>Facebook followers</span></div><div><b>Ltd</b><span>company</span></div><div><b>Free</b><span>quotes</span></div></div><div class="chipz"><span>Interior painting</span><span>Wall sculpting and texture</span><span>Feature walls</span><span>Wallpapering</span><span>Homes</span><span>Commercial spaces</span></div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px"><a class="gbtn" href="https://wa.me/447980318258?text=Hi%20Nikita%2C%20can%20I%20get%20a%20price%20please%3F"><i class="gbtn__rim"></i><span>WhatsApp Nikita</span></a><a class="gbtn gbtn--quiet" href="tel:+447980318258"><i class="gbtn__rim"></i><span>Call 07980 318258</span></a></div></div></section>
+</main>
+<footer class="ft"><span>TAYLORD · Caerphilly, Cardiff and around · 07980 318258</span><span>All prices are guides, confirmed after a free look. Illustrations are for show.</span></footer>
+<script>
+(()=>{const its=[...document.querySelectorAll('.it')],lines=document.getElementById('lines'),tot=document.getElementById('tot'),btn=document.getElementById('waBtn'),base=btn.href.split('?')[0];
+const f=n=>'£'+n.toLocaleString('en-GB');
+const calc=()=>{let lo=0,hi=0,msg=[];lines.innerHTML='';
+its.forEach(it=>{if(!it.classList.contains('on'))return;const q=+it.querySelector('output').textContent;const l=q*it.dataset.lo,h=q*it.dataset.hi;lo+=l;hi+=h;
+const d=document.createElement('div');d.className='ln';d.innerHTML='<span></span><span></span><span></span>';d.children[0].textContent=q+' × '+it.dataset.n;d.children[2].textContent=f(l)+'–'+f(h);lines.appendChild(d);msg.push(q+' × '+it.dataset.n)});
+if(!msg.length)lines.innerHTML='<div class="ln"><span>Tick a job to start</span><span></span><span></span></div>';
+tot.textContent=msg.length?f(lo)+' to '+f(hi):'£0';
+btn.href=base+'?text='+encodeURIComponent('Hi Nikita, here\'s my job docket: '+msg.join(', ')+'. Your site said about '+tot.textContent+'.')};
+its.forEach(it=>{const cb=it.querySelector('input'),out=it.querySelector('output');
+cb.addEventListener('change',()=>{it.classList.toggle('on',cb.checked);calc()});
+it.querySelectorAll('.q button').forEach(b=>b.addEventListener('click',()=>{out.textContent=Math.max(1,Math.min(50,+out.textContent+ +b.dataset.d));calc()}))});calc();})();
+</script><script>
+(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const chk=()=>document.querySelectorAll('.rv:not(.in)').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight*.94)el.classList.add('in')});
+addEventListener('scroll',chk,{passive:true});addEventListener('load',chk);chk();})();
+</script><script data-qs-beacon="2">(function(){try{var h=location.hostname;if(h==='localhost'||h==='127.0.0.1')return;if(navigator.webdriver)return;var me=false;try{if(/(^|[?&])x=off(&|$)/.test(location.search)){localStorage.removeItem('qs-me');}else if(/(^|[?&])x=me(&|$)/.test(location.search)){localStorage.setItem('qs-me','1');me=true;}else if(localStorage.getItem('qs-me')==='1'){me=true;}}catch(e){}if(me)return;var pg='orig-taylord.html';var rf='';try{rf=document.referrer?new URL(document.referrer).hostname:''}catch(e){}fetch('https://quicksite-stats-89aa38a9.base44.app/api/functions/hit',{method:'POST',mode:'cors',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify({page:pg,ref:rf})}).catch(function(){});}catch(e){}})();</script>
+</body></html>
