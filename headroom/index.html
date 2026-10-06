@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Ask Penny (askpennyfinance.co.uk, to be bought) — business funding introducer (Lee + Dale / Portway Financial). Was "Headroom", then "Ask Penny"; renamed Ask Penny 6 Oct 2026.
+<!-- Talk to Penny (talktopenny.co.uk, to be bought) — business funding introducer (Lee + Dale / Portway Financial). Was "Headroom", then "Just Business Funding", briefly "Ask Penny"; renamed Talk to Penny 6 Oct 2026 (askpenny domains all taken).
      One file: landing page + the funnel (a full-screen overlay; ?go=1 opens it straight away for ads).
      Penny and the props are Higgsfield renders in media/ (gen.sh has every prompt). No drawn artwork.
      Nothing is stored. A lead is composed into WhatsApp or email to CONFIG below.
@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ask Penny — Minus the Runaround</title>
+<title>Talk to Penny — Minus the Runaround</title>
 <meta name="description" content="Tell Penny what your business needs in about two minutes. We look at the routes that fit — loans, invoice finance, asset finance, cash advance, bridging — and a real person rings you. No hard credit check to start.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FFF8EB">
@@ -347,7 +347,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
 
 <header class="top">
   <div class="dock">
-    <span class="word">ask<b>penny</b></span>
+    <span class="word">talkto<b>penny</b></span>
     <nav><a href="#how-much">How much</a><a href="#routes">Funding types</a><a href="#how">How it works</a><a href="guides/">Guides</a><a href="#faq">Questions</a></nav>
     <button class="btn" data-go>Check what fits <span class="arr">→</span></button>
   </div>
@@ -369,7 +369,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
     <div class="stage" id="stage">
       <div class="bubble" id="bubble" aria-live="polite"><span id="bubbleText"></span><span class="caret"></span></div>
       <div class="ground"></div>
-      <div class="penny"><img src="media/penny-wave.webp" width="814" height="1100" alt="Penny, your Ask Penny guide, waving"></div>
+      <div class="penny"><img src="media/penny-wave.webp" width="814" height="1100" alt="Penny, your Talk to Penny guide, waving"></div>
       <div class="req r1"></div><div class="req r2"></div><div class="req r3"></div>
     </div>
   </div>
@@ -463,7 +463,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
     <div class="reveal"><span class="kicker">Questions</span><h2>The things people ask.</h2></div>
     <div class="faq reveal">
       <details><summary>Will checking hurt my credit score?</summary><p>No. Penny’s questions don’t involve a credit search. If you later choose to apply to a lender, they may run a search — and we’ll tell you before that happens.</p></details>
-      <details><summary>What does it cost me?</summary><p>Nothing to use Ask Penny. If you take out finance, the lender pays us a commission. We’ll tell you about it before you go ahead.</p></details>
+      <details><summary>What does it cost me?</summary><p>Nothing to use Talk to Penny. If you take out finance, the lender pays us a commission. We’ll tell you about it before you go ahead.</p></details>
       <details><summary>I’ve been turned down by my bank. Is there any point?</summary><p>Often, yes. Banks are one lender among many, and some types of finance — invoice finance, asset finance, cash advances — look at different things. We’ll be honest if the answer is still no.</p></details>
       <details><summary>Do I have to go ahead?</summary><p>No. You can stop at any point, including after we’ve talked the options through.</p></details>
       <details><summary>I’ve only just started trading.</summary><p>Options are thinner for very new businesses, but not zero. Tell us anyway and we’ll say what’s realistic.</p></details>
@@ -486,7 +486,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
 
 <footer>
   <div class="wrap">
-    <div class="word">ask<b>penny</b></div>
+    <div class="word">talkto<b>penny</b></div>
     <p class="reg" id="regText"></p>
     <div class="links"><a href="guides/">Finance guides</a><a href="privacy.html">Privacy notice</a><a href="https://register.fca.org.uk/" rel="noopener">FCA register</a><a href="https://www.financial-ombudsman.org.uk/" rel="noopener">Financial Ombudsman</a><a href="https://ico.org.uk/" rel="noopener">ICO</a></div>
   </div>
@@ -495,7 +495,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
 <!-- ================= FUNNEL ================= -->
 <div class="funnel" id="funnel" role="dialog" aria-modal="true" aria-label="Check what funding fits">
   <div class="f-top"><div class="in">
-    <div class="f-row"><span class="word">ask<b>penny</b></span><button class="x" id="fClose" aria-label="Close">×</button></div>
+    <div class="f-row"><span class="word">talkto<b>penny</b></span><button class="x" id="fClose" aria-label="Close">×</button></div>
     <div class="phases">
       <div class="phase" data-ph="0">Your need<i><b></b></i></div>
       <div class="phase" data-ph="1">Your business<i><b></b></i></div>
@@ -508,7 +508,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}
 <script>
 /* ================= CONFIG — everything that must be real before launch ================= */
 const CONFIG = {
-  brand: "Ask Penny",       // domain: askpennyfinance.co.uk
+  brand: "Talk to Penny",       // domain: talktopenny.co.uk
   leadWhatsApp: "",                     // e.g. "447700900000" — Dale's or Lee's number. Empty = demo mode
   leadEmail: "",                        // e.g. "leads@…". Empty = demo mode
   // Anonymous step counter (the "self-learning" part): one slug per tap, no personal data. Same beacon as the QuickSite quiz.
@@ -519,7 +519,7 @@ const CONFIG = {
   draft: true,                          // review copy: no counting, no leads sent. false only at launch
   draftBanner: false,                   // true shows a "DRAFT for review" strip along the bottom
   // Compliance wording: same regulated entity as DCS Insure (Portway Financial Ltd). Dale confirmed credit-broking cover, 28 Sep 2026.
-  reg: "Ask Penny is a trading name of Portway Financial Limited, which is an Appointed Representative of Connect IFA Limited 441505, which is Authorised and Regulated by the Financial Conduct Authority and is entered on the Financial Services Register (<a href='https://register.fca.org.uk/' rel='noopener'>register.fca.org.uk</a>) under reference 1011427. Portway Financial Limited is a company registered in England and Wales, company number 14917868. Registered office: 1 The Portway, Porthcawl, CF36 3XB. Registered with the Information Commissioner’s Office under reference ZB625186.<br><br>We are a credit broker, not a lender, and we do not give financial advice. We may receive a commission from lenders and will tell you the nature of it before you proceed. Finance is subject to status and affordability. Not all business finance is regulated by the Financial Conduct Authority.<br><br>To make a complaint, write to: Compliance Department, Connect IFA Ltd, 39 Station Lane, Hornchurch, RM12 6JL, or call 01708 676110. If we can’t resolve it between us, you may be entitled to refer it to the <a href='https://www.financial-ombudsman.org.uk/' rel='noopener'>Financial Ombudsman Service</a>.<br><br>Contact: 01656 856120 · contact@portwaygroup.com"
+  reg: "Talk to Penny is a trading name of Portway Financial Limited, which is an Appointed Representative of Connect IFA Limited 441505, which is Authorised and Regulated by the Financial Conduct Authority and is entered on the Financial Services Register (<a href='https://register.fca.org.uk/' rel='noopener'>register.fca.org.uk</a>) under reference 1011427. Portway Financial Limited is a company registered in England and Wales, company number 14917868. Registered office: 1 The Portway, Porthcawl, CF36 3XB. Registered with the Information Commissioner’s Office under reference ZB625186.<br><br>We are a credit broker, not a lender, and we do not give financial advice. We may receive a commission from lenders and will tell you the nature of it before you proceed. Finance is subject to status and affordability. Not all business finance is regulated by the Financial Conduct Authority.<br><br>To make a complaint, write to: Compliance Department, Connect IFA Ltd, 39 Station Lane, Hornchurch, RM12 6JL, or call 01708 676110. If we can’t resolve it between us, you may be entitled to refer it to the <a href='https://www.financial-ombudsman.org.uk/' rel='noopener'>Financial Ombudsman Service</a>.<br><br>Contact: 01656 856120 · contact@portwaygroup.com"
 };
 
 /* ================= SELF-TESTING =================
