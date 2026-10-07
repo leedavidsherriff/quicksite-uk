@@ -349,6 +349,7 @@ footer a{color:#B9C2C1}
             <div><b id="rMonth">from £700</b><span>per month</span></div>
           </div>
           <p class="guide">Rooms from £700 a month, with Wi-Fi, reception and the waiting area included. Daily and weekly use priced on request — ask Curtis.</p>
+          <p class="guide"><b>Availability:</b> all 5 rooms available now · updated 7 October 2026</p>
           <p class="neighbours" id="dNeighbours"></p>
           <a class="gbtn gbtn--onlight" id="dEnquire" href="#enquire"><i class="gbtn__rim"></i><span>Enquire about Suite 01</span></a>
         </div>
@@ -573,7 +574,7 @@ SUITES.forEach(s => {
   li.onclick = pick; li.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } };
   dir.appendChild(li);
 });
-dir.insertAdjacentHTML("beforeend", `<li class="directory__foot">All five suites are currently available.</li>`);
+dir.insertAdjacentHTML("beforeend", `<li class="directory__foot">All five suites are available now (updated 7 October 2026).</li>`);
 
 function render(){
   picker.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(practice?.id === c.dataset.id)));
