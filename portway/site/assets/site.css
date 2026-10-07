@@ -571,3 +571,4 @@ section{scroll-margin-top:96px}
 .rf-others a{font-weight:700}
 a.chip{text-decoration:none}
 @media (max-width:560px){.rf-points{grid-template-columns:1fr}}
+.wl-hero::before{background:linear-gradient(180deg,rgba(15,20,22,.45) 0%,rgba(15,20,22,.6) 45%,rgba(15,20,22,.92) 100%)}
