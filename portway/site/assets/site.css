@@ -532,3 +532,29 @@ section{scroll-margin-top:96px}
 .tp-side{display:grid;gap:10px;position:sticky;top:96px}
 .bizrow__name{text-decoration:none;color:inherit}.bizrow__name:hover{text-decoration:underline}
 @media (max-width:900px){.tp-grid{grid-template-columns:1fr}.tp-side{position:static}.tp-hero{min-height:440px}}
+
+/* ---------- guides ---------- */
+.guide-art{max-width:760px;margin:0 auto;padding-top:clamp(12px,3vw,32px)}
+.guide-art h1{font-size:clamp(36px,5.2vw,64px);font-weight:300;margin:14px 0 10px}
+.g-meta{color:var(--ink-3);font-size:14px;margin:0 0 28px}
+.g-body{font-size:17.5px;line-height:1.7;color:var(--ink-2)}
+.g-body h2{font-size:clamp(26px,3vw,36px);font-weight:300;color:var(--ink);margin:42px 0 12px}
+.g-body h3{font:700 17px/1.4 var(--sans);color:var(--ink);margin:22px 0 6px}
+.g-body strong{color:var(--ink)}
+.g-body a{color:var(--sea);font-weight:700}
+.g-table{overflow-x:auto;margin:16px 0;border:1px solid var(--rule);border-radius:14px;background:var(--paper)}
+.g-table table{width:100%;border-collapse:collapse;font-size:15px}
+.g-table th,.g-table td{padding:12px 16px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.g-table th{font:800 11px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.g-table tr:last-child td{border-bottom:0}
+.g-cta{margin-top:40px;padding:24px;border-radius:var(--r);background:var(--ink);color:#EDE8DF;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
+.g-cta p{margin:0;flex-basis:100%;font-size:16px}.g-cta b{color:#fff}
+.g-cta .textlink{color:#fff;border-color:rgba(255,255,255,.35)}
+.g-cta .gbtn--onlight{--gb-glass:rgba(255,255,255,.1)}
+.g-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.g-cards--tight{grid-template-columns:1fr}
+.g-card{display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:18px;background:var(--paper);border:1px solid var(--rule);text-decoration:none;transition:transform .2s,border-color .2s}
+.g-card:hover{transform:translateY(-2px);border-color:var(--sea-2)}
+.g-card small{font:800 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--sea)}
+.g-card b{font:400 22px/1.2 var(--serif)}
+.g-card span{font-size:14px;color:var(--ink-2)}
