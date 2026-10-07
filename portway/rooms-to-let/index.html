@@ -349,10 +349,10 @@ footer a{color:#B9C2C1}
           <ul class="setup" id="dSetup"></ul>
           <div class="rates">
             <div><b id="rDay">Ask</b><span>per day</span></div>
-            <div><b id="rWeek">Ask</b><span>per week</span></div>
-            <div><b id="rMonth">from £700</b><span>per month</span></div>
+            <div><b id="rWeek">£100</b><span>per week</span></div>
+            <div><b id="rMonth">≈ £433</b><span>per month</span></div>
           </div>
-          <p class="guide">Rooms from £700 a month, with Wi-Fi, reception and the waiting area included. Daily and weekly use priced on request — ask Curtis.</p>
+          <p class="guide">Rooms are £100 a week, with Wi-Fi, reception and the waiting area included. Only need a day or two? Ask Curtis.</p>
           <p class="guide"><b>Availability:</b> all 5 rooms available now · updated 7 October 2026</p>
           <p class="neighbours" id="dNeighbours"></p>
           <a class="gbtn gbtn--onlight" id="dEnquire" href="#enquire"><i class="gbtn__rim"></i><span>Enquire about Suite 01</span></a>
@@ -410,7 +410,7 @@ footer a{color:#B9C2C1}
         <div class="calc__keep">After rent, a month of clients leaves you <b id="oKeep">£3,350</b></div>
       </div>
     </div>
-    <p class="guide" style="margin-top:12px">Uses a monthly rent of £700 and a 4.33-week month. Before your own costs and tax — it's a feel for the numbers, not a forecast.</p>
+    <p class="guide" style="margin-top:12px">Uses rent of £100 a week and a 4.33-week month. Before your own costs and tax — it's a feel for the numbers, not a forecast.</p>
   </section>
 
   <!-- ============ INCLUDED ============ -->
@@ -535,8 +535,8 @@ footer a{color:#B9C2C1}
 /* ---------------- data ---------------- */
 // Suites, sizes and "best for" are from portwaywellnesscentre.co.uk.
 // Rates are GUIDE prices for Porthcawl treatment-room hire — confirm with the centre.
-// Lee, 7 Oct 2026: "from £700 a month" (the agent DLP Surveyors lists Suite 5, ~15 m², at £700 pcm). Day/week rates on request until confirmed.
-const RATES = { 14:{day:null,week:null,month:700}, 16:{day:null,week:null,month:700}, 18:{day:null,week:null,month:700} };
+// Lee, 7 Oct 2026: rooms are £100 a week. Monthly = 52 weeks ÷ 12. Day rate on request.
+const RATES = { 14:{day:null,week:100,month:433}, 16:{day:null,week:100,month:433}, 18:{day:null,week:100,month:433} };
 const SUITES = [
   // Re-pitched 7 Oct 2026 (Lee): no beauty, aesthetics, massage/Pilates, osteopathy/podiatry — they'd compete with tenants.
   { no:"01", look:"consult", size:14, tags:["Counselling","Therapy","Psychology"], lede:"A calm, private 14 m² room with a window — a two-chair counselling layout, or a desk if you prefer.",            setup:["Two-chair consulting","Desk & storage","Soft lighting"] },
@@ -602,7 +602,7 @@ function render(){
   document.getElementById("dCap").textContent = `Shown: Suite 01 set up as a ${s.look === "treat" ? "treatment" : "consulting"} room`;
   document.getElementById("rDay").textContent = r.day ? gbp(r.day) : "Ask";
   document.getElementById("rWeek").textContent = r.week ? gbp(r.week) : "Ask";
-  document.getElementById("rMonth").textContent = "from " + gbp(r.month);
+  document.getElementById("rMonth").textContent = "≈ " + gbp(r.month);
   document.getElementById("dNeighbours").innerHTML = practice
     ? `<b>Already under the roof for ${practice.label.toLowerCase()}:</b> ${practice.near}.`
     : `<b>Next door:</b> nine health, wellness and beauty businesses — pick your practice above to see who suits you.`;
@@ -949,8 +949,8 @@ render();
   const MENU = ["What does it cost?", "Which room suits me?", "Can I see a room?", "What's included?", "Parking & access", "Talk to Curtis"];
   const A = {
     cost: () => bot([
-      `Rooms are from ${gbp(r14.month)} a month, with Wi-Fi, reception and the waiting area included.`,
-      "For a day or two a week, ask Curtis. He'll price it for how often you'd use the room."],
+      `Rooms are ${gbp(r14.week)} a week (about ${gbp(r14.month)} a month), with Wi-Fi, reception and the waiting area included.`,
+      "Only need a day or two a week? Ask Curtis and he'll price it for how often you'd use the room."],
       ["Which room suits me?", "Can I see a room?", "Talk to Curtis"]),
     suits: () => bot("What's your practice?", PRACTICES.map(p => p.label)),
     view: () => { startLead("viewing"); },
