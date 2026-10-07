@@ -43,7 +43,7 @@
     <div class="hero__head">
       <h1>An empty room<br>today. <em>Your practice</em><br>next week.</h1>
       <div class="hero__side">
-        <p>Five private consultancy rooms to let inside Porthcawl's wellness centre — daylit, soundproofed, and already surrounded by nine health and beauty businesses. Ideal for beauty, aesthetics, therapy and clinical practice.</p>
+        <p>Five private consultancy rooms to let inside Porthcawl's wellness centre — daylit, soundproofed, and already surrounded by nine health and wellness businesses. Ideal for counselling, holistic therapies, nutrition, coaching and allied health.</p>
         <div class="hero__ctas">
           <a class="gbtn gbtn--onlight" href="#rooms"><i class="gbtn__rim"></i><span>Find your room</span></a>
           <a class="textlink" href="#breakeven">What would it cost me?</a>
@@ -189,7 +189,7 @@
         <p class="eyebrow">Your neighbours</p>
         <h2 style="margin-top:14px">Nine businesses. Their clients walk past your door.</h2>
       </div>
-      <p>Everyone in the building looks after health, wellness or beauty — the kind of neighbours whose clients are already your kind of client.</p>
+      <p>Everyone in the building looks after health and wellbeing, so their clients are often your kind of client, and nobody here does what you do.</p>
     </div>
     <div class="tenants rise">
       <div class="tenant"><small>Hot &amp; cold therapy</small><b>Invigorate</b><span>Stone sauna &amp; cold plunge</span></div>
@@ -226,7 +226,7 @@
 
 <div class="wrap"><section class="sec rise" id="who"><div class="sec__head"><div><p class="eyebrow">Who the rooms suit</p>
       <h2 style="margin-top:14px">Rooms set up for your kind of practice.</h2></div><p>What each kind of practitioner gets at Portway — and what you need to practise from here in Wales.</p></div>
-      <div class="picker"><a class="chip" href="../rooms-to-let/for/beauty-therapists/">Beauty therapists</a><a class="chip" href="../rooms-to-let/for/aesthetics/">Aesthetics practitioners</a><a class="chip" href="../rooms-to-let/for/massage-and-sports-therapy/">Massage and sports therapists</a><a class="chip" href="../rooms-to-let/for/counselling-and-therapy/">Counsellors and therapists</a><a class="chip" href="../rooms-to-let/for/clinical-practitioners/">Physios, osteopaths, podiatrists and clinicians</a><a class="chip" href="../rooms-to-let/for/holistic-therapies/">Holistic therapists</a></div></section></div>
+      <div class="picker"><a class="chip" href="../rooms-to-let/for/counselling-and-therapy/">Counsellors, psychotherapists and psychologists</a><a class="chip" href="../rooms-to-let/for/holistic-therapies/">Holistic therapists</a><a class="chip" href="../rooms-to-let/for/nutrition-and-coaching/">Nutritionists, dietitians and coaches</a><a class="chip" href="../rooms-to-let/for/allied-health/">Speech, occupational and allied health professionals</a></div></section></div>
 <!-- ============ ENQUIRE ============ -->
 <section class="enquire" id="enquire">
   <div class="wrap enquire__grid">
@@ -271,7 +271,7 @@
         <p class="foot-name">Portway Wellness Centre</p>
         <p>Health, wellness and beauty professionals under one roof in Porthcawl.</p>
         <p style="margin-top:14px"><a href="../rooms-to-let/" style="color:var(--lamp);font-weight:700">● 5 rooms available to let</a></p>
-        <p style="margin-top:6px;font-size:13px">Rooms for: <a href="../rooms-to-let/for/beauty-therapists/">beauty therapists</a> · <a href="../rooms-to-let/for/aesthetics/">aesthetics practitioners</a> · <a href="../rooms-to-let/for/massage-and-sports-therapy/">massage and sports therapists</a> · <a href="../rooms-to-let/for/counselling-and-therapy/">counsellors and therapists</a> · <a href="../rooms-to-let/for/clinical-practitioners/">physios, osteopaths, podiatrists and clinicians</a> · <a href="../rooms-to-let/for/holistic-therapies/">holistic therapists</a></p>
+        <p style="margin-top:6px;font-size:13px">Rooms for: <a href="../rooms-to-let/for/counselling-and-therapy/">counsellors, psychotherapists and psychologists</a> · <a href="../rooms-to-let/for/holistic-therapies/">holistic therapists</a> · <a href="../rooms-to-let/for/nutrition-and-coaching/">nutritionists, dietitians and coaches</a> · <a href="../rooms-to-let/for/allied-health/">speech, occupational and allied health professionals</a></p>
       </div>
       <div><h4>Find us</h4><p>1 The Portway<br>Porthcawl CF36 3XB</p><p><a href="https://www.google.com/maps/search/?api=1&query=Portway+Wellness+Centre%2C+1+The+Portway%2C+Porthcawl+CF36+3XB" rel="noopener" target="_blank">Open in Google Maps</a></p></div>
       <div><h4>Opening hours</h4><p>Mon–Fri 8am–8pm</p><p>Sat 9am–6pm</p><p>Sun 10am–4pm</p></div>
@@ -333,22 +333,23 @@
 // Lee, 7 Oct 2026: "from £700 a month" (the agent DLP Surveyors lists Suite 5, ~15 m², at £700 pcm). Day/week rates on request until confirmed.
 const RATES = { 14:{day:null,week:null,month:700}, 16:{day:null,week:null,month:700}, 18:{day:null,week:null,month:700} };
 const SUITES = [
-  { no:"01", look:"treat", size:14, tags:["Therapy","Consultancy","Beauty"],     lede:"The room in the film — 14 m² with a window. Suits a treatment bed, or a calm two-chair counselling layout.",           setup:["Treatment bed","Two-chair consulting","Desk & storage"] },
-  { no:"02", look:"treat", size:14, tags:["Medical","Chiropractic","Physio"],     lede:"Set up for hands-on clinical work — chiropractic, physio, sports massage — with an examination table or couch on request.",                      setup:["Examination table","Treatment couch","Desk"] },
-  { no:"03", look:"consult", size:16, tags:["Therapy","Consultancy","Training"],    lede:"A little more floor at 16 m² — room for 1:1 movement work, training sessions or a talking-therapy layout.",                      setup:["Open floor","Two-chair consulting","Training table"] },
-  { no:"04", look:"treat", size:14, tags:["Beauty","Aesthetics","Wellness"],      lede:"Set up for beauty and aesthetics — natural daylight for skin work, adjustable lighting, and a treatment bed.",              setup:["Treatment bed","Nail / brow station","Trolley space"] },
-  { no:"05", look:"consult", size:18, tags:["Medical","Consultancy","Coaching"],    lede:"The largest suite at 18 m² — space for a clinic couch and a consulting desk side by side, or a coaching table.",               setup:["Clinic couch + desk","Consulting table","Storage"] }
+  // Re-pitched 7 Oct 2026 (Lee): no beauty, aesthetics, massage/Pilates, osteopathy/podiatry — they'd compete with tenants.
+  { no:"01", look:"consult", size:14, tags:["Counselling","Therapy","Psychology"], lede:"A calm, private 14 m² room with a window — a two-chair counselling layout, or a desk if you prefer.",            setup:["Two-chair consulting","Desk & storage","Soft lighting"] },
+  { no:"02", look:"consult", size:14, tags:["Allied health","Clinical","Assessment"], lede:"Set up for clinical and assessment work — speech and language, occupational therapy, audiology — with a desk and an examination table on request.", setup:["Consulting desk","Examination table","Storage"] },
+  { no:"03", look:"consult", size:16, tags:["Therapy","Groups","Training"],          lede:"A little more floor at 16 m² — room for family or couples sessions, small groups, or a talking-therapy layout.",            setup:["Open floor","Group seating","Two-chair consulting"] },
+  { no:"04", look:"treat", size:14, tags:["Holistic","Reflexology","Wellbeing"],     lede:"Set up for holistic treatments — reflexology, reiki, acupuncture or hypnotherapy — with daylight, adjustable lighting and a treatment bed.", setup:["Treatment bed","Reclining chair","Calm lighting"] },
+  { no:"05", look:"consult", size:18, tags:["Nutrition","Coaching","Consultancy"],  lede:"The largest suite at 18 m² — space for a consulting desk and a coaching table side by side.",               setup:["Consulting desk","Coaching table","Storage"] }
 ];
 const PRACTICES = [
-  { id:"beauty",   label:"Beauty therapy",       fit:["04","01"], near:"Sabrina's Beauty, The Tan Lounge and TrueSkin Studio" },
-  { id:"aesth",    label:"Aesthetics",           fit:["04"],      near:"TrueSkin Studio and Môr Health (private GP)" },
-  { id:"nails",    label:"Nails, brows & lashes",fit:["04","01"], near:"Sabrina's Beauty and The Tan Lounge" },
-  { id:"massage",  label:"Massage",              fit:["02","01"], near:"Invigorate, Porthcawl Physiotherapy and Porthcawl Chiropractic" },
-  { id:"msk",      label:"Physio, osteo & chiro",fit:["02","05"], near:"Porthcawl Physiotherapy, Porthcawl Chiropractic and Invigorate" },
-  { id:"talk",     label:"Counselling & therapy",fit:["01","03"], near:"Môr Health, Porthcawl Physiotherapy and Invigorate" },
-  { id:"move",     label:"Pilates, yoga 1:1",    fit:["03"],      near:"Porthcawl Physiotherapy and Invigorate" },
-  { id:"nutrition",label:"Nutrition & coaching", fit:["05","03"], near:"Môr Health, Invigorate and Porthcawl Physiotherapy" },
-  { id:"clinic",   label:"Clinical / medical",   fit:["05","02"], near:"Môr Health, Porthcawl Chiropractic and Porthcawl Physiotherapy" }
+  { id:"counsel",  label:"Counselling & psychotherapy", fit:["01","03"], near:"Môr Health, a doctor-led private GP, and the centre's health businesses" },
+  { id:"psych",    label:"Psychology",                fit:["01","02"], near:"Môr Health (private GP) and the centre's clinical neighbours" },
+  { id:"family",   label:"Couples & family therapy",  fit:["03"],      near:"Môr Health and the centre's health businesses" },
+  { id:"holistic", label:"Reflexology & reiki",       fit:["04","01"], near:"Invigorate, whose sauna and cold-plunge members look after their wellbeing" },
+  { id:"acu",      label:"Acupuncture",               fit:["04"],      near:"Porthcawl Chiropractic Clinic, Porthcawl Physiotherapy and Invigorate" },
+  { id:"hypno",    label:"Hypnotherapy",              fit:["01","04"], near:"Môr Health and Invigorate" },
+  { id:"nutrition",label:"Nutrition & dietetics",     fit:["05","01"], near:"Môr Health, Invigorate and Porthcawl Physiotherapy" },
+  { id:"coaching", label:"Health & life coaching",    fit:["05","03"], near:"Invigorate and Môr Health" },
+  { id:"allied",   label:"Speech, OT & allied health",fit:["02","05"], near:"Môr Health, Porthcawl Physiotherapy and Porthcawl Chiropractic Clinic" }
 ];
 const gbp = n => "£" + Math.round(n).toLocaleString("en-GB");
 
