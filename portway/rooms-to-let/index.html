@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rooms to Let · Portway Wellness Centre, Porthcawl</title>
+<meta name="description" content="Five consultancy rooms to let at Portway Wellness Centre, Porthcawl — private, daylit treatment and therapy rooms for beauty, wellness and health practitioners. Daily, weekly or monthly.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PORTWAY — ROOMS FIRST
+   The rooms are the product. The film (empty room → furnished → a year on)
+   is the hero, and the timeline under it is the pitch: day one, week one,
+   year one. Linen + sea-glass from Porthcawl; the amber is the desk lamp
+   that comes on at the end of the film, and it means "available" — it is
+   only ever used for vacancy and the enquiry path.
+   ============================================================ */
+:root{
+  --linen:#F4EFE7; --linen-2:#ECE5D9; --paper:#FBF8F3;
+  --ink:#1D2729; --ink-2:#4A5658; --ink-3:#7C8687;
+  --sea:#2F7F78; --sea-2:#9CCFC6; --sea-wash:#DDEDE9;
+  --lamp:#F2A93B; --lamp-soft:#FBE3BC;
+  --rule:rgba(29,39,41,.12);
+  --r:22px;
+  --serif:"Fraunces", Georgia, serif;
+  --sans:"Manrope", system-ui, -apple-system, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--linen);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:1.05;margin:0}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.eyebrow{font:800 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--sea)}
+
+/* ---------- glass button: ~/quicksite-kit/glass-button, verbatim ---------- */
+.gbtn{--gb-lamp:#6fe3ff;--gb-rim:1.6px;--gb-spin:4.5s;--gb-glass:rgba(255,255,255,.09);--gb-ink:#fff;position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:16px 26px;border:0;border-radius:999px;font:inherit;font-weight:750;letter-spacing:.01em;color:var(--gb-ink);text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent;background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03)),var(--gb-glass);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -12px 24px -14px rgba(0,0,0,.5)}
+.gbtn__rim{position:absolute;inset:0;border-radius:inherit;z-index:1;padding:var(--gb-rim);pointer-events:none;overflow:hidden;-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);mask-composite:exclude}
+.gbtn__rim::before{content:"";position:absolute;left:50%;top:50%;width:240%;aspect-ratio:1;background:conic-gradient(from 0deg,rgba(255,255,255,.06) 0deg,var(--gb-lamp) 18deg,rgba(255,255,255,.06) 56deg,rgba(255,255,255,.06) 180deg,var(--gb-lamp) 198deg,rgba(255,255,255,.06) 236deg,rgba(255,255,255,.06) 360deg);animation:gbtn-spin var(--gb-spin) linear infinite;will-change:transform}
+@keyframes gbtn-spin{from{transform:translate(-50%,-50%) rotate(0turn)}to{transform:translate(-50%,-50%) rotate(1turn)}}
+.gbtn > span{position:relative;z-index:2}
+.gbtn:hover{--gb-spin:2.4s}
+.gbtn:active{transform:translateY(1px)}
+.gbtn:focus-visible{outline:2px solid var(--gb-lamp);outline-offset:3px}
+.gbtn--quiet{--gb-glass:rgba(255,255,255,.045);--gb-ink:rgba(255,255,255,.92)}
+.gbtn--onlight{--gb-glass:rgba(12,16,20,.62);--gb-ink:#fff;background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02)),var(--gb-glass)}
+@media (prefers-reduced-motion: reduce){.gbtn__rim::before{animation:none;background:conic-gradient(from 0deg, var(--gb-lamp), rgba(255,255,255,.30),var(--gb-lamp), rgba(255,255,255,.30), var(--gb-lamp))}.gbtn:hover{--gb-spin:4.5s}}
+/* site tuning */
+.gbtn{--gb-lamp:var(--lamp)}
+.gbtn--onlight{--gb-glass:rgba(29,39,41,.86)}
+.textlink{font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--sea-2);padding-bottom:2px}
+.textlink:hover{border-color:var(--sea)}
+
+/* ---------- clips: film, never a player ---------- */
+video{opacity:0;transition:opacity .6s ease}
+video.is-playing{opacity:1}
+video::-webkit-media-controls,video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+.film-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ============ TOP: the door plaque, not a nav bar ============ */
+.plaque{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0 0}
+.plaque__name{display:flex;flex-direction:column;line-height:1.15;text-decoration:none}
+.plaque__name b{font:600 19px/1.1 var(--serif);letter-spacing:-.01em}
+.plaque__name small{font-size:12px;color:var(--ink-3);letter-spacing:.04em}
+.vacancy{display:inline-flex;align-items:center;gap:10px;padding:9px 14px 9px 12px;border-radius:999px;background:var(--paper);border:1px solid var(--rule);font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.vacancy i{width:9px;height:9px;border-radius:50%;background:var(--lamp);box-shadow:0 0 0 4px var(--lamp-soft),0 0 14px var(--lamp);animation:lamp 2.6s ease-in-out infinite}
+@keyframes lamp{50%{box-shadow:0 0 0 6px var(--lamp-soft),0 0 22px var(--lamp)}}
+
+/* ============ HERO: the room, then the timeline ============ */
+.hero{padding:clamp(28px,5vw,56px) 0 0}
+.hero__head{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(20px,4vw,64px);align-items:end;margin-bottom:clamp(22px,3.5vw,40px)}
+.hero h1{font-size:clamp(44px,7.4vw,104px);font-weight:300}
+.hero h1 em{font-style:italic;color:var(--sea)}
+.hero__side p{margin:0 0 20px;color:var(--ink-2);font-size:clamp(16px,1.4vw,18px);max-width:42ch}
+.hero__ctas{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+
+.room{position:relative;border-radius:calc(var(--r) + 6px);overflow:hidden;aspect-ratio:16/9;background:#cfc8bd url(media/room-empty.jpg) center/cover}
+.room video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.room__tag{position:absolute;left:18px;top:18px;z-index:5;padding:8px 13px;border-radius:999px;background:rgba(251,248,243,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font:700 12px/1 var(--sans);letter-spacing:.06em}
+.room__tag span{color:var(--sea)}
+.modes{position:absolute;right:14px;top:14px;z-index:5;display:flex;gap:3px;padding:4px;border-radius:999px;background:rgba(29,39,41,.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.modes button{appearance:none;border:0;background:transparent;color:rgba(255,255,255,.8);font:700 12px/1 var(--sans);padding:9px 13px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.modes button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+@media (max-width:560px){.room__tag{display:none}.modes{left:10px;right:auto;top:10px}.modes button{padding:8px 11px}}
+
+.timeline{display:grid;gap:0;margin-top:14px;position:relative}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:3px;background:var(--rule)}
+.timeline__bar{position:absolute;left:0;top:0;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--sea),var(--lamp));width:0}
+.stop{padding:18px 18px 0 0;opacity:.42;transition:opacity .5s}
+.stop.on{opacity:1}
+.stop b{display:block;font:400 clamp(20px,2.2vw,28px)/1.1 var(--serif)}
+.stop span{display:block;color:var(--ink-2);font-size:14px;margin-top:6px;max-width:30ch}
+
+/* ============ the numbers strip ============ */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:clamp(48px,7vw,88px) 0 0}
+.fact{padding:22px 18px 22px 0}
+.fact + .fact{padding-left:18px;border-left:1px solid var(--rule)}
+.fact b{display:block;font:300 clamp(32px,4vw,52px)/1 var(--serif)}
+.fact span{font-size:13px;color:var(--ink-2)}
+
+section{scroll-margin-top:20px}
+.sec{padding:clamp(64px,9vw,120px) 0 0}
+.sec__head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+.sec__head h2{font-size:clamp(34px,5vw,64px);font-weight:300;max-width:16ch}
+.sec__head p{margin:0;max-width:44ch;color:var(--ink-2)}
+
+/* ============ FIND YOUR ROOM: practice picker + the directory ============ */
+.picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.picker__label{width:100%;font-weight:700;font-size:14px;margin-bottom:4px}
+.chip{appearance:none;border:1px solid var(--rule);background:var(--paper);color:var(--ink);font:600 14px/1 var(--sans);padding:11px 15px;border-radius:999px;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.chip:hover{border-color:var(--sea-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+.board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(16px,2.5vw,32px);align-items:start}
+.directory{list-style:none;margin:0;padding:8px;border-radius:var(--r);background:var(--ink);color:#EDE8DF}
+.suite{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;padding:16px 14px;border-radius:14px;cursor:pointer;transition:background .25s,opacity .3s;position:relative}
+.suite + .suite{margin-top:2px}
+.suite:hover{background:rgba(255,255,255,.05)}
+.suite[aria-selected="true"]{background:rgba(255,255,255,.1)}
+.suite.dim{opacity:.35}
+.suite__no{font:300 30px/1 var(--serif);color:#fff}
+.suite__name{font-weight:700}
+.suite__tags{font-size:13px;color:#A9B3B3}
+.suite__state{display:inline-flex;align-items:center;gap:8px;font:800 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--lamp)}
+.suite__state i{width:7px;height:7px;border-radius:50%;background:var(--lamp);box-shadow:0 0 10px var(--lamp)}
+.suite.match::after{content:"Good fit";position:absolute;right:14px;top:-7px;font:800 9px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:var(--sea-2);color:var(--ink);padding:5px 8px;border-radius:999px}
+.directory__foot{padding:14px 14px 10px;font-size:13px;color:#A9B3B3;border-top:1px solid rgba(255,255,255,.08);margin-top:8px}
+
+.detail{background:var(--paper);border-radius:var(--r);border:1px solid var(--rule);overflow:hidden}
+.detail__img{aspect-ratio:16/10;background:#d9d3c8 url(media/room-treatment.jpg) center/cover;position:relative;transition:background-image .3s}
+.detail__cap{position:absolute;left:14px;bottom:14px;padding:7px 11px;border-radius:999px;background:rgba(251,248,243,.86);font:700 11px/1 var(--sans);letter-spacing:.04em;color:var(--ink-2)}
+.detail__img::after{content:attr(data-size);position:absolute;right:14px;bottom:14px;padding:8px 12px;border-radius:999px;background:rgba(29,39,41,.82);color:#fff;font:700 13px/1 var(--sans)}
+.detail__body{padding:clamp(20px,2.6vw,30px)}
+.detail h3{font-size:clamp(28px,3vw,38px)}
+.detail__lede{color:var(--ink-2);margin:10px 0 18px}
+.setup{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0;list-style:none}
+.setup li{font-size:13px;font-weight:600;padding:7px 11px;border-radius:8px;background:var(--sea-wash);color:#1E5550}
+.rates{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:8px}
+.rates div{padding:14px 12px;text-align:center}
+.rates div + div{border-left:1px solid var(--rule)}
+.rates b{display:block;font:400 26px/1 var(--serif)}
+.rates span{font-size:12px;color:var(--ink-3)}
+.guide{font-size:12px;color:var(--ink-3);margin:0 0 18px}
+.neighbours{border-top:1px dashed var(--rule);padding-top:16px;margin-bottom:20px;font-size:14px;color:var(--ink-2)}
+.neighbours b{color:var(--ink)}
+
+/* ============ BREAK-EVEN: what does the room cost me, in clients ============ */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:calc(var(--r) + 6px);overflow:hidden;background:var(--paper);border:1px solid var(--rule)}
+.calc__in{padding:clamp(22px,3vw,40px);display:grid;gap:26px;align-content:start}
+.field label{display:flex;justify-content:space-between;font-weight:700;font-size:14px;margin-bottom:10px}
+.field label output{font:400 22px/1 var(--serif);color:var(--sea)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--linen-2);border-radius:12px;padding:4px;gap:4px}
+.seg button{appearance:none;border:0;background:transparent;font:700 14px/1 var(--sans);padding:12px 6px;border-radius:9px;cursor:pointer;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+input[type=range]{width:100%;accent-color:var(--sea);height:28px}
+.calc__out{background:var(--ink);color:#EDE8DF;padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:28px;position:relative;overflow:hidden}
+.calc__out::before{content:"";position:absolute;right:-30%;top:-40%;width:90%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(242,169,59,.28),transparent 65%);pointer-events:none}
+.calc__big{font:300 clamp(54px,8vw,104px)/.9 var(--serif);color:#fff}
+.calc__big small{font-size:clamp(17px,2vw,24px);color:var(--lamp);display:block;margin-top:12px;font-family:var(--sans);font-weight:700;letter-spacing:.01em}
+.clients{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 0}
+.clients i{width:16px;height:16px;border-radius:5px;background:rgba(255,255,255,.12);transition:background .3s}
+.clients i.rent{background:var(--lamp)}
+.clients i.keep{background:var(--sea-2)}
+.legend{display:flex;gap:18px;font-size:12px;color:#A9B3B3;margin-top:10px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--lamp)}
+.legend span + span::before{background:var(--sea-2)}
+.calc__keep{font-size:15px;color:#C9D0CF}
+.calc__keep b{font:400 30px/1 var(--serif);color:#fff;display:block;margin-top:4px}
+
+/* ============ included ============ */
+.incl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.incl div{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:20px 18px}
+.incl b{display:block;font:400 21px/1.15 var(--serif);margin-bottom:6px}
+.incl span{font-size:14px;color:var(--ink-2)}
+
+/* ============ the neighbours ============ */
+.tenants{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden}
+.tenant{background:var(--linen);padding:20px 18px}
+.tenant small{font:800 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--sea)}
+.tenant b{display:block;font:400 21px/1.15 var(--serif);margin:8px 0 4px}
+.tenant span{font-size:13px;color:var(--ink-2)}
+.tenant--open{background:var(--lamp-soft)}
+.tenant--open small{color:#9A5F0B}
+
+/* ============ the building ============ */
+.building{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(16px,3vw,40px);align-items:center}
+.building__film{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:16/10;background:#bfb9ae url(media/portway-exterior-poster.jpg) center/cover}
+.building__film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.visit dl{margin:0;display:grid;gap:16px}
+.visit dt{font:800 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--sea);margin-bottom:5px}
+.visit dd{margin:0;font-size:16px}
+
+/* ============ enquiry ============ */
+.enquire{margin-top:clamp(64px,9vw,120px);background:var(--ink);color:#EDE8DF;padding:clamp(56px,8vw,104px) 0}
+.enquire .eyebrow{color:var(--sea-2)}
+.enquire h2{font-size:clamp(36px,5.4vw,70px);font-weight:300;color:#fff;margin:14px 0 14px;max-width:14ch}
+.enquire__grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(24px,5vw,72px);align-items:start}
+.enquire p{color:#B9C2C1;max-width:40ch}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form .full{grid-column:1/-1}
+form label{display:grid;gap:7px;font-size:13px;font-weight:700;color:#C9D0CF}
+form input,form select,form textarea{font:500 16px/1.3 var(--sans);color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:13px 14px;width:100%}
+form select option{color:#000}
+form input:focus,form select:focus,form textarea:focus{outline:2px solid var(--sea-2);outline-offset:1px}
+form textarea{min-height:96px;resize:vertical}
+.form__foot{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.form__foot small{color:#8F9A99;max-width:36ch}
+.callrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.gbtn--quiet{--gb-ink:#fff}
+
+footer{background:var(--ink);color:#8F9A99;font-size:13px;padding:0 0 40px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.08);padding-top:24px}
+footer a{color:#B9C2C1}
+
+/* reveal on scroll */
+.rise{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.rise.in{opacity:1;transform:none}
+
+/* sticky mobile enquiry */
+.dock{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:20;display:none;transform:translateY(140%);transition:transform .4s ease}
+.dock.show{transform:none}
+.dock .gbtn{width:100%}
+
+@media (max-width:900px){
+  .hero__head,.board,.calc,.building,.enquire__grid{grid-template-columns:1fr}
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .fact:nth-child(3){padding-left:0;border-left:0}
+  .fact:nth-child(n+3){border-top:1px solid var(--rule)}
+  .incl,.tenants{grid-template-columns:repeat(2,1fr)}
+  .dock{display:block}
+}
+@media (max-width:560px){
+  .stop{padding-right:10px}
+  .stop span{font-size:12px}
+  .room{aspect-ratio:4/3}
+  form{grid-template-columns:1fr}
+  .incl{grid-template-columns:1fr 1fr;gap:8px}
+  .incl div{padding:14px 12px}
+  .incl b{font-size:17px}
+  .incl span{font-size:13px;line-height:1.45}
+  .tenants{grid-template-columns:1fr 1fr}
+  .vacancy b{display:none}
+  .suite{grid-template-columns:40px 1fr auto;gap:10px;padding:14px 10px}
+  .suite__state span{display:none}
+  .rates b{font-size:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  .rise{opacity:1;transform:none;transition:none}
+  .vacancy i{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="plaque">
+    <a class="plaque__name" href="#top" aria-label="Portway Wellness Centre home">
+      <b>Portway Wellness Centre</b>
+      <small>1 The Portway · Porthcawl</small>
+    </a>
+    <a class="vacancy" href="#rooms"><i aria-hidden="true"></i><span><span data-free>5</span> rooms <b>available</b> to let</span></a>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="hero__head">
+      <h1>An empty room<br>today. <em>Your practice</em><br>next week.</h1>
+      <div class="hero__side">
+        <p>Five private consultancy rooms to let inside Porthcawl's wellness centre — daylit, soundproofed, and already surrounded by nine health and beauty businesses. Ideal for beauty, aesthetics, therapy and clinical practice.</p>
+        <div class="hero__ctas">
+          <a class="gbtn gbtn--onlight" href="#rooms"><i class="gbtn__rim"></i><span>Find your room</span></a>
+          <a class="textlink" href="#breakeven">What would it cost me?</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="room" id="roomFilm" aria-label="One of the consultancy rooms: empty, then furnished, then a year on as an established practice">
+      <video id="filmT" muted playsinline preload="auto" poster="media/room-empty.jpg" src="media/room-treatment.mp4"></video>
+      <video id="filmA" muted playsinline preload="none" poster="media/room-empty.jpg" src="media/room-1-fills.mp4"></video>
+      <video id="filmB" muted playsinline preload="none" poster="media/room-furnished.jpg" src="media/room-2-year-on.mp4"></video>
+      <div class="room__tag">Suite 01 · <span>14 m²</span></div>
+      <div class="modes" role="group" aria-label="Show the room set up as">
+        <button type="button" data-mode="treat" aria-pressed="true">Treatment room</button>
+        <button type="button" data-mode="consult" aria-pressed="false">Consulting room</button>
+      </div>
+    </div>
+    <div class="timeline" aria-hidden="true">
+      <div class="timeline__bar" id="tlBar"></div>
+    </div>
+
+    <div class="facts">
+      <div class="fact"><b>5</b><span>consultancy rooms to let</span></div>
+      <div class="fact"><b>14–18<small style="font-size:.45em"> m²</small></b><span>private, soundproofed, daylit</span></div>
+      <div class="fact"><b>9</b><span>wellness businesses already in</span></div>
+      <div class="fact"><b>Flexible</b><span>daily, weekly or monthly terms</span></div>
+    </div>
+  </section>
+
+  <!-- ============ FIND YOUR ROOM ============ -->
+  <section class="sec" id="rooms">
+    <div class="sec__head rise">
+      <div>
+        <p class="eyebrow">Rooms to let</p>
+        <h2 style="margin-top:14px">Five rooms. Pick the one that fits.</h2>
+      </div>
+      <p>Every room is a private, lockable suite with natural light. Tell us what you do and we'll show you the rooms that suit it — and who's already next door.</p>
+    </div>
+
+    <div class="picker rise" role="group" aria-label="Your practice">
+      <div class="picker__label">What's your practice?</div>
+    </div>
+
+    <div class="board rise">
+      <ul class="directory" id="directory" role="listbox" aria-label="Consultancy suites"></ul>
+      <article class="detail" id="detail" aria-live="polite">
+        <div class="detail__img" id="detailImg" data-size="14 m²" role="img" aria-label="Consultancy Suite 01 furnished as an established practice"><span class="detail__cap" id="dCap">Shown: Suite 01 set up as a treatment room</span></div>
+        <div class="detail__body">
+          <p class="eyebrow" id="dEyebrow">Available now</p>
+          <h3 id="dName" style="margin-top:10px">Consultancy Suite 01</h3>
+          <p class="detail__lede" id="dLede"></p>
+          <ul class="setup" id="dSetup"></ul>
+          <div class="rates">
+            <div><b id="rDay">£40</b><span>per day</span></div>
+            <div><b id="rWeek">£150</b><span>per week</span></div>
+            <div><b id="rMonth">£450</b><span>per month</span></div>
+          </div>
+          <p class="guide">Guide prices — your exact rate is confirmed when you enquire. Wi-Fi, reception and waiting area included.</p>
+          <p class="neighbours" id="dNeighbours"></p>
+          <a class="gbtn gbtn--onlight" id="dEnquire" href="#enquire"><i class="gbtn__rim"></i><span>Enquire about Suite 01</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ BREAK-EVEN ============ -->
+  <section class="sec" id="breakeven">
+    <div class="sec__head rise">
+      <div>
+        <p class="eyebrow">The honest maths</p>
+        <h2 style="margin-top:14px">How many clients pays the rent?</h2>
+      </div>
+      <p>Put in what you charge. We'll show you which client covers the room — everyone after that is yours.</p>
+    </div>
+
+    <div class="calc rise">
+      <div class="calc__in">
+        <div class="field">
+          <label>Room</label>
+          <div class="seg" id="cSize">
+            <button type="button" data-size="14" aria-pressed="true">14 m²</button>
+            <button type="button" data-size="16" aria-pressed="false">16 m²</button>
+            <button type="button" data-size="18" aria-pressed="false">18 m²</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>How you'd rent it</label>
+          <div class="seg" id="cTerm">
+            <button type="button" data-term="day" aria-pressed="false">2 days a week</button>
+            <button type="button" data-term="week" aria-pressed="false">Full weeks</button>
+            <button type="button" data-term="month" aria-pressed="true">Monthly</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cPrice">Your price per session <output id="oPrice">£55</output></label>
+          <input type="range" id="cPrice" min="20" max="150" step="5" value="55">
+        </div>
+        <div class="field">
+          <label for="cClients">Clients a week <output id="oClients">16</output></label>
+          <input type="range" id="cClients" min="2" max="40" step="1" value="16">
+        </div>
+      </div>
+      <div class="calc__out" aria-live="polite">
+        <div>
+          <p class="eyebrow" style="color:var(--sea-2)">Your rent is covered by</p>
+          <div class="calc__big" id="oBreak">client 2<small id="oBreakNote">in your first week of the month</small></div>
+        </div>
+        <div>
+          <div class="clients" id="oDots" aria-hidden="true"></div>
+          <div class="legend"><span>Pays the room</span><span>Yours to keep</span></div>
+        </div>
+        <div class="calc__keep">After rent, a month of clients leaves you <b id="oKeep">£3,350</b></div>
+      </div>
+    </div>
+    <p class="guide" style="margin-top:12px">Uses the guide rates above and a 4.33-week month. Before your own costs and tax — it's a feel for the numbers, not a forecast.</p>
+  </section>
+
+  <!-- ============ INCLUDED ============ -->
+  <section class="sec">
+    <div class="sec__head rise">
+      <div>
+        <p class="eyebrow">In the rent</p>
+        <h2 style="margin-top:14px">Turn up with your kit. That's it.</h2>
+      </div>
+    </div>
+    <div class="incl rise">
+      <div><b>Private &amp; soundproofed</b><span>Your own lockable room — client conversations stay in it.</span></div>
+      <div><b>Daylight, plus your light</b><span>A real window and adjustable lighting for treatments and skin work.</span></div>
+      <div><b>Set up your way</b><span>Desk, examination table or treatment bed — configured to your practice.</span></div>
+      <div><b>Reception &amp; waiting</b><span>A shared waiting area, so clients arrive somewhere that looks the part.</span></div>
+      <div><b>Wi-Fi included</b><span>High-speed, for booking systems, card machines and notes.</span></div>
+      <div><b>Accessible, with parking</b><span>An accessible building with parking, on The Portway.</span></div>
+      <div><b>Flexible terms</b><span>Daily, weekly or monthly — start small and grow into it.</span></div>
+      <div><b>Long opening hours</b><span>Mon–Fri 8am–8pm, Sat 9am–6pm, Sun 10am–4pm.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ NEIGHBOURS ============ -->
+  <section class="sec">
+    <div class="sec__head rise">
+      <div>
+        <p class="eyebrow">Your neighbours</p>
+        <h2 style="margin-top:14px">Nine businesses. Their clients walk past your door.</h2>
+      </div>
+      <p>Everyone in the building looks after health, wellness or beauty — the kind of neighbours whose clients are already your kind of client.</p>
+    </div>
+    <div class="tenants rise">
+      <div class="tenant"><small>Hot &amp; cold therapy</small><b>Invigorate</b><span>Infrared sauna &amp; ice bath</span></div>
+      <div class="tenant"><small>Chiropractic</small><b>Porthcawl Chiropractic Clinic</b><span>Back, neck &amp; posture</span></div>
+      <div class="tenant"><small>Physiotherapy</small><b>Porthcawl Physiotherapy</b><span>Sports injury &amp; rehab</span></div>
+      <div class="tenant"><small>Private GP</small><b>Môr Health</b><span>Private consultations</span></div>
+      <div class="tenant"><small>Aesthetics</small><b>Trueskin Studio</b><span>Hydrafacial, HIFU, RF microneedling</span></div>
+      <div class="tenant"><small>Beauty</small><b>Sabrina's Beauty</b><span>Beauty with attitude</span></div>
+      <div class="tenant"><small>Tanning</small><b>The Tan Lounge</b><span>Sunbed salon</span></div>
+      <div class="tenant"><small>Financial services</small><b>Portway Financial</b><span>Finance, insurance &amp; estate planning</span></div>
+      <div class="tenant tenant--open" style="grid-column:1/-1"><small>Available</small><b>Your practice, here.</b><span>Five rooms ready for the next one.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ THE BUILDING ============ -->
+  <section class="sec">
+    <div class="building rise">
+      <div class="building__film">
+        <video id="filmExt" muted playsinline loop preload="metadata" poster="media/portway-exterior-poster.jpg" src="media/portway-exterior.mp4"></video>
+      </div>
+      <div class="visit">
+        <p class="eyebrow">Come and see a room</p>
+        <h2 style="font-size:clamp(32px,4vw,52px);font-weight:300;margin:14px 0 22px">The old surgery on The Portway.</h2>
+        <dl>
+          <div><dt>Address</dt><dd>1 The Portway, Porthcawl CF36 3XB</dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+441656856120">01656 856120</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:contact@portwaygroup.com">contact@portwaygroup.com</a></dd></div>
+          <div><dt>Viewings</dt><dd>Ring or email and we'll book you in to see a room.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ENQUIRE ============ -->
+<section class="enquire" id="enquire">
+  <div class="wrap enquire__grid">
+    <div>
+      <p class="eyebrow">Room enquiry</p>
+      <h2>Tell us about your practice.</h2>
+      <p>We reply within 24 hours. Let us know what you do and when you'd like to start, and we'll come back with the right room and a time to view it.</p>
+      <div class="callrow">
+        <a class="gbtn gbtn--quiet" href="tel:+441656856120"><i class="gbtn__rim"></i><span>Call 01656 856120</span></a>
+      </div>
+    </div>
+    <form id="enqForm" novalidate>
+      <label>Your name<input name="name" autocomplete="name" required></label>
+      <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
+      <label class="full">Email<input name="email" type="email" autocomplete="email"></label>
+      <label>Your practice<select name="practice" id="fPractice"></select></label>
+      <label>Room<select name="suite" id="fSuite"></select></label>
+      <label>Term<select name="term"><option>Monthly</option><option>Weekly</option><option>Daily</option><option>Not sure yet</option></select></label>
+      <label>Start date<input name="start" type="month"></label>
+      <label class="full">Anything else<textarea name="notes" placeholder="Equipment you'd bring, days you'd want, questions…"></textarea></label>
+      <div class="full form__foot">
+        <small>This opens your email with your enquiry written out — nothing is sent until you press send.</small>
+        <button class="gbtn" type="submit"><i class="gbtn__rim"></i><span>Send room enquiry</span></button>
+      </div>
+    </form>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <span>© Portway Wellness Centre · 1 The Portway, Porthcawl CF36 3XB</span>
+    <span><a href="https://www.portwaywellnesscentre.co.uk/privacy-policy/">Privacy</a> · <a href="https://www.portwaywellnesscentre.co.uk/website-terms-of-use/">Terms</a></span>
+  </div>
+</footer>
+
+<div class="dock" id="dock"><a class="gbtn gbtn--onlight" href="#enquire"><i class="gbtn__rim"></i><span>Enquire about a room</span></a></div>
+
+<script>
+/* ---------------- data ---------------- */
+// Suites, sizes and "best for" are from portwaywellnesscentre.co.uk.
+// Rates are GUIDE prices for Porthcawl treatment-room hire — confirm with the centre.
+const RATES = { 14:{day:40,week:150,month:450}, 16:{day:45,week:165,month:495}, 18:{day:50,week:185,month:550} };
+const SUITES = [
+  { no:"01", look:"treat", size:14, tags:["Therapy","Consultancy","Beauty"],     lede:"The room in the film — 14 m² with a window. Suits a treatment bed, or a calm two-chair counselling layout.",           setup:["Treatment bed","Two-chair consulting","Desk & storage"] },
+  { no:"02", look:"treat", size:14, tags:["Medical","Chiropractic","Physio"],     lede:"Set up for hands-on clinical work — chiropractic, physio, sports massage — with an examination table or couch on request.",                      setup:["Examination table","Treatment couch","Desk"] },
+  { no:"03", look:"consult", size:16, tags:["Therapy","Consultancy","Training"],    lede:"A little more floor at 16 m² — room for 1:1 movement work, training sessions or a talking-therapy layout.",                      setup:["Open floor","Two-chair consulting","Training table"] },
+  { no:"04", look:"treat", size:14, tags:["Beauty","Aesthetics","Wellness"],      lede:"Set up for beauty and aesthetics — natural daylight for skin work, adjustable lighting, and a treatment bed.",              setup:["Treatment bed","Nail / brow station","Trolley space"] },
+  { no:"05", look:"consult", size:18, tags:["Medical","Consultancy","Coaching"],    lede:"The largest suite at 18 m² — space for a clinic couch and a consulting desk side by side, or a coaching table.",               setup:["Clinic couch + desk","Consulting table","Storage"] }
+];
+const PRACTICES = [
+  { id:"beauty",   label:"Beauty therapy",       fit:["04","01"], near:"Sabrina's Beauty, The Tan Lounge and Trueskin Studio" },
+  { id:"aesth",    label:"Aesthetics",           fit:["04"],      near:"Trueskin Studio and Môr Health (private GP)" },
+  { id:"nails",    label:"Nails, brows & lashes",fit:["04","01"], near:"Sabrina's Beauty and The Tan Lounge" },
+  { id:"massage",  label:"Massage",              fit:["02","01"], near:"Invigorate, Porthcawl Physiotherapy and Porthcawl Chiropractic" },
+  { id:"msk",      label:"Physio, osteo & chiro",fit:["02","05"], near:"Porthcawl Physiotherapy, Porthcawl Chiropractic and Invigorate" },
+  { id:"talk",     label:"Counselling & therapy",fit:["01","03"], near:"Môr Health, Porthcawl Physiotherapy and Invigorate" },
+  { id:"move",     label:"Pilates, yoga 1:1",    fit:["03"],      near:"Porthcawl Physiotherapy and Invigorate" },
+  { id:"nutrition",label:"Nutrition & coaching", fit:["05","03"], near:"Môr Health, Invigorate and Porthcawl Physiotherapy" },
+  { id:"clinic",   label:"Clinical / medical",   fit:["05","02"], near:"Môr Health, Porthcawl Chiropractic and Porthcawl Physiotherapy" }
+];
+const gbp = n => "£" + Math.round(n).toLocaleString("en-GB");
+
+/* ---------------- picker + directory ---------------- */
+const picker = document.querySelector(".picker"), dir = document.getElementById("directory");
+let practice = null, selected = "01";
+
+PRACTICES.forEach(p => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.textContent = p.label; b.dataset.id = p.id;
+  b.setAttribute("aria-pressed","false");
+  b.onclick = () => { practice = practice?.id === p.id ? null : p; if (practice) selected = p.fit[0]; render(); };
+  picker.appendChild(b);
+});
+
+SUITES.forEach(s => {
+  const li = document.createElement("li");
+  li.className = "suite"; li.role = "option"; li.tabIndex = 0; li.dataset.no = s.no;
+  li.innerHTML = `<span class="suite__no">${s.no}</span>
+    <span><span class="suite__name">Consultancy Suite ${s.no} · ${s.size} m²</span><br><span class="suite__tags">${s.tags.join(" · ")}</span></span>
+    <span class="suite__state"><i></i><span>To let</span></span>`;
+  const pick = () => { selected = s.no; render(); };
+  li.onclick = pick; li.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } };
+  dir.appendChild(li);
+});
+dir.insertAdjacentHTML("beforeend", `<li class="directory__foot">All five suites are currently available.</li>`);
+
+function render(){
+  picker.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(practice?.id === c.dataset.id)));
+  dir.querySelectorAll(".suite").forEach(li => {
+    const fit = practice ? practice.fit.includes(li.dataset.no) : false;
+    li.classList.toggle("match", fit);
+    li.classList.toggle("dim", !!practice && !fit);
+    li.setAttribute("aria-selected", String(li.dataset.no === selected));
+  });
+  const s = SUITES.find(x => x.no === selected), r = RATES[s.size];
+  document.getElementById("dName").textContent = `Consultancy Suite ${s.no}`;
+  document.getElementById("dEyebrow").textContent = `Available now · ${s.tags.join(" · ")}`;
+  document.getElementById("dLede").textContent = s.lede;
+  document.getElementById("dSetup").innerHTML = s.setup.map(x => `<li>${x}</li>`).join("");
+  const di = document.getElementById("detailImg");
+  di.dataset.size = `${s.size} m²`;
+  di.style.backgroundImage = `url(media/${s.look === "treat" ? "room-treatment" : "room-year-on"}.jpg)`;
+  di.setAttribute("aria-label", `A Portway suite set up as a ${s.look === "treat" ? "treatment" : "consulting"} room`);
+  document.getElementById("dCap").textContent = `Shown: Suite 01 set up as a ${s.look === "treat" ? "treatment" : "consulting"} room`;
+  document.getElementById("rDay").textContent = gbp(r.day);
+  document.getElementById("rWeek").textContent = gbp(r.week);
+  document.getElementById("rMonth").textContent = gbp(r.month);
+  document.getElementById("dNeighbours").innerHTML = practice
+    ? `<b>Already under the roof for ${practice.label.toLowerCase()}:</b> ${practice.near}.`
+    : `<b>Next door:</b> nine health, wellness and beauty businesses — pick your practice above to see who suits you.`;
+  const btn = document.getElementById("dEnquire");
+  btn.querySelector("span").textContent = `Enquire about Suite ${s.no}`;
+  btn.onclick = () => { fSuite.value = s.no; if (practice) fPractice.value = practice.label; };
+}
+
+/* ---------------- break-even ---------------- */
+const calc = { size:14, term:"month" };
+const cPrice = document.getElementById("cPrice"), cClients = document.getElementById("cClients");
+function seg(id, key){
+  document.querySelectorAll(`#${id} button`).forEach(b => b.onclick = () => {
+    document.querySelectorAll(`#${id} button`).forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    calc[key] = key === "size" ? +b.dataset.size : b.dataset.term; runCalc();
+  });
+}
+seg("cSize","size"); seg("cTerm","term");
+let raf = 0;
+function runCalc(){
+  if (raf) return;
+  raf = requestAnimationFrame(() => {
+    raf = 0;
+    const price = +cPrice.value, perWeek = +cClients.value, r = RATES[calc.size];
+    document.getElementById("oPrice").textContent = gbp(price);
+    document.getElementById("oClients").textContent = perWeek;
+    // monthly rent for the chosen way of renting
+    const rentMonth = calc.term === "month" ? r.month : calc.term === "week" ? r.week * 4.33 : r.day * 2 * 4.33;
+    const clientsMonth = Math.round(perWeek * 4.33);
+    const needed = Math.ceil(rentMonth / price);
+    const big = document.getElementById("oBreak");
+    const keep = clientsMonth * price - rentMonth;
+    if (needed > clientsMonth){
+      big.firstChild.textContent = `${needed} clients`;
+      document.getElementById("oBreakNote").textContent = `a month — more than you've planned. Try fewer days, or a smaller room.`;
+    } else {
+      big.firstChild.textContent = `client ${needed}`;
+      const wk = Math.ceil(needed / perWeek);
+      document.getElementById("oBreakNote").textContent = wk <= 1 ? `in your first week of the month` : `in week ${wk} of the month`;
+    }
+    document.getElementById("oKeep").textContent = keep >= 0 ? gbp(keep) : `−${gbp(-keep)}`;
+    const dots = document.getElementById("oDots"), n = Math.min(Math.max(clientsMonth, needed), 120);
+    dots.innerHTML = Array.from({length:n}, (_, i) => `<i class="${i < needed ? "rent" : i < clientsMonth ? "keep" : ""}"></i>`).join("");
+  });
+}
+cPrice.oninput = runCalc; cClients.oninput = runCalc; runCalc();
+
+/* ---------------- enquiry (mailto — nothing is sent from the page) ---------------- */
+const fPractice = document.getElementById("fPractice"), fSuite = document.getElementById("fSuite");
+fPractice.innerHTML = PRACTICES.map(p => `<option>${p.label}</option>`).join("") + `<option>Something else</option>`;
+fSuite.innerHTML = `<option value="any">Whichever suits me</option>` + SUITES.map(s => `<option value="${s.no}">Suite ${s.no} · ${s.size} m²</option>`).join("");
+document.getElementById("enqForm").onsubmit = e => {
+  e.preventDefault();
+  const f = new FormData(e.target), v = k => (f.get(k) || "").toString().trim();
+  if (!v("name")) { e.target.name.focus(); return; }
+  const suite = v("suite") === "any" ? "any suite" : `Suite ${v("suite")}`;
+  const body = [`Name: ${v("name")}`, `Phone: ${v("phone")}`, `Email: ${v("email")}`, `Practice: ${v("practice")}`,
+    `Room: ${suite}`, `Term: ${v("term")}`, `Preferred start: ${v("start")}`, "", v("notes")].join("\n");
+  location.href = `mailto:contact@portwaygroup.com?subject=${encodeURIComponent(`Room enquiry — ${suite} — ${v("practice")}`)}&body=${encodeURIComponent(body)}`;
+};
+
+/* ---------------- the film: same room, your way ----------------
+   Treatment room = one clip (empty → treatment room). Consulting room = the
+   original two-phase chain (empty → furnished → a year on). Each chain plays,
+   holds on its last frame, and starts again. Clips are film, not players: no
+   controls, revealed only on 'playing', and if the browser refuses to start one
+   it is removed from the render and the finished still shows — never a play button. */
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const T = document.getElementById("filmT"), A = document.getElementById("filmA"), B = document.getElementById("filmB");
+const FILMS = [T, A, B];
+const MODES = {
+  treat:   { chain:[T],    end:"media/room-treatment.jpg", at:[.22],
+             stops:[["Day one","A bright, empty room with a window and a lock."],["Week one","Bed in, trolley stocked, lamp on. Your first clients through the door."]] },
+  consult: { chain:[A, B], end:"media/room-year-on.jpg",   at:[.17, .55],
+             stops:[["Day one","A bright, empty room with a window and a lock."],["Week one","Your desk in. Your first clients through the door."],["Year one","Your regulars, your rebooks, your name on the board."]] }
+};
+const tl = document.querySelector(".timeline"), bar = document.getElementById("tlBar");
+const roomEl = document.getElementById("roomFilm");
+let mode = "treat", idx = 0, holding = false, holdTimer = 0, started = false, still = false;
+function fallback(v){ v.style.display = "none"; }
+function drawStops(){
+  tl.querySelectorAll(".stop").forEach(n => n.remove());
+  const st = MODES[mode].stops;
+  tl.style.gridTemplateColumns = `repeat(${st.length},1fr)`;
+  st.forEach(([b, t]) => tl.insertAdjacentHTML("beforeend", `<div class="stop"><b>${b}</b><span>${t}</span></div>`));
+}
+function setStop(i){ tl.querySelectorAll(".stop").forEach((s, k) => s.classList.toggle("on", k <= i)); }
+FILMS.forEach(v => {
+  v.muted = true; v.setAttribute("muted", ""); v.removeAttribute("controls");
+  v.addEventListener("playing", () => v.classList.add("is-playing"));
+  v.addEventListener("ended", () => {
+    const c = MODES[mode].chain, i = c.indexOf(v);
+    if (i < 0) return;
+    if (i < c.length - 1) play(i + 1);
+    else { holding = true; holdTimer = setTimeout(() => play(0), 3200); }
+  });
+});
+function play(i){
+  clearTimeout(holdTimer); holding = false; idx = i;
+  const v = MODES[mode].chain[i];
+  v.preload = "auto"; v.currentTime = 0;
+  FILMS.forEach(o => o.style.zIndex = o === v ? 2 : 1); // newest on top, fades up over the last
+  v.play().then(() => {
+    started = true;
+    // let the new clip fade up over the old one before the old one goes
+    setTimeout(() => FILMS.forEach(o => { if (o !== v) { o.classList.remove("is-playing"); o.pause(); } }), 650);
+  }).catch(() => {
+    if (started) return;
+    // A background tab refuses autoplay — wait to be seen before giving up.
+    if (document.hidden) { document.addEventListener("visibilitychange", () => play(0), { once:true }); return; }
+    stillRoom();
+  });
+}
+function stillRoom(){
+  still = true; FILMS.forEach(fallback);
+  roomEl.style.backgroundImage = `url(${MODES[mode].end})`;
+  setStop(9); bar.style.width = "100%";
+}
+function tick(){
+  if (!still){
+    const c = MODES[mode].chain, v = c[idx];
+    const p = holding ? 1 : (idx + (v.currentTime / (v.duration || 8))) / c.length;
+    bar.style.width = (Math.min(p, 1) * 100) + "%";
+    const at = MODES[mode].at; let s = 0; at.forEach(t => { if (p >= t) s++; });
+    setStop(s);
+  }
+  requestAnimationFrame(tick);
+}
+function setMode(m){
+  if (m === mode) return;
+  mode = m;
+  document.querySelectorAll(".modes button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+  drawStops();
+  if (still){ roomEl.style.backgroundImage = `url(${MODES[mode].end})`; setStop(9); return; }
+  FILMS.forEach(o => { if (!MODES[m].chain.includes(o)) o.pause(); });
+  play(0);
+}
+document.querySelectorAll(".modes button").forEach(b => b.onclick = () => setMode(b.dataset.mode));
+drawStops();
+if (reduce){
+  stillRoom();
+} else {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting && !started) play(0);
+    else if (!e.isIntersecting && started) FILMS.forEach(v => v.pause());
+    else if (e.isIntersecting && started && !holding) MODES[mode].chain[idx].play().catch(() => {});
+  }), { threshold: .25 });
+  io.observe(roomEl);
+  requestAnimationFrame(tick);
+  // Stalled for 4s and never played: show the still rather than a hole.
+  const stall = () => setTimeout(() => { if (!started && !document.hidden) stillRoom(); }, 4000);
+  if (document.hidden) document.addEventListener("visibilitychange", stall, { once:true }); else stall();
+}
+
+/* exterior: plays only on screen */
+const ext = document.getElementById("filmExt");
+ext.muted = true; ext.setAttribute("muted", "");
+ext.addEventListener("playing", () => ext.classList.add("is-playing"));
+if (reduce) fallback(ext);
+else new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) ext.play().catch(() => { if (!document.hidden && !ext.classList.contains("is-playing")) fallback(ext); }); else ext.pause();
+}), { threshold: .2 }).observe(ext);
+
+/* reveal + mobile dock */
+const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll(".rise").forEach(el => ro.observe(el));
+const dock = document.getElementById("dock"), enq = document.getElementById("enquire");
+let enqVisible = false;
+new IntersectionObserver(es => { enqVisible = es[0].isIntersecting; dockUpdate(); }).observe(enq);
+function dockUpdate(){ dock.classList.toggle("show", scrollY > innerHeight * .8 && !enqVisible); }
+addEventListener("scroll", dockUpdate, { passive:true });
+
+render();
+</script>
+</body>
+</html>
