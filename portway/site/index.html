@@ -178,6 +178,7 @@
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const strips = [...lobby.querySelectorAll(".strip")], card = document.getElementById("lobbyCard");
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+  let picked = false;   // once someone chooses, the intro never overrides them
   function show(strip, focus){
     strips.forEach(s => s.setAttribute("aria-selected", String(s === strip)));
     const id = strip.dataset.id;
@@ -204,9 +205,9 @@
   const narrow = matchMedia("(max-width:900px)");
   const reveal = () => { if (narrow.matches) card.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" }); };
   strips.forEach((s, i) => {
-    s.addEventListener("click", () => { show(s); reveal(); });
+    s.addEventListener("click", () => { picked = true; s.classList.add("lit"); show(s); reveal(); });
     s.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); show(s); }
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); picked = true; show(s); }
       if (e.key === "ArrowDown" || e.key === "ArrowUp"){ e.preventDefault(); show(strips[(i + (e.key === "ArrowDown" ? 1 : -1) + strips.length) % strips.length], true); }
     });
   });
@@ -216,7 +217,7 @@
   const lightUp = () => {
     if (done) return; done = true;
     strips.forEach((s, i) => setTimeout(() => s.classList.add("lit"), reduce ? 0 : 140 + i * 110));
-    setTimeout(() => show(strips[0]), reduce ? 0 : 140 + strips.length * 110 + 250);
+    setTimeout(() => { if (!picked) show(strips[0]); }, reduce ? 0 : 140 + strips.length * 110 + 250);
   };
   new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting){ lightUp(); io.disconnect(); } }), { threshold: .3 }).observe(lobby);
 })();
