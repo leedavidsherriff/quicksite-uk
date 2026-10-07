@@ -234,7 +234,7 @@
     card.innerHTML = `${b.logo ? `<img class="logo${b.logo.wide ? " wide" : ""}" src="${b.logo.src}" alt="${esc(b.name)} logo">` : ""}
       <small>${esc(b.cat)}</small><h3>${esc(b.name)}</h3><p class="tag">${esc(b.tag)}</p><p>${esc(b.body)}</p>
       <div class="row"><a class="gbtn" href="${href}"${ext ? ' target="_blank" rel="noopener"' : ""} data-t="${id}" data-a="${act}"><i class="gbtn__rim"></i><span>${esc(label)}</span></a>
-      <a href="businesses/#${id}">More about ${esc(b.name)} →</a></div>`;
+      <a href="businesses/${id}/">More about ${esc(b.name)} →</a></div>`;
     if (focus) strip.focus({ preventScroll: true });
   }
   // phones: the card sits under the board, so bring it into view after a tap
