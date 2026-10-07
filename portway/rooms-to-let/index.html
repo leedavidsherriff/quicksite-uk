@@ -682,13 +682,22 @@ enqForm.onsubmit = async e => {
   }
 };
 
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* exterior: plays only on screen */
+const ext = document.getElementById("filmExt");
+ext.muted = true; ext.setAttribute("muted", "");
+ext.addEventListener("playing", () => ext.classList.add("is-playing"));
+if (reduce) ext.loop = false;
+new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) ext.play().catch(() => { if (!document.hidden && !ext.classList.contains("is-playing")) fallback(ext); }); else ext.pause();
+}), { threshold: .2 }).observe(ext);
+
 /* ---------------- the film: same room, your way ----------------
    Treatment room = one clip (empty → treatment room). Consulting room = the
    original two-phase chain (empty → furnished → a year on). Each chain plays,
    holds on its last frame, and starts again. Clips are film, not players: no
    controls, revealed only on 'playing', and if the browser refuses to start one
    it is removed from the render and the finished still shows — never a play button. */
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const T = document.getElementById("filmT"), A = document.getElementById("filmA"), B = document.getElementById("filmB");
 const FILMS = [T, A, B];
 const MODES = {
@@ -715,7 +724,8 @@ FILMS.forEach(v => {
     const c = MODES[mode].chain, i = c.indexOf(v);
     if (i < 0) return;
     if (i < c.length - 1) play(i + 1);
-    else { holding = true; holdTimer = setTimeout(() => play(0), 3200); }
+    // Reduce Motion: the film still plays — it's slow and locked-off — but once, then holds.
+    else { holding = true; if (!reduce) holdTimer = setTimeout(() => play(0), 3200); }
   });
 });
 function play(i){
@@ -739,6 +749,20 @@ function stillRoom(){
   roomEl.style.backgroundImage = `url(${MODES[mode].end})`;
   setStop(9); bar.style.width = "100%";
 }
+// Low Power Mode (and some in-app browsers) refuse autoplay outright, so the
+// page shows the still. Any touch on the page counts as permission, so the
+// first one brings the films back — no play button, ever.
+function wake(){
+  if (still){ still = false; FILMS.forEach(v => v.style.display = ""); roomEl.style.backgroundImage = ""; }
+  if (!started) play(0);
+  if (!ext.classList.contains("is-playing")){
+    ext.style.display = "";
+    const r = ext.getBoundingClientRect();
+    if (r.top < innerHeight && r.bottom > 0) ext.play().catch(() => {});
+  }
+  if (started && ext.classList.contains("is-playing")) ["touchend","click","keydown"].forEach(t => document.removeEventListener(t, wake, true));
+}
+["touchend","click","keydown"].forEach(t => document.addEventListener(t, wake, { capture:true, passive:true }));
 function tick(){
   if (!still){
     const c = MODES[mode].chain, v = c[idx];
@@ -760,9 +784,7 @@ function setMode(m){
 }
 document.querySelectorAll(".modes button").forEach(b => b.onclick = () => setMode(b.dataset.mode));
 drawStops();
-if (reduce){
-  stillRoom();
-} else {
+{
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting && !started) play(0);
     else if (!e.isIntersecting && started) FILMS.forEach(v => v.pause());
@@ -774,15 +796,6 @@ if (reduce){
   const stall = () => setTimeout(() => { if (!started && !document.hidden) stillRoom(); }, 4000);
   if (document.hidden) document.addEventListener("visibilitychange", stall, { once:true }); else stall();
 }
-
-/* exterior: plays only on screen */
-const ext = document.getElementById("filmExt");
-ext.muted = true; ext.setAttribute("muted", "");
-ext.addEventListener("playing", () => ext.classList.add("is-playing"));
-if (reduce) fallback(ext);
-else new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) ext.play().catch(() => { if (!document.hidden && !ext.classList.contains("is-playing")) fallback(ext); }); else ext.pause();
-}), { threshold: .2 }).observe(ext);
 
 /* reveal + mobile dock */
 const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); } }), { threshold: .12 });
