@@ -220,6 +220,14 @@ form textarea{min-height:96px;resize:vertical}
 .form__foot{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
 .form__foot small{color:#8F9A99;max-width:36ch}
 .callrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.wa-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#25D366;box-shadow:0 0 10px #25D366;margin-right:2px}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+form label.consent{display:flex;gap:12px;align-items:flex-start;font-weight:500;font-size:14px;line-height:1.45}
+form label.consent input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--sea-2);padding:0}
+form label.consent a{color:var(--sea-2)}
+.form__done{padding:22px;border-radius:16px;background:rgba(156,207,198,.12);border:1px solid rgba(156,207,198,.4);color:#fff}
+.form__done b{display:block;font:400 26px/1.15 var(--serif);margin-bottom:6px}
+.form__done.err{background:rgba(242,169,59,.12);border-color:rgba(242,169,59,.45)}
 .gbtn--quiet{--gb-ink:#fff}
 
 footer{background:var(--ink);color:#8F9A99;font-size:13px;padding:0 0 40px}
@@ -233,7 +241,8 @@ footer a{color:#B9C2C1}
 /* sticky mobile enquiry */
 .dock{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:20;display:none;transform:translateY(140%);transition:transform .4s ease}
 .dock.show{transform:none}
-.dock .gbtn{width:100%}
+.dock{gap:8px}
+.dock .gbtn{flex:1}
 
 @media (max-width:900px){
   .hero__head,.board,.calc,.building,.enquire__grid{grid-template-columns:1fr}
@@ -241,7 +250,7 @@ footer a{color:#B9C2C1}
   .fact:nth-child(3){padding-left:0;border-left:0}
   .fact:nth-child(n+3){border-top:1px solid var(--rule)}
   .incl,.tenants{grid-template-columns:repeat(2,1fr)}
-  .dock{display:block}
+  .dock{display:flex}
 }
 @media (max-width:560px){
   .stop{padding-right:10px}
@@ -470,6 +479,7 @@ footer a{color:#B9C2C1}
       <p>We reply within 24 hours. Let us know what you do and when you'd like to start, and we'll come back with the right room and a time to view it.</p>
       <div class="callrow">
         <a class="gbtn gbtn--quiet" href="tel:+441656856120"><i class="gbtn__rim"></i><span>Call 01656 856120</span></a>
+        <a class="gbtn gbtn--quiet wa-btn" data-wa href="#"><i class="gbtn__rim"></i><span><i class="wa-dot"></i>WhatsApp Curtis</span></a>
       </div>
     </div>
     <form id="enqForm" novalidate>
@@ -481,10 +491,13 @@ footer a{color:#B9C2C1}
       <label>Term<select name="term"><option>Monthly</option><option>Weekly</option><option>Daily</option><option>Not sure yet</option></select></label>
       <label>Start date<input name="start" type="month"></label>
       <label class="full">Anything else<textarea name="notes" placeholder="Equipment you'd bring, days you'd want, questions…"></textarea></label>
+      <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+      <label class="full consent"><input type="checkbox" name="consent" required><span>I'm happy for Portway Wellness Centre to contact me about this enquiry. See our <a href="https://www.portwaywellnesscentre.co.uk/privacy-policy/">privacy policy</a>.</span></label>
       <div class="full form__foot">
-        <small>This opens your email with your enquiry written out — nothing is sent until you press send.</small>
-        <button class="gbtn" type="submit"><i class="gbtn__rim"></i><span>Send room enquiry</span></button>
+        <small id="fNote">Give us a phone number or an email so Curtis can come back to you — usually within 24 hours.</small>
+        <button class="gbtn" type="submit" id="fSend"><i class="gbtn__rim"></i><span>Send room enquiry</span></button>
       </div>
+      <div class="full form__done" id="fDone" hidden></div>
     </form>
   </div>
 </section>
@@ -495,7 +508,7 @@ footer a{color:#B9C2C1}
   </div>
 </footer>
 
-<div class="dock" id="dock"><a class="gbtn gbtn--onlight" href="#enquire"><i class="gbtn__rim"></i><span>Enquire about a room</span></a></div>
+<div class="dock" id="dock"><a class="gbtn gbtn--onlight wa-btn" data-wa href="#"><i class="gbtn__rim"></i><span><i class="wa-dot"></i>WhatsApp</span></a><a class="gbtn gbtn--onlight" href="#enquire"><i class="gbtn__rim"></i><span>Enquire</span></a></div>
 
 <script>
 /* ---------------- data ---------------- */
@@ -614,18 +627,59 @@ function runCalc(){
 }
 cPrice.oninput = runCalc; cClients.oninput = runCalc; runCalc();
 
-/* ---------------- enquiry (mailto — nothing is sent from the page) ---------------- */
+/* ---------------- enquiry: straight to the centre's inbox ----------------
+   POSTs to the portway-enquiries Worker (~/portway-enquiries), which emails
+   contact@portwaygroup.com and stores nothing. WhatsApp and phone are the
+   fallback if it can't send. */
+const ENQUIRY_ENDPOINT = "https://portway-enquiries.honest-misty-photo-reader.workers.dev/enquiry";
+const WA_NUMBER = "447933666396";   // Curtis
+const waLink = text => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+function waText(){
+  const s = typeof selected !== "undefined" ? `Suite ${selected}` : "a room";
+  return `Hi Curtis, I saw the rooms to let at Portway Wellness Centre${typeof practice !== "undefined" && practice ? ` — I do ${practice.label.toLowerCase()}` : ""}. Could you tell me more about ${s}?`;
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-wa]");
+  if (!a) return;
+  a.href = waLink(waText()); a.target = "_blank"; a.rel = "noopener";
+  track("Contact", { method: "whatsapp" });
+});
+function track(ev, data){ try { if (window.fbq) fbq("track", ev, data); } catch (_) {} }
+async function sendEnquiry(payload){
+  const r = await fetch(ENQUIRY_ENDPOINT, { method:"POST", headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ ...payload, page: location.pathname + location.search, consent: true }) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || !j.ok) throw new Error(j.error || "send");
+  track("Lead", { content_name: payload.source });
+  return j.ref;
+}
+
 const fPractice = document.getElementById("fPractice"), fSuite = document.getElementById("fSuite");
 fPractice.innerHTML = PRACTICES.map(p => `<option>${p.label}</option>`).join("") + `<option>Something else</option>`;
 fSuite.innerHTML = `<option value="any">Whichever suits me</option>` + SUITES.map(s => `<option value="${s.no}">Suite ${s.no} · ${s.size} m²</option>`).join("");
-document.getElementById("enqForm").onsubmit = e => {
+const enqForm = document.getElementById("enqForm"), fNote = document.getElementById("fNote"), fSend = document.getElementById("fSend"), fDone = document.getElementById("fDone");
+enqForm.onsubmit = async e => {
   e.preventDefault();
-  const f = new FormData(e.target), v = k => (f.get(k) || "").toString().trim();
-  if (!v("name")) { e.target.name.focus(); return; }
-  const suite = v("suite") === "any" ? "any suite" : `Suite ${v("suite")}`;
-  const body = [`Name: ${v("name")}`, `Phone: ${v("phone")}`, `Email: ${v("email")}`, `Practice: ${v("practice")}`,
-    `Room: ${suite}`, `Term: ${v("term")}`, `Preferred start: ${v("start")}`, "", v("notes")].join("\n");
-  location.href = `mailto:contact@portwaygroup.com?subject=${encodeURIComponent(`Room enquiry — ${suite} — ${v("practice")}`)}&body=${encodeURIComponent(body)}`;
+  const f = new FormData(enqForm), v = k => (f.get(k) || "").toString().trim();
+  const say = (t, el) => { fNote.textContent = t; fNote.style.color = "#F2C27A"; if (el) el.focus(); };
+  if (v("name").length < 2) return say("Please add your name.", enqForm.name);
+  const phoneOk = v("phone").replace(/\D/g, "").length >= 10, emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("email"));
+  if (!phoneOk && !emailOk) return say("Please add a phone number or an email so we can reply.", enqForm.phone);
+  if (v("email") && !emailOk) return say("That email doesn't look right.", enqForm.email);
+  if (!enqForm.consent.checked) return say("Please tick the box so we're allowed to contact you.", enqForm.consent);
+  fSend.disabled = true; fSend.querySelector("span").textContent = "Sending…";
+  const suite = v("suite") === "any" ? "Any suite" : `Suite ${v("suite")}`;
+  try {
+    const ref = await sendEnquiry({ name:v("name"), phone:v("phone"), email:v("email"), practice:v("practice"), suite,
+      term:v("term"), start:v("start"), note:v("notes"), source:"form", website:v("website") });
+    [...enqForm.children].forEach(c => { if (c !== fDone) c.hidden = true; });
+    fDone.hidden = false;
+    fDone.innerHTML = `<b>Thanks ${v("name").split(" ")[0]} — that's with Curtis.</b>He'll be in touch, usually within 24 hours. Your reference is ${ref}.`;
+  } catch (_) {
+    fSend.disabled = false; fSend.querySelector("span").textContent = "Send room enquiry";
+    fDone.hidden = false; fDone.className = "full form__done err";
+    fDone.innerHTML = `<b>Sorry — that didn't send.</b>Please ring <a href="tel:+441656856120" style="color:#fff">01656 856120</a> or <a data-wa href="#" style="color:#fff">WhatsApp Curtis</a> and we'll sort it straight away.`;
+  }
 };
 
 /* ---------------- the film: same room, your way ----------------
@@ -741,5 +795,223 @@ addEventListener("scroll", dockUpdate, { passive:true });
 
 render();
 </script>
+<!-- CHAT -->
+<!-- ============ CHAT BOX ============
+     Answers the questions a practitioner arriving from an ad actually asks,
+     straight from the page's own facts (SUITES, RATES, PRACTICES), and hands
+     anything else to Curtis — by WhatsApp, or by taking a name and number
+     and sending it through the same enquiry Worker as the form. No AI, no
+     third party, nothing stored. -->
+<style>
+.chat-launch{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:40;display:flex;align-items:center;gap:10px;padding:12px 18px 12px 14px;border:0;border-radius:999px;background:var(--ink);color:#fff;font:700 14px/1 var(--sans);cursor:pointer;box-shadow:0 10px 30px rgba(20,26,28,.28)}
+.chat-launch i{width:10px;height:10px;border-radius:50%;background:var(--lamp);box-shadow:0 0 0 4px rgba(242,169,59,.25),0 0 14px var(--lamp)}
+.chat-launch[aria-expanded="true"]{display:none}
+.chat{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:41;width:min(380px,calc(100vw - 24px));height:min(600px,calc(100dvh - 36px));display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:var(--paper);box-shadow:0 24px 60px rgba(20,26,28,.32);transform-origin:bottom right;animation:chatIn .25s ease both}
+.chat[hidden]{display:none}
+@keyframes chatIn{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
+.chat__head{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 18px;background:var(--ink);color:#fff}
+.chat__head b{display:block;font:400 19px/1.1 var(--serif)}
+.chat__head small{font-size:12px;color:#A9B3B3;display:flex;align-items:center;gap:6px}
+.chat__head small i{width:7px;height:7px;border-radius:50%;background:var(--lamp)}
+.chat__head .x{margin-left:auto;appearance:none;border:0;background:rgba(255,255,255,.1);color:#fff;width:34px;height:34px;border-radius:50%;font:700 18px/1 var(--sans);cursor:pointer}
+.chat__wa{appearance:none;border:0;text-decoration:none;background:rgba(37,211,102,.16);color:#BFF5D4;font:700 12px/1 var(--sans);padding:9px 11px;border-radius:999px;display:inline-flex;gap:6px;align-items:center}
+.chat__log{flex:1;overflow-y:auto;padding:16px 14px 6px;display:flex;flex-direction:column;gap:8px;background:var(--linen)}
+.msg{max-width:86%;padding:11px 14px;border-radius:16px;font-size:14.5px;line-height:1.45;animation:pop .25s ease both;white-space:pre-line}
+.msg--bot{background:var(--paper);border:1px solid var(--rule);border-bottom-left-radius:5px;align-self:flex-start}
+.msg--me{background:var(--ink);color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+.msg a{color:var(--sea);font-weight:700}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:14px;background:var(--paper);border:1px solid var(--rule);border-radius:16px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--ink-3);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{50%{opacity:.25}}
+.chat__quick{display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px;background:var(--linen)}
+.chat__quick button{appearance:none;border:1px solid var(--sea-2);background:var(--paper);color:var(--ink);font:600 13px/1 var(--sans);padding:9px 12px;border-radius:999px;cursor:pointer}
+.chat__quick button:hover{background:var(--sea-wash)}
+.chat__bar{display:flex;gap:8px;padding:10px;border-top:1px solid var(--rule);background:var(--paper)}
+.chat__bar input{flex:1;min-width:0;font:500 16px/1.2 var(--sans);padding:12px 14px;border-radius:999px;border:1px solid var(--rule);background:#fff;color:var(--ink)}
+.chat__bar button{appearance:none;border:0;background:var(--sea);color:#fff;font:700 14px/1 var(--sans);padding:0 16px;border-radius:999px;cursor:pointer}
+.cl-short{display:none}
+@media (max-width:900px){.cl-long{display:none}.cl-short{display:inline}.chat-launch{bottom:calc(84px + env(safe-area-inset-bottom));padding:12px 16px 12px 13px}}
+@media (max-width:560px){.chat{right:0;left:0;bottom:0;width:100%;height:100dvh;border-radius:0}}
+@media (prefers-reduced-motion:reduce){.chat,.msg{animation:none}.typing i{animation:none}}
+</style>
+
+<button class="chat-launch" id="chatOpen" aria-expanded="false" aria-controls="chat" aria-label="Questions? Chat with us"><i aria-hidden="true"></i><span class="cl-long">Questions? Chat with us</span><span class="cl-short">Chat</span></button>
+<section class="chat" id="chat" role="dialog" aria-label="Chat about the rooms" hidden>
+  <div class="chat__head">
+    <div><b>Portway rooms</b><small><i></i>Replies from Curtis by WhatsApp or phone</small></div>
+    <a class="chat__wa" data-wa href="#"><i class="wa-dot"></i>WhatsApp</a>
+    <button class="x" id="chatClose" aria-label="Close chat">×</button>
+  </div>
+  <div class="chat__log" id="chatLog" aria-live="polite"></div>
+  <div class="chat__quick" id="chatQuick"></div>
+  <form class="chat__bar" id="chatBar" autocomplete="off">
+    <input id="chatIn" placeholder="Ask about the rooms…" aria-label="Your message" enterkeyhint="send">
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const log = $("chatLog"), quick = $("chatQuick"), input = $("chatIn"), panel = $("chat"), open = $("chatOpen");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let flow = null;               // the lead-capture steps, when running
+  const lead = {}; const asked = [];
+
+  const r14 = RATES[14], r18 = RATES[18];
+  const esc = t => t.replace(/[&<>]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]));
+  function add(text, who = "bot", html = false){
+    const m = document.createElement("div");
+    m.className = "msg msg--" + who;
+    if (html) m.innerHTML = text; else m.textContent = text;
+    log.appendChild(m); log.scrollTop = log.scrollHeight;
+  }
+  // Everything the bot says and every turn the visitor takes goes through one
+  // queue, so typing while the bot is mid-reply can't interleave the answers.
+  let q = Promise.resolve();
+  const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+  function bot(lines, chips){
+    lines = [].concat(lines);
+    q = q.then(async () => {
+      quick.innerHTML = "";
+      for (const l of lines){
+        const text = l.html || l;
+        const t = document.createElement("div"); t.className = "typing"; t.innerHTML = "<i></i><i></i><i></i>";
+        log.appendChild(t); log.scrollTop = log.scrollHeight;
+        await wait(450 + Math.min(String(text).length * 8, 700));
+        t.remove(); add(text, "bot", !!l.html);
+      }
+      setChips(chips);
+    });
+  }
+  function turn(text, fromChip){ add(text, "me"); q = q.then(() => handle(text, fromChip)); }
+  function setChips(chips = MENU){
+    quick.innerHTML = "";
+    chips.forEach(c => {
+      const b = document.createElement("button"); b.type = "button"; b.textContent = c;
+      b.onclick = () => turn(c, true);
+      quick.appendChild(b);
+    });
+  }
+
+  const MENU = ["What does it cost?", "Which room suits me?", "Can I see a room?", "What's included?", "Parking & access", "Talk to Curtis"];
+  const A = {
+    cost: () => bot([
+      `Guide prices for a 14 m² room are ${gbp(r14.day)} a day, ${gbp(r14.week)} a week or ${gbp(r14.month)} a month. The 18 m² suite is about ${gbp(r18.month)} a month.`,
+      "Curtis confirms your exact rate. It depends on the room and how often you'd use it. Wi-Fi, reception and the waiting area are included."],
+      ["Which room suits me?", "Can I see a room?", "Talk to Curtis"]),
+    suits: () => bot("What's your practice?", PRACTICES.map(p => p.label)),
+    view: () => { startLead("viewing"); },
+    incl: () => bot([
+      "Every room comes with:\n• a private, soundproofed, lockable room\n• natural daylight and adjustable lighting\n• a desk, examination table or treatment bed, set up for your practice\n• high-speed Wi-Fi\n• a shared reception and waiting area\n• an accessible building with parking"],
+      ["What does it cost?", "Can I see a room?"]),
+    park: () => bot("Yes, there's parking at the building and it's accessible. We're at 1 The Portway, Porthcawl CF36 3XB, the old surgery.", ["Opening hours", "Can I see a room?"]),
+    hours: () => bot("The centre is open Mon–Fri 8am–8pm, Sat 9am–6pm and Sun 10am–4pm.", ["Can I see a room?", "What does it cost?"]),
+    terms: () => bot("Daily, weekly or monthly. Plenty of people start with a day or two a week and grow into it.", ["What does it cost?", "Can I see a room?"]),
+    avail: () => bot("All five rooms are available right now: three at 14 m², one at 16 m² and one at 18 m².", ["Which room suits me?", "Can I see a room?"]),
+    sizes: () => bot("Suites 01, 02 and 04 are 14 m², Suite 03 is 16 m² and Suite 05 is 18 m², the biggest.", ["Which room suits me?", "What does it cost?"]),
+    setup: () => bot("We set the room up the way you work: a treatment bed, an examination table or couch, or a consulting desk. Bring your own kit as well, of course.", ["Can I see a room?", "Talk to Curtis"]),
+    human: () => bot({ html: `Curtis is the man to talk to. You can <a data-wa href="#">WhatsApp him</a> or ring <a href="tel:+441656856120">01656 856120</a>, or leave your details here and he'll come back to you.` }, ["Leave my details", "What does it cost?"]),
+  };
+  const RULES = [
+    [/£|\b(cost|price|how much|rent|rates?\b|per (day|week|month)|cheap|afford)/i, "cost"],
+    [/\b(view|visit|see (a|the)?\s*room|look round|look around|come (in|down|and see)|show me)/i, "view"],
+    [/\b(includ|wifi|wi-fi|internet|reception|waiting|bills|utilit)/i, "incl"],
+    [/\b(park|access|wheelchair|disab|where are|address|locat|find you)/i, "park"],
+    [/\b(hours|opening|open|close|evening|weekend|sunday|saturday|late|early)/i, "hours"],
+    [/\b(terms?\b|contract|notice|commit|lease|how long|flexib)/i, "terms"],
+    [/\b(availab|vacan|when can|move in|start)/i, "avail"],
+    [/\b(size|m2|square met|how big|large|small)|m²/i, "sizes"],
+    [/\b(bed|couch|table|desk|equipment|furnish|furniture|chair|sink)/i, "setup"],
+    [/\b(suit|which room|best room|recommend|right room)/i, "suits"],
+    [/\b(curtis|a person|human|call|phone|ring|whatsapp|speak|talk to)/i, "human"],
+  ];
+
+  function suggest(p){
+    const fit = p.fit.map(no => SUITES.find(s => s.no === no));
+    const names = fit.map(s => `Suite ${s.no} (${s.size} m²)`).join(" or ");
+    bot([`For ${p.label.toLowerCase()}, ${names} would suit you best.`, `You'd have some good neighbours too: ${p.near} are already in the building.`],
+      ["What does it cost?", "Can I see a room?"]);
+    lead.practice = p.label;
+    // move the page's room board to match, so what they scroll to agrees with the chat
+    practice = p; selected = fit[0].no; render();
+  }
+
+  function startLead(why, question){
+    flow = { step: "name", why };
+    if (question) asked.push(question);
+    bot(why === "viewing"
+      ? ["Of course. Curtis will arrange a time that suits you.", "What's your name?"]
+      : why === "question"
+        ? ["Good question. I'll pass that straight to Curtis so you get a proper answer.", "What's your name?"]
+        : ["No problem. What's your name?"], []);
+  }
+  async function leadStep(text){
+    if (flow.step === "name"){
+      if (text.trim().length < 2) return bot("Sorry, what name should Curtis ask for?", []);
+      lead.name = text.trim(); flow.step = "contact";
+      return bot(`Thanks ${lead.name.split(" ")[0]}. What's the best phone number or email to reach you on?`, []);
+    }
+    if (flow.step === "contact"){
+      const email = (text.match(/[^\s@]+@[^\s@]+\.[^\s@]+/) || [])[0];
+      const phone = text.replace(/[^\d+]/g, "");
+      if (!email && phone.replace(/\D/g, "").length < 10) return bot("That doesn't look like a phone number or an email. Could you try again?", []);
+      if (email) lead.email = email; else lead.phone = text.trim();
+      flow.step = "practice";
+      if (lead.practice){ flow.step = "consent"; return askConsent(); }
+      return bot("And what's your practice?", PRACTICES.map(p => p.label).concat("Something else"));
+    }
+    if (flow.step === "practice"){ lead.practice = text.trim(); flow.step = "consent"; return askConsent(); }
+    if (flow.step === "consent"){
+      if (!/^(yes|ok|okay|yep|sure|y|go ahead)/i.test(text.trim()) && text !== "Yes, send it") { flow = null; return bot("No problem, I haven't sent anything. You can still WhatsApp or ring Curtis whenever suits.", MENU); }
+      flow.step = "sending";
+      try {
+        const ref = await sendEnquiry({ name: lead.name, phone: lead.phone || "", email: lead.email || "", practice: lead.practice || "",
+          suite: typeof selected !== "undefined" ? `Suite ${selected} (was looking at)` : "", source: "chat",
+          note: [flow.why === "viewing" ? "Would like to view a room." : "", ...asked.map(q => `Asked: "${q}"`)].filter(Boolean).join("\n") || "Asked to be contacted from the chat box." });
+        flow = null;
+        bot([`Done. Curtis has your details and will be in touch, usually within 24 hours. Your reference is ${ref}.`, { html: `In a hurry? <a data-wa href="#">WhatsApp him</a> now.` }], ["What does it cost?", "What's included?"]);
+      } catch (_) {
+        flow = null;
+        bot({ html: `Sorry, that didn't send. Please ring <a href="tel:+441656856120">01656 856120</a> or <a data-wa href="#">WhatsApp Curtis</a> and he'll sort it.` }, MENU);
+      }
+    }
+  }
+  function askConsent(){
+    const how = lead.email ? lead.email : lead.phone;
+    bot(`Is it OK for Portway Wellness Centre to contact you on ${how} about a room?`, ["Yes, send it", "No thanks"]);
+  }
+
+  function handle(text, fromChip){
+    if (flow) return leadStep(text);
+    const p = PRACTICES.find(x => x.label === text);
+    if (p) return suggest(p);
+    if (text === "Something else") return bot("Every room can be set up to suit, so tell Curtis what you do and he'll find the right one.", ["Leave my details", "Talk to Curtis"]);
+    if (text === "Leave my details") return startLead("details");
+    if (text === "Opening hours") return A.hours();
+    if (text === "Talk to Curtis") return A.human();
+    for (const [re, key] of RULES) if (re.test(text)) return A[key]();
+    if (!fromChip) return startLead("question", text);
+    bot("Ask me anything about the rooms.", MENU);
+  }
+
+  $("chatBar").onsubmit = e => { e.preventDefault(); const t = input.value.trim(); if (!t) return; input.value = ""; turn(t, false); };
+  let started = false;
+  function openChat(){
+    panel.hidden = false; open.setAttribute("aria-expanded", "true");
+    if (!started){ started = true; bot(["Hi 👋 Looking for a room for your practice?", "Ask me anything, or pick a question below."], MENU); }
+    if (matchMedia("(min-width:561px)").matches) setTimeout(() => input.focus(), 50);
+    track("ViewContent", { content_name: "chat" });
+  }
+  function closeChat(){ panel.hidden = true; open.setAttribute("aria-expanded", "false"); open.focus(); }
+  open.onclick = openChat; $("chatClose").onclick = closeChat;
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !panel.hidden) closeChat(); });
+  // a nudge for ad visitors who've had a proper look but not enquired
+  setTimeout(() => { if (!started && !document.hidden) open.animate([{ transform:"scale(1)" }, { transform:"scale(1.08)" }, { transform:"scale(1)" }], { duration: 600, iterations: 2 }); }, 25000);
+})();
+</script>
+
+<!-- /CHAT -->
 </body>
 </html>
