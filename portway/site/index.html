@@ -233,6 +233,7 @@
     const [label, href, ext, act] = b.cta;
     card.innerHTML = `${b.logo ? `<img class="logo${b.logo.wide ? " wide" : ""}" src="${b.logo.src}" alt="${esc(b.name)} logo">` : ""}
       <small>${esc(b.cat)}</small><h3>${esc(b.name)}</h3><p class="tag">${esc(b.tag)}</p><p>${esc(b.body)}</p>
+      ${id === "portway-financial" ? `<p class="reg">Portway Financial Ltd (company 14917868) is an Appointed Representative of Connect IFA Ltd (FRN 441505); FCA reference 1011427.</p>` : ""}
       <div class="row"><a class="gbtn" href="${href}"${ext ? ' target="_blank" rel="noopener"' : ""} data-t="${id}" data-a="${act}"><i class="gbtn__rim"></i><span>${esc(label)}</span></a>
       ${b.page ? `<a href="businesses/${id}/">More about ${esc(b.name)} →</a>` : `<a href="businesses/#${id}">More about ${esc(b.name)} →</a>`}</div>`;
     if (focus) strip.focus({ preventScroll: true });
