@@ -434,3 +434,58 @@ section{scroll-margin-top:96px}
 .biz--img{padding-top:84px}
 .biz__logo--wide{height:44px;padding:7px 14px}
 .bizrow__logo--wide{height:48px;padding:8px 14px}
+
+/* ============================================================
+   THE LOBBY BOARD — a photographed smoked-glass directory with the names
+   set in real type on lit strips. The glass sits at a measured position in
+   board.webp (x 12.17–87.58%, y 6.19–73.19%); .board__glass is pinned to it.
+   ============================================================ */
+.lobby{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:clamp(18px,4vw,56px);align-items:center}
+.board{position:relative;aspect-ratio:1200/2100;max-height:880px;margin-inline:auto;width:100%;border-radius:var(--r);overflow:hidden;background:#d8d2c8 url(media/board-poster.jpg) center/cover;container-type:inline-size}
+.board__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.board__glass{position:absolute;left:17.4%;right:17.6%;top:10.6%;bottom:31.6%;display:flex;flex-direction:column;color:#E9E2D2}
+.board__title{margin:0 0 3.4cqw;font:800 2.3cqw/1.25 var(--sans);letter-spacing:.28em;text-transform:uppercase;color:#D9B26A;padding-bottom:2.6cqw;border-bottom:1px solid rgba(217,178,106,.45)}
+.board__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:space-between;flex:1}
+.strip{position:relative;display:flex;align-items:baseline;justify-content:space-between;gap:2cqw;padding:1.05cqw 1.6cqw;border-radius:.8cqw;cursor:pointer;outline:none;
+  color:rgba(233,226,210,.18);transition:color .5s ease,background .35s ease,text-shadow .35s ease}
+.strip b{font:400 3.25cqw/1.05 var(--serif);letter-spacing:.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.strip small{font:700 1.55cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.75;white-space:nowrap}
+.strip.lit{color:rgba(240,233,218,.86)}
+.strip:hover,.strip:focus-visible{color:#fff;background:linear-gradient(90deg,rgba(255,240,210,.10),rgba(255,240,210,.03))}
+.strip[aria-selected="true"]{color:#fff;background:linear-gradient(90deg,rgba(255,236,200,.20),rgba(255,236,200,.06));text-shadow:0 0 18px rgba(255,226,170,.55)}
+.strip[aria-selected="true"]::before{content:"";position:absolute;left:-1.6cqw;top:22%;bottom:22%;width:.5cqw;border-radius:1cqw;background:#F2C27A;box-shadow:0 0 12px #F2A93B}
+.strip--free{color:rgba(242,169,59,.18)}
+.strip--free.lit{color:rgba(246,190,110,.95);text-shadow:0 0 14px rgba(242,169,59,.45)}
+.strip--free b{font-style:italic}
+.board__rule{height:1px;background:rgba(217,178,106,.35);margin:1.2cqw 0}
+
+.lobby__card{position:relative;min-height:440px;border-radius:calc(var(--r) + 4px);overflow:hidden;color:#fff;background:#1D2729 center/cover;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(22px,3vw,36px);isolation:isolate;transition:background-image .2s}
+.lobby__card::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(15,20,22,.05) 0%,rgba(15,20,22,.45) 45%,rgba(15,20,22,.92) 100%)}
+.lobby__card.swap{animation:cardIn .45s ease both}
+@keyframes cardIn{from{opacity:.0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.lobby__card .logo{position:absolute;top:22px;left:22px;width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.lobby__card .logo.wide{width:auto;height:48px;border-radius:999px;padding:8px 14px;background:#fff;object-fit:contain}
+.lobby__card small{font:800 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--sea-2)}
+.lobby__card h3{font-size:clamp(32px,3.6vw,48px);color:#fff;margin:10px 0 6px}
+.lobby__card .tag{font:italic 300 21px/1.25 var(--serif);color:#E3E8E7;margin:0 0 10px}
+.lobby__card p{margin:0 0 18px;color:#D3DAD9;max-width:52ch;font-size:15px}
+.lobby__card .row{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+.lobby__card .row a:not(.gbtn){color:#fff;font-weight:700;font-size:14px}
+.lobby__card .gbtn{--gb-glass:rgba(255,255,255,.12)}
+.lobby__card--free{background:#1D2729}
+.lobby__card--free small{color:var(--lamp)}
+@media (max-width:900px){
+  .lobby{grid-template-columns:1fr}
+  .board{max-width:460px}
+  .lobby__card{min-height:380px}
+}
+@media (prefers-reduced-motion:reduce){.strip{transition:none}.lobby__card.swap{animation:none}}
+.board__in{position:absolute;left:0;top:0;width:100%;aspect-ratio:1200/2100}
+.lobby__card{min-height:560px;padding-top:110px}
+@media (max-width:900px){
+  /* phones: zoom in on the glass so the names are readable; glass centre is at 49.9% / 39.7% */
+  /* the image and its lettering scale together inside .board__in; .board just trims the plant */
+  .board{aspect-ratio:1200/1880;max-width:520px}
+  .board__in{transform:scale(1.26);transform-origin:49.9% 20%}
+  .lobby__card{min-height:400px;padding-top:100px}
+}

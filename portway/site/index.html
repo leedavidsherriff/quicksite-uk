@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Portway Wellness Centre | Health, wellness & beauty in Porthcawl</title>
-<meta name="description" content="Porthcawl's dedicated wellness centre: chiropractic, physiotherapy, private GP, aesthetics, beauty, tanning, sauna & ice bath — and five consultancy rooms to let.">
+<meta name="description" content="Porthcawl's dedicated wellness centre: chiropractic, physiotherapy, private GP, aesthetics, beauty, tanning, sauna & cold plunge — and five consultancy rooms to let.">
 <meta name="robots" content="noindex">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Portway Wellness Centre">
 <meta property="og:title" content="Portway Wellness Centre | Health, wellness & beauty in Porthcawl">
-<meta property="og:description" content="Porthcawl's dedicated wellness centre: chiropractic, physiotherapy, private GP, aesthetics, beauty, tanning, sauna & ice bath — and five consultancy rooms to let.">
+<meta property="og:description" content="Porthcawl's dedicated wellness centre: chiropractic, physiotherapy, private GP, aesthetics, beauty, tanning, sauna & cold plunge — and five consultancy rooms to let.">
 <meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/portway/site/">
 <meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/portway/site/assets/media/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
@@ -57,31 +57,27 @@
     <div class="fact"><b>7</b><span>days a week</span></div>
   </div>
 
-  <!-- ============ what are you here for? ============ -->
+  <!-- ============ the lobby board: who's in the building ============ -->
   <section class="sec" id="finder">
     <div class="sec__head rise">
       <div>
-        <p class="eyebrow">Find the right specialist</p>
-        <h2 style="margin-top:14px">What are you looking for?</h2>
+        <p class="eyebrow">Who's in the building</p>
+        <h2 style="margin-top:14px">Nine specialists. <em style="font-style:italic;color:var(--sea)">One front door.</em></h2>
       </div>
-      <p>Tell us what you need and we'll show you who in the building can help. Every business can be booked through the centre on <a class="textlink" href="tel:+441656856120">01656 856120</a>.</p>
+      <p>Tap a name on the board to meet them. The amber ones are empty rooms — waiting for the next practice.</p>
     </div>
-    <div class="finder rise">
-      <div class="finder__chips" id="needs" role="group" aria-label="What you're looking for"></div>
-      <div class="finder__out" id="needOut" aria-live="polite"><p class="finder__hint">Pick one to see who can help →</p></div>
-    </div>
-  </section>
-
-  <!-- ============ the directory ============ -->
-  <section class="sec" id="businesses">
-    <div class="sec__head rise">
-      <div>
-        <p class="eyebrow">Our businesses</p>
-        <h2 style="margin-top:14px">Nine specialists. One destination.</h2>
+    <div class="lobby" id="lobby">
+      <div class="board" aria-label="The Portway Wellness Centre directory board">
+        <div class="board__in">
+          <img class="board__img" src="assets/media/board.webp" alt="" width="1200" height="2100" decoding="async">
+          <div class="board__glass">
+            <p class="board__title">Portway<br>Wellness Centre</p>
+            <ul class="board__list" role="listbox" aria-label="Businesses at Portway Wellness Centre"><li class="strip" role="option" tabindex="0" data-id="invigorate" aria-selected="false"><b>Invigorate</b><small>Sauna</small></li><li class="strip" role="option" tabindex="0" data-id="chiropractic" aria-selected="false"><b>Porthcawl Chiropractic</b><small>Chiro</small></li><li class="strip" role="option" tabindex="0" data-id="physiotherapy" aria-selected="false"><b>Porthcawl Physiotherapy</b><small>Physio</small></li><li class="strip" role="option" tabindex="0" data-id="mor-health" aria-selected="false"><b>Môr Health</b><small>Private GP</small></li><li class="strip" role="option" tabindex="0" data-id="trueskin" aria-selected="false"><b>TrueSkin Studio</b><small>Aesthetics</small></li><li class="strip" role="option" tabindex="0" data-id="sabrinas" aria-selected="false"><b>Sabrina's Beauty</b><small>Beauty</small></li><li class="strip" role="option" tabindex="0" data-id="tan-lounge" aria-selected="false"><b>The Tan Lounge</b><small>Tanning</small></li><li class="strip" role="option" tabindex="0" data-id="portway-financial" aria-selected="false"><b>Portway Financial</b><small>Finance</small></li><li class="board__rule" aria-hidden="true"></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="01" aria-selected="false"><b>Available</b><small>Suite 01</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="02" aria-selected="false"><b>Available</b><small>Suite 02</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="03" aria-selected="false"><b>Available</b><small>Suite 03</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="04" aria-selected="false"><b>Available</b><small>Suite 04</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="05" aria-selected="false"><b>Available</b><small>Suite 05</small></li></ul>
+          </div>
+        </div>
       </div>
-      <a class="textlink" href="businesses/">More about each business →</a>
+      <div class="lobby__card" id="lobbyCard" aria-live="polite"></div>
     </div>
-    <div class="dir rise"><a class="biz biz--img" href="businesses/#invigorate" style="background-image:url(assets/media/tenants/invigorate.webp)"><img class="biz__logo" src="assets/media/tenants/invigorate-logo.jpg" alt="Invigorate logo" loading="lazy"><small class="biz__top">Hot & cold therapy</small><b>Invigorate</b><i>Reset. Recharge.</i><span>Stone sauna & cold plunge</span></a><a class="biz biz--img" href="businesses/#chiropractic" style="background-image:url(assets/media/tenants/chiropractic.webp)"><img class="biz__logo" src="assets/media/tenants/chiropractic-logo.jpg" alt="Porthcawl Chiropractic Clinic logo" loading="lazy"><small class="biz__top">Chiropractic</small><b>Porthcawl Chiropractic Clinic</b><i>Keeping the community well adjusted since 2008.</i><span>Olwen Griffiths · back, neck & posture</span></a><a class="biz biz--img" href="businesses/#physiotherapy" style="background-image:url(assets/media/tenants/physiotherapy.webp)"><small class="biz__top">Physiotherapy</small><b>Porthcawl Physiotherapy</b><i>Move better. Live better.</i><span>Sports injury clinic since 1989</span></a><a class="biz biz--img" href="businesses/#mor-health" style="background-image:url(assets/media/tenants/mor-health.webp)"><img class="biz__logo biz__logo--wide" src="assets/media/tenants/mor-health-logo.png" alt="Môr Health logo" loading="lazy"><small class="biz__top">Private GP</small><b>Môr Health</b><i>Longer appointments, with the same doctor.</i><span>Doctor-led private GP</span></a><a class="biz biz--img" href="businesses/#trueskin" style="background-image:url(assets/media/tenants/trueskin.webp)"><img class="biz__logo" src="assets/media/tenants/trueskin-logo.jpg" alt="TrueSkin Studio logo" loading="lazy"><small class="biz__top">Aesthetics</small><b>TrueSkin Studio</b><i>Real results. True confidence.</i><span>Hydrafacial, HIFU, RF microneedling</span></a><a class="biz biz--img" href="businesses/#sabrinas" style="background-image:url(assets/media/tenants/sabrinas.webp)"><img class="biz__logo" src="assets/media/tenants/sabrinas-logo.jpg" alt="Sabrina's Beauty logo" loading="lazy"><small class="biz__top">Nails, lashes & brows</small><b>Sabrina's Beauty</b><i>Beauty with attitude.</i><span>Nails, lashes & brows</span></a><a class="biz biz--img" href="businesses/#tan-lounge" style="background-image:url(assets/media/tenants/tan-lounge-own.jpg)"><img class="biz__logo" src="assets/media/tenants/tan-lounge-logo.jpg" alt="The Tan Lounge logo" loading="lazy"><small class="biz__top">Tanning</small><b>The Tan Lounge</b><i>Your glow, perfected.</i><span>Walk-in sunbed salon</span></a><a class="biz biz--img" href="businesses/#portway-financial" style="background-image:url(assets/media/tenants/portway-financial.webp)"><small class="biz__top">Financial services</small><b>Portway Financial</b><i>Fund. Protect. Secure.</i><span>Insurance, finance & estate planning</span></a><a class="biz biz--open" href="rooms-to-let/"><small>Available</small><b>Your practice, here.</b><i>Five rooms to let.</i><span>See the rooms →</span></a></div>
   </section>
 
   <!-- ============ rooms to let ============ -->
@@ -157,7 +153,7 @@
   const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); ro.unobserve(e.target); } }), { threshold:.12 });
   document.querySelectorAll(".rise").forEach(el => ro.observe(el));
 })();
-</script><script>const DATA = {"biz": {"invigorate": {"name": "Invigorate", "cat": "Hot & cold therapy", "short": "Stone sauna & cold plunge"}, "chiropractic": {"name": "Porthcawl Chiropractic Clinic", "cat": "Chiropractic", "short": "Olwen Griffiths · back, neck & posture"}, "physiotherapy": {"name": "Porthcawl Physiotherapy", "cat": "Physiotherapy", "short": "Sports injury clinic since 1989"}, "mor-health": {"name": "Môr Health", "cat": "Private GP", "short": "Doctor-led private GP"}, "trueskin": {"name": "TrueSkin Studio", "cat": "Aesthetics", "short": "Hydrafacial, HIFU, RF microneedling"}, "sabrinas": {"name": "Sabrina's Beauty", "cat": "Nails, lashes & brows", "short": "Nails, lashes & brows"}, "tan-lounge": {"name": "The Tan Lounge", "cat": "Tanning", "short": "Walk-in sunbed salon"}, "portway-financial": {"name": "Portway Financial", "cat": "Financial services", "short": "Insurance, finance & estate planning"}}, "needs": [["Back, neck or joint pain", ["chiropractic", "physiotherapy"]], ["A sports injury", ["physiotherapy", "chiropractic", "invigorate"]], ["Recovery after training", ["invigorate", "physiotherapy"]], ["To see a GP privately", ["mor-health"]], ["Skin treatments", ["trueskin"]], ["Beauty treatments", ["sabrinas", "trueskin"]], ["A tan", ["tan-lounge"]], ["Finance, insurance or estate planning", ["portway-financial"]], ["A room for my own practice", ["ROOMS"]]]};
+</script><script>const DATA = {"invigorate": {"name": "Invigorate", "cat": "Hot & cold therapy", "tag": "Reset. Recharge.", "body": "The centre's own wellness club: a stone sauna and cold plunge, with showers, changing and massage guns. Drop in for a casual 50-minute session or join as a member.", "img": "assets/media/tenants/invigorate.webp", "logo": {"src": "assets/media/tenants/invigorate-logo.jpg", "wide": false}, "cta": ["Book online", "https://online.wellyx.com/invigor8theportwaylimited/porthcawluk/classes", true]}, "chiropractic": {"name": "Porthcawl Chiropractic Clinic", "cat": "Chiropractic", "tag": "Keeping the community well adjusted since 2008.", "body": "Expert chiropractic care for back pain, neck pain, joint problems and posture, from a female-run clinic with no over-promising. By appointment — Olwen prefers you to ring her directly.", "img": "assets/media/tenants/chiropractic.webp", "logo": {"src": "assets/media/tenants/chiropractic-logo.jpg", "wide": false}, "cta": ["Call 01656 331551", "tel:+441656331551", false]}, "physiotherapy": {"name": "Porthcawl Physiotherapy", "cat": "Physiotherapy", "tag": "Move better. Live better.", "body": "Porthcawl Physiotherapy & Sports Injury Clinic: assessment and treatment for sports injuries, rehabilitation, chronic pain and mobility — face to face or remote — with personalised treatment plans.", "img": "assets/media/tenants/physiotherapy.webp", "logo": null, "cta": ["Call 01656 782362", "tel:+441656782362", false]}, "mor-health": {"name": "Môr Health", "cat": "Private GP", "tag": "Longer appointments, with the same doctor.", "body": "A doctor-led private GP service offering longer appointments with the same doctor, for continuity and a more personal approach to your care. Face-to-face appointments on Mondays and Fridays.", "img": "assets/media/tenants/mor-health.webp", "logo": {"src": "assets/media/tenants/mor-health-logo.png", "wide": true}, "cta": ["Book online", "https://www.morhealth.co.uk/book", true]}, "trueskin": {"name": "TrueSkin Studio", "cat": "Aesthetics", "tag": "Real results. True confidence.", "body": "The centre's skin aesthetics studio, by appointment: Hydrafacials, HIFU for non-surgical skin tightening, and RF microneedling for visible skin results.", "img": "assets/media/tenants/trueskin.webp", "logo": {"src": "assets/media/tenants/trueskin-logo.jpg", "wide": false}, "cta": ["Message to book", "https://www.instagram.com/trueskinstudio.uk/", true]}, "sabrinas": {"name": "Sabrina's Beauty", "cat": "Nails, lashes & brows", "tag": "Beauty with attitude.", "body": "A bold, creative one-woman studio for nails, lashes and brows from a fully qualified beauty therapist. Appointments only — message her to book. Use The Tan Lounge entrance.", "img": "assets/media/tenants/sabrinas.webp", "logo": {"src": "assets/media/tenants/sabrinas-logo.jpg", "wide": false}, "cta": ["Message to book", "https://www.instagram.com/sabrinasbeautyyy/", true]}, "tan-lounge": {"name": "The Tan Lounge", "cat": "Tanning", "tag": "Your glow, perfected.", "body": "Porthcawl's friendly sunbed salon, with staff who'll show you how to get the best from the beds. Walk in, pay by the minute, and look out for their Sunday specials and gift cards.", "img": "assets/media/tenants/tan-lounge-own.jpg", "logo": {"src": "assets/media/tenants/tan-lounge-logo.jpg", "wide": false}, "cta": ["Call 01656 856120", "tel:+441656856120", false]}, "portway-financial": {"name": "Portway Financial", "cat": "Financial services", "tag": "Fund. Protect. Secure.", "body": "A Porthcawl financial brokerage covering personal and business insurance, finance, and estate planning including trusts and wills — trading as DCS Insure.", "img": "assets/media/tenants/portway-financial.webp", "logo": null, "cta": ["Call 01656 856120", "tel:+441656856120", false]}};
 
 /* ---------- films: film, never a player ----------
    No controls; revealed only on 'playing'; plays only while on screen. If the
@@ -179,25 +175,56 @@
   ["touchend", "click", "keydown"].forEach(t => document.addEventListener(t, wake, { capture: true, passive: true }));
 })();
 
-/* ---------- the finder ---------- */
+/* ---------- the lobby board ----------
+   Strips start dark; when the board scrolls into view they come on one by
+   one like lobby lights, then the first business is shown. Tap or arrow-key
+   a strip to light it and bring that business's card up beside the board. */
 (() => {
-  const chips = document.getElementById("needs"), out = document.getElementById("needOut");
-  let current = null;
-  DATA.needs.forEach(([label, ids]) => {
-    const b = document.createElement("button");
-    b.type = "button"; b.className = "chip"; b.textContent = label; b.setAttribute("aria-pressed", "false");
-    b.onclick = () => {
-      current = current === label ? null : label;
-      chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.textContent === current)));
-      if (!current) { out.innerHTML = '<p class="finder__hint">Pick one to see who can help →</p>'; return; }
-      out.innerHTML = ids.map(id => {
-        if (id === "ROOMS") return `<a class="match" href="rooms-to-let/" style="background:var(--ink);color:#fff;border-color:var(--ink)"><small style="color:var(--lamp)">● Five rooms available</small><b>Rooms to let</b><em style="color:var(--sea-2)">See the rooms →</em><span style="color:#B9C2C1">Private, daylit consultancy rooms for beauty, wellness and clinical practice.</span></a>`;
-        const x = DATA.biz[id];
-        return `<a class="match" href="businesses/#${id}"><small>${x.cat}</small><b>${x.name}</b><em>More →</em><span>${x.short}</span></a>`;
-      }).join("") + (ids[0] === "ROOMS" ? "" : `<p class="finder__hint" style="padding:6px 0 0">Book through the centre on <a href="tel:+441656856120">01656 856120</a>.</p>`);
-    };
-    chips.appendChild(b);
+  const lobby = document.getElementById("lobby"); if (!lobby) return;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const strips = [...lobby.querySelectorAll(".strip")], card = document.getElementById("lobbyCard");
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+  function show(strip, focus){
+    strips.forEach(s => s.setAttribute("aria-selected", String(s === strip)));
+    const id = strip.dataset.id;
+    card.classList.remove("swap"); void card.offsetWidth; card.classList.add("swap");
+    if (id === "free"){
+      card.className = "lobby__card lobby__card--free swap";
+      card.style.backgroundImage = "url(assets/media/room-treatment.jpg)";
+      card.innerHTML = `<small>● Available now</small><h3>Consultancy Suite ${strip.dataset.suite}</h3>
+        <p class="tag">Your practice, next week.</p>
+        <p>A private, daylit room set up for beauty, wellness or clinical work — daily, weekly or monthly, with Wi-Fi, reception and parking included.</p>
+        <div class="row"><a class="gbtn" href="rooms-to-let/"><i class="gbtn__rim"></i><span>See the rooms</span></a><a href="tel:+441656856120">Call 01656 856120</a></div>`;
+      return;
+    }
+    const b = DATA[id]; card.className = "lobby__card swap";
+    card.style.backgroundImage = `url(${b.img})`;
+    const [label, href, ext] = b.cta;
+    card.innerHTML = `${b.logo ? `<img class="logo${b.logo.wide ? " wide" : ""}" src="${b.logo.src}" alt="${esc(b.name)} logo">` : ""}
+      <small>${esc(b.cat)}</small><h3>${esc(b.name)}</h3><p class="tag">${esc(b.tag)}</p><p>${esc(b.body)}</p>
+      <div class="row"><a class="gbtn" href="${href}"${ext ? ' target="_blank" rel="noopener"' : ""}><i class="gbtn__rim"></i><span>${esc(label)}</span></a>
+      <a href="businesses/#${id}">More about ${esc(b.name)} →</a></div>`;
+    if (focus) strip.focus({ preventScroll: true });
+  }
+  // phones: the card sits under the board, so bring it into view after a tap
+  const narrow = matchMedia("(max-width:900px)");
+  const reveal = () => { if (narrow.matches) card.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" }); };
+  strips.forEach((s, i) => {
+    s.addEventListener("click", () => { show(s); reveal(); });
+    s.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); show(s); }
+      if (e.key === "ArrowDown" || e.key === "ArrowUp"){ e.preventDefault(); show(strips[(i + (e.key === "ArrowDown" ? 1 : -1) + strips.length) % strips.length], true); }
+    });
   });
+  // preload the card photos so a tap never shows an empty card
+  Object.values(DATA).forEach(b => { const im = new Image(); im.src = b.img; });
+  let done = false;
+  const lightUp = () => {
+    if (done) return; done = true;
+    strips.forEach((s, i) => setTimeout(() => s.classList.add("lit"), reduce ? 0 : 140 + i * 110));
+    setTimeout(() => show(strips[0]), reduce ? 0 : 140 + strips.length * 110 + 250);
+  };
+  new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting){ lightUp(); io.disconnect(); } }), { threshold: .3 }).observe(lobby);
 })();
 
 /* ---------- open now? (UK time) ---------- */
