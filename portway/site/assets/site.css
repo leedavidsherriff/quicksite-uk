@@ -1,0 +1,411 @@
+
+/* ============================================================
+   PORTWAY — ROOMS FIRST
+   The rooms are the product. The film (empty room → furnished → a year on)
+   is the hero, and the timeline under it is the pitch: day one, week one,
+   year one. Linen + sea-glass from Porthcawl; the amber is the desk lamp
+   that comes on at the end of the film, and it means "available" — it is
+   only ever used for vacancy and the enquiry path.
+   ============================================================ */
+:root{
+  --linen:#F4EFE7; --linen-2:#ECE5D9; --paper:#FBF8F3;
+  --ink:#1D2729; --ink-2:#4A5658; --ink-3:#7C8687;
+  --sea:#2F7F78; --sea-2:#9CCFC6; --sea-wash:#DDEDE9;
+  --lamp:#F2A93B; --lamp-soft:#FBE3BC;
+  --rule:rgba(29,39,41,.12);
+  --r:22px;
+  --serif:"Fraunces", Georgia, serif;
+  --sans:"Manrope", system-ui, -apple-system, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--linen);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:1.05;margin:0}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.eyebrow{font:800 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--sea)}
+
+/* ---------- glass button: ~/quicksite-kit/glass-button, verbatim ---------- */
+.gbtn{--gb-lamp:#6fe3ff;--gb-rim:1.6px;--gb-spin:4.5s;--gb-glass:rgba(255,255,255,.09);--gb-ink:#fff;position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:16px 26px;border:0;border-radius:999px;font:inherit;font-weight:750;letter-spacing:.01em;color:var(--gb-ink);text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent;background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03)),var(--gb-glass);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -12px 24px -14px rgba(0,0,0,.5)}
+.gbtn__rim{position:absolute;inset:0;border-radius:inherit;z-index:1;padding:var(--gb-rim);pointer-events:none;overflow:hidden;-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);mask-composite:exclude}
+.gbtn__rim::before{content:"";position:absolute;left:50%;top:50%;width:240%;aspect-ratio:1;background:conic-gradient(from 0deg,rgba(255,255,255,.06) 0deg,var(--gb-lamp) 18deg,rgba(255,255,255,.06) 56deg,rgba(255,255,255,.06) 180deg,var(--gb-lamp) 198deg,rgba(255,255,255,.06) 236deg,rgba(255,255,255,.06) 360deg);animation:gbtn-spin var(--gb-spin) linear infinite;will-change:transform}
+@keyframes gbtn-spin{from{transform:translate(-50%,-50%) rotate(0turn)}to{transform:translate(-50%,-50%) rotate(1turn)}}
+.gbtn > span{position:relative;z-index:2}
+.gbtn:hover{--gb-spin:2.4s}
+.gbtn:active{transform:translateY(1px)}
+.gbtn:focus-visible{outline:2px solid var(--gb-lamp);outline-offset:3px}
+.gbtn--quiet{--gb-glass:rgba(255,255,255,.045);--gb-ink:rgba(255,255,255,.92)}
+.gbtn--onlight{--gb-glass:rgba(12,16,20,.62);--gb-ink:#fff;background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02)),var(--gb-glass)}
+@media (prefers-reduced-motion: reduce){.gbtn__rim::before{animation:none;background:conic-gradient(from 0deg, var(--gb-lamp), rgba(255,255,255,.30),var(--gb-lamp), rgba(255,255,255,.30), var(--gb-lamp))}.gbtn:hover{--gb-spin:4.5s}}
+/* site tuning */
+.gbtn{--gb-lamp:var(--lamp)}
+.gbtn--onlight{--gb-glass:rgba(29,39,41,.86)}
+.textlink{font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--sea-2);padding-bottom:2px}
+.textlink:hover{border-color:var(--sea)}
+
+/* ---------- clips: film, never a player ---------- */
+video{opacity:0;transition:opacity .6s ease}
+video.is-playing{opacity:1}
+video::-webkit-media-controls,video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+.film-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ============ TOP: the door plaque, not a nav bar ============ */
+.plaque{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0 0}
+.plaque__name{display:flex;flex-direction:column;line-height:1.15;text-decoration:none}
+.plaque__name b{font:600 19px/1.1 var(--serif);letter-spacing:-.01em}
+.plaque__name small{font-size:12px;color:var(--ink-3);letter-spacing:.04em}
+.vacancy{display:inline-flex;align-items:center;gap:10px;padding:9px 14px 9px 12px;border-radius:999px;background:var(--paper);border:1px solid var(--rule);font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.vacancy i{width:9px;height:9px;border-radius:50%;background:var(--lamp);box-shadow:0 0 0 4px var(--lamp-soft),0 0 14px var(--lamp);animation:lamp 2.6s ease-in-out infinite}
+@keyframes lamp{50%{box-shadow:0 0 0 6px var(--lamp-soft),0 0 22px var(--lamp)}}
+
+/* ============ HERO: the room, then the timeline ============ */
+.hero{padding:clamp(28px,5vw,56px) 0 0}
+.hero__head{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(20px,4vw,64px);align-items:end;margin-bottom:clamp(22px,3.5vw,40px)}
+.hero h1{font-size:clamp(44px,7.4vw,104px);font-weight:300}
+.hero h1 em{font-style:italic;color:var(--sea)}
+.hero__side p{margin:0 0 20px;color:var(--ink-2);font-size:clamp(16px,1.4vw,18px);max-width:42ch}
+.hero__ctas{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+
+.room{position:relative;border-radius:calc(var(--r) + 6px);overflow:hidden;aspect-ratio:16/9;background:#cfc8bd url(media/room-empty.jpg) center/cover}
+.room video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.room__tag{position:absolute;left:18px;top:18px;z-index:5;padding:8px 13px;border-radius:999px;background:rgba(251,248,243,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font:700 12px/1 var(--sans);letter-spacing:.06em}
+.room__tag span{color:var(--sea)}
+.modes{position:absolute;right:14px;top:14px;z-index:5;display:flex;gap:3px;padding:4px;border-radius:999px;background:rgba(29,39,41,.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.modes button{appearance:none;border:0;background:transparent;color:rgba(255,255,255,.8);font:700 12px/1 var(--sans);padding:9px 13px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.modes button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+@media (max-width:560px){.room__tag{display:none}.modes{left:10px;right:auto;top:10px}.modes button{padding:8px 11px}}
+
+.timeline{display:grid;gap:0;margin-top:14px;position:relative}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:3px;background:var(--rule)}
+.timeline__bar{position:absolute;left:0;top:0;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--sea),var(--lamp));width:0}
+.stop{padding:18px 18px 0 0;opacity:.42;transition:opacity .5s}
+.stop.on{opacity:1}
+.stop b{display:block;font:400 clamp(20px,2.2vw,28px)/1.1 var(--serif)}
+.stop span{display:block;color:var(--ink-2);font-size:14px;margin-top:6px;max-width:30ch}
+
+/* ============ the numbers strip ============ */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:clamp(48px,7vw,88px) 0 0}
+.fact{padding:22px 18px 22px 0}
+.fact + .fact{padding-left:18px;border-left:1px solid var(--rule)}
+.fact b{display:block;font:300 clamp(32px,4vw,52px)/1 var(--serif)}
+.fact span{font-size:13px;color:var(--ink-2)}
+
+section{scroll-margin-top:20px}
+.sec{padding:clamp(64px,9vw,120px) 0 0}
+.sec__head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+.sec__head h2{font-size:clamp(34px,5vw,64px);font-weight:300;max-width:16ch}
+.sec__head p{margin:0;max-width:44ch;color:var(--ink-2)}
+
+/* ============ FIND YOUR ROOM: practice picker + the directory ============ */
+.picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.picker__label{width:100%;font-weight:700;font-size:14px;margin-bottom:4px}
+.chip{appearance:none;border:1px solid var(--rule);background:var(--paper);color:var(--ink);font:600 14px/1 var(--sans);padding:11px 15px;border-radius:999px;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.chip:hover{border-color:var(--sea-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+.board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(16px,2.5vw,32px);align-items:start}
+.directory{list-style:none;margin:0;padding:8px;border-radius:var(--r);background:var(--ink);color:#EDE8DF}
+.suite{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;padding:16px 14px;border-radius:14px;cursor:pointer;transition:background .25s,opacity .3s;position:relative}
+.suite + .suite{margin-top:2px}
+.suite:hover{background:rgba(255,255,255,.05)}
+.suite[aria-selected="true"]{background:rgba(255,255,255,.1)}
+.suite.dim{opacity:.35}
+.suite__no{font:300 30px/1 var(--serif);color:#fff}
+.suite__name{font-weight:700}
+.suite__tags{font-size:13px;color:#A9B3B3}
+.suite__state{display:inline-flex;align-items:center;gap:8px;font:800 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--lamp)}
+.suite__state i{width:7px;height:7px;border-radius:50%;background:var(--lamp);box-shadow:0 0 10px var(--lamp)}
+.suite.match::after{content:"Good fit";position:absolute;right:14px;top:-7px;font:800 9px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:var(--sea-2);color:var(--ink);padding:5px 8px;border-radius:999px}
+.directory__foot{padding:14px 14px 10px;font-size:13px;color:#A9B3B3;border-top:1px solid rgba(255,255,255,.08);margin-top:8px}
+
+.detail{background:var(--paper);border-radius:var(--r);border:1px solid var(--rule);overflow:hidden}
+.detail__img{aspect-ratio:16/10;background:#d9d3c8 url(media/room-treatment.jpg) center/cover;position:relative;transition:background-image .3s}
+.detail__cap{position:absolute;left:14px;bottom:14px;padding:7px 11px;border-radius:999px;background:rgba(251,248,243,.86);font:700 11px/1 var(--sans);letter-spacing:.04em;color:var(--ink-2)}
+.detail__img::after{content:attr(data-size);position:absolute;right:14px;bottom:14px;padding:8px 12px;border-radius:999px;background:rgba(29,39,41,.82);color:#fff;font:700 13px/1 var(--sans)}
+.detail__body{padding:clamp(20px,2.6vw,30px)}
+.detail h3{font-size:clamp(28px,3vw,38px)}
+.detail__lede{color:var(--ink-2);margin:10px 0 18px}
+.setup{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0;list-style:none}
+.setup li{font-size:13px;font-weight:600;padding:7px 11px;border-radius:8px;background:var(--sea-wash);color:#1E5550}
+.rates{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:8px}
+.rates div{padding:14px 12px;text-align:center}
+.rates div + div{border-left:1px solid var(--rule)}
+.rates b{display:block;font:400 26px/1 var(--serif)}
+.rates span{font-size:12px;color:var(--ink-3)}
+.guide{font-size:12px;color:var(--ink-3);margin:0 0 18px}
+.neighbours{border-top:1px dashed var(--rule);padding-top:16px;margin-bottom:20px;font-size:14px;color:var(--ink-2)}
+.neighbours b{color:var(--ink)}
+
+/* ============ BREAK-EVEN: what does the room cost me, in clients ============ */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:calc(var(--r) + 6px);overflow:hidden;background:var(--paper);border:1px solid var(--rule)}
+.calc__in{padding:clamp(22px,3vw,40px);display:grid;gap:26px;align-content:start}
+.field label{display:flex;justify-content:space-between;font-weight:700;font-size:14px;margin-bottom:10px}
+.field label output{font:400 22px/1 var(--serif);color:var(--sea)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--linen-2);border-radius:12px;padding:4px;gap:4px}
+.seg button{appearance:none;border:0;background:transparent;font:700 14px/1 var(--sans);padding:12px 6px;border-radius:9px;cursor:pointer;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+input[type=range]{width:100%;accent-color:var(--sea);height:28px}
+.calc__out{background:var(--ink);color:#EDE8DF;padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:28px;position:relative;overflow:hidden}
+.calc__out::before{content:"";position:absolute;right:-30%;top:-40%;width:90%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(242,169,59,.28),transparent 65%);pointer-events:none}
+.calc__big{font:300 clamp(54px,8vw,104px)/.9 var(--serif);color:#fff}
+.calc__big small{font-size:clamp(17px,2vw,24px);color:var(--lamp);display:block;margin-top:12px;font-family:var(--sans);font-weight:700;letter-spacing:.01em}
+.clients{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 0}
+.clients i{width:16px;height:16px;border-radius:5px;background:rgba(255,255,255,.12);transition:background .3s}
+.clients i.rent{background:var(--lamp)}
+.clients i.keep{background:var(--sea-2)}
+.legend{display:flex;gap:18px;font-size:12px;color:#A9B3B3;margin-top:10px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--lamp)}
+.legend span + span::before{background:var(--sea-2)}
+.calc__keep{font-size:15px;color:#C9D0CF}
+.calc__keep b{font:400 30px/1 var(--serif);color:#fff;display:block;margin-top:4px}
+
+/* ============ included ============ */
+.incl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.incl div{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:20px 18px}
+.incl b{display:block;font:400 21px/1.15 var(--serif);margin-bottom:6px}
+.incl span{font-size:14px;color:var(--ink-2)}
+
+/* ============ the neighbours ============ */
+.tenants{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden}
+.tenant{background:var(--linen);padding:20px 18px}
+.tenant small{font:800 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--sea)}
+.tenant b{display:block;font:400 21px/1.15 var(--serif);margin:8px 0 4px}
+.tenant span{font-size:13px;color:var(--ink-2)}
+.tenant--open{background:var(--lamp-soft)}
+.tenant--open small{color:#9A5F0B}
+
+/* ============ the building ============ */
+.building{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(16px,3vw,40px);align-items:center}
+.building__film{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:16/10;background:#bfb9ae url(media/portway-exterior-poster.jpg) center/cover}
+.building__film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.visit dl{margin:0;display:grid;gap:16px}
+.visit dt{font:800 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--sea);margin-bottom:5px}
+.visit dd{margin:0;font-size:16px}
+
+/* ============ enquiry ============ */
+.enquire{margin-top:clamp(64px,9vw,120px);background:var(--ink);color:#EDE8DF;padding:clamp(56px,8vw,104px) 0}
+.enquire .eyebrow{color:var(--sea-2)}
+.enquire h2{font-size:clamp(36px,5.4vw,70px);font-weight:300;color:#fff;margin:14px 0 14px;max-width:14ch}
+.enquire__grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(24px,5vw,72px);align-items:start}
+.enquire p{color:#B9C2C1;max-width:40ch}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form .full{grid-column:1/-1}
+form label{display:grid;gap:7px;font-size:13px;font-weight:700;color:#C9D0CF}
+form input,form select,form textarea{font:500 16px/1.3 var(--sans);color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:13px 14px;width:100%}
+form select option{color:#000}
+form input:focus,form select:focus,form textarea:focus{outline:2px solid var(--sea-2);outline-offset:1px}
+form textarea{min-height:96px;resize:vertical}
+.form__foot{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.form__foot small{color:#8F9A99;max-width:36ch}
+.callrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.wa-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#25D366;box-shadow:0 0 10px #25D366;margin-right:2px}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+form label.consent{display:flex;gap:12px;align-items:flex-start;font-weight:500;font-size:14px;line-height:1.45}
+form label.consent input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--sea-2);padding:0}
+form label.consent a{color:var(--sea-2)}
+.form__done{padding:22px;border-radius:16px;background:rgba(156,207,198,.12);border:1px solid rgba(156,207,198,.4);color:#fff}
+.form__done b{display:block;font:400 26px/1.15 var(--serif);margin-bottom:6px}
+.form__done.err{background:rgba(242,169,59,.12);border-color:rgba(242,169,59,.45)}
+.gbtn--quiet{--gb-ink:#fff}
+
+footer{background:var(--ink);color:#8F9A99;font-size:13px;padding:0 0 40px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.08);padding-top:24px}
+footer a{color:#B9C2C1}
+
+/* reveal on scroll */
+.rise{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.rise.in{opacity:1;transform:none}
+
+/* sticky mobile enquiry */
+.dock{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:20;display:none;transform:translateY(140%);transition:transform .4s ease}
+.dock.show{transform:none}
+.dock{gap:8px}
+.dock .gbtn{flex:1}
+
+@media (max-width:900px){
+  .hero__head,.board,.calc,.building,.enquire__grid{grid-template-columns:1fr}
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .fact:nth-child(3){padding-left:0;border-left:0}
+  .fact:nth-child(n+3){border-top:1px solid var(--rule)}
+  .incl,.tenants{grid-template-columns:repeat(2,1fr)}
+  .dock{display:flex}
+}
+@media (max-width:560px){
+  .stop{padding-right:10px}
+  .stop span{font-size:12px}
+  .room{aspect-ratio:4/3}
+  form{grid-template-columns:1fr}
+  .incl{grid-template-columns:1fr 1fr;gap:8px}
+  .incl div{padding:14px 12px}
+  .incl b{font-size:17px}
+  .incl span{font-size:13px;line-height:1.45}
+  .tenants{grid-template-columns:1fr 1fr}
+  .vacancy b{display:none}
+  .suite{grid-template-columns:40px 1fr auto;gap:10px;padding:14px 10px}
+  .suite__state span{display:none}
+  .rates b{font-size:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  .rise{opacity:1;transform:none;transition:none}
+  .vacancy i{animation:none}
+  html{scroll-behavior:auto}
+}
+
+/* ============================================================
+   PORTWAY WELLNESS CENTRE — the whole site
+   base-from-rooms.css is the rooms page's system (tokens, glass button,
+   clips, rooms components). This adds the shared header/footer and the
+   home, businesses, visit and legal pages. Amber still means "available".
+   ============================================================ */
+
+/* ---------- header: the plaque + three doors ---------- */
+.site-head{position:sticky;top:0;z-index:30;background:rgba(244,239,231,.86);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid transparent;transition:border-color .3s}
+.site-head.scrolled{border-color:var(--rule)}
+.site-head .wrap{display:flex;align-items:center;gap:18px;min-height:74px}
+.site-head .plaque__name{margin-right:auto}
+.nav{display:flex;gap:4px;align-items:center}
+.nav a{font-weight:700;font-size:14px;text-decoration:none;padding:10px 14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;color:var(--ink-2)}
+.nav a:hover{background:var(--paper);color:var(--ink)}
+.nav a[aria-current="page"]{background:var(--ink);color:#fff}
+.nav a .dot{width:8px;height:8px;border-radius:50%;background:var(--lamp);box-shadow:0 0 10px var(--lamp)}
+.head-call{padding:12px 18px;font-size:14px}
+@media (max-width:820px){
+  .site-head .wrap{flex-wrap:wrap;gap:0;padding-top:12px}
+  .head-call{display:none}
+  .nav{order:3;width:100%;overflow-x:auto;margin:8px -4px 6px;scrollbar-width:none}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{padding:9px 12px;font-size:13px}
+  .head-tel{display:inline-flex!important}
+}
+.head-tel{display:none;font-weight:800;font-size:13px;text-decoration:none;padding:9px 13px;border-radius:999px;background:var(--paper);border:1px solid var(--rule)}
+
+/* ---------- footer ---------- */
+.site-foot{background:var(--ink);color:#B9C2C1;padding:clamp(56px,7vw,88px) 0 34px;font-size:14px}
+.site-foot a{color:#E7EBEA;text-decoration:none}
+.site-foot a:hover{text-decoration:underline}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.foot-grid h4{font:800 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--sea-2);margin:0 0 14px}
+.foot-grid p{margin:0 0 6px}
+.foot-name{font:300 34px/1.05 var(--serif);color:#fff;margin:0 0 12px}
+.foot-legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:48px;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);color:#8F9A99;font-size:13px}
+@media (max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid > div:first-child{grid-column:1/-1}}
+
+/* ---------- HOME: hero is the building ---------- */
+.front{position:relative;margin-top:14px;border-radius:calc(var(--r) + 8px);overflow:hidden;min-height:min(86vh,820px);background:#2a2420 url(media/portway-exterior-poster.jpg) center/cover;display:flex;align-items:flex-end}
+.front video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.front::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,20,22,0) 35%,rgba(15,20,22,.55) 100%);pointer-events:none}
+.front__panel{position:relative;z-index:2;margin:clamp(14px,3vw,36px);padding:clamp(22px,3vw,36px);max-width:640px;border-radius:var(--r);background:rgba(251,248,243,.88);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%)}
+.front__panel h1{font-size:clamp(40px,6vw,76px);font-weight:300;margin:12px 0 12px}
+.front__panel p{margin:0 0 22px;color:var(--ink-2);font-size:clamp(15px,1.4vw,18px)}
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.door{display:block;text-decoration:none;padding:16px 18px;border-radius:16px;background:var(--paper);border:1px solid var(--rule);transition:transform .2s,border-color .2s}
+.door:hover{transform:translateY(-2px);border-color:var(--sea-2)}
+.door small{display:block;font:800 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--sea);margin-bottom:8px}
+.door b{display:block;font:400 22px/1.15 var(--serif)}
+.door span{font-size:13px;color:var(--ink-2)}
+.door--rooms{background:var(--ink);color:#fff;border-color:var(--ink)}
+.door--rooms small{color:var(--lamp);display:flex;align-items:center;gap:7px}
+.door--rooms small i{width:7px;height:7px;border-radius:50%;background:var(--lamp);box-shadow:0 0 10px var(--lamp)}
+.door--rooms span{color:#B9C2C1}
+@media (max-width:560px){
+  /* phones: the building on top, the panel underneath — never the panel over the film */
+  .front{display:block;min-height:0;background:var(--ink) url(media/portway-exterior-poster.jpg) top center/100% auto no-repeat}
+  .front video{position:relative;display:block;width:100%;height:auto;aspect-ratio:4/3}
+  .front::after{display:none}
+  .front__panel{margin:-28px 10px 10px;background:var(--paper)}
+  .doors{grid-template-columns:1fr}
+}
+
+/* ---------- finder: what are you looking for? ---------- */
+.finder{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(16px,3vw,40px);align-items:start}
+.finder__chips{display:flex;flex-wrap:wrap;gap:8px}
+.finder__out{min-height:220px;display:grid;gap:10px}
+.match{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:center;padding:18px 20px;border-radius:16px;background:var(--paper);border:1px solid var(--rule);text-decoration:none;animation:pop .35s ease both}
+.match small{grid-column:1/-1;font:800 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--sea)}
+.match b{font:400 24px/1.1 var(--serif)}
+.match span{grid-column:1/-1;font-size:14px;color:var(--ink-2)}
+.match em{font-style:normal;font-weight:700;font-size:13px;color:var(--sea)}
+.finder__hint{color:var(--ink-3);font-size:15px;padding:18px 0}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (max-width:900px){.finder{grid-template-columns:1fr}}
+
+/* ---------- directory ---------- */
+.dir{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.biz{display:flex;flex-direction:column;gap:8px;padding:22px 20px;border-radius:18px;background:var(--paper);border:1px solid var(--rule);text-decoration:none;min-height:190px;transition:transform .2s,border-color .2s}
+.biz:hover{transform:translateY(-2px);border-color:var(--sea-2)}
+.biz small{font:800 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--sea)}
+.biz b{font:400 25px/1.1 var(--serif)}
+.biz i{font-style:italic;font-family:var(--serif);color:var(--ink-2);font-size:16px}
+.biz span{font-size:14px;color:var(--ink-2);margin-top:auto}
+.biz--open{background:var(--lamp-soft);border-color:transparent}
+.biz--open small{color:#9A5F0B}
+@media (max-width:900px){.dir{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.dir{gap:8px}.biz{min-height:0;padding:16px 14px}.biz b{font-size:20px;overflow-wrap:anywhere}.biz i{font-size:14px}.biz span{font-size:13px}}
+
+/* ---------- rooms band on the home page ---------- */
+.band{background:var(--ink);color:#EDE8DF;border-radius:calc(var(--r) + 8px);overflow:hidden;display:grid;grid-template-columns:1.2fr 1fr;align-items:stretch}
+.band__film{position:relative;min-height:380px;background:#cfc8bd url(media/room-treatment.jpg) center/cover}
+.band__film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.band__body{padding:clamp(26px,4vw,52px);display:flex;flex-direction:column;justify-content:center;gap:18px}
+.band__body .eyebrow{color:var(--lamp)}
+.band__body h2{font-size:clamp(34px,4.4vw,58px);font-weight:300;color:#fff}
+.band__body h2 em{color:var(--sea-2)}
+.band__body p{margin:0;color:#B9C2C1}
+.band__body .gbtn{align-self:flex-start}
+@media (max-width:900px){.band{grid-template-columns:1fr}.band__film{min-height:0;aspect-ratio:16/10}}
+
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,5vw,72px);align-items:start}
+.about p{color:var(--ink-2);margin:0 0 14px;font-size:17px}
+.quote{font:300 clamp(26px,3vw,38px)/1.2 var(--serif);margin:0;padding-left:22px;border-left:3px solid var(--lamp)}
+@media (max-width:900px){.about{grid-template-columns:1fr}}
+
+/* ---------- visit / hours ---------- */
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,40px);align-items:start}
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours td{padding:12px 0;border-bottom:1px solid var(--rule)}
+.hours td:last-child{text-align:right;font-weight:700}
+.hours tr.today td{color:var(--sea);font-weight:800}
+.open-now{display:inline-flex;align-items:center;gap:9px;font-weight:800;font-size:13px;padding:8px 13px;border-radius:999px;background:var(--paper);border:1px solid var(--rule);margin-bottom:18px}
+.open-now i{width:9px;height:9px;border-radius:50%;background:#9AA3A3}
+.open-now.is-open i{background:#3BAA6E;box-shadow:0 0 0 4px rgba(59,170,110,.18)}
+.photo{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;background:#bfb9ae center/cover}
+.cards{display:grid;gap:10px}
+.card{margin:0;padding:20px;border-radius:16px;background:var(--paper);border:1px solid var(--rule)}
+.card dt{font:800 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--sea);margin-bottom:7px}
+.card dd{margin:0;font-size:16px}
+.card dd a{font-weight:700}
+@media (max-width:900px){.visit-grid{grid-template-columns:1fr}}
+
+/* ---------- page head (inner pages) ---------- */
+.page-head{padding:clamp(40px,7vw,90px) 0 clamp(8px,2vw,20px)}
+.page-head h1{font-size:clamp(44px,7vw,96px);font-weight:300;margin-top:14px;max-width:14ch}
+.page-head h1 em{font-style:italic;color:var(--sea)}
+.page-head p{max-width:56ch;color:var(--ink-2);font-size:18px;margin:20px 0 0}
+
+/* ---------- businesses page ---------- */
+.bizlist{display:grid;gap:14px}
+.bizrow{display:grid;grid-template-columns:240px 1fr auto;gap:clamp(16px,3vw,40px);align-items:start;padding:clamp(22px,3vw,34px);border-radius:var(--r);background:var(--paper);border:1px solid var(--rule);scroll-margin-top:110px}
+.bizrow small{font:800 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--sea)}
+.bizrow h2{font-size:clamp(30px,3.4vw,44px);margin-top:10px}
+.bizrow .tag{font:italic 300 22px/1.2 var(--serif);color:var(--ink-2);margin:0 0 10px}
+.bizrow p{margin:0;color:var(--ink-2)}
+.bizrow .links{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.bizrow .links a{font-weight:700;font-size:14px;white-space:nowrap}
+.bizrow:target{border-color:var(--sea);box-shadow:0 0 0 3px var(--sea-wash)}
+@media (max-width:900px){.bizrow{grid-template-columns:1fr}.bizrow .links{align-items:flex-start;flex-direction:row;flex-wrap:wrap;gap:16px}}
+
+/* ---------- legal ---------- */
+.legal{max-width:760px;padding-bottom:40px;overflow-wrap:anywhere}
+.legal h2{font-size:30px;margin:40px 0 12px}
+.legal h3{font-size:22px;margin:28px 0 10px}
+.legal p,.legal li{color:var(--ink-2)}
+.legal a{color:var(--sea);font-weight:700}
+
+/* ---------- contact form on light pages ---------- */
+.lightform form label{color:var(--ink-2)}
+.lightform form input,.lightform form select,.lightform form textarea{background:var(--paper);color:var(--ink);border-color:var(--rule)}
+.lightform form input:focus,.lightform form select:focus,.lightform form textarea:focus{outline-color:var(--sea)}
+.lightform .form__foot small{color:var(--ink-3)}
+section{scroll-margin-top:96px}
