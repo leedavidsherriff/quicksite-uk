@@ -461,7 +461,7 @@ footer a{color:#B9C2C1}
         <h2 style="font-size:clamp(32px,4vw,52px);font-weight:300;margin:14px 0 22px">The old surgery on The Portway.</h2>
         <dl>
           <div><dt>Address</dt><dd>1 The Portway, Porthcawl CF36 3XB</dd></div>
-          <div><dt>Phone</dt><dd><a href="tel:+441656856120">01656 856120</a></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+441656856120" data-t="rooms" data-a="call">01656 856120</a></dd></div>
           <div><dt>Email</dt><dd><a href="mailto:contact@portwaygroup.com">contact@portwaygroup.com</a></dd></div>
           <div><dt>Viewings</dt><dd>Ring or email and we'll book you in to see a room.</dd></div>
         </dl>
@@ -478,7 +478,7 @@ footer a{color:#B9C2C1}
       <h2>Tell us about your practice.</h2>
       <p>We reply within 24 hours. Let us know what you do and when you'd like to start, and we'll come back with the right room and a time to view it.</p>
       <div class="callrow">
-        <a class="gbtn gbtn--quiet" href="tel:+441656856120"><i class="gbtn__rim"></i><span>Call 01656 856120</span></a>
+        <a class="gbtn gbtn--quiet" href="tel:+441656856120" data-t="rooms" data-a="call"><i class="gbtn__rim"></i><span>Call 01656 856120</span></a>
         <a class="gbtn gbtn--quiet wa-btn" data-wa href="#"><i class="gbtn__rim"></i><span><i class="wa-dot"></i>WhatsApp Curtis</span></a>
       </div>
     </div>
@@ -510,6 +510,21 @@ footer a{color:#B9C2C1}
 
 <div class="dock" id="dock"><a class="gbtn gbtn--onlight wa-btn" data-wa href="#"><i class="gbtn__rim"></i><span><i class="wa-dot"></i>WhatsApp</span></a><a class="gbtn gbtn--onlight" href="#enquire"><i class="gbtn__rim"></i><span>Enquire</span></a></div>
 
+<script>
+/* Visitors counter (portway-stats Worker) for the standalone ad landing page.
+   Counts only — no cookies, nothing personal. Inside the full site this is
+   already defined by the site's own script, so it's skipped. */
+(() => {
+  if (window.pwHit) return;
+  if (/^(localhost|127\.|\[::1\])/.test(location.hostname)) { window.pwHit = () => {}; return; }
+  const END = "https://portway-stats.honest-misty-photo-reader.workers.dev/hit";
+  const page = "/landing/rooms-to-let/";
+  window.pwHit = (t, a, extra) => { if (!a) return; try { navigator.sendBeacon(END, new Blob([JSON.stringify({ t, a, p: page, ...extra })], { type: "text/plain" })); } catch (_) {} };
+  const q = new URLSearchParams(location.search), ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "";
+  pwHit("rooms", "view", { s: (q.get("utm_source") || (ref && ref !== location.hostname ? ref : "direct")).toLowerCase().slice(0, 60) });
+  document.addEventListener("click", e => { const a = e.target.closest("[data-t][data-a]"); if (a) pwHit(a.dataset.t, a.dataset.a); }, true);
+})();
+</script>
 <script>
 /* ---------------- data ---------------- */
 // Suites, sizes and "best for" are from portwaywellnesscentre.co.uk.
@@ -644,7 +659,12 @@ document.addEventListener("click", e => {
   a.href = waLink(waText()); a.target = "_blank"; a.rel = "noopener";
   track("Contact", { method: "whatsapp" });
 });
-function track(ev, data){ try { if (window.fbq) fbq("track", ev, data); } catch (_) {} }
+function track(ev, data){
+  try { if (window.fbq) fbq("track", ev, data); } catch (_) {}
+  // our own counter: WhatsApp taps and sent enquiries from the rooms page
+  const act = { Lead: "enquiry", Contact: "wa" }[ev];
+  if (act && window.pwHit) pwHit("rooms", act);
+}
 async function sendEnquiry(payload){
   const r = await fetch(ENQUIRY_ENDPOINT, { method:"POST", headers:{ "Content-Type":"application/json" },
     body: JSON.stringify({ ...payload, page: location.pathname + location.search, consent: true }) });
@@ -678,7 +698,7 @@ enqForm.onsubmit = async e => {
   } catch (_) {
     fSend.disabled = false; fSend.querySelector("span").textContent = "Send room enquiry";
     fDone.hidden = false; fDone.className = "full form__done err";
-    fDone.innerHTML = `<b>Sorry — that didn't send.</b>Please ring <a href="tel:+441656856120" style="color:#fff">01656 856120</a> or <a data-wa href="#" style="color:#fff">WhatsApp Curtis</a> and we'll sort it straight away.`;
+    fDone.innerHTML = `<b>Sorry — that didn't send.</b>Please ring <a href="tel:+441656856120" data-t="rooms" data-a="call" style="color:#fff">01656 856120</a> or <a data-wa href="#" style="color:#fff">WhatsApp Curtis</a> and we'll sort it straight away.`;
   }
 };
 
@@ -935,7 +955,7 @@ render();
     avail: () => bot("All five rooms are available right now: three at 14 m², one at 16 m² and one at 18 m².", ["Which room suits me?", "Can I see a room?"]),
     sizes: () => bot("Suites 01, 02 and 04 are 14 m², Suite 03 is 16 m² and Suite 05 is 18 m², the biggest.", ["Which room suits me?", "What does it cost?"]),
     setup: () => bot("We set the room up the way you work: a treatment bed, an examination table or couch, or a consulting desk. Bring your own kit as well, of course.", ["Can I see a room?", "Talk to Curtis"]),
-    human: () => bot({ html: `Curtis is the man to talk to. You can <a data-wa href="#">WhatsApp him</a> or ring <a href="tel:+441656856120">01656 856120</a>, or leave your details here and he'll come back to you.` }, ["Leave my details", "What does it cost?"]),
+    human: () => bot({ html: `Curtis is the man to talk to. You can <a data-wa href="#">WhatsApp him</a> or ring <a href="tel:+441656856120" data-t="rooms" data-a="call">01656 856120</a>, or leave your details here and he'll come back to you.` }, ["Leave my details", "What does it cost?"]),
   };
   const RULES = [
     [/£|\b(cost|price|how much|rent|rates?\b|per (day|week|month)|cheap|afford)/i, "cost"],
@@ -997,7 +1017,7 @@ render();
         bot([`Done. Curtis has your details and will be in touch, usually within 24 hours. Your reference is ${ref}.`, { html: `In a hurry? <a data-wa href="#">WhatsApp him</a> now.` }], ["What does it cost?", "What's included?"]);
       } catch (_) {
         flow = null;
-        bot({ html: `Sorry, that didn't send. Please ring <a href="tel:+441656856120">01656 856120</a> or <a data-wa href="#">WhatsApp Curtis</a> and he'll sort it.` }, MENU);
+        bot({ html: `Sorry, that didn't send. Please ring <a href="tel:+441656856120" data-t="rooms" data-a="call">01656 856120</a> or <a data-wa href="#">WhatsApp Curtis</a> and he'll sort it.` }, MENU);
       }
     }
   }

@@ -23,7 +23,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "name": "Portway Wellness Centre", "url": "https://leedavidsherriff.github.io/quicksite-uk/portway/site/", "telephone": "+441656856120", "email": "contact@portwaygroup.com", "image": "https://leedavidsherriff.github.io/quicksite-uk/portway/site/assets/media/og.jpg", "address": {"@type": "PostalAddress", "streetAddress": "1 The Portway", "addressLocality": "Porthcawl", "postalCode": "CF36 3XB", "addressCountry": "GB"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "08:00", "closes": "20:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "08:00", "closes": "20:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "08:00", "closes": "20:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "08:00", "closes": "20:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "08:00", "closes": "20:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "10:00", "closes": "16:00"}], "description": "A dedicated wellness centre in Porthcawl bringing together health, wellness and beauty professionals, with consultancy rooms to let."}</script>
 
 </head>
-<body>
+<body data-t="centre">
 <header class="site-head" id="siteHead">
   <div class="wrap">
     <a class="plaque__name" href="../" aria-label="Portway Wellness Centre home">
@@ -74,6 +74,24 @@
     </div>
   </div>
 </footer>
+<script>
+/* Visitors-sent counter (portway-stats Worker). Counts only: business, action,
+   page, day, and for page views the site they came from. No cookies, nothing
+   personal. Taps are read from data-t (business) / data-a (action) on links. */
+(() => {
+  if (/^(localhost|127\.|\[::1\])/.test(location.hostname)) { window.pwHit = () => {}; return; }
+  const END = "https://portway-stats.honest-misty-photo-reader.workers.dev/hit";
+  const page = location.pathname.replace(/^\/quicksite-uk\/portway\/site/, "") || "/";
+  window.pwHit = (t, a, extra) => { try { navigator.sendBeacon(END, new Blob([JSON.stringify({ t, a, p: page, ...extra })], { type: "text/plain" })); } catch (_) {} };
+  if (!window.__pwViewed) {
+    window.__pwViewed = true;
+    const q = new URLSearchParams(location.search), ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "";
+    const src = (q.get("utm_source") || (ref && ref !== location.hostname.replace(/^www\./, "") ? ref : "direct")).toLowerCase().slice(0, 60);
+    pwHit(document.body.dataset.t || "centre", "view", { s: src });
+  }
+  document.addEventListener("click", e => { const a = e.target.closest("[data-t][data-a]"); if (a) pwHit(a.dataset.t, a.dataset.a); }, true);
+})();
+</script>
 <script>
 /* shared: header edge on scroll, reveal-on-scroll, film reveal */
 (() => {
