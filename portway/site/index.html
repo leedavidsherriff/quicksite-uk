@@ -66,7 +66,7 @@
           <img class="board__img" src="assets/media/board.webp" alt="" width="1200" height="2100" decoding="async">
           <div class="board__glass">
             <p class="board__title">Portway<br>Wellness Centre</p>
-            <ul class="board__list" role="listbox" aria-label="Businesses at Portway Wellness Centre"><li class="strip" role="option" tabindex="0" data-id="invigorate" aria-selected="false"><b>Invigorate</b><small>Sauna</small></li><li class="strip" role="option" tabindex="0" data-id="chiropractic" aria-selected="false"><b>Porthcawl Chiropractic</b><small>Chiro</small></li><li class="strip" role="option" tabindex="0" data-id="physiotherapy" aria-selected="false"><b>Porthcawl Physiotherapy</b><small>Physio</small></li><li class="strip" role="option" tabindex="0" data-id="mor-health" aria-selected="false"><b>Môr Health</b><small>Private GP</small></li><li class="strip" role="option" tabindex="0" data-id="trueskin" aria-selected="false"><b>TrueSkin Studio</b><small>Aesthetics</small></li><li class="strip" role="option" tabindex="0" data-id="sabrinas" aria-selected="false"><b>Sabrina's Beauty</b><small>Beauty</small></li><li class="strip" role="option" tabindex="0" data-id="tan-lounge" aria-selected="false"><b>The Tan Lounge</b><small>Tanning</small></li><li class="strip" role="option" tabindex="0" data-id="portway-financial" aria-selected="false"><b>Portway Financial</b><small>Finance</small></li><li class="board__rule" aria-hidden="true"></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="01" aria-selected="false"><b>Available</b><small>Suite 01</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="02" aria-selected="false"><b>Available</b><small>Suite 02</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="03" aria-selected="false"><b>Available</b><small>Suite 03</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="04" aria-selected="false"><b>Available</b><small>Suite 04</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="05" aria-selected="false"><b>Available</b><small>Suite 05</small></li></ul>
+            <ul class="board__list" role="listbox" aria-label="Businesses at Portway Wellness Centre"><li class="strip" role="option" tabindex="0" data-id="invigorate" aria-selected="false"><b>Invigorate</b><small>Sauna</small></li><li class="strip" role="option" tabindex="0" data-id="chiropractic" aria-selected="false"><b>Porthcawl Chiropractic</b><small>Chiro</small></li><li class="strip" role="option" tabindex="0" data-id="physiotherapy" aria-selected="false"><b>Porthcawl Physiotherapy</b><small>Physio</small></li><li class="strip" role="option" tabindex="0" data-id="mor-health" aria-selected="false"><b>Môr Health</b><small>Private GP</small></li><li class="strip" role="option" tabindex="0" data-id="trueskin" aria-selected="false"><b>TrueSkin Studio</b><small>Aesthetics</small></li><li class="strip" role="option" tabindex="0" data-id="sabrinas" aria-selected="false"><b>Sabrina's Beauty</b><small>Beauty</small></li><li class="strip" role="option" tabindex="0" data-id="tan-lounge" aria-selected="false"><b>The Tan Lounge</b><small>Tanning</small></li><li class="strip" role="option" tabindex="0" data-id="portway-financial" aria-selected="false"><b>Portway Financial</b><small>Finance</small></li><li class="board__rule" aria-hidden="true"></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="01" aria-selected="false"><b>Available</b><small>To let · 01</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="02" aria-selected="false"><b>Available</b><small>To let · 02</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="03" aria-selected="false"><b>Available</b><small>To let · 03</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="04" aria-selected="false"><b>Available</b><small>To let · 04</small></li><li class="strip strip--free" role="option" tabindex="0" data-id="free" data-suite="05" aria-selected="false"><b>Available</b><small>To let · 05</small></li></ul>
           </div>
         </div>
       </div>
@@ -156,16 +156,31 @@
 (() => {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const films = ["frontFilm", "bandFilm"].map(id => document.getElementById(id)).filter(Boolean);
+  const ANIM = { frontFilm: "assets/media/exterior-anim.webp", bandFilm: "assets/media/treatment-anim.webp" };
   const onScreen = v => { const r = v.getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; };
+  // A phone that refuses video (iPhone Low Power Mode, some in-app browsers) gets
+  // an animated WebP of the same footage in its place — images still move.
+  const toAnim = v => {
+    if (v.classList.contains("is-playing") || v.dataset.anim) return;
+    v.dataset.anim = "1"; v.pause(); v.style.display = "none";
+    const im = document.createElement("img"); im.className = "film-anim"; im.alt = ""; im.decoding = "async"; im.src = ANIM[v.id];
+    v.after(im);
+  };
   films.forEach(v => {
     v.muted = true; v.setAttribute("muted", ""); v.removeAttribute("controls");
     if (reduce) v.loop = false;
     v.addEventListener("playing", () => v.classList.add("is-playing"));
+    let tried = false;
     new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting) { if (!(reduce && v.ended)) v.play().catch(() => {}); } else v.pause();
+      if (e.isIntersecting) {
+        if (v.dataset.anim || (reduce && v.ended)) return;
+        v.play().catch(err => { if (!document.hidden && err && err.name === "NotAllowedError") toAnim(v); });
+        // stalled: on screen for 4s and still not moving
+        if (!tried) { tried = true; setTimeout(() => { if (!document.hidden && onScreen(v) && !v.classList.contains("is-playing")) toAnim(v); }, 4000); }
+      } else v.pause();
     }), { threshold: .2 }).observe(v);
   });
-  const wake = () => films.forEach(v => { if (!v.classList.contains("is-playing") && onScreen(v)) v.play().catch(() => {}); });
+  const wake = () => films.forEach(v => { if (!v.dataset.anim && !v.classList.contains("is-playing") && onScreen(v)) v.play().catch(() => {}); });
   ["touchend", "click", "keydown"].forEach(t => document.addEventListener(t, wake, { capture: true, passive: true }));
 })();
 
@@ -186,8 +201,11 @@
     if (id === "free"){
       card.className = "lobby__card lobby__card--free swap";
       card.style.backgroundImage = "url(assets/media/room-treatment.jpg)";
+      const idea = strip.querySelector("b").textContent.replace("?", "");
+      const an = /^[aeiou]/i.test(idea) ? "an" : "a";
+      const fit = idea !== "Available" && idea !== "Your practice" ? `Perfect for ${an} ${idea.toLowerCase()}.` : "Your practice, next week.";
       card.innerHTML = `<small>● Available now</small><h3>Consultancy Suite ${strip.dataset.suite}</h3>
-        <p class="tag">Your practice, next week.</p>
+        <p class="tag">${esc(fit)}</p>
         <p>A private, daylit room set up for beauty, wellness or clinical work — daily, weekly or monthly, with Wi-Fi, reception and parking included.</p>
         <div class="row"><a class="gbtn" href="rooms-to-let/"><i class="gbtn__rim"></i><span>See the rooms</span></a><a href="tel:+441656856120">Call 01656 856120</a></div>`;
       return;
@@ -213,10 +231,40 @@
   });
   // preload the card photos so a tap never shows an empty card
   Object.values(DATA).forEach(b => { const im = new Image(); im.src = b.img; });
+  /* The empty slots keep suggesting who could move in. Only practices that
+     sit alongside the current tenants — nothing that competes with them. */
+  const IDEAS = ["Massage therapist?", "Osteopath?", "Counsellor?", "Podiatrist?", "Acupuncturist?", "Nutritionist?",
+                 "Pilates instructor?", "Sports massage?", "Reflexologist?", "Hypnotherapist?", "Dietitian?",
+                 "Personal trainer?", "Psychotherapist?", "Holistic therapist?", "Speech therapist?", "Your practice?"];
+  const free = strips.filter(s => s.dataset.id === "free");
+  let ideaAt = 0, boardSeen = false, cycler = 0;
+  function flip(s, text){
+    const b = s.querySelector("b");
+    b.classList.add("out");
+    setTimeout(() => { b.textContent = text; b.classList.remove("out"); b.classList.add("in"); setTimeout(() => b.classList.remove("in"), 380); }, 260);
+  }
+  function cycle(){
+    // one slot at a time, never the one someone is reading
+    const pool = free.filter(s => s.getAttribute("aria-selected") !== "true");
+    const s = pool[Math.floor(Math.random() * pool.length)]; if (!s) return;
+    // next idea that isn't already on the board
+    const onBoard = new Set(free.map(x => x.querySelector("b").textContent));
+    let next, guard = 0;
+    do { next = IDEAS[ideaAt++ % IDEAS.length]; } while (onBoard.has(next) && guard++ < IDEAS.length);
+    flip(s, next);
+  }
+  if (!reduce) new IntersectionObserver(es => es.forEach(e => {
+    boardSeen = e.isIntersecting;
+    clearInterval(cycler);
+    if (boardSeen) cycler = setInterval(cycle, 1700);
+  }), { threshold: .2 }).observe(lobby);
+
   let done = false;
   const lightUp = () => {
     if (done) return; done = true;
     strips.forEach((s, i) => setTimeout(() => s.classList.add("lit"), reduce ? 0 : 140 + i * 110));
+    // once lit, every empty slot takes a suggestion, one after another
+    if (!reduce) free.forEach((s, k) => setTimeout(() => flip(s, IDEAS[ideaAt++ % IDEAS.length]), 140 + strips.length * 110 + 600 + k * 260));
     setTimeout(() => { if (!picked) show(strips[0]); }, reduce ? 0 : 140 + strips.length * 110 + 250);
   };
   new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting){ lightUp(); io.disconnect(); } }), { threshold: .3 }).observe(lobby);

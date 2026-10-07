@@ -460,13 +460,22 @@ enqForm.onsubmit = async e => {
 };
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* When a phone refuses video outright (iPhone Low Power Mode, some in-app
+   browsers) the film is swapped for an animated WebP of the same footage —
+   images still animate when video won't, and there's never a play button. */
+function animInto(box, src, before){
+  let im = box.querySelector(".film-anim");
+  if (!im){ im = document.createElement("img"); im.className = "film-anim"; im.alt = ""; im.decoding = "async"; box.insertBefore(im, before || null); }
+  if (im.getAttribute("src") !== src) im.src = src;
+  return im;
+}
 /* exterior: plays only on screen */
 const ext = document.getElementById("filmExt");
 ext.muted = true; ext.setAttribute("muted", "");
 ext.addEventListener("playing", () => ext.classList.add("is-playing"));
 if (reduce) ext.loop = false;
 new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) ext.play().catch(() => { if (!document.hidden && !ext.classList.contains("is-playing")) fallback(ext); }); else ext.pause();
+  if (e.isIntersecting) ext.play().catch(() => { if (!document.hidden && !ext.classList.contains("is-playing")){ fallback(ext); animInto(ext.parentElement, "../assets/media/exterior-anim.webp"); } }); else ext.pause();
 }), { threshold: .2 }).observe(ext);
 
 /* ---------------- the film: same room, your way ----------------
@@ -478,9 +487,9 @@ new IntersectionObserver(es => es.forEach(e => {
 const T = document.getElementById("filmT"), A = document.getElementById("filmA"), B = document.getElementById("filmB");
 const FILMS = [T, A, B];
 const MODES = {
-  treat:   { chain:[T],    end:"../assets/media/room-treatment.jpg", at:[.22],
+  treat:   { chain:[T],    end:"../assets/media/room-treatment.jpg", anim:"../assets/media/treatment-anim.webp", at:[.22],
              stops:[["Day one","A bright, empty room with a window and a lock."],["Week one","Bed in, trolley stocked, lamp on. Your first clients through the door."]] },
-  consult: { chain:[A, B], end:"../assets/media/room-year-on.jpg",   at:[.17, .55],
+  consult: { chain:[A, B], end:"../assets/media/room-year-on.jpg",   anim:"../assets/media/consult-anim.webp", at:[.17, .55],
              stops:[["Day one","A bright, empty room with a window and a lock."],["Week one","Your desk in. Your first clients through the door."],["Year one","Your regulars, your rebooks, your name on the board."]] }
 };
 const tl = document.querySelector(".timeline"), bar = document.getElementById("tlBar");
@@ -523,15 +532,16 @@ function play(i){
 }
 function stillRoom(){
   still = true; FILMS.forEach(fallback);
-  roomEl.style.backgroundImage = `url(${MODES[mode].end})`;
+  roomEl.style.backgroundImage = `url(${MODES[mode].end})`;   // shows while the animation loads
+  animInto(roomEl, MODES[mode].anim, roomEl.querySelector(".room__tag"));
   setStop(9); bar.style.width = "100%";
 }
 // Low Power Mode (and some in-app browsers) refuse autoplay outright, so the
 // page shows the still. Any touch on the page counts as permission, so the
 // first one brings the films back — no play button, ever.
 function wake(){
-  if (still){ still = false; FILMS.forEach(v => v.style.display = ""); roomEl.style.backgroundImage = ""; }
-  if (!started) play(0);
+  // (once the animated version is showing it stays — it's already moving)
+  if (!started && !still) play(0);
   if (!ext.classList.contains("is-playing")){
     ext.style.display = "";
     const r = ext.getBoundingClientRect();
@@ -555,7 +565,7 @@ function setMode(m){
   mode = m;
   document.querySelectorAll(".modes button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
   drawStops();
-  if (still){ roomEl.style.backgroundImage = `url(${MODES[mode].end})`; setStop(9); return; }
+  if (still){ roomEl.style.backgroundImage = `url(${MODES[mode].end})`; animInto(roomEl, MODES[mode].anim, roomEl.querySelector(".room__tag")); setStop(9); return; }
   FILMS.forEach(o => { if (!MODES[m].chain.includes(o)) o.pause(); });
   play(0);
 }
