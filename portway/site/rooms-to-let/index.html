@@ -260,7 +260,8 @@
 </section>
 
 
-<div class="dock" id="dock"><a class="gbtn gbtn--onlight wa-btn" data-wa href="#"><i class="gbtn__rim"></i><span><i class="wa-dot"></i>WhatsApp</span></a><a class="gbtn gbtn--onlight" href="#enquire"><i class="gbtn__rim"></i><span>Enquire</span></a></div>
+<a class="wa-sticky" data-wa href="#" aria-label="WhatsApp Curtis about a room"><i class="wa-dot"></i><span>WhatsApp Curtis</span></a>
+<div class="dock" id="dock"><a class="gbtn gbtn--onlight wa-btn" data-wa href="#"><i class="gbtn__rim"></i><span><i class="wa-dot"></i>WhatsApp Curtis</span></a><a class="gbtn gbtn--onlight" href="#enquire"><i class="gbtn__rim"></i><span>Enquire</span></a></div>
 
 </main>
 <footer class="site-foot">
@@ -448,7 +449,7 @@ cPrice.oninput = runCalc; cClients.oninput = runCalc; runCalc();
    contact@portwaygroup.com and stores nothing. WhatsApp and phone are the
    fallback if it can't send. */
 const ENQUIRY_ENDPOINT = "https://portway-enquiries.honest-misty-photo-reader.workers.dev/enquiry";
-const WA_NUMBER = "447933666396";   // Curtis
+const WA_NUMBER = "447885578570";   // Curtis (07885 578570, from Lee 7 Oct 2026)
 const waLink = text => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
 function waText(){
   const s = typeof selected !== "undefined" ? `Suite ${selected}` : "a room";
@@ -634,7 +635,7 @@ document.querySelectorAll(".rise").forEach(el => ro.observe(el));
 const dock = document.getElementById("dock"), enq = document.getElementById("enquire");
 let enqVisible = false;
 new IntersectionObserver(es => { enqVisible = es[0].isIntersecting; dockUpdate(); }).observe(enq);
-function dockUpdate(){ dock.classList.toggle("show", scrollY > innerHeight * .8 && !enqVisible); }
+function dockUpdate(){ dock.classList.toggle("show", !enqVisible); }   // on hand from the first second, out of the way at the form
 addEventListener("scroll", dockUpdate, { passive:true });
 
 render();
