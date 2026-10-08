@@ -348,11 +348,11 @@ footer a{color:#B9C2C1}
           <p class="detail__lede" id="dLede"></p>
           <ul class="setup" id="dSetup"></ul>
           <div class="rates">
-            <div><b id="rDay">Ask</b><span>per day</span></div>
+            <div><b id="rDay">£25</b><span>per day</span></div>
             <div><b id="rWeek">£100</b><span>per week</span></div>
             <div><b id="rMonth">≈ £433</b><span>per month</span></div>
           </div>
-          <p class="guide">Rooms are £100 a week, with Wi-Fi, reception and the waiting area included. Only need a day or two? Ask Curtis.</p>
+          <p class="guide">Rooms are £100 a week, or £25 a day, with Wi-Fi, reception and the waiting area included. Your first day is free.</p>
           <p class="guide"><b>Availability:</b> all 5 rooms available now · updated 7 October 2026</p>
           <p class="neighbours" id="dNeighbours"></p>
           <a class="gbtn gbtn--onlight" id="dEnquire" href="#enquire"><i class="gbtn__rim"></i><span>Enquire about Suite 01</span></a>
@@ -535,8 +535,8 @@ footer a{color:#B9C2C1}
 /* ---------------- data ---------------- */
 // Suites, sizes and "best for" are from portwaywellnesscentre.co.uk.
 // Rates are GUIDE prices for Porthcawl treatment-room hire — confirm with the centre.
-// Lee, 7 Oct 2026: rooms are £100 a week. Monthly = 52 weeks ÷ 12. Day rate on request.
-const RATES = { 14:{day:null,week:100,month:433}, 16:{day:null,week:100,month:433}, 18:{day:null,week:100,month:433} };
+// Lee: rooms are £100 a week (7 Oct 2026) or £25 a day (8 Oct 2026). Monthly = 52 weeks ÷ 12.
+const RATES = { 14:{day:25,week:100,month:433}, 16:{day:25,week:100,month:433}, 18:{day:25,week:100,month:433} };
 const SUITES = [
   // Re-pitched 7 Oct 2026 (Lee): no beauty, aesthetics, massage/Pilates, osteopathy/podiatry — they'd compete with tenants.
   { no:"01", look:"consult", size:14, tags:["Counselling","Therapy","Psychology"], lede:"A calm, private 14 m² room with a window — a two-chair counselling layout, or a desk if you prefer.",            setup:["Two-chair consulting","Desk & storage","Soft lighting"] },
@@ -630,7 +630,7 @@ function runCalc(){
     document.getElementById("oPrice").textContent = gbp(price);
     document.getElementById("oClients").textContent = perWeek;
     // monthly rent for the chosen way of renting
-    const rentMonth = r.month;   // monthly rent; day/week rates are on request
+    const rentMonth = r.month;   // monthly rent
     const clientsMonth = Math.round(perWeek * 4.33);
     const needed = Math.ceil(rentMonth / price);
     const big = document.getElementById("oBreak");
@@ -950,7 +950,7 @@ render();
   const A = {
     cost: () => bot([
       `Rooms are ${gbp(r14.week)} a week (about ${gbp(r14.month)} a month), with Wi-Fi, reception and the waiting area included.`,
-      "Only need a day or two a week? Ask Curtis and he'll price it for how often you'd use the room."],
+      "Only need a day or two a week? It's £25 a day, so you can start small and grow into it."],
       ["Which room suits me?", "Can I see a room?", "Talk to Curtis"]),
     suits: () => bot("What's your practice?", PRACTICES.map(p => p.label)),
     view: () => { startLead("viewing"); },
