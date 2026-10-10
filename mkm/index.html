@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>MKM + QuickSite</title>
+<meta name="description" content="How MKM earns from QuickSite. A 53-second film for Nicola.">
+<meta property="og:type" content="video.other">
+<meta property="og:title" content="For Nicola: how MKM earns from QuickSite">
+<meta property="og:description" content="A 53-second film. No MKM name on any site, no time from your team, 50% of the revenue.">
+<meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/mkm/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/mkm/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../brochure/favicon.png">
+<style>
+  :root { --ground:#F6F4EF; --ink:#12294D; --muted:#5B6480; --yellow:#FFCD00; --line:#E7E2D8; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; background:var(--ground); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; }
+  main { min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:22px; padding:28px 16px 36px; }
+  .eyebrow { font-weight:700; font-size:13px; letter-spacing:.32em; text-transform:uppercase; color:var(--muted); }
+  .frame { position:relative; width:min(1100px,100%); aspect-ratio:16/9; border-radius:18px; overflow:hidden;
+    background:#fff url(poster.jpg) center/cover no-repeat;
+    box-shadow:0 24px 60px rgba(18,41,77,.16),0 2px 6px rgba(18,41,77,.06); }
+  video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .25s; }
+  video.on { opacity:1; }
+  video::-webkit-media-controls, video::-webkit-media-controls-start-playback-button,
+  video::-webkit-media-controls-overlay-play-button { display:none !important; -webkit-appearance:none; }
+  .sound { position:absolute; left:50%; top:18px; transform:translateX(-50%);
+    border:0; border-radius:999px; padding:12px 22px; cursor:pointer;
+    background:var(--yellow); color:var(--ink); font:800 16px/1 inherit; font-family:inherit;
+    box-shadow:0 8px 24px rgba(18,41,77,.25); }
+  .sound[hidden] { display:none; }
+  .again { border:2px solid var(--line); background:#fff; color:var(--ink); border-radius:999px;
+    padding:10px 20px; font:700 15px/1 inherit; font-family:inherit; cursor:pointer; }
+  .again[hidden] { display:none; }
+  .contact { font-size:16px; color:var(--muted); text-align:center; }
+  .contact a { color:var(--ink); font-weight:700; text-decoration:none; }
+  @media (max-width:600px) { .frame { border-radius:12px; } .sound { top:10px; padding:10px 16px; font-size:14px; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="frame">
+    <video id="v" src="mkm-quicksite.mp4" poster="poster.jpg" autoplay muted playsinline preload="auto"></video>
+    <button class="sound" id="snd" type="button">Tap for sound</button>
+  </div>
+  <button class="again" id="again" type="button" hidden>Watch again</button>
+  <div class="contact"><a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a> &nbsp;·&nbsp; quick-site.co.uk</div>
+</main>
+<script>
+// The film opens muted (the subtitles are burnt in), so it starts on its own. "Tap for sound" restarts it
+// from the top with sound. No browser controls ever show: if a browser refuses to play, the video is
+// hidden and the poster stays, and the button starts it instead.
+(function () {
+  var v = document.getElementById('v'), snd = document.getElementById('snd'), again = document.getElementById('again');
+  v.muted = true; v.setAttribute('muted', '');
+  v.addEventListener('playing', function () { v.classList.add('on'); });
+  function start(withSound) {
+    v.muted = !withSound; v.currentTime = 0;
+    var p = v.play(); if (p && p.catch) p.catch(function () { v.classList.remove('on'); snd.hidden = false; });
+  }
+  var p = v.play(); if (p && p.catch) p.catch(function () { v.classList.remove('on'); snd.textContent = 'Watch with sound'; });
+  snd.addEventListener('click', function () { snd.hidden = true; again.hidden = true; start(true); });
+  again.addEventListener('click', function () { again.hidden = true; snd.hidden = true; start(true); });
+  v.addEventListener('ended', function () { if (v.muted) { snd.textContent = 'Watch with sound'; snd.hidden = false; } else { again.hidden = false; } });
+})();
+</script>
+</body>
+</html>
