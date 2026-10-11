@@ -23,6 +23,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);overflow-x:hidden}
 img,video,canvas{display:block;max-width:100%;height:auto}
