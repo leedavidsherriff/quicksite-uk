@@ -392,3 +392,18 @@ body.menu-open{overflow:hidden}
   .docket{box-shadow:none;margin:0;animation:none;background-image:none}
 }
 .menu__demo{margin-top:10px;font-size:12px;color:var(--ink-3)}
+
+/* no photo: pick how many */
+.snap__alt{border:1px solid var(--line);background:none;color:var(--ink);font:650 15px/1 var(--body);padding:14px;border-radius:14px;cursor:pointer}
+.counts h2{font-size:19px;font-weight:800;margin-bottom:10px}
+.counts__list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.count{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:14px;background:var(--card);border:1px solid var(--line-2)}
+.count.has{border-color:rgba(139,245,211,.5)}
+.count b{display:block;font-size:15px}
+.count small{color:var(--ink-3);font-size:12px}
+.count__ctl{display:flex;align-items:center;gap:6px}
+.count__ctl button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#0f1518;color:var(--ink);font:700 20px/1 var(--body);cursor:pointer}
+.count__ctl button:disabled{opacity:.35;cursor:default}
+.count__ctl output{min-width:24px;text-align:center;font:800 17px/1 var(--wide);font-variant-numeric:tabular-nums}
+.noquote{max-width:600px;margin:0 auto;padding:30px 16px 0;display:grid;gap:16px;justify-items:start}
+.noquote h1{font-size:clamp(32px,9vw,56px);font-weight:900}

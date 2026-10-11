@@ -38,8 +38,14 @@
     <div class="snap">
       <label class="gbtn snap__btn" for="photoIn"><i class="gbtn__rim"></i><span>Snap your house</span></label>
       <input id="photoIn" type="file" accept="image/*" capture="environment" hidden>
-      <p class="snap__hint">From across the road, whole front in. <button type="button" class="link" id="useExample" hidden>Use the example</button></p>
+      <p class="snap__hint">From across the road, whole front in. <button type="button" class="link" id="useExample" hidden>Back to the example</button></p>
+      <button type="button" class="snap__alt" id="manualBtn">No photo? Pick your windows instead</button>
     </div>
+
+    <section class="counts" id="counts" hidden aria-labelledby="countsH">
+      <h2 id="countsH">How many of each?</h2>
+      <ul class="counts__list" id="countList"></ul>
+    </section>
 
     <fieldset class="finish">
       <legend>Frame colour</legend>
@@ -48,7 +54,7 @@
       <p class="finish__note" id="finishNote" aria-live="polite"></p>
     </fieldset>
 
-    <div class="openings">
+    <div class="openings" id="openingsWrap">
       <div class="openings__head">
         <h2>Windows &amp; doors</h2>
         <span class="openings__count" id="openCount"></span>

@@ -54,6 +54,10 @@
   }
   var JOB = loadJob();
   var totalsOf = function (j) { return P.totals(j.openings, j.finish, j.roof); };
+  // A quote is THEIR house: a scanned photo, or windows they picked by hand.
+  // Playing with the example house never makes one.
+  var isMine = function (j) { return j.mode === 'photo' || j.mode === 'manual'; };
+  var hasQuote = function (j) { var t = totalsOf(j); return isMine(j) && !!(t.units || t.roof); };
 
   function specFor(o, finish) {
     var k = P.KINDS[o.kind];
@@ -73,11 +77,15 @@
     { key: 'work', href: 'work.html', name: 'Our work', sub: 'Recent fits and how it goes' }
   ];
   function pillMain() {
-    var t = totalsOf(JOB), has = t.units || t.roof, touched = false;
-    try { touched = !!sessionStorage.getItem(KEY); } catch (e) { /* ignore */ }
-    if (PAGE === 'price') return { href: 'quote.html', html: '<span class="pill__big">' + (has ? P.range(t.band) : '£0') + '</span><span class="pill__small">See my quote</span>' };
-    if (PAGE === 'quote') return { href: '#book', html: 'Book my free survey' };
-    if (touched && has) return { href: 'quote.html', html: '<span class="pill__big">' + P.range(t.band) + '</span><span class="pill__small">My quote</span>' };
+    var t = totalsOf(JOB), mine = hasQuote(JOB);
+    var price = function (small) { return '<span class="pill__big">' + P.range(t.band) + '</span><span class="pill__small">' + small + '</span>'; };
+    if (PAGE === 'price') {
+      if (mine) return { href: 'quote.html', html: price('See my quote') };
+      if (JOB.mode === 'manual') return { href: '#counts', html: 'Pick your windows' };
+      return { href: '#', act: 'snap', html: 'Snap your house' };
+    }
+    if (PAGE === 'quote') return mine ? { href: '#book', html: 'Book my free survey' } : { href: 'price.html', html: 'Price my house' };
+    if (mine) return { href: 'quote.html', html: price('My quote') };
     return { href: 'price.html', html: 'Price my house' };
   }
   (function pill() {
@@ -96,6 +104,10 @@
     }).join('') + '</div><p class="menu__foot"><a href="' + B.tel + '">' + B.phone + '</a> · ' + B.town + ' &amp; the Vale</p><p class="menu__demo">Demo site by QuickSite. Business and number not real; prices are guide estimates.</p>';
     document.body.appendChild(menu);
     var grid = $('.pill__grid', nav);
+    // on the pricing page, before there's a quote, the big button opens the camera
+    $('#pillMain', nav).addEventListener('click', function (e) {
+      if (this.dataset.act === 'snap' && $('#photoIn')) { e.preventDefault(); $('#photoIn').click(); }
+    });
     function open(on) {
       menu.hidden = !on; grid.setAttribute('aria-expanded', String(on));
       document.body.classList.toggle('menu-open', on);
@@ -108,7 +120,7 @@
   function refreshPill() {
     var m = pillMain(), a = $('#pillMain');
     if (!a) return;
-    a.href = m.href; $('#pillMainIn').innerHTML = m.html;
+    a.href = m.href; a.dataset.act = m.act || ''; $('#pillMainIn').innerHTML = m.html;
   }
 
   /* ================= HOME · THE FILM =================
@@ -206,7 +218,7 @@
     function scanning(on) { sweep.hidden = !on; }
     function afterKey() {
       var photo = P.FINISHES[JOB.finish].photo;
-      if (JOB.mode === 'sample') return photo;
+      if (JOB.mode !== 'photo') return photo;
       var kinds = JOB.openings.filter(function (o) { return o.on && P.KINDS[o.kind].cat === 'door'; }).map(function (o) { return o.kind; }).sort().join(',');
       return photo + '|' + kinds;
     }
@@ -220,7 +232,8 @@
       ctx.clearRect(0, 0, W, H);
       ctx.drawImage(S.base, 0, 0, W, H);
       var after = S.afters[afterKey()];
-      var boxes = JOB.openings.filter(function (o) { return o.on && o.box; });
+      // no photo of theirs: the example house previews the colour, every frame done
+      var boxes = JOB.mode === 'manual' ? SAMPLE.openings : JOB.openings.filter(function (o) { return o.on && o.box; });
       if (!S.before && after && boxes.length) {
         maskC.width = tmpC.width = W; maskC.height = tmpC.height = H;
         mctx.clearRect(0, 0, W, H);
@@ -314,7 +327,7 @@
         listEl.appendChild(li);
       });
       var on = JOB.openings.filter(function (o) { return o.on; }).length;
-      $('#openCount').textContent = JOB.openings.length ? on + ' of ' + JOB.openings.length + ' being replaced' : '';
+      $('#openCount').textContent = JOB.mode === 'sample' ? 'on the example house' : JOB.openings.length ? on + ' of ' + JOB.openings.length + ' being replaced' : '';
     }
 
     /* ---- colours: three we can draw on a photo, and the rest of the range ---- */
@@ -357,7 +370,7 @@
     function ensureAfter() {
       var key = afterKey(), photo = P.FINISHES[JOB.finish].photo;
       if (S.afters[key] || S.pending[key]) return;
-      if (JOB.mode === 'sample') {
+      if (JOB.mode !== 'photo') {
         S.pending[key] = true;
         loadImg(SAMPLE.afters[photo]).then(function (im) { S.afters[key] = im; delete S.pending[key]; draw(); persist(); });
         return;
@@ -404,22 +417,63 @@
     }
 
     function update(redraw) {
-      renderPins(); renderList(); renderRoof(); renderNudge();
+      renderPins(); renderCounts(); renderList(); renderRoof(); renderNudge();
       if (redraw !== false) ensureAfter();
       draw(); persist(); refreshPill();
     }
 
     /* ---- the example house, or the job they left ---- */
+    var TAGS = { sample: 'Example house', manual: 'Colour preview · example house', photo: 'Your house' };
     function start() {
       $('#useExample').hidden = JOB.mode === 'sample';
-      $('#stageTag').textContent = JOB.mode === 'sample' ? 'Example house' : 'Your house';
-      status(JOB.mode === 'sample' ? 'Tap a number to leave that window as it is.' : '');
-      var src = JOB.mode === 'sample' ? SAMPLE.before : JOB.photo;
+      $('#counts').hidden = JOB.mode !== 'manual';
+      $('#openingsWrap').hidden = JOB.mode === 'manual' && !JOB.openings.length;
+      $('#stageTag').textContent = TAGS[JOB.mode];
+      status(JOB.mode === 'sample' ? 'This is our example house: tap around. Snap yours, or pick your windows, for your own quote.'
+        : JOB.mode === 'manual' ? 'Pick how many of each below. The photo is our example house, showing your colour.' : '');
+      var src = JOB.mode === 'photo' ? JOB.photo : SAMPLE.before;
       if (!src) { JOB = sampleJob(); return start(); }
       if (JOB.mode !== 'sample' && JOB.after && JOB.afterKey) loadImg(JOB.after).then(function (im) { S.afters[JOB.afterKey] = im; draw(); });
       return loadImg(src).then(function (im) { setBase(im); renderFinishes(); update(); });
     }
     function useSample() { JOB = sampleJob(); S.afters = {}; S.pending = {}; S.sel = -1; S.open = -1; scanning(false); start(); }
+
+    /* ---- no photo: pick how many of each ---- */
+    var COUNTS = [
+      { label: 'Small windows', hint: 'bathroom, landing', match: function (o) { return P.KINDS[o.kind].sized && o.size === 'S'; }, add: { kind: 'casement', size: 'S' } },
+      { label: 'Standard windows', hint: 'most bedrooms', match: function (o) { return P.KINDS[o.kind].sized && o.size === 'M'; }, add: { kind: 'casement', size: 'M' } },
+      { label: 'Large windows', hint: 'lounge, kitchen', match: function (o) { return P.KINDS[o.kind].sized && o.size === 'L'; }, add: { kind: 'casement', size: 'L' } },
+      { label: 'Bay windows', hint: 'per bay', match: function (o) { return /^(bay|bow)/.test(o.kind); }, add: { kind: 'bay3' } },
+      { label: 'Front door', match: function (o) { return /^front/.test(o.kind); }, add: { kind: 'front' } },
+      { label: 'Back door', match: function (o) { return o.kind === 'back'; }, add: { kind: 'back' } },
+      { label: 'French doors', hint: 'a pair', match: function (o) { return o.kind === 'french'; }, add: { kind: 'french' } },
+      { label: 'Patio slider', match: function (o) { return /^patio/.test(o.kind); }, add: { kind: 'patio' } },
+      { label: 'Bi-fold doors', match: function (o) { return /^bifold/.test(o.kind); }, add: { kind: 'bifold3' } }
+    ];
+    function renderCounts() {
+      var box = $('#countList');
+      if (JOB.mode !== 'manual') return;
+      box.innerHTML = COUNTS.map(function (c, i) {
+        var n = JOB.openings.filter(c.match).length;
+        return '<li class="count' + (n ? ' has' : '') + '"><span><b>' + c.label + '</b>' + (c.hint ? '<small>' + c.hint + '</small>' : '') + '</span>' +
+          '<span class="count__ctl"><button type="button" data-c="' + i + '" data-d="-1" aria-label="One fewer ' + c.label.toLowerCase() + '"' + (n ? '' : ' disabled') + '>−</button>' +
+          '<output>' + n + '</output><button type="button" data-c="' + i + '" data-d="1" aria-label="One more ' + c.label.toLowerCase() + '">+</button></span></li>';
+      }).join('');
+      $('#openingsWrap').hidden = !JOB.openings.length;
+    }
+    $('#countList').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-c]'); if (!b) return;
+      var c = COUNTS[+b.dataset.c];
+      if (+b.dataset.d > 0) JOB.openings.push({ kind: c.add.kind, size: c.add.size || 'M', box: null, on: true, opts: {} });
+      else for (var i = JOB.openings.length - 1; i >= 0; i--) if (c.match(JOB.openings[i])) { JOB.openings.splice(i, 1); break; }
+      S.open = -1; S.sel = -1;
+      update(false);
+    });
+    $('#manualBtn').addEventListener('click', function () {
+      JOB = { mode: 'manual', finish: JOB.finish, roof: JOB.roof, photo: '', after: '', afterKey: '', thumb: '', openings: [] };
+      S.sel = -1; S.open = -1; scanning(false);
+      start().then(function () { $('#counts').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); });
+    });
 
     /* ---- a customer's photo ---- */
     function shrink(file) {
@@ -526,6 +580,10 @@
 
   /* ================= YOUR QUOTE · SHEET + BOOK ================= */
   if (PAGE === 'quote') (function quote() {
+    if (!hasQuote(JOB)) {
+      $('.docket-wrap').hidden = true; $('#book').hidden = true; $('#noQuote').hidden = false;
+      return;
+    }
     var REF = '';
     try { REF = sessionStorage.getItem('pn-ref') || ''; } catch (e) { /* ignore */ }
     if (!REF) { REF = 'PN-' + String(Math.floor(1000 + Math.random() * 9000)); try { sessionStorage.setItem('pn-ref', REF); } catch (e) { /* ignore */ } }
