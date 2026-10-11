@@ -36,9 +36,10 @@
 
   <div class="panel" id="panel">
     <div class="snap">
-      <label class="gbtn snap__btn" for="photoIn"><i class="gbtn__rim"></i><span>Snap your house</span></label>
-      <input id="photoIn" type="file" accept="image/*" capture="environment" hidden>
-      <p class="snap__hint">From across the road, whole front in. <button type="button" class="link" id="useExample" hidden>Back to the example</button></p>
+      <label class="gbtn snap__btn" for="photoIn" tabindex="0" role="button"><i class="gbtn__rim"></i><span>Snap your house</span></label>
+      <input id="photoIn" type="file" accept="image/*" hidden>
+      <p class="snap__hint">A photo or a screenshot, from across the road, whole front in. <button type="button" class="link" id="useExample" hidden>Back to the example</button></p>
+      <p class="snap__privacy">Your photo goes to our window reader to find and redraw your windows. It isn't kept.</p>
       <button type="button" class="snap__alt" id="manualBtn">No photo? Pick your windows instead</button>
     </div>
 

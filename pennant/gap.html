@@ -2,186 +2,74 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>QuickSite for GAP installers</title>
-<meta name="description" content="Every GAP installer with a website that prices GAP's whole range in the open, and puts GAP's name on every spec sheet.">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#0B1012">
-<link rel="icon" href="brand/icon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Geist:wght@400..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/pennant.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>GAP + QuickSite</title>
+<meta name="description" content="Every GAP installer, priced in the open. An 80-second film for GAP.">
+<meta property="og:type" content="video.other">
+<meta property="og:title" content="For GAP: every installer, priced in the open">
+<meta property="og:description" content="Your whole range on every installer's site, every quote naming GAP, no salesman on the sofa. A 50% profit share.">
+<meta property="og:image" content="https://leedavidsherriff.github.io/quicksite-uk/pennant/gap/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:url" content="https://leedavidsherriff.github.io/quicksite-uk/pennant/gap.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../brochure/favicon.png">
 <style>
-  /* QuickSite's voice on the same graphite, with its own orange as the second light */
-  :root{--qs:#FD7602}
-  .gp{max-width:1120px;margin:0 auto;padding:0 var(--pad)}
-  .gp-top{display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad);max-width:1180px;margin:0 auto}
-  .gp-top img{height:34px;width:auto}
-  .gp-top span{font-size:13px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
-  .gp-hero{display:grid;gap:36px;padding:40px 0 70px;align-items:center}
-  @media (min-width:960px){.gp-hero{grid-template-columns:1.1fr .9fr}}
-  .gp-hero h1{font-size:clamp(38px,4.6vw,64px);font-weight:900;line-height:.98}
-  .gp-hero h1 em{font-style:normal;color:var(--edge)}
-  .gp-hero p{margin-top:18px;color:var(--ink-2);font-size:18px;max-width:46ch}
-  .gp-hero .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
-  /* the live site in a phone */
-  .phone{justify-self:center;width:min(340px,86vw);aspect-ratio:9/19;border-radius:44px;padding:11px;background:#05080a;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 40px 80px -30px rgba(0,0,0,.9),0 0 60px -20px rgba(139,245,211,.3)}
-  .phone iframe{width:100%;height:100%;border:0;border-radius:34px;background:var(--bg)}
-  .gp-sec{padding:70px 0;border-top:1px solid var(--line-2)}
-  .gp-sec h2{font-size:clamp(30px,5.4vw,54px);font-weight:850;max-width:20ch}
-  .gp-sec>.gp>p.lede{margin-top:14px}
-  .grid3{display:grid;gap:12px;margin-top:30px}
-  @media (min-width:860px){.grid3{grid-template-columns:repeat(3,1fr)}}
-  .card{padding:24px;border-radius:var(--r);background:var(--card);border:1px solid var(--line-2)}
-  .card .n{font:800 13px/1 var(--wide);font-stretch:125%;color:var(--edge)}
-  .card h3{font-size:21px;font-weight:800;margin:12px 0 8px}
-  .card p{color:var(--ink-2);font-size:15px}
-  .flow{display:grid;gap:10px;margin-top:30px;counter-reset:f}
-  @media (min-width:900px){.flow{grid-template-columns:repeat(4,1fr)}}
-  .flow div{padding:20px;border-radius:16px;background:var(--card);border:1px solid var(--line-2);position:relative}
-  .flow b{display:block;font:800 17px/1.2 var(--wide);font-stretch:110%;margin-bottom:6px}
-  .flow small{color:var(--ink-3);font-size:14px}
-  .flow .g{border-color:rgba(139,245,211,.45)}
-  .spec{margin-top:30px;display:grid;gap:22px;align-items:start}
-  @media (min-width:900px){.spec{grid-template-columns:1fr 1fr}}
-  .spec .docket{margin:0;border-radius:12px;animation:none}
-  .spec ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
-  .spec li{padding:16px 18px;border-radius:14px;background:var(--card);border:1px solid var(--line-2);color:var(--ink-2)}
-  .spec li b{color:var(--ink);display:block;margin-bottom:4px}
-  .try{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-  .try input{flex:1 1 240px;font:500 17px/1.2 var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:16px 20px}
-  .ask{padding:80px 0 120px;border-top:1px solid var(--line-2)}
-  .ask h2{font-size:clamp(32px,6vw,64px);font-weight:900;max-width:18ch}
-  .ask p{margin-top:16px;color:var(--ink-2);font-size:18px;max-width:56ch}
-  .ask .who{margin-top:28px;color:var(--ink-3);font-size:15px}
-  .ask .who a{color:var(--ink)}
-  .src{margin-top:18px;font-size:12px;color:var(--ink-3)}
+  :root { --ground:#F3F5F4; --ink:#14201F; --muted:#5E6B69; --yellow:#8BF5D3; --line:#E1E6E4; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; background:var(--ground); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; }
+  main { min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:22px; padding:28px 16px 36px; }
+  .eyebrow { font-weight:700; font-size:13px; letter-spacing:.32em; text-transform:uppercase; color:var(--muted); }
+  .frame { position:relative; width:min(1100px,100%); aspect-ratio:16/9; border-radius:18px; overflow:hidden;
+    background:#fff url(gap/poster.jpg) center/cover no-repeat;
+    box-shadow:0 24px 60px rgba(18,41,77,.16),0 2px 6px rgba(18,41,77,.06); }
+  video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .25s; }
+  video.on { opacity:1; }
+  video::-webkit-media-controls, video::-webkit-media-controls-start-playback-button,
+  video::-webkit-media-controls-overlay-play-button { display:none !important; -webkit-appearance:none; }
+  .sound { position:absolute; left:50%; top:18px; transform:translateX(-50%);
+    border:0; border-radius:999px; padding:12px 22px; cursor:pointer;
+    background:var(--yellow); color:var(--ink); font:800 16px/1 inherit; font-family:inherit;
+    box-shadow:0 8px 24px rgba(18,41,77,.25); }
+  .sound[hidden] { display:none; }
+  .again { border:2px solid var(--line); background:#fff; color:var(--ink); border-radius:999px;
+    padding:10px 20px; font:700 15px/1 inherit; font-family:inherit; cursor:pointer; }
+  .again[hidden] { display:none; }
+  .try { display:inline-block; background:var(--ink); color:#fff; text-decoration:none; font-weight:800; font-size:17px; padding:15px 24px; border-radius:999px; }
+  .contact { font-size:16px; color:var(--muted); text-align:center; }
+  .contact a { color:var(--ink); font-weight:700; text-decoration:none; }
+  @media (max-width:600px) { .frame { border-radius:12px; } .sound { top:10px; padding:10px 16px; font-size:14px; } }
 </style>
 </head>
 <body>
-
-<header class="gp-top">
-  <img src="brand/logo-on-dark.png" alt="QuickSite" width="613" height="150">
-  <span>For GAP</span>
-</header>
-
 <main>
-<section class="gp">
-  <div class="gp-hero">
-    <div>
-      <p class="kicker"><span>GAP</span> × QuickSite</p>
-      <h1>Every GAP installer, priced in the open. <em>Every quote names GAP.</em></h1>
-      <p>A website for each installer on your books where homeowners snap their house, tap each window, see it in the new colour and get a real price from your range. No salesman on the sofa, and every spec sheet that leaves the house says Homeframe, Rockdoor, Homeview and HomeLine.</p>
-      <div class="ctas">
-        <a class="gbtn" href="index.html?supplier=gap&amp;name=Pennant+Windows+%26+Doors" target="_blank" rel="noopener"><i class="gbtn__rim"></i><span>Open the installer site</span></a>
-        <a class="gbtn gbtn--quiet" href="#ask"><i class="gbtn__rim"></i><span>What we're asking</span></a>
-      </div>
-    </div>
-    <div class="phone" aria-label="The installer site, live">
-      <iframe src="index.html?supplier=gap&amp;name=Pennant+Windows+%26+Doors" title="Pennant Windows & Doors, a demo GAP installer site" loading="lazy"></iframe>
-    </div>
+  <div class="frame">
+    <video id="v" src="gap/gap-quicksite.mp4" poster="gap/poster.jpg" autoplay muted playsinline preload="auto"></video>
+    <button class="sound" id="snd" type="button">Tap for sound</button>
   </div>
-</section>
-
-<section class="gp-sec" aria-labelledby="whyH">
-  <div class="gp">
-    <p class="kicker"><span>01</span> Why it sells</p>
-    <h2 id="whyH">Windows is the trade people trust least on price.</h2>
-    <p class="lede">The same three windows can be quoted at £3,000 or £9,000, and homeowners know it. So they put off the job, or sit through a three-hour visit waiting for the "if you sign tonight" discount. A site that shows the price before anyone visits wins the job before the salesman's car is parked.</p>
-    <div class="grid3">
-      <div class="card"><span class="n">01</span><h3>The homeowner's in control</h3><p>Every product, option and colour is priced on the site. They choose and compare on their own sofa, with nobody on it.</p></div>
-      <div class="card"><span class="n">02</span><h3>The installer gets warm jobs</h3><p>Each booking arrives with a spec sheet and a price the customer has already accepted. The survey measures; it doesn't have to sell.</p></div>
-      <div class="card"><span class="n">03</span><h3>GAP gets the order, named</h3><p>Every sheet specs GAP's ranges by name before the installer has opened a supplier's catalogue. Pull-through, at the moment of decision.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="gp-sec" aria-labelledby="listH">
-  <div class="gp">
-    <p class="kicker"><span>02</span> How the prices work</p>
-    <h2 id="listH">Your whole range and your prices, on every site.</h2>
-    <p class="lede">The site runs on one price table. Load GAP's list into it once and every installer site prices GAP's whole range: every style, size, option and colour. Each installer only sets their own fitting rate.</p>
-    <div class="flow">
-      <div class="g"><b>GAP's trade list</b><small>Every product and option, loaded once. Change it once and every site follows.</small></div>
-      <div><b>+ the installer's fitting</b><small>Their own rate per opening. They stay in charge of their margin.</small></div>
-      <div><b>= the homeowner's price</b><small>Shown as a tight band, never more than 15% wide, with VAT in and old frames taken away.</small></div>
-      <div class="g"><b>A spec sheet naming GAP</b><small>The booking reaches the installer already specced in GAP product.</small></div>
-    </div>
-    <p class="src">On the demo, prices are researched guide estimates for South Wales. GAP's list sits behind the trade login, which says a lot about how pricing works in this industry. Loading the real list in is about an hour's work.</p>
-  </div>
-</section>
-
-<section class="gp-sec" aria-labelledby="specH">
-  <div class="gp">
-    <p class="kicker"><span>03</span> The pull-through</p>
-    <h2 id="specH">What leaves the homeowner's house.</h2>
-    <div class="spec">
-      <article class="docket" aria-label="Example spec sheet">
-        <header class="docket__head"><div><strong>Pennant Windows &amp; Doors</strong><span>Guide quote</span></div><span class="docket__ref">PN-2208</span></header>
-        <table class="docket__lines">
-          <thead><tr><th>#</th><th>Opening &amp; spec</th><th class="num">Guide</th></tr></thead>
-          <tbody id="exLines"></tbody>
-        </table>
-        <div class="docket__sum"><p class="docket__total"><span>Guide total, fitted, inc VAT</span><strong id="exTotal"></strong></p></div>
-      </article>
-      <ul>
-        <li><b>Named, not "uPVC windows".</b>Homeframe for windows, Rockdoor or Homeframe GRP for front doors, Homeview bi-folds and HomeLine roofline, all named on the sheet.</li>
-        <li><b>No GAP logo on the installer's site.</b>The site stays the installer's own, so nobody can say GAP is recommending a fitter. The products do the talking.</li>
-        <li><b>One switch.</b>The same site with the supplier switched off is a standard QuickSite. With it on, it's a GAP installer site.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="gp-sec" aria-labelledby="scaleH">
-  <div class="gp">
-    <p class="kicker"><span>04</span> Every installer, not one</p>
-    <h2 id="scaleH">One build. Every account on your books.</h2>
-    <p class="lede">GAP has over 110 depots. Each installer gets their own site with their name, area and number on it, the same day. Type any firm's name to see theirs:</p>
-    <form class="try" id="try">
-      <input id="tryName" placeholder="e.g. Davies Windows" aria-label="An installer's business name" maxlength="40">
-      <button class="gbtn" type="submit"><i class="gbtn__rim"></i><span>Show me theirs</span></button>
-    </form>
-  </div>
-</section>
-
-<section class="ask" id="ask" aria-labelledby="askH">
-  <div class="gp">
-    <p class="kicker"><span>05</span> The ask</p>
-    <h2 id="askH">One depot, its installers, GAP's real list.</h2>
-    <p>Give us one depot's installer accounts and the current list for that depot. We load the list in, put a site live for every installer who wants one, and come back with what was specced, booked and fitted. If it moves GAP product, we roll it out across the depots.</p>
-    <p><b style="color:var(--ink)">The deal is simple: a 50% profit share.</b> QuickSite builds, hosts and runs every site and keeps the prices up to date. GAP's staff don't lift a finger, and GAP takes half the profit on every installer site.</p>
-    <p class="who">Lee Sherriff, QuickSite · <a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a> · <a href="https://quick-site.co.uk">quick-site.co.uk</a></p>
-  </div>
-</section>
+  <button class="again" id="again" type="button" hidden>Watch again</button>
+  <a class="try" href="index.html?supplier=gap&amp;name=Pennant+Windows+%26+Doors">Try the installer site yourself →</a>
+  <div class="contact">Lee Sherriff &nbsp;·&nbsp; <a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a> &nbsp;·&nbsp; quick-site.co.uk</div>
 </main>
-
-<script src="assets/config.js"></script>
-<script src="assets/prices.js"></script>
 <script>
+// The film opens muted (the subtitles are burnt in), so it starts on its own. "Tap for sound" restarts it
+// from the top with sound. No browser controls ever show: if a browser refuses to play, the video is
+// hidden and the poster stays, and the button starts it instead.
 (function () {
-  var P = window.PRICES, B = window.BIZ;
-  // the pitch always shows GAP's ranges, whatever the visitor last chose on the demo
-  var sup = { window: 'Homeframe uPVC', front: 'Rockdoor composite', bifold: 'Homeview aluminium', roofline: 'HomeLine uPVC' };
-  var items = [
-    { kind: 'casement', size: 'M', opts: {} , spec: sup.window + ', anthracite grey' },
-    { kind: 'casement', size: 'L', opts: { triple: true }, spec: sup.window + ', anthracite grey, triple glazing' },
-    { kind: 'bay3', opts: {}, spec: sup.window + ', anthracite grey' },
-    { kind: 'front', opts: { side: true }, spec: sup.front + ', with glazed side panel' },
-    { kind: 'bifold3', opts: {}, spec: sup.bifold + ', black' }
-  ];
-  var t = P.totals(items, 'anthracite', 6);
-  document.getElementById('exLines').innerHTML = items.map(function (it, i) {
-    return '<tr><td>' + (i + 1) + '</td><td>' + P.label(it) + (P.KINDS[it.kind].cat === 'door' || /bay/.test(it.kind) ? '' : ' window') + '<small>' + it.spec + '</small></td><td class="num">' + P.range(P.band(P.unit(it, 'anthracite'))) + '</td></tr>';
-  }).join('') + '<tr><td>R</td><td>Roofline, 6 m<small>' + sup.roofline + ' fascia, soffit &amp; guttering</small></td><td class="num">' + P.range(P.band(t.roof)) + '</td></tr>';
-  document.getElementById('exTotal').textContent = P.range(t.band);
-
-  document.getElementById('try').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var n = document.getElementById('tryName').value.trim() || 'Davies Windows';
-    window.open('index.html?supplier=gap&name=' + encodeURIComponent(n), '_blank', 'noopener');
-  });
+  var v = document.getElementById('v'), snd = document.getElementById('snd'), again = document.getElementById('again');
+  v.muted = true; v.setAttribute('muted', '');
+  v.addEventListener('playing', function () { v.classList.add('on'); });
+  function start(withSound) {
+    v.muted = !withSound; v.currentTime = 0;
+    var p = v.play(); if (p && p.catch) p.catch(function () { v.classList.remove('on'); snd.hidden = false; });
+  }
+  var p = v.play(); if (p && p.catch) p.catch(function () { v.classList.remove('on'); snd.textContent = 'Watch with sound'; });
+  snd.addEventListener('click', function () { snd.hidden = true; again.hidden = true; start(true); });
+  again.addEventListener('click', function () { again.hidden = true; snd.hidden = true; start(true); });
+  v.addEventListener('ended', function () { if (v.muted) { snd.textContent = 'Watch with sound'; snd.hidden = false; } else { again.hidden = false; } });
 })();
 </script>
 </body>

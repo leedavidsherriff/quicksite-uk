@@ -408,3 +408,14 @@ body.menu-open{overflow:hidden}
 .count__ctl output{min-width:24px;text-align:center;font:800 17px/1 var(--wide);font-variant-numeric:tabular-nums}
 .noquote{max-width:600px;margin:0 auto;padding:30px 16px 0;display:grid;gap:16px;justify-items:start}
 .noquote h1{font-size:clamp(32px,9vw,56px);font-weight:900}
+
+.snap__privacy{font-size:12px;color:var(--ink-3);text-align:center}
+.booked__msg{white-space:pre-wrap;font:500 13px/1.45 ui-monospace,Menlo,monospace;color:var(--ink-2);background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:14px;margin:0;max-height:260px;overflow:auto}
+.booked__alt{font-size:14px;color:var(--ink-3)}
+.booked__alt a{color:var(--edge)}
+.docket__promises{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:6px;font-size:13px;font-weight:600}
+.docket__promises li::before{content:"✓ ";color:#0B7A5A;font-weight:800}
+.promises{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.promises li{font-size:13px;font-weight:600;padding:8px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line-2)}
+.promises li::before{content:"✓ ";color:var(--edge)}
+@media (min-width:980px){.snap__privacy{text-align:left}}

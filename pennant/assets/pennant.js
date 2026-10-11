@@ -82,7 +82,7 @@
     if (PAGE === 'price') {
       if (mine) return { href: 'quote.html', html: price('See my quote') };
       if (JOB.mode === 'manual') return { href: '#counts', html: 'Pick your windows' };
-      return { href: '#', act: 'snap', html: 'Snap your house' };
+      return { href: '#', act: 'manual', html: 'No photo? Pick windows' };
     }
     if (PAGE === 'quote') return mine ? { href: '#book', html: 'Book my free survey' } : { href: 'price.html', html: 'Price my house' };
     if (mine) return { href: 'quote.html', html: price('My quote') };
@@ -107,6 +107,7 @@
     // on the pricing page, before there's a quote, the big button opens the camera
     $('#pillMain', nav).addEventListener('click', function (e) {
       if (this.dataset.act === 'snap' && $('#photoIn')) { e.preventDefault(); $('#photoIn').click(); }
+      if (this.dataset.act === 'manual' && $('#manualBtn')) { e.preventDefault(); $('#manualBtn').click(); }
     });
     function open(on) {
       menu.hidden = !on; grid.setAttribute('aria-expanded', String(on));
@@ -554,6 +555,7 @@
       });
     });
     $('#useExample').addEventListener('click', useSample);
+    $('.snap__btn').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('#photoIn').click(); } });
     $('#addOne').addEventListener('click', function () {
       JOB.openings.push({ kind: 'casement', size: 'M', box: null, on: true, opts: {} });
       S.sel = S.open = JOB.openings.length - 1;
@@ -592,7 +594,7 @@
 
     $('#docRef').textContent = REF;
     $('#docDate').textContent = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-    $('#docTag').textContent = JOB.mode === 'sample' ? 'The example house' : 'Your house';
+    $('#docTag').textContent = JOB.mode === 'photo' ? 'Your house' : 'Example house · your colour';
     $('#docThumb').src = JOB.thumb || (JOB.mode === 'sample' ? SAMPLE.afters[P.FINISHES[JOB.finish].photo] : (JOB.photo || 'media/house-before.jpg'));
 
     var rows = lines.map(function (x) {
@@ -621,6 +623,7 @@
     // the docket prints out of its slot as the page opens
     if (!reduced) $('#docket').classList.add('is-printing');
     $('#printBtn').addEventListener('click', function () { window.print(); });
+    $('#docPromises').innerHTML = (B.promises || []).map(function (p) { return '<li>' + p + '</li>'; }).join('');
 
     /* ---- book ---- */
     var days = [], d = new Date();
@@ -674,6 +677,8 @@
         'Guide total: ' + (t.units || t.roof ? P.range(t.band) : 'to price at survey')
       ]).filter(Boolean).join('\n');
       window.open('https://wa.me/' + B.whatsapp + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+      $('#bookedMsg').textContent = msg;
+      $('#bookedSms').href = 'sms:' + B.tel.replace('tel:', '') + '?&body=' + encodeURIComponent(msg);
       $('#bookedWhen').textContent = pick.day + (pick.part ? ', ' + pick.part.toLowerCase() : '');
       f.hidden = true;
       $('#booked').hidden = false;
@@ -738,6 +743,7 @@
       }
       body.innerHTML = html;
     }
+    $('#plPromises').innerHTML = (B.promises || []).map(function (p) { return '<li>' + p + '</li>'; }).join('');
     $('#plSmall').textContent = 'Guide prices for South Wales' + (B.supplier.by ? ', built on ' + B.supplier.by + '’s ranges' : '') + '. Every opening is measured at survey; if anything changes the price you’ll see why, in writing, before we start. Fit five or more in one visit and the lot is 8% off.';
     draw();
   })();

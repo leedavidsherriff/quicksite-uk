@@ -54,6 +54,17 @@
     town: keep('town', 'Bridgend'),
     areas: ['Bridgend', 'Porthcawl', 'Pencoed', 'Maesteg', 'Cowbridge', 'Barry', 'Llantwit Major', 'Pontypridd', 'Cardiff', 'Port Talbot', 'Neath'],
     surveyDays: [1, 2, 3, 4, 5, 6],
+    // The installer's own rate on top of the supplier's list: 1 = the guide prices as they are,
+    // 1.05 = 5% more on every frame and door. Each installer sets their own; the list stays one list.
+    rate: 1,
+    // Promises shown on the quote and price list. TEMPLATE CLAIMS: check every one with a real client
+    // before it goes live, and delete any they can't stand behind.
+    promises: [
+      '10-year guarantee on frames and fitting',
+      'No deposit until your survey is done',
+      '14 days to change your mind after you sign',
+      'Registered to self-certify, so no building control fee'
+    ],
     supplier: SUPPLIERS[keep('supplier', 'gap')] || SUPPLIERS.gap,
     // The deployed photo reader (~/windows-doors-app/worker). It allows
     // github.io and localhost origins only.

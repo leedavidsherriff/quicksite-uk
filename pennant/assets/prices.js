@@ -98,7 +98,8 @@
     var base = k.sized ? k.price[item.size || 'M'] : k.price;
     var opts = item.opts || {};
     optionsFor(item).forEach(function (key) { if (opts[key]) base += optAdd(item, key); });
-    return k.colourIn ? r10(base) : r10(base * FINISHES[finish || 'white'].mult);
+    var rate = (window.BIZ && window.BIZ.rate) || 1; // the installer's own rate on the shared list
+    return k.colourIn ? r10(base * rate) : r10(base * FINISHES[finish || 'white'].mult * rate);
   }
   function rooflineCost(m, finish) {
     return m > 0 ? r10(m * ROOFLINE.perMetre * (FINISHES[finish || 'white'].mult > 1 ? 1.12 : 1)) : 0;

@@ -45,6 +45,7 @@
         <p class="docket__total"><span>Guide total, fitted, inc VAT</span><strong id="docTotal">£0</strong></p>
       </div>
       <dl class="docket__spec" id="docSpec"></dl>
+      <ul class="docket__promises" id="docPromises"></ul>
       <p class="docket__small">Old frames out and taken away, made to measure, fitted by our own team. The surveyor confirms the figure on the day; it only moves if something hidden turns up, and then you see why, in writing, before we start.</p>
     </article>
     <div class="quote__acts">
@@ -76,12 +77,14 @@
       </div>
       <p class="bookform__err" id="bookErr" role="alert" hidden></p>
       <button class="gbtn bookform__go" type="submit"><i class="gbtn__rim"></i><span>Send my quote &amp; book</span></button>
-      <p class="bookform__small">Opens WhatsApp with your quote written out, so it reaches us in one go. Nothing is stored on this site.</p>
+      <p class="bookform__small">Opens WhatsApp with your quote written out, so it reaches us in one go. You press send.</p>
     </form>
     <div class="booked" id="booked" hidden>
-      <p class="kicker"><span>✓</span> Sent</p>
-      <h3>We'll text to confirm <span id="bookedWhen"></span>.</h3>
-      <p>Your quote came with it, so the surveyor arrives knowing what you picked.</p>
+      <p class="kicker"><span>✓</span> Ready to send</p>
+      <h3>Press send in WhatsApp and we'll text to confirm <span id="bookedWhen"></span>.</h3>
+      <p>Your quote goes with it, so the surveyor arrives knowing what you picked. This is what we'll get:</p>
+      <pre class="booked__msg" id="bookedMsg"></pre>
+      <p class="booked__alt">WhatsApp didn't open? <a id="bookedSms" href="#">Send it by text</a> or call <a data-tel href="tel:+441632960712"><span data-phone>01632 960712</span></a>.</p>
     </div>
   </section>
 </main>
