@@ -477,7 +477,7 @@
       if (JOB.mode !== 'sample' && JOB.after && JOB.afterKey) loadImg(JOB.after).then(function (im) { S.afters[JOB.afterKey] = im; draw(); });
       return loadImg(src).then(function (im) { setBase(im); renderFinishes(); update(); });
     }
-    function useSample() { JOB = sampleJob(); S.afters = {}; S.pending = {}; S.sel = -1; S.open = -1; scanning(false); start(); }
+    function useSample() { waiting(false); JOB = sampleJob(); S.afters = {}; S.pending = {}; S.sel = -1; S.open = -1; scanning(false); start(); }
 
     /* ---- no photo: pick how many of each ---- */
     var COUNTS = [
@@ -513,7 +513,7 @@
     });
     $('#manualBtn').addEventListener('click', function () {
       JOB = { mode: 'manual', finish: JOB.finish, roof: JOB.roof, photo: '', after: '', afterKey: '', thumb: '', openings: [] };
-      S.sel = -1; S.open = -1; scanning(false);
+      S.sel = -1; S.open = -1; scanning(false); waiting(false);
       start().then(function () { $('#counts').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); });
     });
 
@@ -558,6 +558,59 @@
       groups.forEach(function (g) { if (g !== keep) g.forEach(function (o) { o.on = false; o.nextDoor = true; n++; }); });
       return n;
     }
+    // The wait is usually 5-15s. Say what's happening, and own up when it's slow.
+    var WAIT_LINES = [[0, 'Finding your windows and doors…'], [5, 'Measuring them off your front door…'], [10, 'Checking each frame…'],
+      [18, 'Still going. It\'s busy right now, hang on…'], [32, 'Nearly there. Or pick your windows by hand below while you wait.']];
+    var waitTimer = 0;
+    function waiting(on) {
+      clearInterval(waitTimer);
+      if (!on) return;
+      var t0 = Date.now();
+      status(WAIT_LINES[0][1]);
+      waitTimer = setInterval(function () {
+        var s = (Date.now() - t0) / 1000, line = WAIT_LINES.filter(function (l) { return s >= l[0]; }).pop();
+        if (statusEl.textContent !== line[1]) status(line[1]);
+      }, 1000);
+    }
+    function retryOffer(msg) {
+      statusEl.innerHTML = '';
+      statusEl.appendChild(document.createTextNode(msg + ' '));
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'link'; b.textContent = 'Try again';
+      b.addEventListener('click', readPhoto);
+      statusEl.appendChild(b);
+    }
+    function readPhoto() {
+      if (!JOB.photo) return;
+      var job = JOB; // if they move on (pick by hand, the example) before it answers, drop the answer
+      scanning(true); waiting(true);
+      fetch(B.reader + '/read-photo', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: JOB.photo, aspect: JOB.aspect })
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (JOB !== job) return;
+        scanning(false); waiting(false);
+        if (!j.ok || !j.photo_ok) {
+          status(PROBLEMS[j.problem] || 'We couldn\'t read that photo. Add your windows by hand below, or try another.');
+          update(false);
+          return;
+        }
+        // a rough answer (the reader's busy-hour fallback) counts fairly but places boxes badly:
+        // never draw from it. Ask for another go, which usually lands on the good reader.
+        if (j.rough) { retryOffer('Our window reader is flat out, so that read wasn\'t sharp enough to draw.'); update(false); return; }
+        var FROM_READER = { bay: 'bay3', bifold: 'bifold3' };
+        JOB.openings = j.openings.map(function (o) { return { kind: FROM_READER[o.kind] || o.kind, size: o.size || 'M', box: o.box, on: true, opts: {} }; }).filter(function (o) { return P.KINDS[o.kind]; });
+        var nd = markNextDoor(JOB.openings);
+        track('scan', null, 'scan-' + Date.now());
+        status(nd ? 'Found yours. ' + nd + ' that look like next door\'s are left out: tap one if it\'s actually yours.' : (j.summary || 'Found them. Tap a number to leave one as it is.'));
+        update();
+      }).catch(function () {
+        if (JOB !== job) return;
+        scanning(false); waiting(false);
+        retryOffer('Our window reader didn\'t answer.');
+        update(false);
+      });
+    }
     $('#photoIn').addEventListener('change', function (e) {
       var file = e.target.files && e.target.files[0];
       e.target.value = '';
@@ -566,34 +619,14 @@
       S.afters = {}; S.pending = {}; S.sel = -1; S.open = -1;
       $('#stageTag').textContent = 'Your house';
       $('#useExample').hidden = false;
-      scanning(true);
-      status('Finding your windows and doors…');
+      scanning(true); waiting(true);
       window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
       shrink(file).then(function (data) {
         JOB.photo = data;
         return loadImg(data).then(function (im) { setBase(im); update(false); });
-      }).then(function () {
-        return fetch(B.reader + '/read-photo', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image: JOB.photo, aspect: JOB.aspect })
-        }).then(function (r) { return r.json(); });
-      }).then(function (j) {
-        scanning(false);
-        if (!j.ok || !j.photo_ok) {
-          status(PROBLEMS[j.problem] || 'We couldn\'t read that photo. Add your windows by hand below, or try another.');
-          update(false);
-          return;
-        }
-        var FROM_READER = { bay: 'bay3', bifold: 'bifold3' };
-        JOB.openings = j.openings.map(function (o) { return { kind: FROM_READER[o.kind] || o.kind, size: o.size || 'M', box: o.box, on: true, opts: {} }; }).filter(function (o) { return P.KINDS[o.kind]; });
-        var nd = markNextDoor(JOB.openings);
-        track('scan', null, 'scan-' + Date.now());
-        status(nd ? 'Found yours. ' + nd + ' that look like next door\'s are left out: tap one if it\'s actually yours.' : (j.summary || 'Found them. Tap a number to leave one as it is.'));
-        update();
-      }).catch(function () {
-        scanning(false);
-        status('Our window reader is busy. Add your windows by hand below, or try again in a minute.');
-        update(false);
+      }).then(readPhoto).catch(function () {
+        scanning(false); waiting(false);
+        status('We couldn\'t open that photo. Try another, or pick your windows by hand below.');
       });
     });
     $('#useExample').addEventListener('click', useSample);
