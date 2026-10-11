@@ -118,7 +118,7 @@
   }
   function optLabels(item) {
     var opts = item.opts || {};
-    return optionsFor(item).filter(function (key) { return opts[key]; }).map(function (key) { return OPTIONS[key].name.toLowerCase(); });
+    return optionsFor(item).filter(function (key) { return opts[key]; }).map(function (key) { return OPTIONS[key].name.toLowerCase().replace(/\bgeorgian\b/, 'Georgian'); });
   }
   var gbp = function (n) { return '£' + Math.round(n).toLocaleString('en-GB'); };
   var range = function (b) { return gbp(b[0]) + '–' + gbp(b[1]); };

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Price my house · Pennant Windows &amp; Doors</title>
+<meta name="description" content="Snap your house, tap each window and see it new and priced, window by window.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B1012">
+<link rel="icon" href="media/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Geist:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/pennant.css">
+</head>
+<body data-page="price" data-title="Price my house">
+<header class="bar">
+  <a class="bar__name" href="index.html" data-biz-name>Pennant Windows &amp; Doors</a>
+  <span class="bar__title">Price my house</span>
+</header>
+
+<main class="studio" id="studio">
+  <!-- the photo stays pinned at the top on a phone while you change things below it -->
+  <div class="stage" id="stage">
+    <div class="stage__img" id="stageImg">
+      <div class="stage__fit" id="stageFit">
+        <canvas id="stageCanvas" aria-label="The house with the new windows drawn in"></canvas>
+        <div class="stage__pins" id="pins"></div>
+        <div class="stage__sweep" id="sweep" hidden><i></i></div>
+      </div>
+      <span class="stage__tag" id="stageTag">Example house</span>
+      <button type="button" class="hold" id="holdBtn" aria-label="Hold to see the house as it is now">Hold: before</button>
+    </div>
+    <p class="stage__status" id="stageStatus" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="panel" id="panel">
+    <div class="snap">
+      <label class="gbtn snap__btn" for="photoIn"><i class="gbtn__rim"></i><span>Snap your house</span></label>
+      <input id="photoIn" type="file" accept="image/*" capture="environment" hidden>
+      <p class="snap__hint">From across the road, whole front in. <button type="button" class="link" id="useExample" hidden>Use the example</button></p>
+    </div>
+
+    <fieldset class="finish">
+      <legend>Frame colour</legend>
+      <div class="finish__row" id="finishRow"></div>
+      <div class="finish__more" id="finishMore"></div>
+      <p class="finish__note" id="finishNote" aria-live="polite"></p>
+    </fieldset>
+
+    <div class="openings">
+      <div class="openings__head">
+        <h2>Windows &amp; doors</h2>
+        <span class="openings__count" id="openCount"></span>
+      </div>
+      <ol class="openings__list" id="openList"></ol>
+      <button type="button" class="add" id="addOne">+ Add one we missed</button>
+      <p class="nudge" id="nudge"></p>
+    </div>
+
+    <div class="roof">
+      <div>
+        <h2>Roofline too?</h2>
+        <p>Fascias, soffits and gutters across the front, same visit. Terrace ~5&nbsp;m, semi ~7&nbsp;m, detached ~10&nbsp;m.</p>
+      </div>
+      <div class="roof__ctl">
+        <button type="button" id="roofLess" aria-label="Less roofline">−</button>
+        <span id="roofM">None</span>
+        <button type="button" id="roofMore" aria-label="More roofline">+</button>
+      </div>
+      <span class="roof__cost" id="roofCost"></span>
+    </div>
+  </div>
+</main>
+
+<p class="demo-note">Demo site by QuickSite. Business and number not real; prices are guide estimates for South Wales.</p>
+<script src="assets/config.js"></script>
+<script src="assets/prices.js"></script>
+<script src="assets/pennant.js"></script>
+</body>
+</html>

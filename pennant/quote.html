@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your quote · Pennant Windows &amp; Doors</title>
+<meta name="description" content="Your spec sheet: every opening named and priced, then book a free survey.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B1012">
+<link rel="icon" href="media/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Geist:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/pennant.css">
+</head>
+<body data-page="quote" data-title="Your quote">
+<header class="bar">
+  <a class="bar__name" href="index.html" data-biz-name>Pennant Windows &amp; Doors</a>
+  <span class="bar__title">Your quote</span>
+</header>
+
+<main class="quote">
+  <div class="docket-wrap">
+    <div class="slot" aria-hidden="true"></div>
+    <article class="docket" id="docket">
+      <header class="docket__head">
+        <div>
+          <strong data-biz-name>Pennant Windows &amp; Doors</strong>
+          <span>Guide quote · <span id="docDate"></span></span>
+        </div>
+        <span class="docket__ref" id="docRef">PN-0000</span>
+      </header>
+      <figure class="docket__thumb"><img id="docThumb" alt="The house with the new windows" width="400" height="300"><figcaption id="docTag"></figcaption></figure>
+      <table class="docket__lines">
+        <thead><tr><th>#</th><th>Opening &amp; spec</th><th class="num">Guide</th></tr></thead>
+        <tbody id="docLines"></tbody>
+      </table>
+      <div class="docket__sum">
+        <p id="docOff" hidden></p>
+        <p class="docket__total"><span>Guide total, fitted, inc VAT</span><strong id="docTotal">£0</strong></p>
+      </div>
+      <dl class="docket__spec" id="docSpec"></dl>
+      <p class="docket__small">Old frames out and taken away, made to measure, fitted by our own team. The surveyor confirms the figure on the day; it only moves if something hidden turns up, and then you see why, in writing, before we start.</p>
+    </article>
+    <div class="quote__acts">
+      <a class="link" href="price.html">Change anything</a>
+      <button type="button" class="link" id="printBtn">Save as PDF</button>
+    </div>
+  </div>
+
+  <section class="book" id="book" aria-labelledby="bookH">
+    <h2 id="bookH">Book the free survey</h2>
+    <p class="lede">Forty minutes with a tape and a ladder. We measure, confirm the price and go. No sales pitch at the kitchen table.</p>
+    <form class="bookform" id="bookForm" novalidate>
+      <fieldset>
+        <legend>Pick a day</legend>
+        <div class="chips" id="dayChips"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Morning or afternoon?</legend>
+        <div class="chips" id="partChips">
+          <button type="button" class="chip" data-part="Morning" aria-pressed="false">Morning<small>9–12</small></button>
+          <button type="button" class="chip" data-part="Afternoon" aria-pressed="false">Afternoon<small>12–5</small></button>
+          <button type="button" class="chip" data-part="After 5" aria-pressed="false">After 5<small>5–7</small></button>
+        </div>
+      </fieldset>
+      <div class="fields">
+        <label>Your name<input name="name" autocomplete="name" required></label>
+        <label>Mobile<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+        <label>Postcode<input name="postcode" autocomplete="postal-code" required></label>
+      </div>
+      <p class="bookform__err" id="bookErr" role="alert" hidden></p>
+      <button class="gbtn bookform__go" type="submit"><i class="gbtn__rim"></i><span>Send my quote &amp; book</span></button>
+      <p class="bookform__small">Opens WhatsApp with your quote written out, so it reaches us in one go. Nothing is stored on this site.</p>
+    </form>
+    <div class="booked" id="booked" hidden>
+      <p class="kicker"><span>✓</span> Sent</p>
+      <h3>We'll text to confirm <span id="bookedWhen"></span>.</h3>
+      <p>Your quote came with it, so the surveyor arrives knowing what you picked.</p>
+    </div>
+  </section>
+</main>
+
+<p class="demo-note">Demo site by QuickSite. Business and number not real; prices are guide estimates for South Wales.</p>
+<script src="assets/config.js"></script>
+<script src="assets/prices.js"></script>
+<script src="assets/pennant.js"></script>
+</body>
+</html>

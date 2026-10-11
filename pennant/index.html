@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pennant Windows &amp; Doors · Bridgend</title>
-<meta name="description" content="New windows and doors across Bridgend and the Vale. Snap your house, tap each window, see it in the new colour and get a guide price in a minute.">
+<meta name="description" content="New windows and doors across Bridgend and the Vale. Snap your house, tap each window, see it in the new colour and get the price in a minute. Every price is on the site.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0B1012">
 <meta property="og:title" content="Pennant Windows & Doors">
-<meta property="og:description" content="Snap your house, tap each window, see it new and priced.">
+<meta property="og:description" content="Snap your house, tap each window, see it new and priced. No salesman on your sofa.">
 <meta property="og:image" content="media/poster.webp">
 <link rel="icon" href="media/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,247 +17,34 @@
 <link rel="stylesheet" href="assets/pennant.css">
 <link rel="preload" as="image" href="media/poster.webp">
 </head>
-<body>
+<body data-page="home" class="is-home">
 
-<a class="skip" href="#yours">Skip to pricing your house</a>
-
-<!-- ============ 01 · THE FILM ============ -->
-<section class="film" id="film" aria-label="A house getting new windows">
+<!-- One screen. The film, the name, one line, the pill. Everything else is a page of its own. -->
+<main class="home">
   <div class="film__frame">
     <img class="film__poster" src="media/poster.webp" alt="A red-brick detached house getting new black windows, a composite front door and a new garage door" width="1600" height="900">
     <video class="film__video" id="heroVideo" muted playsinline preload="auto" poster="media/poster.webp" aria-hidden="true"></video>
     <canvas class="film__freeze" id="heroFreeze" aria-hidden="true"></canvas>
     <div class="film__shade" aria-hidden="true"></div>
-
     <div class="film__chapters" id="chapters">
-      <button type="button" data-ch="0"><span>01</span> Windows in<b class="bar"><i></i></b></button>
-      <button type="button" data-ch="1"><span>02</span> Glow-up<b class="bar"><i></i></b></button>
+      <button type="button" data-ch="0"><span>01</span> Windows in<b class="prog"><i></i></b></button>
+      <button type="button" data-ch="1"><span>02</span> Glow-up<b class="prog"><i></i></b></button>
       <button type="button" class="film__sound is-muted" id="soundToggle" aria-label="Tap for sound"><span class="lbl">Sound</span></button>
     </div>
   </div>
 
-  <div class="film__copy">
+  <div class="home__copy">
     <p class="eyebrow"><span class="dot"></span> Windows &amp; doors · <span data-town>Bridgend</span>&nbsp;&amp; the Vale</p>
-    <h1 class="film__name" data-biz-name>Pennant Windows &amp; Doors</h1>
-    <p class="film__line">That's one house. <em>Yours is next:</em> snap it, tap each window, and see it new and priced in a minute. Every price is on this site, so nobody needs to sit on your sofa.</p>
-    <div class="film__ctas">
-      <a class="gbtn" href="#yours"><i class="gbtn__rim"></i><span>Price my house</span></a>
-      <a class="gbtn gbtn--quiet" data-tel href="tel:+441632960712"><i class="gbtn__rim"></i><span>Call <span data-phone>01632 960712</span></span></a>
-    </div>
+    <h1 class="home__name" data-biz-name>Pennant Windows &amp; Doors</h1>
+    <p class="home__line">Snap your house, tap each window, see it new and priced. <em>Every price is on here, so no salesman on your sofa.</em></p>
+    <nav class="home__plate" aria-label="More">
+      <a href="prices.html"><b>Price list</b><small>Every price, in the open</small></a>
+      <a href="work.html"><b>Our work</b><small>Drag across, see what it cost</small></a>
+    </nav>
   </div>
-</section>
+</main>
 
-<!-- ============ 02 · YOUR HOUSE ============ -->
-<section class="yours" id="yours" aria-labelledby="yoursH">
-  <header class="sec-head">
-    <p class="kicker"><span>02</span> Your house</p>
-    <h2 id="yoursH">Now do yours.</h2>
-    <p class="lede">Take a photo of the front of your house. We find every window and door, you tap the ones you want replaced, and it redraws them in the colour you pick. Next door stays exactly as it is.</p>
-  </header>
-
-  <div class="studio" id="studio">
-    <!-- the photo -->
-    <div class="stage" id="stage">
-      <div class="stage__img" id="stageImg">
-        <canvas id="stageCanvas" aria-label="Your house with the new windows drawn in"></canvas>
-        <div class="stage__pins" id="pins"></div>
-        <div class="stage__sweep" id="sweep" hidden><i></i></div>
-      </div>
-      <div class="stage__bar">
-        <span class="stage__tag" id="stageTag">Example house</span>
-        <button type="button" class="hold" id="holdBtn" aria-label="Hold to see the house as it is now">Hold to see before</button>
-      </div>
-      <p class="stage__status" id="stageStatus" role="status" aria-live="polite"></p>
-    </div>
-
-    <!-- the controls -->
-    <div class="panel" id="panel">
-      <div class="snap">
-        <label class="gbtn snap__btn" for="photoIn"><i class="gbtn__rim"></i><span>Snap your house</span></label>
-        <input id="photoIn" type="file" accept="image/*" capture="environment" hidden>
-        <button type="button" class="link" id="useExample" hidden>Back to the example house</button>
-        <p class="snap__hint">Stand across the road, get the whole front in. Your photo is only used to draw your quote.</p>
-      </div>
-
-      <fieldset class="finish">
-        <legend>Frame colour</legend>
-        <div class="finish__row" id="finishRow"></div>
-        <p class="finish__more-lbl">More colours on the range</p>
-        <div class="finish__more" id="finishMore"></div>
-        <p class="finish__note" id="finishNote" aria-live="polite"></p>
-      </fieldset>
-
-      <div class="openings">
-        <div class="openings__head">
-          <h3>Your windows &amp; doors</h3>
-          <span class="openings__count" id="openCount"></span>
-        </div>
-        <ol class="openings__list" id="openList"></ol>
-        <button type="button" class="add" id="addOne">+ Add one we missed</button>
-      </div>
-
-      <div class="roof">
-        <div>
-          <h3>Roofline too?</h3>
-          <p>New fascias, soffits and guttering across the front, done the same visit. A terrace is about 5&nbsp;m, a semi 7&nbsp;m, a detached 10&nbsp;m.</p>
-        </div>
-        <div class="roof__ctl">
-          <button type="button" id="roofLess" aria-label="Less roofline">−</button>
-          <span id="roofM">None</span>
-          <button type="button" id="roofMore" aria-label="More roofline">+</button>
-        </div>
-        <span class="roof__cost" id="roofCost"></span>
-      </div>
-
-      <div class="tally" id="tally" aria-live="polite">
-        <div>
-          <span class="tally__lbl" id="tallyLbl">Guide price, fitted</span>
-          <strong class="tally__num" id="tallyNum">£0</strong>
-          <span class="tally__save" id="tallySave"></span>
-        </div>
-        <a class="gbtn" href="#sheet"><i class="gbtn__rim"></i><span>Spec sheet</span></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 03 · SPEC SHEET ============ -->
-<section class="sheet" id="sheet" aria-labelledby="sheetH">
-  <header class="sec-head">
-    <p class="kicker"><span>03</span> Your spec sheet</p>
-    <h2 id="sheetH">Every opening, named and priced.</h2>
-    <p class="lede">Not a "from" price and a callback. What's going in, what it's made of and what it comes to, in writing before anyone measures up.</p>
-  </header>
-
-  <div class="docket-wrap">
-    <div class="slot" aria-hidden="true"></div>
-    <article class="docket" id="docket">
-      <header class="docket__head">
-        <div>
-          <strong data-biz-name>Pennant Windows &amp; Doors</strong>
-          <span>Guide quote · <span id="docDate"></span></span>
-        </div>
-        <span class="docket__ref" id="docRef">PN-0000</span>
-      </header>
-      <div class="docket__thumb"><img id="docThumb" alt="Your house with the new windows" width="400" height="300"></div>
-      <table class="docket__lines">
-        <thead><tr><th>#</th><th>Opening &amp; spec</th><th class="num">Guide</th></tr></thead>
-        <tbody id="docLines"></tbody>
-      </table>
-      <div class="docket__sum">
-        <p id="docOff" hidden></p>
-        <p class="docket__total"><span>Guide total, fitted, inc VAT</span><strong id="docTotal">£0</strong></p>
-      </div>
-      <dl class="docket__spec" id="docSpec"></dl>
-      <p class="docket__small">Guide prices for this demo. Old frames out and taken away, made to measure, fitted by our own team. Your surveyor confirms the exact figure on the day; it won't move unless something hidden turns up, and if it does you'll see why before we start.</p>
-    </article>
-  </div>
-
-  <div class="sheet__ctas">
-    <a class="gbtn" href="#book"><i class="gbtn__rim"></i><span>Book my free survey</span></a>
-    <button type="button" class="gbtn gbtn--quiet" id="printBtn"><i class="gbtn__rim"></i><span>Save as PDF</span></button>
-  </div>
-</section>
-
-<!-- ============ 04 · BOOK ============ -->
-<section class="book" id="book" aria-labelledby="bookH">
-  <header class="sec-head">
-    <p class="kicker"><span>04</span> Book</p>
-    <h2 id="bookH">You've seen the price. Let's confirm it.</h2>
-    <p class="lede">A free survey takes about 40 minutes. We measure every opening, check the reveals and lintels, and leave the final price with you. No sales pitch at the kitchen table.</p>
-  </header>
-
-  <form class="bookform" id="bookForm" novalidate>
-    <fieldset>
-      <legend>Pick a day</legend>
-      <div class="chips" id="dayChips"></div>
-    </fieldset>
-    <fieldset>
-      <legend>Morning or afternoon?</legend>
-      <div class="chips" id="partChips">
-        <button type="button" class="chip" data-part="Morning" aria-pressed="false">Morning<small>9–12</small></button>
-        <button type="button" class="chip" data-part="Afternoon" aria-pressed="false">Afternoon<small>12–5</small></button>
-        <button type="button" class="chip" data-part="After 5" aria-pressed="false">After 5<small>5–7</small></button>
-      </div>
-    </fieldset>
-    <div class="fields">
-      <label>Your name<input name="name" autocomplete="name" required></label>
-      <label>Mobile<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
-      <label>Postcode<input name="postcode" autocomplete="postal-code" required></label>
-    </div>
-    <p class="bookform__err" id="bookErr" role="alert" hidden></p>
-    <button class="gbtn bookform__go" type="submit"><i class="gbtn__rim"></i><span>Send my spec sheet &amp; book</span></button>
-    <p class="bookform__small">This opens WhatsApp with your spec sheet written out, so it lands with us in one go. Nothing is stored on this page.</p>
-  </form>
-  <div class="booked" id="booked" hidden>
-    <p class="kicker"><span>✓</span> Sent</p>
-    <h3>We'll text to confirm <span id="bookedWhen"></span>.</h3>
-    <p>Your spec sheet came with it, so the surveyor arrives knowing what you picked.</p>
-  </div>
-</section>
-
-
-<!-- ============ THE PLEDGE + THE WHOLE PRICE LIST ============ -->
-<section class="pledge" id="pledge" aria-labelledby="pledgeH">
-  <header class="sec-head">
-    <p class="kicker"><span>05</span> No salesman</p>
-    <h2 id="pledgeH">No one on your sofa for three hours.</h2>
-    <p class="lede">Windows have a name for knocking 50% off "if you sign tonight". We'd rather show you the price list and let you get on with your evening.</p>
-  </header>
-  <ol class="pledge__list">
-    <li><b>Every price is on this page.</b> Every window, door, colour and option, below. Nothing to "check with the manager".</li>
-    <li><b>No sign-tonight discount.</b> The price on your sheet is the price on the day, whether you book now or in March.</li>
-    <li><b>The survey measures. It doesn't sell.</b> Forty minutes with a tape and a ladder, then we're gone.</li>
-    <li><b>You stay in charge.</b> Change a colour or drop a window right up to the survey, from your phone.</li>
-  </ol>
-</section>
-
-<section class="prices" id="prices" aria-labelledby="pricesH">
-  <header class="sec-head">
-    <p class="kicker"><span>06</span> The price list</p>
-    <h2 id="pricesH">Every price, in the open.</h2>
-    <p class="lede">Supplied and fitted, VAT in, old frames taken away. Pick a colour and every price below updates.</p>
-  </header>
-  <div class="plist">
-    <div class="plist__bar">
-      <div class="plist__tabs" role="tablist" id="plTabs"></div>
-      <label class="plist__colour">Prices in<select id="plColour"></select></label>
-    </div>
-    <div class="plist__body" id="plBody" role="tabpanel"></div>
-    <p class="plist__small" id="plSmall"></p>
-  </div>
-</section>
-
-<!-- ============ PROOF ============ -->
-<section class="work" id="work" aria-labelledby="workH">
-  <header class="sec-head">
-    <p class="kicker"><span>07</span> Recent fits</p>
-    <h2 id="workH">Drag across. Then see what it came to.</h2>
-  </header>
-  <div class="work__grid" id="workGrid"></div>
-</section>
-
-<section class="how" aria-labelledby="howH">
-  <h2 id="howH" class="sr-only">How it goes</h2>
-  <ol class="how__steps">
-    <li><span>01</span><h3>Survey</h3><p>We measure every opening and leave the final price. Usually within the week.</p></li>
-    <li><span>02</span><h3>Made to measure</h3><p>Frames are made for your openings, not cut down from stock. About three to four weeks.</p></li>
-    <li><span>03</span><h3>Fitted, mostly in a day</h3><p>Old frames out, new in, sealed, sills on, everything taken away. Most houses are done in one or two days.</p></li>
-  </ol>
-  <p class="areas">Out most days across <span id="areas"></span>.</p>
-</section>
-
-<footer class="foot">
-  <p class="foot__name" data-biz-name>Pennant Windows &amp; Doors</p>
-  <p><a data-tel href="tel:+441632960712"><span data-phone>01632 960712</span></a> · Bridgend &amp; the Vale of Glamorgan</p>
-  <p class="foot__demo">Demo site by QuickSite. The business, phone number and reviews are not real; prices are guide estimates for South Wales.</p>
-</footer>
-
-<!-- floating dock, shows once the film is behind you -->
-<nav class="dock" id="dock" aria-label="Quick actions">
-  <a class="dock__call" data-tel href="tel:+441632960712" aria-label="Call">Call</a>
-  <a class="dock__price" href="#yours"><span id="dockLbl">Price my house</span></a>
-</nav>
+<p class="demo-note">Demo site by QuickSite. Business and number not real; prices are guide estimates.</p>
 
 <script src="assets/config.js"></script>
 <script src="assets/prices.js"></script>
