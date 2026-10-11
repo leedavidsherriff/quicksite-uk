@@ -419,3 +419,12 @@ body.menu-open{overflow:hidden}
 .promises li{font-size:13px;font-weight:600;padding:8px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line-2)}
 .promises li::before{content:"✓ ";color:var(--edge)}
 @media (min-width:980px){.snap__privacy{text-align:left}}
+
+/* the pinned photo shrinks to a strip once they scroll into the list (phones) */
+@media (max-width:979px){
+  .stage__fit{transition:width .25s ease}
+  .stage-compact .stage__fit{width:min(100%,calc(20svh * var(--ar,.75)))}
+  .stage-compact .stage__tag,.stage-compact .hold{transform:scale(.85);transform-origin:left top}
+  .stage-compact .hold{transform-origin:right bottom}
+}
+#booked,#book{scroll-margin-top:68px}

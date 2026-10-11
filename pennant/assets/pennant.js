@@ -53,6 +53,44 @@
     }
   }
   var JOB = loadJob();
+  // quote.html#q=... carries a quote in the link itself (choices only, never the photo)
+  function packJob(j) {
+    return btoa(JSON.stringify({ f: j.finish, r: j.roof || 0, o: j.openings.filter(function (o) { return o.on; }).map(function (o) {
+      return [o.kind, o.size || 'M', Object.keys(o.opts || {}).filter(function (k) { return o.opts[k]; })];
+    }) })).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  (function unpack() {
+    var m = location.hash.match(/^#q=([\w-]+)/);
+    if (!m) return;
+    try {
+      var d = JSON.parse(atob(m[1].replace(/-/g, '+').replace(/_/g, '/')));
+      if (!P.FINISHES[d.f] || !Array.isArray(d.o)) return;
+      JOB = { mode: 'manual', finish: d.f, roof: Math.max(0, Math.min(40, +d.r || 0)), photo: '', after: '', afterKey: '', thumb: '',
+        openings: d.o.filter(function (x) { return P.KINDS[x[0]]; }).slice(0, 30).map(function (x) {
+          var opts = {}; (x[2] || []).forEach(function (k) { if (P.OPTIONS[k]) opts[k] = true; });
+          return { kind: x[0], size: /^[SML]$/.test(x[1]) ? x[1] : 'M', box: null, on: true, opts: opts };
+        }) };
+      saveJob(JOB);
+    } catch (e) { /* a mangled link: ignore it */ }
+  })();
+
+  /* ---- what happened, for the installer's dashboard (stats.html) ----
+     Counts only: no photo and no personal details, except on a booking, where the customer
+     is asking to be contacted. Each kind is counted once per visit. Never blocks the page. */
+  function post(path, data) {
+    return fetch(B.reader + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true, body: JSON.stringify(Object.assign({ site: B.site }, data)) });
+  }
+  function track(type, data, onceKey) {
+    var k = 'pn-ev-' + (onceKey || type);
+    try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { /* ignore */ }
+    post('/event', Object.assign({ type: type }, data || {})).catch(function () { /* offline: fine */ });
+  }
+  function rangesOf(j) {
+    var r = {};
+    j.openings.forEach(function (o) { if (o.on) { var g = P.KINDS[o.kind].range; r[g] = (r[g] || 0) + 1; } });
+    if (j.roof) r.roofline = 1;
+    return r;
+  }
   var totalsOf = function (j) { return P.totals(j.openings, j.finish, j.roof); };
   // A quote is THEIR house: a scanned photo, or windows they picked by hand.
   // Playing with the example house never makes one.
@@ -84,7 +122,7 @@
       if (JOB.mode === 'manual') return { href: '#counts', html: 'Pick your windows' };
       return { href: '#', act: 'manual', html: 'No photo? Pick windows' };
     }
-    if (PAGE === 'quote') return mine ? { href: '#book', html: 'Book my free survey' } : { href: 'price.html', html: 'Price my house' };
+    if (PAGE === 'quote') return !mine ? { href: 'price.html', html: 'Price my house' } : JOB.booked ? { href: '#booked', html: 'Booked ✓' } : { href: '#book', html: 'Book my free survey' };
     if (mine) return { href: 'quote.html', html: price('My quote') };
     return { href: 'price.html', html: 'Price my house' };
   }
@@ -129,6 +167,7 @@
      then the glow-up. Advances on `ended`, so a pause must always be paired
      with a resume (the watchdog). Never pauses on visibilitychange: the preview
      pane reports hidden while it renders. No controls, ever. */
+  if (PAGE === 'home') track('visit');
   if (PAGE === 'home') (function film() {
     var HOLDS = [900, 3400];
     var phone = matchMedia('(max-width: 768px)').matches;
@@ -220,7 +259,8 @@
     function afterKey() {
       var photo = P.FINISHES[JOB.finish].photo;
       if (JOB.mode !== 'photo') return photo;
-      var kinds = JOB.openings.filter(function (o) { return o.on && P.KINDS[o.kind].cat === 'door'; }).map(function (o) { return o.kind; }).sort().join(',');
+      // which doors the house has, not which are ticked: unticked ones are never drawn anyway
+      var kinds = JOB.openings.filter(function (o) { return o.box && P.KINDS[o.kind].cat === 'door'; }).map(function (o) { return o.kind; }).sort().join(',');
       return photo + '|' + kinds;
     }
 
@@ -382,7 +422,7 @@
       status('Drawing your new ' + lc(P.FINISHES[photo].name) + ' frames…');
       // the reader knows its own door words: map our range back to them
       var READER_KIND = { front: 'front', frontgrp: 'front', back: 'back', french: 'french', patio: 'patio', patio3: 'patio', bifold2: 'bifold', bifold3: 'bifold', bifold4: 'bifold', bifold5: 'bifold', sash: 'sash' };
-      var kinds = JOB.openings.filter(function (o) { return o.on; }).map(function (o) { return READER_KIND[o.kind] || 'casement'; });
+      var kinds = JOB.openings.filter(function (o) { return o.box; }).map(function (o) { return READER_KIND[o.kind] || 'casement'; });
       var tries = 0;
       (function send() {
         fetch(B.reader + '/render', {
@@ -465,6 +505,7 @@
     $('#countList').addEventListener('click', function (e) {
       var b = e.target.closest('[data-c]'); if (!b) return;
       var c = COUNTS[+b.dataset.c];
+      if (+b.dataset.d > 0) track('pick');
       if (+b.dataset.d > 0) JOB.openings.push({ kind: c.add.kind, size: c.add.size || 'M', box: null, on: true, opts: {} });
       else for (var i = JOB.openings.length - 1; i >= 0; i--) if (c.match(JOB.openings[i])) { JOB.openings.splice(i, 1); break; }
       S.open = -1; S.sel = -1;
@@ -546,6 +587,7 @@
         var FROM_READER = { bay: 'bay3', bifold: 'bifold3' };
         JOB.openings = j.openings.map(function (o) { return { kind: FROM_READER[o.kind] || o.kind, size: o.size || 'M', box: o.box, on: true, opts: {} }; }).filter(function (o) { return P.KINDS[o.kind]; });
         var nd = markNextDoor(JOB.openings);
+        track('scan', null, 'scan-' + Date.now());
         status(nd ? 'Found yours. ' + nd + ' that look like next door\'s are left out: tap one if it\'s actually yours.' : (j.summary || 'Found them. Tap a number to leave one as it is.'));
         update();
       }).catch(function () {
@@ -577,6 +619,13 @@
     $('#holdBtn').addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); hb.down(e); } });
     $('#holdBtn').addEventListener('keyup', hb.up);
 
+    // once they scroll into the list, the photo shrinks to a strip so the list gets the screen
+    var compact = false;
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY, c = compact ? y > 60 : y > 140; // a gap between the two, so it can't flicker
+      if (c !== compact) { compact = c; document.body.classList.toggle('stage-compact', c); }
+    }, { passive: true });
+
     start();
   })();
 
@@ -592,6 +641,7 @@
     var t = totalsOf(JOB);
     var lines = JOB.openings.map(function (o, i) { return { n: i + 1, o: o }; }).filter(function (x) { return x.o.on; });
 
+    track('quote', { mid: t.mid, ranges: rangesOf(JOB) }, 'quote-' + t.mid + '-' + JOB.finish);
     $('#docRef').textContent = REF;
     $('#docDate').textContent = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
     $('#docTag').textContent = JOB.mode === 'photo' ? 'Your house' : 'Example house · your colour';
@@ -623,6 +673,15 @@
     // the docket prints out of its slot as the page opens
     if (!reduced) $('#docket').classList.add('is-printing');
     $('#printBtn').addEventListener('click', function () { window.print(); });
+    // send yourself the quote: a link that rebuilds it on any phone
+    $('#shareBtn').addEventListener('click', function () {
+      var link = location.href.split('#')[0].split('?')[0] + '?supplier=' + B.supplier.key + '#q=' + packJob(JOB);
+      var text = 'My window quote from ' + B.name + ': ' + (t.units || t.roof ? P.range(t.band) : '');
+      if (navigator.share) { navigator.share({ title: 'My quote', text: text, url: link }).catch(function () {}); return; }
+      (navigator.clipboard ? navigator.clipboard.writeText(link) : Promise.reject()).then(function () {
+        $('#shareBtn').textContent = 'Link copied';
+      }).catch(function () { window.prompt('Copy your quote link', link); });
+    });
     $('#docPromises').innerHTML = (B.promises || []).map(function (p) { return '<li>' + p + '</li>'; }).join('');
 
     /* ---- book ---- */
@@ -676,12 +735,34 @@
         t.off ? 'One visit, 8% off: −' + P.gbp(t.off) : '',
         'Guide total: ' + (t.units || t.roof ? P.range(t.band) : 'to price at survey')
       ]).filter(Boolean).join('\n');
-      window.open('https://wa.me/' + B.whatsapp + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+      var go = $('.bookform__go'); go.disabled = true; go.querySelector('span').textContent = 'Booking…';
+      var when = pick.day + (pick.part ? ', ' + pick.part.toLowerCase() : '');
+      var payload = {
+        ref: REF, name: name, phone: phone, postcode: pc, when: when, finish: P.FINISHES[JOB.finish].name, mode: JOB.mode,
+        total: t.units || t.roof ? P.range(t.band) : '', mid: t.mid,
+        lines: lines.map(function (x) { return { n: String(x.n), name: lineName(x.o), spec: specFor(x.o, JOB.finish), range: P.KINDS[x.o.kind].range, band: P.range(P.band(P.unit(x.o, JOB.finish))) }; })
+          .concat(t.roof ? [{ n: 'R', name: 'Roofline, ' + JOB.roof + ' m', spec: B.supplier.roofline + ' fascia, soffit & guttering', range: 'roofline', band: P.range(P.band(t.roof)) }] : [])
+      };
+      var wa = 'https://wa.me/' + B.whatsapp + '?text=' + encodeURIComponent(msg);
       $('#bookedMsg').textContent = msg;
+      $('#bookedWa').href = wa;
       $('#bookedSms').href = 'sms:' + B.tel.replace('tel:', '') + '?&body=' + encodeURIComponent(msg);
-      $('#bookedWhen').textContent = pick.day + (pick.part ? ', ' + pick.part.toLowerCase() : '');
-      f.hidden = true;
-      $('#booked').hidden = false;
+      $('#bookedWhen').textContent = when;
+      post('/book', payload).then(function (r) { return r.json(); }).then(function (j) {
+        if (!j.ok) throw new Error(j.error);
+        $('#bookedHead').textContent = 'Booked';
+        JOB.booked = REF; saveJob(JOB); refreshPill();
+        $('#bookedLine').textContent = 'We\'ve got your request and your quote. We\'ll text to confirm';
+      }).catch(function () {
+        // couldn't reach us: hand it to WhatsApp, the way it always worked
+        $('#bookedHead').textContent = 'Ready to send';
+        $('#bookedLine').textContent = 'Press send in WhatsApp and we\'ll text to confirm';
+        window.open(wa, '_blank', 'noopener');
+      }).then(function () {
+        f.hidden = true;
+        $('#booked').hidden = false;
+        $('#booked').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      });
     });
   })();
 
@@ -699,7 +780,7 @@
     sel.addEventListener('change', function () { colour = sel.value; draw(); });
     GROUPS.forEach(function (g) {
       var b = document.createElement('button');
-      b.type = 'button'; b.setAttribute('role', 'tab'); b.textContent = g;
+      b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-controls', 'plBody'); b.textContent = g;
       b.addEventListener('click', function () { tab = g; draw(); });
       tabs.appendChild(b);
     });

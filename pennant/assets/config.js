@@ -18,6 +18,8 @@
   }
 
   var name = keep('name', 'Pennant Windows & Doors');
+  // The installer's id on the dashboard (jobs are counted per site). From the name unless given.
+  var slug = function (t) { return t.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40); };
 
   // Product lines named on the spec sheet. This is the pull-through a supplier
   // pays for: every quote leaves the house naming their frames. No logo, no
@@ -68,6 +70,7 @@
     supplier: SUPPLIERS[keep('supplier', 'gap')] || SUPPLIERS.gap,
     // The deployed photo reader (~/windows-doors-app/worker). It allows
     // github.io and localhost origins only.
-    reader: 'https://windows-doors-reader.honest-misty-photo-reader.workers.dev'
+    reader: 'https://windows-doors-reader.honest-misty-photo-reader.workers.dev',
+    site: keep('site', slug(name)) || 'pennant'
   };
 })();

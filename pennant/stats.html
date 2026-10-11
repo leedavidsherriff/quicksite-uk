@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard · Pennant Windows &amp; Doors</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0B1012">
+<link rel="icon" href="media/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Geist:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/pennant.css">
+<style>
+  /* The installer's (and the supplier's) view: what the site did. Opened from a private link
+     (stats.html#key=...). Reads the reader worker's /stats; nothing here is public. */
+  .dash{max-width:1000px;margin:0 auto;padding:18px 16px 60px}
+  .dash h1{font-size:clamp(28px,7.6vw,48px);font-weight:900}
+  .dash__sub{color:var(--ink-3);font-size:14px;margin-top:6px}
+  .dash__months{display:flex;gap:6px;overflow-x:auto;margin:18px 0 14px;scrollbar-width:none}
+  .dash__months button{flex:none;border:1px solid var(--line-2);background:var(--card);color:var(--ink-2);border-radius:999px;padding:9px 14px;font:650 14px/1 var(--body);cursor:pointer}
+  .dash__months button[aria-pressed="true"]{background:var(--edge);color:var(--edge-ink);border-color:var(--edge)}
+  .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  @media (min-width:760px){.tiles{grid-template-columns:repeat(4,1fr)}}
+  .tile{padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line-2)}
+  .tile b{display:block;font:900 clamp(26px,7vw,40px)/1 var(--wide);font-stretch:112%;font-variant-numeric:tabular-nums}
+  .tile span{display:block;margin-top:6px;font-size:13px;color:var(--ink-3)}
+  .tile.big{grid-column:span 2;border-color:rgba(139,245,211,.4)}
+  .dash h2{font-size:20px;font-weight:850;margin:30px 0 10px}
+  .ranges{border-radius:16px;border:1px solid var(--line-2);background:var(--card);overflow:hidden}
+  .ranges div{display:grid;grid-template-columns:1fr auto auto;gap:14px;padding:13px 14px;border-bottom:1px solid var(--line-2);font-size:14px;align-items:center}
+  .ranges div:last-child{border-bottom:0}
+  .ranges .hd{font:700 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .ranges .n{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;min-width:64px}
+  .books{display:grid;gap:8px}
+  .bk{padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line-2)}
+  .bk__top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+  .bk__top b{font-size:17px}
+  .bk__top span{font-size:12px;color:var(--ink-3);white-space:nowrap}
+  .bk__meta{font-size:14px;color:var(--ink-2);margin-top:4px}
+  .bk__total{font:850 18px/1 var(--wide);font-stretch:110%;color:var(--edge);margin-top:10px}
+  .bk details{margin-top:8px;font-size:13px;color:var(--ink-2)}
+  .bk summary{cursor:pointer;color:var(--ink-3)}
+  .bk ol{margin:8px 0 0;padding-left:20px;display:grid;gap:4px}
+  .bk__acts{display:flex;gap:8px;margin-top:10px}
+  .bk__acts a{font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;padding:9px 12px;border-radius:10px;border:1px solid var(--line)}
+  .empty,.lock{padding:22px;border-radius:16px;background:var(--card);border:1px solid var(--line-2);color:var(--ink-2)}
+  .lock input{margin-top:12px;width:100%;font:500 16px/1.2 var(--body);color:var(--ink);background:#0f1518;border:1px solid var(--line);border-radius:12px;padding:13px}
+  .dash__note{margin-top:28px;font-size:12px;color:var(--ink-3)}
+</style>
+</head>
+<body data-page="stats" data-title="Dashboard">
+<header class="bar">
+  <a class="bar__name" href="index.html" data-biz-name>Pennant Windows &amp; Doors</a>
+  <span class="bar__title">Dashboard</span>
+</header>
+<main class="dash">
+  <h1>What the site did.</h1>
+  <p class="dash__sub" id="sub">Loading…</p>
+  <div id="lock" class="lock" hidden>
+    This dashboard needs its private link. Paste the key:
+    <form id="keyForm"><input id="keyIn" autocomplete="off" aria-label="Dashboard key"></form>
+  </div>
+  <div id="body" hidden>
+    <div class="dash__months" id="months" role="group" aria-label="Month"></div>
+    <div class="tiles" id="tiles"></div>
+    <h2 id="rangesH">Products specced</h2>
+    <div class="ranges" id="ranges"></div>
+    <h2>Survey bookings</h2>
+    <div class="books" id="books"></div>
+    <p class="dash__note">Visits, scans and quotes are counted once per visit. Bookings keep the customer's details for 90 days, then they're deleted. Figures are guide prices.</p>
+  </div>
+</main>
+<script src="assets/config.js"></script>
+<script src="assets/prices.js"></script>
+<script>
+(function () {
+  var B = window.BIZ, P = window.PRICES;
+  var $ = function (s) { return document.querySelector(s); };
+  document.querySelectorAll('[data-biz-name]').forEach(function (el) { el.textContent = B.name; });
+  var site = new URLSearchParams(location.search).get('site') || B.site;
+  var key = (location.hash.match(/key=([^&]+)/) || [])[1] || '';
+  try { if (key) localStorage.setItem('pn-stats-key', key); else key = localStorage.getItem('pn-stats-key') || ''; } catch (e) { /* ignore */ }
+  var esc = function (t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]; }); };
+  var NAMES = { window: 'windows', front: 'front doors', frontgrp: 'GRP front doors', door: 'back, French & patio doors', bifold: 'bi-folds', roofline: 'roofline' };
+  var rangeName = function (r) { return (B.supplier[r] || r) + ' ' + (NAMES[r] || '') + (B.supplier.by ? ' · ' + B.supplier.by : ''); };
+
+  function lock() { $('#sub').textContent = ''; $('#lock').hidden = false; }
+  $('#keyForm').addEventListener('submit', function (e) { e.preventDefault(); location.hash = 'key=' + $('#keyIn').value.trim(); location.reload(); });
+  if (!key) return lock();
+
+  fetch(B.reader + '/stats?site=' + encodeURIComponent(site) + '&key=' + encodeURIComponent(key), { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d.ok) return lock();
+      $('#body').hidden = false;
+      var months = {};
+      ['n', 'gbp', 'r'].forEach(function (k) { Object.keys(d[k]).forEach(function (x) { months[x.split(':').pop()] = 1; }); });
+      var list = Object.keys(months).sort().reverse();
+      var pick = 'all';
+      var sum = function (obj, test) { return Object.keys(obj).reduce(function (s, x) { var m = x.split(':').pop(); return s + ((pick === 'all' || m === pick) && test(x) ? obj[x] : 0); }, 0); };
+      function draw() {
+        $('#months').innerHTML = ['all'].concat(list).map(function (m) {
+          var label = m === 'all' ? 'All time' : new Date(m + '-01T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+          return '<button type="button" data-m="' + m + '" aria-pressed="' + (m === pick) + '">' + label + '</button>';
+        }).join('');
+        var n = function (t) { return sum(d.n, function (x) { return x.indexOf(t + ':') === 0; }); };
+        var quoted = sum(d.gbp, function (x) { return x.indexOf('quote:') === 0; });
+        var booked = sum(d.gbp, function (x) { return x.indexOf('book:') === 0; });
+        $('#tiles').innerHTML = [
+          ['big', P.gbp(booked), 'in booked surveys (guide)'],
+          ['', n('book'), 'surveys booked'],
+          ['', n('quote'), 'quotes built'],
+          ['', P.gbp(quoted), 'quoted in total'],
+          ['', n('scan'), 'houses scanned'],
+          ['', n('pick'), 'picked by hand'],
+          ['', n('visit'), 'visits']
+        ].map(function (t) { return '<div class="tile ' + t[0] + '"><b>' + t[1] + '</b><span>' + t[2] + '</span></div>'; }).join('');
+        var ranges = {};
+        Object.keys(d.r).forEach(function (x) {
+          var p = x.split(':'), m = p[2];
+          if (pick !== 'all' && m !== pick) return;
+          ranges[p[1]] = ranges[p[1]] || { quote: 0, book: 0 };
+          ranges[p[1]][p[0]] += d.r[x];
+        });
+        $('#rangesH').textContent = B.supplier.by ? B.supplier.by + ' products specced' : 'Products specced';
+        var rk = Object.keys(ranges).sort(function (a, b) { return ranges[b].quote - ranges[a].quote; });
+        $('#ranges').innerHTML = rk.length ? '<div class="hd"><span>Range</span><span class="n">On quotes</span><span class="n">Booked</span></div>' + rk.map(function (r) {
+          return '<div><span>' + esc(rangeName(r)) + '</span><span class="n">' + ranges[r].quote + '</span><span class="n">' + ranges[r].book + '</span></div>';
+        }).join('') : '<div><span style="color:var(--ink-3)">Nothing quoted yet.</span></div>';
+        var books = d.bookings.filter(function (b) { return pick === 'all' || b.at.slice(0, 7) === pick; });
+        $('#books').innerHTML = books.length ? books.map(function (b) {
+          var tel = String(b.phone).replace(/[^\d+]/g, '');
+          return '<article class="bk"><div class="bk__top"><b>' + esc(b.name) + ' · ' + esc(b.postcode) + '</b><span>' + esc(b.ref) + ' · ' + new Date(b.at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + '</span></div>' +
+            '<p class="bk__meta">Survey: ' + esc(b.when) + (b.finish ? ' · ' + esc(b.finish) : '') + (b.mode === 'photo' ? ' · from their photo' : '') + '</p>' +
+            (b.total ? '<p class="bk__total">' + esc(b.total) + '</p>' : '') +
+            '<details><summary>' + b.lines.length + ' line' + (b.lines.length === 1 ? '' : 's') + ' on the quote</summary><ol>' + b.lines.map(function (l) { return '<li>' + esc(l.name) + ': ' + esc(l.spec) + ' — ' + esc(l.band) + '</li>'; }).join('') + '</ol></details>' +
+            '<div class="bk__acts"><a href="tel:' + esc(tel) + '">Call</a><a href="sms:' + esc(tel) + '">Text</a></div></article>';
+        }).join('') : '<p class="empty">No bookings yet' + (pick === 'all' ? '' : ' this month') + '.</p>';
+        $('#sub').textContent = B.name + ' · updated ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      }
+      $('#months').addEventListener('click', function (e) { var b = e.target.closest('[data-m]'); if (b) { pick = b.dataset.m; draw(); } });
+      draw();
+    })
+    .catch(function () { $('#sub').textContent = 'Couldn’t reach the dashboard just now. Try again in a minute.'; });
+})();
+</script>
+</body>
+</html>

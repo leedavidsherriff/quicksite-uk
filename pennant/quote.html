@@ -50,6 +50,7 @@
     </article>
     <div class="quote__acts">
       <a class="link" href="price.html">Change anything</a>
+      <button type="button" class="link" id="shareBtn">Send me this quote</button>
       <button type="button" class="link" id="printBtn">Save as PDF</button>
     </div>
   </div>
@@ -76,15 +77,15 @@
         <label>Postcode<input name="postcode" autocomplete="postal-code" required></label>
       </div>
       <p class="bookform__err" id="bookErr" role="alert" hidden></p>
-      <button class="gbtn bookform__go" type="submit"><i class="gbtn__rim"></i><span>Send my quote &amp; book</span></button>
-      <p class="bookform__small">Opens WhatsApp with your quote written out, so it reaches us in one go. You press send.</p>
+      <button class="gbtn bookform__go" type="submit"><i class="gbtn__rim"></i><span>Book my survey</span></button>
+      <p class="bookform__small">Your request and your quote come straight to us. We keep your details for 90 days to arrange the survey, then delete them.</p>
     </form>
     <div class="booked" id="booked" hidden>
-      <p class="kicker"><span>✓</span> Ready to send</p>
-      <h3>Press send in WhatsApp and we'll text to confirm <span id="bookedWhen"></span>.</h3>
-      <p>Your quote goes with it, so the surveyor arrives knowing what you picked. This is what we'll get:</p>
+      <p class="kicker"><span>✓</span> <span id="bookedHead">Booked</span></p>
+      <h3><span id="bookedLine">We've got your request and your quote. We'll text to confirm</span> <span id="bookedWhen"></span>.</h3>
+      <p>The surveyor arrives knowing what you picked. This is what we have:</p>
       <pre class="booked__msg" id="bookedMsg"></pre>
-      <p class="booked__alt">WhatsApp didn't open? <a id="bookedSms" href="#">Send it by text</a> or call <a data-tel href="tel:+441632960712"><span data-phone>01632 960712</span></a>.</p>
+      <p class="booked__alt">Rather WhatsApp us too? <a id="bookedWa" href="#" target="_blank" rel="noopener">Send it on WhatsApp</a>, <a id="bookedSms" href="#">by text</a>, or call <a data-tel href="tel:+441632960712"><span data-phone>01632 960712</span></a>.</p>
     </div>
   </section>
 </main>
