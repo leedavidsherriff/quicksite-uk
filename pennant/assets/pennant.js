@@ -176,6 +176,9 @@
     var btns = $$('#chapters [data-ch]');
     var idx = 0, holdUntil = 0;
     video.removeAttribute('controls');
+    // iOS autoplays only a video it knows is muted and inline: say so in every way it reads
+    video.muted = true; video.defaultMuted = true; video.playsInline = true;
+    video.setAttribute('muted', ''); video.setAttribute('playsinline', ''); video.setAttribute('webkit-playsinline', '');
 
     function mark() {
       btns.forEach(function (b, i) { b.classList.toggle('is-on', i === idx); b.querySelector('.prog i').style.width = i < idx ? '100%' : '0'; });
@@ -230,6 +233,13 @@
       toggle.querySelector('.lbl').textContent = video.muted ? 'Sound' : 'Mute';
     }
     toggle.addEventListener('click', function () { video.muted = !video.muted; sound(); if (video.paused && !holdUntil) video.play().catch(function () {}); });
+
+    // Low Power Mode (and some data savers) refuse autoplay until the page is touched. No play
+    // button: the first touch, tap, scroll or key anywhere starts the film, and the poster holds till then.
+    function kick() { if (video.paused && !video.ended && !holdUntil) video.play().catch(function () {}); }
+    ['touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(function (ev) { window.addEventListener(ev, kick, { passive: true }); });
+    video.addEventListener('canplay', kick);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) kick(); });
 
     play();
   })();
@@ -651,13 +661,6 @@
     holdable(canvas);
     $('#holdBtn').addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); hb.down(e); } });
     $('#holdBtn').addEventListener('keyup', hb.up);
-
-    // once they scroll into the list, the photo shrinks to a strip so the list gets the screen
-    var compact = false;
-    window.addEventListener('scroll', function () {
-      var y = window.scrollY, c = compact ? y > 60 : y > 140; // a gap between the two, so it can't flicker
-      if (c !== compact) { compact = c; document.body.classList.toggle('stage-compact', c); }
-    }, { passive: true });
 
     start();
   })();
