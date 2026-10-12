@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="en-GB">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Porthcawl Butchers · Family Butchers &amp; Deli, John Street</title>
+<meta name="description" content="Porthcawl Butchers, 104 John Street, Porthcawl. Family butchers and deli: joints, Welsh lamb, our own pies and sausage rolls. Put your Christmas order together and send it to us.">
+<link rel="icon" href="media/logo-roundel.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Kalam:wght@400;700&family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!--
+  ==========================================================================
+  FACTS LEDGER (Quick Site goodwill build, 10 Oct 2026, NOT LIVE, noindex)
+  Everything on this page comes from ../FACTS.md (Google Maps listing +
+  the shop's own Facebook page). Photos are the shop's own, from Facebook.
+
+  ⚠️ FLAGGED TO CONFIRM WITH THE SHOP BEFORE THIS GOES NEAR A CUSTOMER:
+   - Opening hours are Google's (Mon–Sat 8–6, Sun 9–4). The food-hygiene
+     site lists older hours (Mon–Fri 9–6, Sat 9–1). Ask which is right.
+   - Joint prices in the Christmas builder are ONLY the "THIS JOINT" counter
+     tickets visible in their own photos (beef £18/£20/£21/£35/£50,
+     lamb & pork £20/£21/£24). They are what was on the counter that day,
+     not a Christmas price list. Labelled on the page as such.
+   - That the shop takes Christmas orders, and which days are collectable
+     in Christmas week (21–24 Dec 2026), is ASSUMED. Confirm both.
+   - Everything else in the builder is "price in shop": no figure invented.
+   - No WhatsApp (none published). No checkout, no payment.
+  ==========================================================================
+-->
+
+<style>
+:root{
+  --slate:#34383b;        /* the roundel's charcoal */
+  --slate-2:#2a2d30;
+  --slate-3:#1d1f21;
+  --chalk:#f2efe7;
+  --chalk-2:#e4dfd3;
+  --chalk-ink:#c8c3b8;
+  --red:#d2232b;          /* the THIS JOINT ticket red */
+  --red-hot:#ff4a4f;      /* lamp colour for the glass rims */
+  --steel:#a9b0b4;
+  --paper:#fffdf8;
+  --ink:#1d1f21;
+  --muted:#6c6a64;
+
+  --f-display:"Young Serif", Georgia, serif;
+  --f-hand:"Kalam", "Comic Sans MS", cursive;
+  --f-body:"Instrument Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--slate-3); color:var(--chalk);
+  font:400 17px/1.55 var(--f-body);
+  overflow-x:hidden;
+}
+img{max-width:100%; height:auto; display:block}
+a{color:inherit}
+.wrap{width:min(1180px, 100% - 32px); margin-inline:auto}
+
+/* ---------- chalkboard surface (CSS only, no drawn artwork) ---------- */
+.chalkboard{
+  background:
+    radial-gradient(120% 80% at 20% 0%, rgba(255,255,255,.05), transparent 60%),
+    radial-gradient(90% 70% at 90% 100%, rgba(255,255,255,.035), transparent 60%),
+    var(--slate);
+}
+
+/* ============================== FASCIA ============================== */
+.fascia{ padding:28px 0 0; text-align:center }
+.fascia__logo{ width:96px; height:96px; margin:0 auto 14px; border-radius:50%;
+  box-shadow:0 0 0 3px rgba(242,239,231,.18), 0 10px 30px rgba(0,0,0,.35) }
+.fascia h1{
+  font:400 clamp(40px, 9vw, 104px)/.95 var(--f-display);
+  letter-spacing:.005em; margin:0; color:var(--chalk);
+  text-wrap:balance;
+}
+.fascia__sub{ margin:12px 0 0; font:400 clamp(20px,3.4vw,28px)/1.2 var(--f-hand); color:var(--chalk-ink) }
+.fascia__sub b{ color:var(--chalk); font-weight:700 }
+
+/* ---------- the steel rail with hanging-ticket nav ---------- */
+.rail{ position:relative; margin-top:26px; padding-top:0 }
+.rail::before{ /* the steel bar */
+  content:""; display:block; height:10px; border-radius:6px;
+  background:linear-gradient(180deg,#d9dee1,#8c959a 55%,#5e666b);
+  box-shadow:0 3px 8px rgba(0,0,0,.4);
+}
+.rail__tickets{ display:flex; justify-content:center; gap:clamp(10px,3vw,34px); flex-wrap:wrap;
+  list-style:none; margin:0; padding:0 }
+.rail__tickets li{ transform-origin:50% -14px; animation:swing 2.4s cubic-bezier(.2,.7,.3,1) backwards }
+.rail__tickets li:nth-child(2){ animation-delay:.12s }
+.rail__tickets li:nth-child(3){ animation-delay:.24s }
+.rail__tickets li:nth-child(4){ animation-delay:.36s }
+.rail__tickets a{
+  position:relative; display:block; margin-top:14px; padding:8px 12px 9px;
+  background:var(--paper); color:var(--ink); text-decoration:none; border-radius:3px;
+  font:700 12px/1 var(--f-body); letter-spacing:.12em; text-transform:uppercase;
+  box-shadow:0 6px 14px rgba(0,0,0,.35);
+}
+.rail__tickets a::before{ /* wire hook */
+  content:""; position:absolute; left:50%; top:-15px; width:2px; height:16px; margin-left:-1px;
+  background:linear-gradient(#cfd4d7,#7d868b);
+}
+.rail__tickets a span{ display:block; font:400 17px/1.1 var(--f-hand); letter-spacing:0; text-transform:none; color:var(--red); margin-top:3px }
+.rail__tickets a:hover{ transform:translateY(2px) }
+@keyframes swing{
+  0%  { transform:rotate(calc(var(--tilt,0deg) + 14deg)) }
+  25% { transform:rotate(calc(var(--tilt,0deg) - 8deg)) }
+  48% { transform:rotate(calc(var(--tilt,0deg) + 4.5deg)) }
+  70% { transform:rotate(calc(var(--tilt,0deg) - 2deg)) }
+  86% { transform:rotate(calc(var(--tilt,0deg) + .8deg)) }
+  100%{ transform:rotate(var(--tilt,0deg)) }
+}
+
+/* ============================== THE COUNTER (hero) ============================== */
+.counter{ padding:34px 0 0 }
+.case{
+  position:relative; border-radius:22px 22px 6px 6px; overflow:hidden;
+  background:#101214;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.7), inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.case__tray{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:6px; padding:6px;
+}
+.case__tray figure{ margin:0; position:relative; aspect-ratio:3/4; overflow:hidden; border-radius:4px; background:#2a2d30 }
+.case__tray img{ width:100%; height:100%; object-fit:cover }
+.case__tray figcaption{
+  position:absolute; left:10px; bottom:10px; padding:4px 10px; border-radius:3px;
+  background:rgba(29,31,33,.78); color:var(--chalk); font:400 18px/1.2 var(--f-hand);
+}
+/* the curved front glass: highlights + one moving sheen */
+.case__glass{
+  position:absolute; inset:0; pointer-events:none; overflow:hidden; border-radius:inherit;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.16) 0, rgba(255,255,255,.04) 9%, transparent 22%),
+    linear-gradient(90deg, rgba(255,255,255,.07), transparent 12%, transparent 88%, rgba(255,255,255,.07));
+}
+.case__glass::after{
+  content:""; position:absolute; top:-20%; bottom:-20%; left:0; width:22%;
+  background:linear-gradient(100deg, transparent, rgba(255,255,255,.13) 45%, rgba(255,255,255,.04) 60%, transparent);
+  transform:translateX(-140%) skewX(-12deg);
+  animation:sheen 9s ease-in-out 1.2s infinite;
+}
+@keyframes sheen{
+  0%   { transform:translateX(-140%) skewX(-12deg) }
+  28%  { transform:translateX(560%) skewX(-12deg) }
+  100% { transform:translateX(560%) skewX(-12deg) }
+}
+.case__rail{
+  height:14px; background:linear-gradient(180deg,#e2e6e8,#9aa2a7 50%,#5b6368);
+  border-radius:0 0 6px 6px;
+}
+
+/* ---------- CSS price tickets (their visual language) ---------- */
+.ticket{
+  --tilt:0deg;
+  position:relative; display:inline-flex; flex-direction:column; align-items:stretch;
+  width:118px; padding:7px 9px 8px; background:var(--paper); color:var(--ink);
+  border-radius:3px; border:0; cursor:pointer; text-align:left; font:inherit;
+  box-shadow:0 8px 16px -6px rgba(0,0,0,.55);
+  transform:rotate(var(--tilt)); transform-origin:50% -12px;
+  transition:transform .25s ease, box-shadow .25s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.ticket::before{ /* the clip */
+  content:""; position:absolute; left:50%; top:-12px; width:2px; height:13px; margin-left:-1px;
+  background:linear-gradient(#d2d7da,#7d868b);
+}
+.ticket__head{ font:700 13px/1 var(--f-body); letter-spacing:.04em; color:var(--red); text-transform:uppercase; border-bottom:1.5px solid var(--red); padding-bottom:4px }
+.ticket__lines{ display:flex; justify-content:flex-end; align-items:flex-end; height:36px; margin-top:2px;
+  background:repeating-linear-gradient(180deg, transparent 0 8px, rgba(210,35,43,.2) 8px 9px) }
+.ticket__price{ font:700 31px/1 var(--f-hand); color:#1f2433; transform:rotate(-3deg); padding-right:2px }
+.ticket__what{ font:500 10.5px/1.2 var(--f-body); color:var(--muted); margin-top:4px; letter-spacing:.02em; border-top:1px solid rgba(29,31,33,.12); padding-top:3px }
+.ticket:hover{ transform:rotate(calc(var(--tilt) * -1)) translateY(2px) }
+.ticket:focus-visible{ outline:2px solid var(--red-hot); outline-offset:4px }
+.ticket__qty{
+  position:absolute; top:-9px; right:-9px; min-width:26px; height:26px; padding:0 6px; border-radius:13px;
+  display:grid; place-items:center; background:var(--red); color:#fff; font:700 13px/1 var(--f-body);
+  box-shadow:0 0 0 2px var(--paper); transform:scale(0); transition:transform .3s cubic-bezier(.3,1.6,.5,1);
+}
+.ticket.is-on .ticket__qty{ transform:scale(1) }
+.ticket.pop{ animation:pop .45s cubic-bezier(.3,1.5,.5,1) }
+@keyframes pop{ 0%{transform:rotate(var(--tilt)) translateY(0)} 35%{transform:rotate(0) translateY(-8px)} 100%{transform:rotate(var(--tilt)) translateY(0)} }
+
+.counter__tickets{ padding:26px 0 0 }
+.counter__tickets-row{ display:flex; flex-wrap:wrap; gap:22px 14px; justify-content:center; padding-top:12px }
+.counter__tickets-row .ticket{ animation:swing 2.2s cubic-bezier(.2,.7,.3,1) backwards }
+.counter__tickets-row .ticket:nth-child(2){ animation-delay:.1s }
+.counter__tickets-row .ticket:nth-child(3){ animation-delay:.2s }
+.counter__tickets-row .ticket:nth-child(4){ animation-delay:.3s }
+.counter__tickets-row .ticket:nth-child(5){ animation-delay:.4s }
+.counter__hint{ text-align:center; margin:16px auto 0; max-width:40ch; font:400 21px/1.3 var(--f-hand); color:var(--chalk-ink) }
+.small-flag{ display:block; text-align:center; font:600 12px/1.4 var(--f-body); letter-spacing:.06em; text-transform:uppercase; color:#a6a29a; margin-top:8px }
+
+.counter__lead{ display:grid; gap:18px; justify-items:center; text-align:center; padding:34px 0 64px }
+.counter__lead p{ margin:0; max-width:52ch; color:var(--chalk-2); font-size:18px }
+.ctas{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center }
+
+/* ============================== GLASS BUTTON (kit, verbatim) ============================== */
+/* ~/quicksite-kit/glass-button/component.html, copied unchanged; --gb-lamp set per site below */
+.gbtn{
+  --gb-lamp:#6fe3ff;           /* the fluorescent colour */
+  --gb-rim:1.6px;              /* border thickness */
+  --gb-spin:4.5s;
+  --gb-glass:rgba(255,255,255,.09);
+  --gb-ink:#fff;
+
+  position:relative; isolation:isolate;
+  display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+  padding:16px 26px; border:0; border-radius:999px;
+  font:inherit; font-weight:750; letter-spacing:.01em; color:var(--gb-ink);
+  text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03)),
+    var(--gb-glass);
+  backdrop-filter:blur(12px) saturate(140%);
+  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),
+             inset 0 -12px 24px -14px rgba(0,0,0,.5);
+}
+
+/* the ring: masked to the border only, with the lamp spinning inside it */
+.gbtn__rim{
+  position:absolute; inset:0; border-radius:inherit; z-index:1;
+  padding:var(--gb-rim); pointer-events:none; overflow:hidden;
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite:exclude;
+}
+.gbtn__rim::before{
+  content:""; position:absolute; left:50%; top:50%;
+  width:240%; aspect-ratio:1;                 /* square, so corners stay lit */
+  background:conic-gradient(from 0deg,
+      rgba(255,255,255,.06) 0deg,
+      var(--gb-lamp) 18deg,
+      rgba(255,255,255,.06) 56deg,
+      rgba(255,255,255,.06) 180deg,
+      var(--gb-lamp) 198deg,
+      rgba(255,255,255,.06) 236deg,
+      rgba(255,255,255,.06) 360deg);
+  animation:gbtn-spin var(--gb-spin) linear infinite;
+  will-change:transform;
+}
+@keyframes gbtn-spin{
+  from{ transform:translate(-50%,-50%) rotate(0turn); }
+  to  { transform:translate(-50%,-50%) rotate(1turn); }
+}
+
+.gbtn > span{ position:relative; z-index:2; }
+
+.gbtn:hover{ --gb-spin:2.4s; }
+.gbtn:active{ transform:translateY(1px); }
+.gbtn:focus-visible{ outline:2px solid var(--gb-lamp); outline-offset:3px; }
+
+.gbtn--quiet{ --gb-glass:rgba(255,255,255,.045); --gb-ink:rgba(255,255,255,.92); }
+
+/* on a light page the glass darkens rather than lightens */
+.gbtn--onlight{
+  --gb-glass:rgba(12,16,20,.62); --gb-ink:#fff;
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02)),
+             var(--gb-glass);
+}
+
+/* Motion is the problem, not the light: hold the rim lit, stop it moving. */
+@media (prefers-reduced-motion: reduce){
+  .gbtn__rim::before{ animation:none;
+    background:conic-gradient(from 0deg, var(--gb-lamp), rgba(255,255,255,.30),
+                              var(--gb-lamp), rgba(255,255,255,.30), var(--gb-lamp)); }
+  .gbtn:hover{ --gb-spin:4.5s; }
+}
+/* ---- end kit ---- */
+.gbtn{ --gb-lamp:var(--red-hot) }   /* site accent: ticket red */
+
+/* ============================== SECTION FRAME ============================== */
+.sec{ padding:72px 0 }
+.sec__head{ display:grid; gap:6px; margin-bottom:28px }
+.sec__kicker{ font:400 22px/1 var(--f-hand); color:var(--red-hot) }
+.sec h2{ font:400 clamp(32px,5.6vw,58px)/1.02 var(--f-display); margin:0; text-wrap:balance }
+.sec__intro{ margin:6px 0 0; max-width:60ch; color:var(--chalk-ink) }
+
+/* ============================== TODAY'S TRAY ============================== */
+.today{ background:var(--slate-2) }
+.tray{
+  display:grid; gap:10px; grid-template-columns:repeat(12,1fr);
+  background:#0f1112; padding:10px; border-radius:10px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+}
+.tray figure{ margin:0; position:relative; overflow:hidden; border-radius:5px; background:#26292c }
+.tray img{ width:100%; height:100%; object-fit:cover; transition:transform .6s ease }
+.tray figure:hover img{ transform:scale(1.03) }
+.tray .t1{ grid-column:span 5; grid-row:span 2 }
+.tray .t2{ grid-column:span 4 }
+.tray .t3{ grid-column:span 3 }
+.tray .t4{ grid-column:span 4 }
+.tray .t5{ grid-column:span 3 }
+.tray{ grid-auto-rows:280px }
+.tray figcaption{
+  position:absolute; left:0; right:0; bottom:0; padding:28px 12px 10px;
+  background:linear-gradient(transparent, rgba(15,17,18,.86));
+  font:400 19px/1.15 var(--f-hand); color:var(--chalk);
+}
+.tray figcaption small{ display:block; font:500 12.5px/1.35 var(--f-body); color:var(--chalk-ink) }
+.today__note{ margin-top:14px; font-size:14px; color:#a6a29a }
+
+/* ============================== PIES (light, paper) ============================== */
+.pies{ background:var(--chalk); color:var(--ink) }
+.pies .sec__kicker{ color:var(--red) }
+.pies .sec__intro{ color:#4b4944 }
+.pies__grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:start }
+.pies__stack{ display:contents }
+.pie{ margin:0; background:var(--paper); padding:10px 10px 14px; border-radius:6px;
+  box-shadow:0 18px 40px -22px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.05) }
+.pie img{ border-radius:3px; aspect-ratio:1; object-fit:cover; width:100% }
+.pie figcaption{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; padding:10px 4px 0 }
+.pie figcaption b{ font:400 22px/1.1 var(--f-display) }
+.pie figcaption span{ font:400 18px/1 var(--f-hand); color:var(--red); white-space:nowrap }
+.pies__list{ margin:22px 0 0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:8px }
+.pies__list li{ padding:6px 12px; border-radius:999px; background:#fff; box-shadow:inset 0 0 0 1.5px rgba(29,31,33,.14); font-weight:600; font-size:15px }
+
+/* ============================== CHRISTMAS ORDER BUILDER ============================== */
+.xmas{ background:
+  radial-gradient(80% 60% at 100% 0%, rgba(210,35,43,.16), transparent 60%), var(--slate) }
+.builder{ display:grid; grid-template-columns:1.35fr 1fr; gap:26px; align-items:start }
+.board{ display:grid; gap:26px }
+.board h3{ margin:0 0 4px; font:400 26px/1.1 var(--f-display) }
+.board__flag{ font:600 12px/1.4 var(--f-body); letter-spacing:.05em; text-transform:uppercase; color:#e8a3a5; margin:0 0 6px }
+.board__row{ display:flex; flex-wrap:wrap; gap:24px 14px; padding-top:14px }
+.board .ticket{ --tilt:0deg }
+.board .ticket:nth-child(odd){ --tilt:-2deg }
+.board .ticket:nth-child(3n){ --tilt:1.5deg }
+.ticket__minus{
+  position:absolute; top:-9px; left:-9px; width:26px; height:26px; border-radius:50%; border:0;
+  background:var(--slate-3); color:#fff; font:700 16px/1 var(--f-body); cursor:pointer;
+  box-shadow:0 0 0 2px var(--paper); display:none; place-items:center; padding:0;
+}
+.ticket.is-on .ticket__minus{ display:grid }
+
+.asklist{ display:grid; grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:8px }
+.ask{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:10px 10px 10px 14px; border-radius:8px; background:rgba(255,255,255,.06);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);
+}
+.ask__name{ font-weight:600; font-size:15px; line-height:1.2 }
+.ask__name small{ display:block; font:400 15px/1.1 var(--f-hand); color:var(--chalk-ink); margin-top:2px }
+.step{ display:flex; align-items:center; gap:2px; flex-shrink:0 }
+.step button{
+  width:32px; height:32px; border-radius:50%; border:0; cursor:pointer;
+  background:rgba(255,255,255,.12); color:#fff; font:700 18px/1 var(--f-body);
+}
+.step button:hover{ background:rgba(255,255,255,.2) }
+.step output{ min-width:22px; text-align:center; font-weight:700 }
+.ask.is-on{ background:rgba(210,35,43,.22); box-shadow:inset 0 0 0 1.5px rgba(255,74,79,.6) }
+
+/* the docket: an order slip on the spike */
+.docket{
+  position:sticky; top:16px;
+  background:var(--paper); color:var(--ink); border-radius:4px;
+  padding:22px 20px 22px;
+  box-shadow:0 30px 60px -24px rgba(0,0,0,.75);
+  background-image:repeating-linear-gradient(180deg, transparent 0 29px, rgba(29,31,33,.06) 29px 30px);
+}
+.docket::before{ /* perforated top edge */
+  content:""; position:absolute; left:0; right:0; top:-6px; height:12px;
+  background:radial-gradient(circle at 6px 6px, var(--slate) 4px, transparent 4.5px) 0 0/16px 12px repeat-x;
+}
+.docket h3{ margin:0; font:400 28px/1.1 var(--f-display) }
+.docket__to{ margin:2px 0 14px; font-size:14px; color:var(--muted) }
+.docket__lines{ list-style:none; padding:0; margin:0 0 12px; min-height:60px; font:400 19px/1.4 var(--f-hand) }
+.docket__lines li{ display:flex; justify-content:space-between; gap:10px; border-bottom:1px dashed rgba(29,31,33,.15) }
+.docket__lines li.empty{ color:var(--muted); border:0 }
+.docket__lines .ask-price{ color:var(--muted); font-size:16px }
+.docket__total{ display:flex; justify-content:space-between; align-items:baseline; padding:8px 0 2px; border-top:2px solid var(--ink) }
+.docket__total span{ font-weight:700; font-size:15px; text-transform:uppercase; letter-spacing:.06em }
+.docket__total output{ font:700 38px/1 var(--f-hand); color:var(--red) }
+.docket__plus{ font-size:13px; color:var(--muted); margin:2px 0 0; min-height:1.3em }
+.docket__flag{ margin:10px 0 16px; padding:8px 10px; background:#fff3d6; border-left:3px solid #e2a400; font-size:12.5px; line-height:1.4; color:#5a4a1a }
+.docket fieldset{ border:0; padding:0; margin:0 0 14px }
+.docket legend{ font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:8px }
+.days{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px }
+.days label{ position:relative }
+.days input{ position:absolute; opacity:0; inset:0; cursor:pointer }
+.days span{ display:block; text-align:center; padding:8px 2px; border-radius:6px; background:#fff;
+  box-shadow:inset 0 0 0 1.5px rgba(29,31,33,.18); font:700 13px/1.15 var(--f-body) }
+.days span em{ display:block; font:400 20px/1 var(--f-hand); font-style:normal; color:var(--red) }
+.days input:checked + span{ background:var(--ink); color:#fff; box-shadow:none }
+.days input:checked + span em{ color:#ff8d90 }
+.days input:focus-visible + span{ outline:2px solid var(--red); outline-offset:2px }
+.when{ display:flex; gap:6px; margin-top:8px }
+.when label{ flex:1; position:relative }
+.when input{ position:absolute; opacity:0; inset:0; cursor:pointer }
+.when span{ display:block; text-align:center; padding:7px 4px; border-radius:6px; background:#fff; box-shadow:inset 0 0 0 1.5px rgba(29,31,33,.18); font-size:13px; font-weight:600 }
+.when input:checked + span{ background:var(--ink); color:#fff; box-shadow:none }
+.field{ display:grid; gap:4px; margin-bottom:10px }
+.field label{ font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase }
+.field input,.field textarea{
+  font:inherit; font-size:16px; padding:10px 12px; border-radius:6px; border:1.5px solid rgba(29,31,33,.2); background:#fff; color:var(--ink); width:100%;
+}
+.field textarea{ min-height:76px; resize:vertical }
+.field input:focus,.field textarea:focus{ outline:2px solid var(--red); outline-offset:1px; border-color:transparent }
+.docket__send{ display:grid; gap:10px; margin-top:6px }
+.docket__send .gbtn{ width:100% }
+.docket__ring{ text-align:center; font:400 20px/1.2 var(--f-hand) }
+.docket__ring a{ color:var(--red); font-weight:700; text-decoration:none; white-space:nowrap }
+.docket__msg.ok{ color:#2c6b3a }
+.docket__msg{ font-size:14px; color:var(--red); min-height:1.2em; margin:0; font-weight:600 }
+
+/* floating list pill */
+.pill{
+  position:fixed; right:16px; bottom:16px; z-index:20;
+  display:flex; align-items:center; gap:10px; padding:10px 16px 10px 12px; border-radius:999px;
+  background:var(--paper); color:var(--ink); text-decoration:none; font-weight:700; font-size:15px;
+  box-shadow:0 14px 30px -10px rgba(0,0,0,.7);
+  transform:translateY(140%); transition:transform .35s cubic-bezier(.2,.8,.3,1);
+}
+.pill:not(.show){ visibility:hidden; transition:transform .35s cubic-bezier(.2,.8,.3,1), visibility 0s .35s }
+.pill.show{ transform:none }
+.pill b{ font:700 22px/1 var(--f-hand); color:var(--red) }
+.pill i{ font-style:normal; display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:var(--red); color:#fff; font-size:13px }
+
+/* ============================== TRUST ============================== */
+.trust{ background:var(--slate-2) }
+.trust__grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:34px; align-items:center }
+.trust__photo{ margin:0; border-radius:10px; overflow:hidden; box-shadow:0 30px 60px -24px rgba(0,0,0,.8); max-width:460px }
+.trust__photo img{ width:100% }
+.trust__photo figcaption{ padding:10px 14px; background:#121415; font:400 18px/1.3 var(--f-hand); color:var(--chalk-ink) }
+.nums{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:26px }
+.num{ padding:18px 16px; border-radius:10px; background:rgba(255,255,255,.05); box-shadow:inset 0 0 0 1px rgba(255,255,255,.09) }
+.num b{ display:block; font:400 clamp(36px,5vw,52px)/1 var(--f-display); color:var(--chalk) }
+.num span{ display:block; margin-top:8px; font-size:14px; color:var(--chalk-ink); line-height:1.35 }
+.trust__src{ margin-top:12px; font-size:13px; color:#8f8b83 }
+
+/* ============================== VACANCY STRIP ============================== */
+.vacancy{ background:var(--red); color:#fff; padding:22px 0 }
+.vacancy .wrap{ display:flex; flex-wrap:wrap; gap:10px 26px; align-items:center; justify-content:space-between }
+.vacancy__tag{ font:400 26px/1 var(--f-hand); background:#fff; color:var(--red); padding:6px 14px 4px; border-radius:3px; transform:rotate(-2deg); display:inline-block }
+.vacancy p{ margin:0; font-size:18px; flex:1 1 380px }
+.vacancy p b{ font-weight:700 }
+.vacancy a{ color:#fff; font-weight:700; white-space:nowrap }
+
+/* ============================== FIND US ============================== */
+.find{ background:var(--slate) }
+.find__grid{ display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:start }
+.address{ font:400 clamp(30px,4.6vw,46px)/1.08 var(--f-display); margin:0 }
+.find__links{ display:grid; gap:10px; margin-top:22px; justify-items:start }
+.find__plain{ display:grid; gap:4px; margin-top:22px; font-size:16px; color:var(--chalk-2) }
+.find__plain a{ color:var(--chalk); font-weight:600 }
+.hours{
+  background:#23272a; border-radius:8px; padding:22px 22px 18px;
+  box-shadow:inset 0 0 0 10px #6b4f36, inset 0 0 0 12px #3d2c1e, 0 24px 50px -24px rgba(0,0,0,.8);
+  padding:32px;
+}
+.hours h3{ margin:0 0 12px; font:700 30px/1 var(--f-hand); color:var(--chalk) }
+.hours dl{ margin:0; display:grid; grid-template-columns:auto 1fr; gap:4px 18px; font:400 22px/1.35 var(--f-hand) }
+.hours dt{ color:var(--chalk-ink) }
+.hours dd{ margin:0; color:var(--chalk) }
+.hours .today-row{ color:#ff9a9d }
+.hours__flag{ margin:14px 0 0; font:600 12px/1.4 var(--f-body); letter-spacing:.04em; color:#bdb8ad }
+
+footer{ background:var(--slate-3); padding:34px 0 90px; font-size:14px; color:#9c988f }
+footer .wrap{ display:flex; flex-wrap:wrap; gap:14px 30px; align-items:center; justify-content:space-between }
+footer img{ width:48px; height:48px; border-radius:50% }
+footer .brand{ display:flex; gap:12px; align-items:center; color:var(--chalk) }
+footer .brand b{ font:400 20px/1 var(--f-display); display:block }
+
+/* ============================== REVEAL ============================== */
+.js .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1) }
+.js .reveal.in{ opacity:1; transform:none }
+
+/* ============================== RESPONSIVE ============================== */
+@media (max-width: 900px){
+  .builder,.trust__grid,.find__grid,.pies__grid{ grid-template-columns:1fr }
+  .docket{ position:relative; top:0 }
+  .trust__photo{ max-width:420px }
+}
+@media (max-width: 720px){
+  body{ font-size:16px }
+  .case__tray{ display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:6px; scrollbar-width:none }
+  .case__tray::-webkit-scrollbar{ display:none }
+  .case__tray figure{ flex:0 0 76%; scroll-snap-align:center }
+  .tray{ grid-template-columns:1fr 1fr; padding:6px; gap:6px; grid-auto-rows:170px }
+  .tray .t1{ grid-column:span 2; grid-row:span 2 }
+  .tray .t2,.tray .t3,.tray .t4,.tray .t5{ grid-column:span 1 }
+  .nums{ grid-template-columns:1fr 1fr 1fr; gap:8px }
+  .num{ padding:14px 10px }
+  .num span{ font-size:12.5px }
+  .ticket{ width:104px }
+  .ticket__price{ font-size:28px }
+  .rail__tickets{ gap:6px; flex-wrap:nowrap; padding:0 8px }
+  .rail__tickets a{ padding:7px 8px 8px; font-size:9.5px; letter-spacing:.08em }
+  .rail__tickets a span{ font-size:15px }
+  .asklist{ grid-template-columns:1fr 1fr }
+  .ask{ flex-direction:column; align-items:flex-start; padding:10px 10px 8px 12px }
+  .step{ align-self:flex-end }
+  .counter__tickets-row{ gap:22px 10px }
+  .sec{ padding:56px 0 }
+  .hours{ padding:26px 24px }
+  .hours dl{ font-size:20px }
+}
+@media (max-width: 380px){
+  .days{ grid-template-columns:repeat(2,1fr) }
+}
+
+/* ============================== REDUCED MOTION: everything stops ============================== */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto }
+  .rail__tickets li,.counter__tickets-row .ticket{ animation:none }
+  .case__glass::after{ animation:none; display:none }
+  .ticket.pop{ animation:none }
+  .ticket,.ticket__qty,.pill,.tray img{ transition:none }
+  .tray figure:hover img{ transform:none }
+  .js .reveal{ opacity:1; transform:none; transition:none }
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<!-- ============ FASCIA: the name over the shop ============ -->
+<header class="fascia chalkboard">
+  <div class="wrap">
+    <img class="fascia__logo" src="media/logo-roundel.webp" width="96" height="96" alt="Porthcawl Butchers roundel logo: Fine Meats">
+    <h1>Porthcawl Butchers</h1>
+    <p class="fascia__sub"><b>Family Butchers &amp; Deli</b> · 104 John Street, Porthcawl</p>
+  </div>
+  <nav class="rail" aria-label="Sections">
+    <ul class="rail__tickets">
+      <li><a href="#today">On the counter<span>today</span></a></li>
+      <li><a href="#pies">Pies &amp; deli<span>our own</span></a></li>
+      <li><a href="#christmas">Christmas<span>order list</span></a></li>
+      <li><a href="#find">Find us<span>John St</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- ============ THE COUNTER (hero) ============ -->
+  <section class="counter" aria-label="The counter">
+    <div class="wrap">
+      <div class="case">
+        <div class="case__tray">
+          <figure><img src="media/beef-joints.webp" width="720" height="965" alt="Beef joints on the counter, each with a THIS JOINT price ticket" fetchpriority="high"><figcaption>Beef joints</figcaption></figure>
+          <figure><img src="media/lamb-chops-counter.webp" width="720" height="752" alt="Welsh lamb chops, minted lamb shanks and marinated meats in the counter"><figcaption>Welsh lamb &amp; minted shanks</figcaption></figure>
+          <figure><img src="media/lamb-pork-joints.webp" width="720" height="965" alt="Lamb and pork joints with handwritten price tickets"><figcaption>Lamb &amp; pork joints</figcaption></figure>
+        </div>
+        <div class="case__glass" aria-hidden="true"></div>
+      </div>
+      <div class="case__rail" aria-hidden="true"></div>
+
+      <div class="counter__tickets">
+        <div class="counter__tickets-row" id="heroTickets" aria-label="Beef joint tickets from the counter"></div>
+        <p class="counter__hint">Tap a ticket to put that joint on your Christmas list.</p>
+        <span class="small-flag">Prices from the counter, Sept 2026. May change</span>
+      </div>
+
+      <div class="counter__lead">
+        <p>Joints, Welsh lamb, marinated meats and our own pies, straight from the counter on John Street. Put your Christmas order together here and it comes straight to us by email.</p>
+        <div class="ctas">
+          <a class="gbtn" href="#christmas"><i class="gbtn__rim"></i><span>Build your Christmas order</span></a>
+          <a class="gbtn gbtn--quiet" href="tel:+441656784421"><i class="gbtn__rim"></i><span>Ring 01656 784421</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+
+<main>
+<!-- ============ WHAT'S IN TODAY ============ -->
+<section class="sec today" id="today">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <span class="sec__kicker">what's in today</span>
+      <h2>Walk along the counter</h2>
+      <p class="sec__intro">What's in changes by the day. Ring ahead if you're after something particular.</p>
+    </div>
+    <div class="tray reveal">
+      <figure class="t1"><img src="media/pork-counter.webp" width="720" height="965" alt="Stuffed pork joints, belly slices and pork chops" loading="lazy"><figcaption>Pork<small>Stuffed joints, belly slices, chops</small></figcaption></figure>
+      <figure class="t2"><img src="media/steaks-counter-lowres.webp" width="362" height="381" alt="Beef steaks and joints in the counter" loading="lazy"><figcaption>Beef<small>Steaks and joints</small></figcaption></figure>
+      <figure class="t3"><img src="media/mince-diced-lowres.webp" width="364" height="381" alt="Mince, diced meat and chops" loading="lazy"><figcaption>Mince &amp; diced</figcaption></figure>
+      <figure class="t4"><img src="media/lamb-pork-joints.webp" width="720" height="965" alt="Marinated lamb and pork with joint tickets" loading="lazy" style="object-position:50% 30%"><figcaption>Marinated<small>Ready for the oven</small></figcaption></figure>
+      <figure class="t5"><img src="media/lamb-chops-counter.webp" width="720" height="752" alt="Welsh lamb chops and minted lamb shank" loading="lazy" style="object-position:60% 90%"><figcaption>Welsh lamb chops</figcaption></figure>
+    </div>
+    <p class="today__note">Also on the counter: minted lamb leg steaks and marinated chicken.</p>
+  </div>
+</section>
+
+<!-- ============ PIES & DELI ============ -->
+<section class="sec pies" id="pies">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <span class="sec__kicker">pies &amp; deli</span>
+      <h2>Our own pies, cut to show you</h2>
+      <p class="sec__intro">Meat and potato, steak, sausage rolls, pasties and quiche from the deli side of the counter.</p>
+    </div>
+    <div class="pies__grid">
+      <figure class="pie reveal"><img src="media/steak-pie.webp" width="720" height="720" alt="Steak pie cut open to show the filling" loading="lazy"><figcaption><b>Steak pie</b><span>ask in shop</span></figcaption></figure>
+      <div class="pies__stack">
+        <figure class="pie reveal"><img src="media/meat-potato-pie.webp" width="720" height="720" alt="Meat and potato pie cut into squares" loading="lazy"><figcaption><b>Meat &amp; potato</b><span>ask in shop</span></figcaption></figure>
+        <figure class="pie reveal"><img src="media/sausage-rolls-pies.webp" width="720" height="720" alt="Sausage rolls and individual pies in the deli counter" loading="lazy"><figcaption><b>Sausage rolls &amp; pies</b><span>ask in shop</span></figcaption></figure>
+      </div>
+    </div>
+    <ul class="pies__list reveal" aria-label="From the deli">
+      <li>Meat &amp; potato pie</li><li>Steak pie</li><li>Sausage rolls</li><li>Pasties</li><li>Quiche</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CHRISTMAS ORDER BUILDER ============ -->
+<section class="sec xmas" id="christmas">
+  <div class="wrap">
+    <div class="sec__head reveal">
+      <span class="sec__kicker">christmas orders</span>
+      <h2>Put your Christmas order on the spike</h2>
+      <p class="sec__intro">Pick your joints by the ticket, add anything else you want, choose a collection day and send it. It opens your email with the order written out for us. Nothing is paid online.</p>
+    </div>
+
+    <div class="builder">
+      <div class="board">
+        <div>
+          <h3>Beef joints</h3>
+          <p class="board__flag">Prices from the counter, Sept 2026. May change</p>
+          <div class="board__row" data-group="beef"></div>
+        </div>
+        <div>
+          <h3>Lamb &amp; pork joints</h3>
+          <p class="board__flag">Prices from the counter, Sept 2026. May change</p>
+          <div class="board__row" data-group="lp"></div>
+        </div>
+        <div>
+          <h3>From the counter</h3>
+          <p class="board__flag">Price in shop</p>
+          <div class="asklist" data-ask="counter"></div>
+        </div>
+        <div>
+          <h3>Pies &amp; deli</h3>
+          <p class="board__flag">Price in shop</p>
+          <div class="asklist" data-ask="deli"></div>
+        </div>
+      </div>
+
+      <form class="docket" id="docket" novalidate>
+        <h3>Christmas order</h3>
+        <p class="docket__to">to Porthcawl Butchers, 104 John Street</p>
+        <ul class="docket__lines" id="lines"><li class="empty">Nothing on the slip yet. Tap a ticket.</li></ul>
+        <div class="docket__total"><span>Joints come to</span><output id="total">£0</output></div>
+        <p class="docket__plus" id="plus"></p>
+        <p class="docket__flag">Joint prices are from the counter in September 2026 and may change. We'll confirm the price and weight when we reply.</p>
+
+        <fieldset>
+          <legend>Collect on</legend>
+          <div class="days">
+            <label><input type="radio" name="day" value="Mon 21 Dec"><span>Mon<em>21</em></span></label>
+            <label><input type="radio" name="day" value="Tue 22 Dec"><span>Tue<em>22</em></span></label>
+            <label><input type="radio" name="day" value="Wed 23 Dec"><span>Wed<em>23</em></span></label>
+            <label><input type="radio" name="day" value="Thu 24 Dec (Christmas Eve)"><span>Thu<em>24</em></span></label>
+          </div>
+          <div class="when">
+            <label><input type="radio" name="when" value="morning" checked><span>Morning</span></label>
+            <label><input type="radio" name="when" value="afternoon"><span>Afternoon</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name"></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"></div>
+        <div class="field"><label for="notes">Notes</label><textarea id="notes" name="notes" placeholder="Weights, how many you're feeding, anything not on the list"></textarea></div>
+
+        <p class="docket__msg" id="msg" role="status" aria-live="polite"></p>
+        <div class="docket__send">
+          <button class="gbtn gbtn--onlight" type="submit"><i class="gbtn__rim"></i><span>Email your order to us</span></button>
+          <p class="docket__ring">or ring <a href="tel:+441656784421">01656 784421</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section class="sec trust" aria-label="Clean and well reviewed">
+  <div class="wrap trust__grid">
+    <figure class="trust__photo reveal">
+      <img src="media/doorway-hygiene-5.webp" width="720" height="965" alt="A member of staff in a striped apron pointing at the food hygiene rating sticker on the shop door" loading="lazy">
+      <figcaption>The sticker on the door at 104 John Street.</figcaption>
+    </figure>
+    <div class="reveal">
+      <span class="sec__kicker">before you come in</span>
+      <h2 style="font:400 clamp(32px,5.6vw,58px)/1.02 var(--f-display);margin:6px 0 0">Look at the door on your way in.</h2>
+      <p class="sec__intro">Then have a look at what Porthcawl says about us.</p>
+      <div class="nums">
+        <div class="num"><b data-count="4.8" data-dec="1">4.8</b><span>on Google, from 70 reviews</span></div>
+        <div class="num"><b data-count="100" data-suffix="%">100%</b><span>recommend, from 254 Facebook reviews</span></div>
+        <div class="num"><b data-count="8.4" data-dec="1" data-suffix="K">8.4K</b><span>following on Facebook</span></div>
+      </div>
+      <p class="trust__src">Google and Facebook reviews, October 2026.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VACANCY ============ -->
+<section class="vacancy" aria-label="Job vacancy">
+  <div class="wrap">
+    <span class="vacancy__tag">job going</span>
+    <p><b>Deli / shop assistant, 16–20 hours a week.</b> Hand your CV in at the counter or ring <a href="tel:+441656784421">01656 784421</a>.</p>
+  </div>
+</section>
+
+<!-- ============ FIND US ============ -->
+<section class="sec find" id="find">
+  <div class="wrap find__grid">
+    <div class="reveal">
+      <span class="sec__kicker">find us</span>
+      <p class="address">104 John Street<br>Porthcawl<br>CF36 3DT</p>
+      <div class="find__links">
+        <a class="gbtn" href="https://www.google.com/maps/search/?api=1&amp;query=Porthcawl+Butchers%2C+104+John+Street%2C+Porthcawl+CF36+3DT" target="_blank" rel="noopener"><i class="gbtn__rim"></i><span>Open in Google Maps</span></a>
+        <a class="gbtn gbtn--quiet" href="tel:+441656784421"><i class="gbtn__rim"></i><span>Ring 01656 784421</span></a>
+      </div>
+      <div class="find__plain">
+        <span>Email <a href="mailto:pcawlbutchers@gmail.com">pcawlbutchers@gmail.com</a></span>
+        <span>Facebook: Porthcawl Butchers</span>
+      </div>
+    </div>
+    <div class="hours reveal" aria-label="Opening hours">
+      <h3>Opening hours</h3>
+      <dl id="hours">
+        <dt data-d="1">Monday</dt><dd data-d="1">8am – 6pm</dd>
+        <dt data-d="2">Tuesday</dt><dd data-d="2">8am – 6pm</dd>
+        <dt data-d="3">Wednesday</dt><dd data-d="3">8am – 6pm</dd>
+        <dt data-d="4">Thursday</dt><dd data-d="4">8am – 6pm</dd>
+        <dt data-d="5">Friday</dt><dd data-d="5">8am – 6pm</dd>
+        <dt data-d="6">Saturday</dt><dd data-d="6">8am – 6pm</dd>
+        <dt data-d="0">Sunday</dt><dd data-d="0">9am – 4pm</dd>
+      </dl>
+      <p class="hours__flag">Christmas and bank holiday hours may differ. Give us a ring.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><img src="media/logo-roundel.webp" width="48" height="48" alt=""><div><b>Porthcawl Butchers</b>Family Butchers &amp; Deli</div></div>
+    <div>104 John Street, Porthcawl CF36 3DT · <a href="tel:+441656784421">01656 784421</a></div>
+    <div>Website by Quick Site</div>
+  </div>
+</footer>
+
+<a class="pill" id="pill" href="#christmas" aria-label="Go to your Christmas order"><i id="pillCount">0</i><span>Your list</span><b id="pillTotal">£0</b></a>
+
+<script>
+(() => {
+  /* ⚠️ Only the THIS JOINT ticket prices visible in the shop's own Sept 2026
+     photos. Not a Christmas price list. Confirm with the shop. */
+  const JOINTS = [
+    { id:'b18', group:'beef', what:'Beef joint', price:18 },
+    { id:'b20', group:'beef', what:'Beef joint', price:20 },
+    { id:'b21', group:'beef', what:'Beef joint', price:21 },
+    { id:'b35', group:'beef', what:'Beef joint', price:35 },
+    { id:'b50', group:'beef', what:'Beef joint', price:50 },
+    { id:'l20', group:'lp',   what:'Lamb or pork joint', price:20 },
+    { id:'l21', group:'lp',   what:'Lamb or pork joint', price:21 },
+    { id:'l24', group:'lp',   what:'Lamb or pork joint', price:24 },
+  ];
+  /* Seen in the shop's photos, no price shown: "price in shop", never invented. */
+  const ASK = [
+    { id:'a1', list:'counter', name:'Stuffed pork joint' },
+    { id:'a2', list:'counter', name:'Welsh lamb chops' },
+    { id:'a3', list:'counter', name:'Minted lamb shank' },
+    { id:'a4', list:'counter', name:'Minted lamb leg steaks' },
+    { id:'a5', list:'counter', name:'Marinated chicken' },
+    { id:'a6', list:'counter', name:'Pork belly slices' },
+    { id:'a7', list:'counter', name:'Pork chops' },
+    { id:'a8', list:'counter', name:'Mince' },
+    { id:'a9', list:'counter', name:'Diced meat' },
+    { id:'d1', list:'deli', name:'Meat & potato pie' },
+    { id:'d2', list:'deli', name:'Steak pie' },
+    { id:'d3', list:'deli', name:'Sausage rolls' },
+    { id:'d4', list:'deli', name:'Pasties' },
+    { id:'d5', list:'deli', name:'Quiche' },
+  ];
+  const qty = {};
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const $ = s => document.querySelector(s);
+
+  const ticketHTML = j => `
+    <span class="ticket__head">This joint</span>
+    <span class="ticket__lines"><span class="ticket__price">£${j.price}</span></span>
+    <span class="ticket__what">${j.what}</span>
+    <span class="ticket__qty" aria-hidden="true">0</span>`;
+
+  function makeTicket(j, withMinus, tilt){
+    const b = document.createElement(withMinus ? 'div' : 'button');
+    if (!withMinus) b.type = 'button';
+    b.className = 'ticket';
+    b.dataset.id = j.id;
+    if (tilt != null) b.style.setProperty('--tilt', tilt + 'deg');
+    b.innerHTML = ticketHTML(j);
+    if (withMinus){
+      b.setAttribute('role','button'); b.tabIndex = 0;
+      const m = document.createElement('button');
+      m.type='button'; m.className='ticket__minus'; m.textContent='−';
+      m.setAttribute('aria-label', 'Take one £' + j.price + ' ' + j.what.toLowerCase() + ' off');
+      m.addEventListener('click', e => { e.stopPropagation(); change(j.id, -1); });
+      b.appendChild(m);
+      b.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' '){ e.preventDefault(); change(j.id, +1, b); } });
+    }
+    b.setAttribute('aria-label', 'Add a £' + j.price + ' ' + j.what.toLowerCase());
+    b.addEventListener('click', () => change(j.id, +1, b));
+    return b;
+  }
+
+  // hero: the five beef tickets hang under the counter
+  const tilts = [-4, 3, -2, 4, -3];
+  JOINTS.filter(j => j.group==='beef').forEach((j,i) => $('#heroTickets').appendChild(makeTicket(j, false, tilts[i])));
+  // builder board
+  document.querySelectorAll('.board__row').forEach(row => {
+    JOINTS.filter(j => j.group===row.dataset.group).forEach(j => row.appendChild(makeTicket(j, true)));
+  });
+  document.querySelectorAll('.asklist').forEach(list => {
+    ASK.filter(a => a.list===list.dataset.ask).forEach(a => {
+      const el = document.createElement('div');
+      el.className = 'ask'; el.dataset.id = a.id;
+      el.innerHTML = `<span class="ask__name">${a.name.replace('&','&amp;')}<small>price in shop</small></span>
+        <span class="step"><button type="button" aria-label="One less ${a.name}">−</button><output>0</output><button type="button" aria-label="One more ${a.name}">+</button></span>`;
+      const [minus, plus] = el.querySelectorAll('button');
+      minus.addEventListener('click', () => change(a.id, -1));
+      plus.addEventListener('click', () => change(a.id, +1));
+      list.appendChild(el);
+    });
+  });
+
+  function change(id, d, el){
+    qty[id] = Math.max(0, (qty[id]||0) + d);
+    if (d > 0 && el && !reduce.matches){ el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+    render();
+  }
+
+  const fmt = n => '£' + n.toLocaleString('en-GB');
+  let shown = 0, raf = 0;
+  function countTo(target){
+    const out = $('#total');
+    cancelAnimationFrame(raf);
+    if (reduce.matches){ shown = target; out.textContent = fmt(target); return; }
+    const from = shown, t0 = performance.now(), dur = 500;
+    const step = now => {
+      const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1-p, 3);
+      shown = Math.round(from + (target - from) * e);
+      out.textContent = fmt(shown);
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+  }
+
+  function render(){
+    let total = 0, items = 0, askCount = 0;
+    const lines = [];
+    JOINTS.forEach(j => {
+      const n = qty[j.id]||0;
+      document.querySelectorAll(`.ticket[data-id="${j.id}"]`).forEach(t => {
+        t.classList.toggle('is-on', n>0);
+        t.querySelector('.ticket__qty').textContent = n;
+      });
+      if (n){ total += n*j.price; items += n;
+        lines.push(`<li><span>${n} × ${j.what} (£${j.price} ticket)</span><span>${fmt(n*j.price)}</span></li>`); }
+    });
+    ASK.forEach(a => {
+      const n = qty[a.id]||0;
+      const el = document.querySelector(`.ask[data-id="${a.id}"]`);
+      el.classList.toggle('is-on', n>0); el.querySelector('output').textContent = n;
+      if (n){ items += n; askCount += n;
+        lines.push(`<li><span>${n} × ${a.name.replace('&','&amp;')}</span><span class="ask-price">in shop</span></li>`); }
+    });
+    $('#lines').innerHTML = lines.length ? lines.join('') : '<li class="empty">Nothing on the slip yet. Tap a ticket.</li>';
+    $('#plus').textContent = askCount ? `+ ${askCount} item${askCount>1?'s':''} priced at the counter` : '';
+    countTo(total);
+    $('#pillCount').textContent = items;
+    $('#pillTotal').textContent = fmt(total);
+    pillState.items = items; updatePill();
+  }
+
+  // floating "your list" pill: only when there's something on it and the docket isn't in view
+  const pillState = { items:0, docketVisible:false };
+  function updatePill(){ $('#pill').classList.toggle('show', pillState.items>0 && !pillState.docketVisible); }
+  new IntersectionObserver(es => { pillState.docketVisible = es[0].isIntersecting; updatePill(); }, { threshold:.05 })
+    .observe(document.getElementById('christmas'));
+
+  // compose the email
+  $('#docket').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target, msg = $('#msg');
+    const day = f.day.value, when = f.when.value, name = f.name.value.trim(), phone = f.phone.value.trim(), notes = f.notes.value.trim();
+    const joints = JOINTS.filter(j => qty[j.id]);
+    const asks = ASK.filter(a => qty[a.id]);
+    if (!joints.length && !asks.length && !notes){ msg.classList.remove('ok'); msg.textContent = 'Add something to the slip first (or write it in the notes).'; return; }
+    if (!day){ msg.classList.remove('ok'); msg.textContent = 'Pick a collection day.'; return; }
+    if (!name || !phone){ msg.classList.remove('ok'); msg.textContent = 'Add your name and phone so we can confirm.'; (name ? f.phone : f.name).focus(); return; }
+    msg.classList.remove('ok'); msg.textContent = '';
+    const total = joints.reduce((s,j) => s + qty[j.id]*j.price, 0);
+    const L = [];
+    L.push('Hello Porthcawl Butchers,', '', "I'd like to put in a Christmas order, please.", '');
+    L.push('Collect: ' + day + ', ' + when);
+    L.push('Name: ' + name);
+    L.push('Phone: ' + phone, '');
+    if (joints.length){
+      L.push('JOINTS (by the counter ticket price):');
+      joints.forEach(j => L.push('  ' + qty[j.id] + ' x ' + j.what + ' (£' + j.price + ' ticket)'));
+      L.push('  Comes to about £' + total + ' at those ticket prices.', '');
+    }
+    if (asks.length){
+      L.push('ALSO (price in shop):');
+      asks.forEach(a => L.push('  ' + qty[a.id] + ' x ' + a.name));
+      L.push('');
+    }
+    if (notes) L.push('Notes: ' + notes, '');
+    L.push('Could you let me know the final price and confirm you have my order?', '', 'Thanks,', name);
+    const subject = 'Christmas order: ' + name + ', collect ' + day;
+    const href = 'mailto:pcawlbutchers@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(L.join('\n'));
+    f.dataset.mailto = href;
+    location.href = href;
+    msg.classList.add('ok'); msg.textContent = 'Your email app should open with the order written out. If it doesn’t, ring 01656 784421.';
+  });
+
+  // today's row on the hours board (UK time)
+  try {
+    const wd = new Intl.DateTimeFormat('en-GB', { timeZone:'Europe/London', weekday:'short' }).format(new Date());
+    const map = { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 };
+    document.querySelectorAll(`#hours [data-d="${map[wd]}"]`).forEach(n => n.classList.add('today-row'));
+  } catch(_) {}
+
+  // scroll reveal + count-up for the review numbers
+  const countUp = el => {
+    const target = parseFloat(el.dataset.count), dec = +(el.dataset.dec||0), suf = el.dataset.suffix||'';
+    if (reduce.matches) return;
+    const t0 = performance.now(), dur = 1100;
+    const step = now => { const p = Math.min(1,(now-t0)/dur), e = 1-Math.pow(1-p,3);
+      el.textContent = (target*e).toFixed(dec) + suf; if (p<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  };
+  if ('IntersectionObserver' in window && !reduce.matches){
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('in');
+      en.target.querySelectorAll('[data-count]').forEach(countUp);
+      io.unobserve(en.target);
+    }), { threshold:.12, rootMargin:'0px 0px -6% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+})();
+</script>
+<script data-qs-beacon="2">(function(){try{var h=location.hostname;if(h==='localhost'||h==='127.0.0.1')return;if(navigator.webdriver)return;var me=false;try{if(/(^|[?&])x=off(&|$)/.test(location.search)){localStorage.removeItem('qs-me');}else if(/(^|[?&])x=me(&|$)/.test(location.search)){localStorage.setItem('qs-me','1');me=true;}else if(localStorage.getItem('qs-me')==='1'){me=true;}}catch(e){}if(me)return;var pg='free-porthcawl-butchers.html';var rf='';try{rf=document.referrer?new URL(document.referrer).hostname:''}catch(e){}fetch('https://quicksite-stats-89aa38a9.base44.app/api/functions/hit',{method:'POST',mode:'cors',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify({page:pg,ref:rf})}).catch(function(){});}catch(e){}})();</script>
+</body>
+</html>
