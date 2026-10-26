@@ -1665,17 +1665,17 @@ h1.lines .ln.hit{display:table}
            the product works rather than what anyone would be paid. -->
       <div class="calc-back">
         <span class="lbl">What cover like this is designed to replace</span>
-        <div class="calc-back-fig"><span id="benefit">Up to &pound;1,268</span>
+        <div class="calc-back-fig"><span id="benefit">&pound;975 &ndash; &pound;1,170</span>
           <em>a month, while you can't work</em></div>
-        <p class="calc-sum" id="benefitBasis">Up to around 65% of your earnings — the most an
-        income protection policy is usually built to cover.</p>
+        <p class="calc-sum" id="benefitBasis">Around 50&ndash;60% of your earnings — the usual
+        shape of an income protection policy.</p>
       </div>
 
       <p class="calc-note">
         <b>What these figures are</b>
         <span id="discl">The first is arithmetic on the two numbers you typed: your weekly
         playing income multiplied by the weeks you selected.</span> The second shows the
-        most this kind of cover is generally built to replace, applied to
+        proportion of earnings this kind of cover is generally built to replace, applied to
         your own figure. Neither is a quote, an estimate, or a statement of what any policy
         would pay you. What you'd actually be offered depends on the insurer, your job, your
         health and the waiting period you choose &mdash; that's a conversation, not a sum.
@@ -1698,7 +1698,7 @@ h1.lines .ln.hit{display:table}
           bGeneral = document.getElementById('modeGeneral'),
           benefit = document.getElementById('benefit'),
           benefitBasis = document.getElementById('benefitBasis');
-      var SHARE = 0.65;
+      var BAND = [0.5, 0.6];
 
       var DAYS = 5; // working days a week, used in trade mode only
       var mode = 'sport';
@@ -1743,9 +1743,10 @@ h1.lines .ln.hit{display:table}
         figure.textContent = gbp(total);
         if (benefit) {
           var monthly = perWeek * 52 / 12;
-          benefit.textContent = 'Up to ' + gbp(monthly * SHARE);
-          benefitBasis.textContent = 'Up to around ' + Math.round(SHARE*100) + '% of your earnings ' +
-            '\u2014 the most an income protection policy is usually built to cover.';
+          benefit.textContent = gbp(monthly * BAND[0]) + ' \u2013 ' + gbp(monthly * BAND[1]);
+          benefitBasis.textContent = 'Around ' + Math.round(BAND[0]*100) + '\u2013' +
+            Math.round(BAND[1]*100) + '% of your earnings \u2014 the usual shape of an income ' +
+            'protection policy.';
         }
         sum.textContent = (mode === 'trade')
           ? gbp(raw) + ' \u00D7 ' + DAYS + ' days \u00D7 ' + wk + ' = ' + gbp(total)
