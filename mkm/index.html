@@ -52,6 +52,26 @@
   <button class="again" id="again" type="button" hidden>Watch again</button>
   <div class="contact"><a href="mailto:lee@quick-site.co.uk">lee@quick-site.co.uk</a> &nbsp;·&nbsp; quick-site.co.uk</div>
 </main>
+<script data-qs-beacon="2">
+// Anonymous view counter: page slug, referrer hostname and day only. mkm-film = opened,
+// mkm-film-sound = tapped for sound, mkm-film-end = film reached the end. ?x=me silences this device.
+window.qsHit=(function(){try{
+var h=location.hostname;if(h==='localhost'||h==='127.0.0.1')return function(){};
+if(navigator.webdriver)return function(){};
+var me=false;try{
+if(/(^|[?&])x=off(&|$)/.test(location.search)){localStorage.removeItem('qs-me');}
+else if(/(^|[?&])x=me(&|$)/.test(location.search)){localStorage.setItem('qs-me','1');me=true;}
+else if(localStorage.getItem('qs-me')==='1'){me=true;}
+}catch(e){}
+if(me)return function(){};
+var rf='';try{rf=document.referrer?new URL(document.referrer).hostname:''}catch(e){}
+var sent={};
+return function(pg){if(sent[pg])return;sent[pg]=1;
+fetch('https://quicksite-stats-89aa38a9.base44.app/api/functions/hit',{method:'POST',mode:'cors',keepalive:true,
+headers:{'Content-Type':'text/plain'},body:JSON.stringify({page:pg,ref:rf})}).catch(function(){});};
+}catch(e){return function(){};}})();
+qsHit('mkm-film.html');
+</script>
 <script>
 // The film opens muted (the subtitles are burnt in), so it starts on its own. "Tap for sound" restarts it
 // from the top with sound. No browser controls ever show: if a browser refuses to play, the video is
@@ -65,9 +85,9 @@
     var p = v.play(); if (p && p.catch) p.catch(function () { v.classList.remove('on'); snd.hidden = false; });
   }
   var p = v.play(); if (p && p.catch) p.catch(function () { v.classList.remove('on'); snd.textContent = 'Watch with sound'; });
-  snd.addEventListener('click', function () { snd.hidden = true; again.hidden = true; start(true); });
+  snd.addEventListener('click', function () { snd.hidden = true; again.hidden = true; qsHit('mkm-film-sound.html'); start(true); });
   again.addEventListener('click', function () { again.hidden = true; snd.hidden = true; start(true); });
-  v.addEventListener('ended', function () { if (v.muted) { snd.textContent = 'Watch with sound'; snd.hidden = false; } else { again.hidden = false; } });
+  v.addEventListener('ended', function () { qsHit('mkm-film-end.html'); if (v.muted) { snd.textContent = 'Watch with sound'; snd.hidden = false; } else { again.hidden = false; } });
 })();
 </script>
 </body>
