@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Roofers · Ask Lee</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b1322">
+<link rel="icon" href="../shared/lee/head.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/site.css">
+<link rel="stylesheet" href="../shared/home.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="top">
+    <button class="back" id="back" type="button" aria-label="Back to Lee" hidden>‹</button>
+    <span class="brand" id="brand">Your <b>Roofers</b></span>
+    <span class="who" id="who" hidden><span class="face"></span><span><b>Lee</b><small id="status">Here to help</small></span></span>
+    <span class="sp"></span>
+  </header>
+
+  <main class="home" id="home">
+    <a class="yours" href="https://wa.me/447933666396?text=Hi%20Lee%2C%20I%E2%80%99d%20like%20a%20talking%20website%20like%20this" target="_blank" rel="noopener">This could be <b>you</b>. Just send us your pictures →</a>
+    <div class="lee" aria-hidden="true">
+      <div class="sway" id="sway">
+        <img data-pose="point" src="../shared/lee/point.webp" alt="">
+        <img data-pose="arms" src="../shared/lee/arms-folded.webp" alt="">
+        <img data-pose="handshake" src="../shared/lee/handshake.webp" alt="">
+        <img data-pose="phone" class="on" src="../shared/lee/phone.webp" alt="">
+        <img data-pose="explain" src="../shared/lee/explain.webp" alt="">
+        <img data-pose="think" src="../shared/lee/think.webp" alt="">
+        <img data-pose="thumbs" src="../shared/lee/thumbs.webp" alt="">
+        <img data-pose="cheer" src="../shared/lee/cheer.webp" alt="">
+      </div>
+    </div>
+    <nav id="bubbles" aria-label="Pages"></nav>
+    <p class="hello"><span id="helloText">Alright, I’m Lee. Tap a bubble, or ask me for a price.</span></p>
+  </main>
+
+  <main class="chat" id="chat" hidden>
+    <div class="log" id="log" aria-live="polite"></div>
+    <div class="answers" id="answers"></div>
+  </main>
+
+  <footer class="dock">
+    <div class="row">
+      <button class="mic" id="mic" type="button" aria-label="Tap to talk to Lee">Tap to<br>talk</button>
+      <form class="ask" id="form" autocomplete="off">
+        <input id="text" placeholder="Ask Lee for a price…" enterkeyhint="send" aria-label="Type to Lee">
+        <button type="submit">Send</button>
+      </form>
+    </div>
+    <p class="fine">Demo site. Guide prices for South Wales, confirmed after a free roof check. Lee’s a cartoon of the real Lee.</p>
+  </footer>
+</div>
+
+<script src="data.js"></script>
+<script src="../shared/core.js"></script>
+<script src="../shared/app.js"></script>
+</body>
+</html>
