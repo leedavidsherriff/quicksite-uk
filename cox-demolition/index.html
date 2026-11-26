@@ -105,8 +105,8 @@
   --line:rgba(255,255,255,.12);
   --text:#f1f4f5;
   --muted:#9aa7ac;
-  --teal:#17b2a7;      /* the machine */
-  --teal-text:#45d6cb;
+  --teal:#f5b31b;      /* Tony's logo yellow */
+  --teal-text:#f5b31b;
   --gutter:20px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -133,10 +133,12 @@ video::-webkit-media-controls,video::-webkit-media-controls-start-playback-butto
 .sound[hidden]{display:none}
 .name{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.01em;font-size:clamp(36px,10.4vw,132px);text-shadow:0 2px 24px rgba(0,0,0,.45)}
 .name span{display:block;color:var(--teal-text)}
+.logo img{width:min(78vw,460px);height:auto;border-radius:4px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.sub-name{margin-top:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:15px;color:var(--teal-text)}
 .strap{margin-top:14px;font-size:clamp(17px,4.6vw,22px);font-weight:600;max-width:30ch;text-shadow:0 1px 12px rgba(0,0,0,.7)}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 22px;border-radius:8px;font:inherit;font-weight:800;font-size:17px;text-decoration:none;border:0;cursor:pointer}
-.btn-teal{background:var(--teal);color:#021614}
+.btn-teal{background:var(--teal);color:#111}
 .btn-white{background:#fff;color:#0b0f13}
 .btn-line{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.75)}
 .actions .btn{flex:1 1 150px}
@@ -160,6 +162,15 @@ h2{font-variation-settings:"wdth" 110;font-weight:850;font-size:clamp(30px,7.8vw
 .svc .media{border-radius:6px;overflow:hidden;aspect-ratio:16/10;background:#111}
 .svc .media img,.svc .media video{width:100%;height:100%;object-fit:cover}
 .asb{margin-top:10px;font-size:14.5px;color:var(--muted)}
+
+/* Tony's jobs */
+.gallery{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gallery figure{position:relative;border-radius:6px;overflow:hidden;background:#111}
+.gallery .wide{grid-column:1 / -1;aspect-ratio:4/3}
+.gallery .tall{aspect-ratio:3/4}
+.gallery img{width:100%;height:100%;object-fit:cover}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;font-size:13px;font-weight:700;background:linear-gradient(180deg,transparent,rgba(0,0,0,.75))}
+@media (min-width:760px){ .gallery{grid-template-columns:repeat(4,1fr)} .gallery .wide{grid-column:span 2;aspect-ratio:auto} }
 
 /* prices */
 .price-grid{display:grid;gap:22px;margin-top:28px}
@@ -217,8 +228,8 @@ details[open] summary::after{content:"–"}
 details p{padding:0 0 16px;color:var(--muted);max-width:66ch}
 
 /* contact */
-.contact{background:var(--teal);color:#021614}
-.contact .intro{color:rgba(2,22,20,.8)}
+.contact{background:var(--teal);color:#111}
+.contact .intro{color:rgba(17,17,17,.8)}
 .big-call{display:block;margin-top:14px;text-decoration:none;font-variation-settings:"wdth" 120;font-weight:900;font-size:clamp(30px,9.2vw,64px);line-height:1;white-space:nowrap}
 .contact-grid{display:grid;gap:26px}
 form{display:grid;gap:12px;background:#0b0f13;color:var(--text);border-radius:8px;padding:18px 16px}
@@ -263,7 +274,8 @@ footer b{color:var(--text)}
     <button type="button" class="sound" id="sound" hidden aria-pressed="false">Sound</button>
   </div>
   <div class="wrap">
-    <h1 class="name">Cox <span>Demolition</span></h1>
+    <h1 class="logo"><img src="media/tony/logo.jpg" width="1120" height="582" alt="Cox Demolition"></h1>
+    <p class="sub-name">Demolition &amp; Groundworks</p>
     <p class="strap">Demolition, site clearance and digger hire with a driver. From a garage to a whole building.</p>
     <div class="actions">
       <a class="btn btn-teal" href="tel:+447712657497">Call Tony</a>
@@ -292,6 +304,7 @@ footer b{color:var(--text)}
           <p>Units, stands, outbuildings and stadium strip-outs. Soft strip first, then the structure, with the site kept tidy and safe while it happens.</p>
           <span class="from">Priced per job</span>
         </div>
+        <div class="media"><img src="media/tony/volvo-site.jpg" loading="lazy" alt="A Cox Demolition excavator on a pile of rubble behind site fencing with Cox Demolition and Cox Skip and Waste banners"></div>
       </article>
       <article class="svc">
         <div>
@@ -299,7 +312,7 @@ footer b{color:var(--text)}
           <p>Rotten sheds, old fencing, rubble piles, overgrown plots. Cleared back to bare ground so your builder or buyer starts with a clean site.</p>
           <span class="from">Shed from £420 &middot; clearance day from £740</span>
         </div>
-        <div class="media"><img src="media/clearance-before.webp" loading="lazy" alt="An overgrown back garden with a rotting timber shed, a pile of old bricks and a leaning fence panel"></div>
+        <div class="media"><img src="media/tony/house-demo.jpg" loading="lazy" alt="A house part demolished behind site fencing, with an excavator and a tipper lorry"></div>
       </article>
       <article class="svc">
         <div>
@@ -307,6 +320,7 @@ footer b{color:var(--text)}
           <p>Hire the machine by the day with Tony or one of the lads in the seat. Mini digger or bigger.</p>
           <span class="from">Mini digger + driver from £290 a day</span>
         </div>
+        <div class="media"><img src="media/tony/teal-side.jpg" loading="lazy" alt="Tony's teal long-reach excavator with COX DEMOLITION along the boom"></div>
       </article>
       <article class="svc">
         <div>
@@ -320,9 +334,24 @@ footer b{color:var(--text)}
           <h3>Muck away</h3>
           <p>Soil, brick, hardcore and concrete away by 8-wheeler. Book it with the knock-down and it all goes the same day.</p>
           <span class="from">From £290 a load</span>
+          <p class="asb">Skips through Cox Skip &amp; Waste Management: <a href="tel:+441656786553">01656 786553</a>.</p>
           <p class="asb">Asbestos: we don't remove it ourselves. On anything built before 2000 we arrange a licensed survey first, and a licensed contractor deals with anything it finds.</p>
         </div>
+        <div class="media"><img src="media/tony/skip-lorry.jpg" loading="lazy" alt="The Cox Demolition hook-loader lorry with a blue and yellow Cox skip"></div>
       </article>
+    </div>
+  </div>
+</section>
+
+<section class="slab" id="jobs">
+  <div class="wrap">
+    <h2>Tony's jobs</h2>
+    <p class="intro">The machines and the work, straight off Tony's phone.</p>
+    <div class="gallery">
+      <figure class="tall"><img src="media/tony/longreach-rubble.jpg" loading="lazy" alt="Tony's teal 55-foot long-reach excavator on a demolition site with a pile of rubble"><figcaption>The 55ft long-reach</figcaption></figure>
+      <figure class="tall"><img src="media/tony/stadium.jpg" loading="lazy" alt="Tony's teal excavator on the pitch in front of a stadium stand"><figcaption>Stadium job</figcaption></figure>
+      <figure class="wide"><img src="media/tony/doosan.jpg" loading="lazy" alt="A long-reach demolition excavator boom laid out in a machinery yard"><figcaption>Long-reach kit in the yard</figcaption></figure>
+      <figure class="tall"><img src="media/tony/longreach-building.jpg" loading="lazy" alt="The long-reach excavator taking down a building"><figcaption>Taking down a building</figcaption></figure>
     </div>
   </div>
 </section>
