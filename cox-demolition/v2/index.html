@@ -140,6 +140,13 @@ h2 a{font-size:14px;font-weight:700;color:var(--muted);text-decoration:none}
 .hero-body h1{font-weight:850;font-size:26px;line-height:1.1;letter-spacing:-.015em}
 .hero-body p{color:var(--muted);margin-top:6px}
 
+
+/* Tony stands in the hero card, overlapping the film, so he's in the first screen */
+.hero{overflow:visible}
+.hero .film{border-radius:var(--r) var(--r) 0 0;overflow:hidden}
+.hero-body{position:relative;padding-right:44%;min-height:190px}
+.hero-tony{position:absolute;right:4px;bottom:0;width:46%;height:auto;max-height:340px;object-fit:contain;object-position:bottom;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18))}
+
 /* quick actions */
 .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px var(--g) 0}
 .quick a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:74px;border-radius:16px;background:var(--card);text-decoration:none;font-weight:800;font-size:13px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
@@ -229,8 +236,9 @@ form .btn-teal{background:var(--ink);color:#fff}
 
 
 /* Meet Tony: his cartoon stands on the card edge */
-.meet{margin:22px var(--g) 0;display:grid;grid-template-columns:42% 1fr;align-items:end;gap:6px;padding:0 16px 0 6px;overflow:hidden;background:#fff;border-bottom:6px solid var(--yellow)}
+.meet{margin:22px var(--g) 0;display:grid;grid-template-columns:38% 1fr;align-items:center;gap:14px;padding:0 16px 0 12px;overflow:hidden;background:#fff;border-bottom:6px solid var(--yellow)}
 .meet img{width:100%;height:auto;margin-top:-6px;align-self:end}
+.meet img.real{margin:12px 0;border-radius:14px;aspect-ratio:330/560;object-fit:cover;object-position:top}
 .meet div{padding:18px 0}
 .meet .meet-h{margin:0 0 6px;font-size:22px}
 .meet p{font-size:14.5px;color:var(--muted)}
@@ -264,6 +272,7 @@ form .btn-teal{background:var(--ink);color:#fff}
       <span class="chip live">Garage knock-down</span>
     </div>
     <div class="hero-body">
+      <img class="hero-tony" src="../media/tony/pixar-tony.webp" width="598" height="900" alt="Tony Cox, cartoon version, giving a thumbs up">
       <h1>If it needs to come down, Tony's your man.</h1>
       <p>Demolition, clearance and digger hire with a driver, across South Wales. Garages from £950.</p>
     </div>
@@ -278,7 +287,7 @@ form .btn-teal{background:var(--ink);color:#fff}
 
 
   <section class="card meet">
-    <img src="../media/tony/pixar-tony.webp" width="598" height="900" alt="Tony Cox, cartoon version, in his blue hard hat and hi-vis giving a thumbs up">
+    <img class="real" src="../media/tony/tony-real.jpg" width="330" height="700" alt="Tony Cox in his hard hat and hi-vis next to his Cox Demolition machine">
     <div>
       <h2 class="meet-h">Meet Tony</h2>
       <p>Tony Cox runs Cox Demolition out of Pyle. He comes and looks at your job himself, gives you a straight price and does the work with his own machines.</p>
