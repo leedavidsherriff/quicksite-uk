@@ -654,6 +654,51 @@ footer{color:var(--steel-2)}
 }
 .hero .film.tall .film-still,.hero .film.tall video{object-position:50% 40%}
 @media (prefers-reduced-motion: reduce){ .beacon{animation:none} .hero .film video{display:none} }
+
+/* ═════════════════ PLAIN PASS (26 Nov): read like a real local firm, not a template ═════════════════
+   Lee: "looks a bit AI". Out go the tells: glowing spinning button rims, typewriter
+   labels, floodlight gradients, dust grain, pulsing dots, glows. Solid colours,
+   ordinary type, straight borders. The night palette and the hero film stay. */
+body::before{display:none}
+section:not(.hero):not(.contact),.prices,.machine{background:var(--dust)}
+.prices,.machine{background:#0b1015}
+.mono{font-family:"Archivo",system-ui,sans-serif;letter-spacing:0;font-weight:700}
+.kicker,.job-no,.film figcaption .mono,.site-head .mono,.slot .mono,.fact .mono,.bgroup > .mono,.total .mono,.ptable h3,.sheet-top{text-transform:none;letter-spacing:0}
+.kicker{font-size:15px;font-weight:700;color:var(--teal-deep)}
+h1,h2,.job h3,.step h3,.builder h3{font-variation-settings:"wdth" 100;letter-spacing:-.01em}
+h1{font-weight:800}
+h2{font-weight:800}
+.hero h1{text-shadow:0 2px 16px rgba(0,0,0,.6)}
+h1 em,.hero h1 em{font-style:normal}
+
+/* buttons: solid, no glass, no spinning rim */
+.gbtn__rim{display:none}
+.gbtn,.gbtn--onlight{background:#e9eef0;color:#0b1217;--gb-ink:#0b1217;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:10px;font-weight:800}
+.gbtn--teal{background:var(--teal);color:#fff;--gb-ink:#fff}
+.gbtn:hover{filter:brightness(1.06)}
+.contact .gbtn{background:#fff;color:#0b1217}
+.contact .gbtn--teal{background:#0b1217;color:#fff}
+.dock-in{border-radius:14px;background:#0b1015;box-shadow:0 -1px 0 rgba(255,255,255,.08);backdrop-filter:none;-webkit-backdrop-filter:none}
+.dock .gbtn{border-radius:10px}
+.dock .plain{border-radius:10px}
+.tool{border-radius:10px}
+
+/* the name panel: a painted panel, no sheen, no glow */
+.livery{border-radius:6px;background:var(--teal);box-shadow:none}
+.livery::after{display:none}
+.beacon{animation:none;box-shadow:none}
+
+/* cards: flat, straight */
+.site,.sheet,.ptable,.builder,form,.fact,.slot,.pic{box-shadow:none}
+.site{background:#0f171d}
+.builder{background:#0f171d;border:1px solid var(--rule)}
+.sheet,.ptable,.builder,.site,form{border-radius:10px}
+.pic,.slot{border-radius:6px}
+.steps-fill{box-shadow:none}
+.contact{background:#0a6a64}
+.machine .slot{background:#0e171d}
+.slot{background:#0e151b}
+.chip input:checked + label{background:var(--teal);border-color:var(--teal)}
 </style>
 </head>
 <body>
