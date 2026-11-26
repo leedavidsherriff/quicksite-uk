@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cox Skip &amp; Waste | Skip Hire &amp; Rubbish Removal, Pyle, Bridgend</title>
+<meta name="description" content="Skip hire, rubbish removal and clearances from Cox Skip & Waste Management in Pyle, Bridgend. Call 01656 786553.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1d4fd0">
+<link rel="icon" href="data:,">
+<!--
+  COX SKIP & WASTE, version 3: painted like his skip and lorry, Cox blue and yellow.
+  Name and 01656 786553 from Tony's business card. ALL PRICES ARE OUR GUIDES, NOT TONY'S.
+  Before/after pairs are Honest Waste example photos, captioned as examples.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Cox Skip & Waste Management","telephone":"+441656786553",
+ "address":{"@type":"PostalAddress","addressLocality":"Pyle","addressRegion":"Bridgend","addressCountry":"GB"},
+ "areaServed":["Pyle","Bridgend","Porthcawl","Maesteg","Port Talbot","South Wales"],"priceRange":"££"}
+</script>
+<style>
+:root{--blue:#1d4fd0;--blue-d:#163da3;--yellow:#f7c21b;--ink:#0f1420;--white:#fff;--g:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--blue)}
+body{background:var(--blue);color:#fff;font-family:"Archivo",system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 var(--g)}
+
+/* hero: his lorry, his logo, one big line */
+.hero{padding:calc(16px + env(safe-area-inset-top,0px)) 0 0}
+.top{display:flex;justify-content:space-between;align-items:center}
+.top img{width:120px;border-radius:6px}
+.top a{font-weight:900;text-decoration:none;font-size:16px;background:var(--yellow);color:var(--ink);padding:9px 14px;border-radius:8px}
+.hero h1{margin-top:22px;font-variation-settings:"wdth" 112;font-weight:900;text-transform:uppercase;font-size:clamp(40px,12vw,104px);line-height:.92;letter-spacing:-.01em}
+.hero h1 span{color:var(--yellow);display:block}
+.hero p.sub{margin-top:14px;font-size:18px;font-weight:600;max-width:32ch;opacity:.92}
+.lorry{margin-top:22px;position:relative}
+.lorry img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:14px 14px 0 0}
+.stripe{height:16px;background:repeating-linear-gradient(-45deg,var(--yellow) 0 18px,var(--ink) 18px 36px)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.btn{display:flex;align-items:center;justify-content:center;min-height:56px;border-radius:10px;font:inherit;font-weight:900;font-size:17px;text-decoration:none;border:0;cursor:pointer}
+.btn-y{background:var(--yellow);color:var(--ink)}
+.btn-w{background:#fff;color:var(--blue)}
+
+section{padding:56px 0}
+h2{font-variation-settings:"wdth" 110;font-weight:900;text-transform:uppercase;font-size:clamp(30px,8.4vw,56px);line-height:.95}
+h2 span{color:var(--yellow)}
+.intro{margin-top:10px;max-width:52ch;opacity:.9}
+
+/* pick a skip: sized bars */
+.skips{background:var(--yellow);color:var(--ink)}
+.skips h2 span{color:var(--blue)}
+.sizes{margin-top:24px;display:grid;gap:10px}
+.size{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:12px 14px;cursor:pointer;border:3px solid transparent;font:inherit;text-align:left;color:inherit}
+.size[aria-pressed="true"]{border-color:var(--ink)}
+.size .bar{height:28px;background:var(--blue);border-radius:4px 4px 10px 10px;clip-path:polygon(0 0,100% 0,90% 100%,10% 100%)}
+.size b{font-size:17px;font-weight:900;display:block}
+.size small{font-size:13px;color:#4b4f57}
+.size em{font-style:normal;font-weight:900;font-size:16px;white-space:nowrap}
+.fits{margin-top:16px;background:var(--ink);color:#fff;border-radius:12px;padding:14px 16px;font-size:15.5px}
+.fits b{color:var(--yellow)}
+
+/* drag the rubbish away */
+.drag{position:relative;margin-top:22px;border-radius:14px;overflow:hidden;aspect-ratio:4/3;touch-action:pan-y;user-select:none;background:#123}
+.drag img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.d-before{position:absolute;inset:0;clip-path:inset(0 0 0 var(--k,0%))}
+.d-bar{position:absolute;top:0;bottom:0;left:var(--k,0%);pointer-events:none}
+.d-bar::before{content:"";position:absolute;top:0;bottom:0;left:-2px;width:4px;background:var(--yellow)}
+.d-bar span{position:absolute;top:50%;transform:translate(-10%,-50%);background:var(--yellow);color:var(--ink);font-weight:900;font-size:14px;padding:10px 14px;border-radius:8px;white-space:nowrap}
+.d-range{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize}
+.cap{margin-top:8px;font-size:13px;opacity:.75}
+
+.list{margin-top:22px;border-top:2px solid rgba(255,255,255,.25)}
+.li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+.li span small{display:block;font-size:13px;opacity:.75}
+.li b{white-space:nowrap;font-weight:900}
+.note{margin-top:14px;font-size:14px;opacity:.8}
+.no{margin-top:22px;background:var(--blue-d);border-radius:12px;padding:16px}
+.no b{color:var(--yellow)}
+.contact{background:var(--ink)}
+.big{display:block;margin-top:12px;text-decoration:none;font-variation-settings:"wdth" 116;font-weight:900;font-size:clamp(34px,10vw,64px);color:var(--yellow);line-height:1}
+footer{background:var(--ink);padding:10px 0 26px;font-size:14px;opacity:.75}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px var(--g) calc(10px + env(safe-area-inset-bottom,0px));background:var(--ink);transform:translateY(110%);transition:transform .35s}
+.bar.show{transform:none}
+.bar .btn{min-height:50px}
+@media (min-width:760px){ .sizes{grid-template-columns:1fr 1fr} .drag{aspect-ratio:16/8} .actions{max-width:520px} }
+@media (prefers-reduced-motion: reduce){ .bar{transition:none} }
+</style>
+<script data-qs-beacon="2">(function(){try{var h=location.hostname;if(h==='localhost'||h==='127.0.0.1')return;if(navigator.webdriver)return;var me=false;try{if(/(^|[?&])x=off(&|$)/.test(location.search)){localStorage.removeItem('qs-me');}else if(/(^|[?&])x=me(&|$)/.test(location.search)){localStorage.setItem('qs-me','1');me=true;}else if(localStorage.getItem('qs-me')==='1'){me=true;}}catch(e){}if(me)return;var pg='coxw-3.html';var rf='';try{rf=document.referrer?new URL(document.referrer).hostname:''}catch(e){}fetch('https://quicksite-stats-89aa38a9.base44.app/api/functions/hit',{method:'POST',mode:'cors',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify({page:pg,ref:rf})}).catch(function(){});}catch(e){}})();</script>
+</head>
+<body>
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="top"><img src="../media/skip-logo.jpg" width="430" height="280" alt="Cox Skip &amp; Waste Management"><a href="tel:+441656786553">01656 786553</a></div>
+    <h1>Skips &amp; rubbish <span>gone.</span></h1>
+    <p class="sub">Skip hire, rubbish removal and clearances from Pyle, on Tony's own lorry.</p>
+    <div class="actions">
+      <a class="btn btn-y" href="tel:+441656786553">Call Tony</a>
+      <a class="btn btn-w" href="https://wa.me/441656786553?text=Hi%20Tony%2C%20I%27d%20like%20a%20skip%20or%20some%20rubbish%20taken%20away." rel="noopener">WhatsApp</a>
+    </div>
+    <div class="lorry"><img src="../media/skip-lorry.jpg" width="1434" height="626" alt="Tony's Cox hook-loader lorry carrying a blue and yellow Cox skip"></div>
+  </div>
+  <div class="stripe" aria-hidden="true"></div>
+</header>
+
+<main>
+<section class="skips" id="skips">
+  <div class="wrap">
+    <h2>Pick a <span>skip</span></h2>
+    <p class="intro">Tap a size. Every price is delivery, collection and tipping. Guide prices, confirmed when you book.</p>
+    <div class="sizes" id="sizes">
+      <button class="size" type="button" data-fits="about 25 to 30 bin bags. Bathroom refit or a garden tidy." aria-pressed="false"><div class="bar" style="width:40%"></div><div><b>Mini, 2 yards</b><small>Small jobs</small></div><em>£140 – £160</em></button>
+      <button class="size" type="button" data-fits="about 40 to 50 bin bags. Kitchen refit or a shed full." aria-pressed="false"><div class="bar" style="width:60%"></div><div><b>Midi, 4 yards</b><small>Most popular</small></div><em>£195 – £220</em></button>
+      <button class="size" type="button" data-fits="about 60 to 70 bin bags. Builders' rubble or a house clear-out." aria-pressed="true"><div class="bar" style="width:80%"></div><div><b>Builders, 6 yards</b><small>Rubble and big clear-outs</small></div><em>£245 – £280</em></button>
+      <button class="size" type="button" data-fits="about 80 to 90 bin bags. Bulky, light waste from a whole house." aria-pressed="false"><div class="bar" style="width:100%"></div><div><b>Big, 8 yards</b><small>Bulky waste</small></div><em>£285 – £325</em></button>
+    </div>
+    <p class="fits" id="fits" aria-live="polite">Fits <b>about 60 to 70 bin bags</b>. Builders' rubble or a house clear-out.</p>
+  </div>
+</section>
+
+<section id="clear">
+  <div class="wrap">
+    <h2>No room for a skip? <span>Tony loads it.</span></h2>
+    <p class="intro">Rubbish removal and house clearances: we come, load it and take it. Drag the bar to see the difference.</p>
+    <div class="drag" id="drag">
+      <img src="../media/room-after-1024.webp" alt="The same room cleared and swept">
+      <div class="d-before"><img src="../media/room-before-1024.webp" alt="A room full of old furniture and boxes"></div>
+      <div class="d-bar"><span>Drag</span></div>
+      <input class="d-range" id="dr" type="range" min="0" max="100" value="0" aria-label="Drag to clear the room">
+    </div>
+    <p class="cap">Example clear-out. The kind of job Tony does every week.</p>
+    <div class="list">
+      <div class="li"><span>Few bags or a single item<small>Up to 1 cubic yard</small></span><b>£40 – £45</b></div>
+      <div class="li"><span>Quarter van<small>About 4 cubic yards</small></span><b>£115 – £130</b></div>
+      <div class="li"><span>Half van<small>About 7.5 cubic yards</small></span><b>£190 – £215</b></div>
+      <div class="li"><span>Full Luton van<small>About 15 cubic yards</small></span><b>£340 – £385</b></div>
+      <div class="li"><span>Muck away by lorry<small>Soil, rubble, hardcore</small></span><b>£290 – £330</b></div>
+    </div>
+    <p class="note">Guide prices. Send a photo and Tony confirms it. Mattresses, fridges, tyres and plasterboard are a small extra.</p>
+    <div class="no"><b>Can't go in a skip:</b> asbestos, gas bottles, paint, oils, chemicals and batteries. A skip on the road needs a council permit, and Tony can sort it.</div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Book a skip or <span>a clear-out</span></h2>
+    <p class="intro">A photo on WhatsApp gets the quickest price. Pyle, Porthcawl, Bridgend, Maesteg, Port Talbot and across South Wales.</p>
+    <a class="big" href="tel:+441656786553">01656 786553</a>
+    <div class="actions"><a class="btn btn-y" href="https://wa.me/441656786553?text=Hi%20Tony%2C%20can%20you%20price%20this%3F%20Photo%20attached." rel="noopener">WhatsApp a photo</a><a class="btn btn-w" href="tel:+441656786553">Call</a></div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">Cox Skip &amp; Waste Management &middot; Pyle, Bridgend</div></footer>
+
+<nav class="bar" id="bar" aria-label="Contact"><a class="btn btn-y" href="tel:+441656786553">Call Tony</a><a class="btn btn-w" href="https://wa.me/441656786553" rel="noopener">WhatsApp</a></nav>
+
+<script>
+(function(){
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.size').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.size').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      var f = b.dataset.fits, k = f.indexOf('.');
+      document.getElementById('fits').innerHTML = 'Fits <b>' + f.slice(0, k) + '</b>.' + f.slice(k + 1);
+    });
+  });
+  var d = document.getElementById('drag'), r = document.getElementById('dr');
+  function set(v){ d.style.setProperty('--k', v + '%'); }
+  r.addEventListener('input', function(){ set(+r.value); });
+  if (!RM){ var t0 = null; (function hint(ts){ if (t0 === null) t0 = ts; var p = (ts - t0) / 1400; if (p > 1 || +r.value > 0){ if (+r.value === 0) set(0); return; } set(Math.sin(p * Math.PI) * 22); requestAnimationFrame(hint); })(performance.now()); }
+  var bar = document.getElementById('bar');
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ bar.classList.toggle('show', !es[0].isIntersecting); }, { threshold: .15 }).observe(document.getElementById('top'));
+  else bar.classList.add('show');
+})();
+</script>
+</body>
+</html>
