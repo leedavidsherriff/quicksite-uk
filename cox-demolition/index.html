@@ -133,6 +133,8 @@ video::-webkit-media-controls,video::-webkit-media-controls-start-playback-butto
 .sound[hidden]{display:none}
 .name{font-variation-settings:"wdth" 125;font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.01em;font-size:clamp(36px,10.4vw,132px);text-shadow:0 2px 24px rgba(0,0,0,.45)}
 .name span{display:block;color:var(--teal-text)}
+.hero .name{font-size:clamp(30px,8.4vw,116px);font-variation-settings:"wdth" 108}
+.mark{width:96px;height:auto;border-radius:3px}
 .logo img{width:min(78vw,460px);height:auto;border-radius:4px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
 .sub-name{margin-top:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:15px;color:var(--teal-text)}
 .strap{margin-top:14px;font-size:clamp(17px,4.6vw,22px);font-weight:600;max-width:30ch;text-shadow:0 1px 12px rgba(0,0,0,.7)}
@@ -271,12 +273,12 @@ footer b{color:var(--text)}
 
 <header class="hero" id="top">
   <div class="wrap top">
-    <span>Pyle, Bridgend &middot; South Wales</span>
+    <img class="mark" src="media/tony/logo.jpg" width="1120" height="582" alt="Cox Demolition">
     <button type="button" class="sound" id="sound" hidden aria-pressed="false">Sound</button>
   </div>
   <div class="wrap">
-    <h1 class="logo"><img src="media/tony/logo.jpg" width="1120" height="582" alt="Cox Demolition"></h1>
-    <p class="sub-name">Demolition &amp; Groundworks</p>
+    <h1 class="name">Demolition <span>&amp; groundworks</span></h1>
+    <p class="sub-name">Pyle, Bridgend &middot; all of South Wales</p>
     <p class="strap">Demolition, site clearance and digger hire with a driver. From a garage to a whole building.</p>
     <div class="actions">
       <a class="btn btn-teal" href="tel:+447712657497">Call Tony</a>
