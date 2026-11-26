@@ -527,5 +527,16 @@ form .btn-teal{background:var(--ink);color:#fff}
 
 })();
 </script>
+<script>
+/* Lee: play the films faster. Digger 1.5x, garage knock-down 1.75x. Re-applied on load and play,
+   because some browsers reset the rate when a source loads. */
+(function(){
+  function rate(v){ return /garage/.test(v.currentSrc || v.src || '') ? 1.75 : 1.5; }
+  function set(v){ var r = rate(v); v.defaultPlaybackRate = r; v.playbackRate = r; }
+  document.querySelectorAll('video').forEach(function(v){
+    set(v); ['loadedmetadata','play','playing'].forEach(function(e){ v.addEventListener(e, function(){ if (v.playbackRate !== rate(v)) set(v); }); });
+  });
+})();
+</script>
 </body>
 </html>
