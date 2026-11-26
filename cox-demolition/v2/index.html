@@ -95,7 +95,7 @@
 
 
 <style>
-/* COX DEMOLITION, version B: Tony's own photos only, no AI film. v3 (26 Nov): the digger is the page.
+/* COX DEMOLITION, version B (light, knock-it-down hero). Built on v3 (26 Nov): the digger is the page.
    One film sits fixed behind everything. The page is black slabs of content
    with gaps cut between them, so the machine keeps showing through as you scroll.
    Plain on purpose: one typeface, solid buttons, no glows, no gimmick labels. */
@@ -170,7 +170,8 @@ h2{font-variation-settings:"wdth" 110;font-weight:850;font-size:clamp(30px,7.8vw
 .gallery .tall{aspect-ratio:3/4}
 .gallery img{width:100%;height:100%;object-fit:cover}
 .gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;font-size:13px;font-weight:700;background:linear-gradient(180deg,transparent,rgba(0,0,0,.75))}
-@media (min-width:760px){ .gallery{grid-template-columns:repeat(4,1fr)} .gallery .wide{grid-column:span 2;aspect-ratio:auto} }
+.gallery figure:last-child{grid-column:1 / -1;aspect-ratio:4/3}
+@media (min-width:760px){ .gallery figure:last-child{grid-column:auto;aspect-ratio:3/4} .gallery{grid-template-columns:repeat(4,1fr)} .gallery .wide{grid-column:span 2;aspect-ratio:auto} }
 
 /* prices */
 .price-grid{display:grid;gap:22px;margin-top:28px}
@@ -260,32 +261,83 @@ footer b{color:var(--text)}
 }
 @media (prefers-reduced-motion: reduce){ .stage video{display:none} .bar{transition:none} }
 
-.stage .kb{animation:kb 24s ease-in-out infinite alternate;transform-origin:60% 40%}
-@keyframes kb{from{transform:scale(1)}to{transform:scale(1.12)}}
-.stage.tall img{object-position:50% 30%}
-@media (prefers-reduced-motion: reduce){ .stage .kb{animation:none} }
+/* ═════════ VERSION B (light): daylight, concrete and Tony's yellow. The idea: you knock the garage down yourself. ═════════ */
+:root{--black:#f4f3ef;--slab:#ffffff;--line:rgba(0,0,0,.12);--text:#141414;--muted:#55575a;--teal:#f5b31b;--teal-text:#141414}
+html{background:#f4f3ef}
+body{color:var(--text);background:#f4f3ef}
+.hero{min-height:auto;display:block;padding:14px 0 34px;background:#f4f3ef}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.mark{width:120px;height:auto;border-radius:4px}
+.headcall{font-weight:800;text-decoration:none;font-size:16px;border-bottom:3px solid #f5b31b}
+.hero h1{margin-top:26px;font-weight:850;font-variation-settings:"wdth" 105;font-size:clamp(32px,8.6vw,58px);line-height:1.02;letter-spacing:-.015em;max-width:16ch}
+.strap{color:var(--muted);text-shadow:none;margin-top:10px;font-weight:500;font-size:17px}
+.knock{position:relative;margin-top:20px;border-radius:8px;overflow:hidden;aspect-ratio:4/3;background:#ddd;touch-action:pan-y;user-select:none}
+.knock img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:56% 50%;display:block}
+.k-before{position:absolute;inset:0;clip-path:inset(0 0 0 var(--k,0%))}
+.k-bar{position:absolute;top:0;bottom:0;left:var(--k,0%);width:0;pointer-events:none}
+.k-bar::before{content:"";position:absolute;top:0;bottom:0;left:-2px;width:4px;background:#f5b31b;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.k-bar span{position:absolute;top:50%;left:0;transform:translate(-10%,-50%);background:#141414;color:#f5b31b;font-weight:800;font-size:14px;padding:10px 14px;border-radius:6px;white-space:nowrap}
+.k-range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.k-done{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(20,20,20,.86);color:#fff;font-size:15px;padding:10px 12px;border-radius:6px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;pointer-events:none}
+.k-done b{color:#f5b31b}
+.knock.done .k-done{opacity:1;transform:none}
+.actions{margin-top:16px}
+.btn-dark{background:#141414;color:#fff}
+.btn-yellow{background:#f5b31b;color:#141414}
+.btn-teal{background:#141414;color:#fff}
+.btn-white{background:#f5b31b;color:#141414}
+.where{margin-top:14px;font-size:14px;color:var(--muted)}
+.slab{background:#fff}
+.slab:nth-of-type(even){background:#f4f3ef}
+.svc .from{color:#141414;background:#f5b31b;display:inline-block;padding:3px 8px;border-radius:4px}
+.ptable{background:#fff}
+.ptable h3{background:#141414;color:#fff}
+.builder{background:#fff;border:2px solid #141414}
+.stepper button{color:#141414;border-color:rgba(0,0,0,.25)}
+.chip label{border-color:rgba(0,0,0,.22)}
+.chip input:checked + label{background:#141414;border-color:#141414;color:#f5b31b}
+.chip input:focus-visible + label{outline-color:#141414}
+.total{border-top-color:#141414}
+.lines .saved{color:#1d7a3a}
+.nudge{border-left-color:#f5b31b}
+summary::after{color:#141414}
+.contact{background:#f5b31b;color:#141414}
+.contact .intro{color:#2b2b2b}
+form{background:#141414}
+.gallery figcaption{color:#fff}
+footer{background:#141414;color:#bdbdbd}
+footer b{color:#fff}
+.bar{background:#fff;border-top:1px solid var(--line)}
+@media (min-width:760px){
+  .hero .wrap > h1,.strap{max-width:none}
+  .knock{aspect-ratio:16/8}
+  .bar{border:1px solid var(--line)}
+}
 </style>
 </head>
 <body>
 
-<div class="stage" id="stage" aria-hidden="true">
-  <img id="still" class="kb" src="../media/tony/teal-side.jpg" alt="">
-  <video id="film" hidden></video>
-</div>
 
 <header class="hero" id="top">
-  <div class="wrap top">
-    <span>Pyle, Bridgend &middot; South Wales</span>
-    <button type="button" class="sound" id="sound" hidden aria-pressed="false">Sound</button>
+  <div class="wrap head">
+    <img class="mark" src="../media/tony/logo.jpg" width="1120" height="582" alt="Cox Demolition">
+    <a class="headcall" href="tel:+447712657497">07712 657497</a>
   </div>
   <div class="wrap">
-    <h1 class="logo"><img src="../media/tony/logo.jpg" width="1120" height="582" alt="Cox Demolition"></h1>
-    <p class="sub-name">Demolition &amp; Groundworks</p>
-    <p class="strap">Demolition, site clearance and digger hire with a driver. From a garage to a whole building.</p>
-    <div class="actions">
-      <a class="btn btn-teal" href="tel:+447712657497">Call Tony</a>
-      <a class="btn btn-line" href="https://wa.me/447712657497?text=Hi%20Tony%2C%20I%27ve%20got%20a%20job%20that%20needs%20knocking%20down." rel="noopener">WhatsApp</a>
+    <h1>Got something that needs to come down?</h1>
+    <p class="strap">Drag the bar and knock this garage down yourself. Then ring Tony and he'll do yours properly.</p>
+    <div class="knock" id="knock">
+      <img class="k-after" src="../media/garage-end.jpg" width="1912" height="1080" alt="The same garden with the garage gone and the ground cleared to a level pad">
+      <div class="k-before" id="kBefore"><img src="../media/garage-start.jpg" width="1912" height="1080" alt="An old concrete garage at the end of a terraced back garden"></div>
+      <div class="k-bar" id="kBar"><span>Drag</span></div>
+      <input class="k-range" id="kRange" type="range" min="0" max="100" value="0" aria-label="Drag to knock the garage down">
+      <p class="k-done" id="kDone">Down, cleared and level. <b>Garage from £950.</b></p>
     </div>
+    <div class="actions">
+      <a class="btn btn-dark" href="tel:+447712657497">Call Tony</a>
+      <a class="btn btn-yellow" href="https://wa.me/447712657497?text=Hi%20Tony%2C%20I%27ve%20got%20a%20job%20that%20needs%20knocking%20down." rel="noopener">WhatsApp</a>
+    </div>
+    <p class="where">Cox Demolition &amp; Groundworks &middot; Pyle, Bridgend &middot; all of South Wales</p>
   </div>
 </header>
 
@@ -301,7 +353,7 @@ footer b{color:var(--text)}
           <p>Garages, conservatories, extensions and whole houses. Taken down safely, made good to the house wall where something's staying, and every bit of it taken away.</p>
           <span class="from">Garage from £950</span>
         </div>
-        <div class="media"><img src="../media/tony/house-demo.jpg" loading="lazy" alt="A house part demolished behind site fencing, with an excavator and a tipper lorry"></div>
+        <div class="media"><video src="../media/m/garage.mp4" poster="../media/garage-poster.jpg" muted autoplay loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback aria-label="A concrete garage at the end of a terraced back garden collapses and is cleared to a level pad"></video></div>
       </article>
       <article class="svc">
         <div>
@@ -317,7 +369,7 @@ footer b{color:var(--text)}
           <p>Rotten sheds, old fencing, rubble piles, overgrown plots. Cleared back to bare ground so your builder or buyer starts with a clean site.</p>
           <span class="from">Shed from £420 &middot; clearance day from £740</span>
         </div>
-        <div class="media"><img src="../media/tony/longreach-building.jpg" loading="lazy" alt="The long-reach excavator taking down a building"></div>
+        <div class="media"><img src="../media/tony/house-demo.jpg" loading="lazy" alt="A house part demolished behind site fencing, with an excavator and a tipper lorry"></div>
       </article>
       <article class="svc">
         <div>
@@ -361,7 +413,6 @@ footer b{color:var(--text)}
   </div>
 </section>
 
-<div class="window" data-photo="../media/tony/volvo-site.jpg" aria-hidden="true"><div class="wrap"><p>Garages.<br>Extensions.<br><span>Whole buildings.</span></p></div></div>
 
 <section class="slab" id="prices">
   <div class="wrap">
@@ -438,7 +489,6 @@ footer b{color:var(--text)}
   </div>
 </section>
 
-<div class="window" data-photo="../media/tony/stadium.jpg" aria-hidden="true"><div class="wrap"><p>Down, cleared<br><span>and carted away.</span></p></div></div>
 
 <section class="slab" id="how">
   <div class="wrap">
@@ -523,44 +573,14 @@ footer b{color:var(--text)}
   var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var WA = 'https://wa.me/447712657497';
 
-  /* ═══════════ THE FILM: fixed behind the page. Portrait phones get the 9:16 cut.
-     Muted autoplay, native loop, never a play button: if the browser refuses,
-     the video is hidden and the still stays. ═══════════ */
-  (function(){
-    var stage = document.getElementById('stage'), v = document.getElementById('film'), still = document.getElementById('still');
-    var snd = document.getElementById('sound');
-    var tall = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
-    var phone = window.matchMedia('(max-width: 768px)').matches;
-    if (tall){ stage.classList.add('tall'); still.src = '../media/tony/longreach-rubble.jpg'; }
-    return; /* v2: Tony's own photos only, no film */
-    v.muted = true; v.setAttribute('muted', '');
-    v.src = tall ? '../media/m/hero-tall.mp4' : phone ? '../media/m/hero.mp4' : '../media/hero.mp4';
-    v.addEventListener('playing', function(){ v.classList.add('on'); snd.hidden = false; });
-    var p = v.play();
-    if (p) p.catch(function(){ v.style.display = 'none'; });
-    snd.addEventListener('click', function(){
-      v.muted = !v.muted; snd.setAttribute('aria-pressed', String(!v.muted));
-      snd.textContent = v.muted ? 'Sound' : 'Sound off';
-    });
-    /* save the battery: pause the film while a solid slab covers the whole screen */
-    if ('IntersectionObserver' in window){
-      var open = document.querySelectorAll('.hero, .window'), visible = new Set();
-      var io = new IntersectionObserver(function(es){
-        es.forEach(function(e){ e.isIntersecting ? visible.add(e.target) : visible.delete(e.target); });
-        if (visible.size){ var q = v.play(); if (q) q.catch(function(){}); } else v.pause();
-      });
-      open.forEach(function(el){ io.observe(el); });
-    }
-  })();
 
-  /* each window swaps the photo behind the page to one of Tony's jobs */
+  /* ═══════════ the garage: drag to knock it down ═══════════ */
   (function(){
-    var still = document.getElementById('still'), first = still.src;
-    if (!('IntersectionObserver' in window)) return;
-    var io = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if (e.isIntersecting) still.src = e.target.dataset.photo || first; });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('.hero, .window').forEach(function(el){ if (el.classList.contains('hero')) el.dataset.photo = first; io.observe(el); });
+    var k = document.getElementById('knock'), r = document.getElementById('kRange');
+    function set(v){ k.style.setProperty('--k', v + '%'); k.classList.toggle('done', v >= 96); }
+    r.addEventListener('input', function(){ set(+r.value); });
+    /* a nudge so people see it moves: the bar edges in and back once */
+    if (!RM){ var t0 = null; (function hint(ts){ if (t0 === null) t0 = ts; var p = (ts - t0) / 1400; if (p > 1 || +r.value > 0){ if (+r.value === 0) set(0); return; } set(Math.sin(p * Math.PI) * 22); requestAnimationFrame(hint); })(performance.now()); }
   })();
 
   /* bottom bar appears once the hero's buttons have scrolled away */
