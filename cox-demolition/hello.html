@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cox Demolition: your web page</title>
+<meta name="description" content="Tony, you asked for a web page and to get on Google properly. Here's the page, built for Cox Demolition.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f7f78">
+<link rel="icon" href="data:,">
+<meta property="og:title" content="Cox Demolition: your web page">
+<meta property="og:description" content="You asked for a web page and to get on Google properly. Here it is. Tap to have a look.">
+<meta property="og:type" content="website">
+<!-- Owner-only reveal page for Tony Cox. Only Tony reads this one; the site itself is ./index.html. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--dust:#ece6da;--paper:#f7f3eb;--steel:#1c272c;--steel-2:#4a585e;--teal:#13a89e;--teal-deep:#0b6b65;--teal-glow:#41e8d8;--rule:rgba(28,39,44,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--dust);color:var(--steel);font-family:"Archivo",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:620px;margin:0 auto;padding:28px 16px calc(36px + env(safe-area-inset-bottom,0px))}
+.livery{display:inline-flex;flex-direction:column;gap:2px;background:linear-gradient(160deg,#17b7ac,var(--teal) 45%,#0e8d85);color:#fff;border-radius:12px;padding:12px 18px 11px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(0,0,0,.18)}
+.livery b{font-variation-settings:"wdth" 125;font-weight:850;font-size:clamp(22px,6.4vw,28px);letter-spacing:.02em;line-height:1}
+.livery i{font-weight:600;font-size:13px}
+h1{font-variation-settings:"wdth" 116;font-weight:820;font-size:clamp(30px,8.6vw,44px);line-height:1.05;margin-top:22px}
+h1 em{color:var(--teal-deep)}
+p.lead{margin-top:14px;font-size:18px;color:var(--steel-2)}
+.shot{margin-top:22px;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--rule),0 22px 50px -30px rgba(28,39,44,.7)}
+.card{margin-top:22px;background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:18px}
+.card .mono{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--teal-deep)}
+.card h2{font-variation-settings:"wdth" 112;font-weight:800;font-size:22px;margin-top:4px}
+.card ul{margin-top:10px;padding-left:18px;color:var(--steel-2)}
+.card li{margin-top:6px}
+.card li b{color:var(--steel)}
+.rise{opacity:0;transform:translateY(14px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+.d1{animation-delay:.15s}.d2{animation-delay:.3s}.d3{animation-delay:.45s}.d4{animation-delay:.6s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* glass button: rules copied verbatim from ~/quicksite-kit/glass-button/component.html */
+.gbtn{
+  --gb-lamp:#6fe3ff;
+  --gb-rim:1.6px;
+  --gb-spin:4.5s;
+  --gb-glass:rgba(255,255,255,.09);
+  --gb-ink:#fff;
+  position:relative; isolation:isolate;
+  display:inline-flex; align-items:center; justify-content:center; gap:.5em;
+  padding:16px 26px; border:0; border-radius:999px;
+  font:inherit; font-weight:750; letter-spacing:.01em; color:var(--gb-ink);
+  text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03)),
+    var(--gb-glass);
+  backdrop-filter:blur(12px) saturate(140%);
+  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),
+             inset 0 -12px 24px -14px rgba(0,0,0,.5);
+}
+.gbtn__rim{
+  position:absolute; inset:0; border-radius:inherit; z-index:1;
+  padding:var(--gb-rim); pointer-events:none; overflow:hidden;
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite:exclude;
+}
+.gbtn__rim::before{
+  content:""; position:absolute; left:50%; top:50%;
+  width:240%; aspect-ratio:1;
+  background:conic-gradient(from 0deg,
+      rgba(255,255,255,.06) 0deg,
+      var(--gb-lamp) 18deg,
+      rgba(255,255,255,.06) 56deg,
+      rgba(255,255,255,.06) 180deg,
+      var(--gb-lamp) 198deg,
+      rgba(255,255,255,.06) 236deg,
+      rgba(255,255,255,.06) 360deg);
+  animation:gbtn-spin var(--gb-spin) linear infinite;
+  will-change:transform;
+}
+@keyframes gbtn-spin{
+  from{ transform:translate(-50%,-50%) rotate(0turn); }
+  to  { transform:translate(-50%,-50%) rotate(1turn); }
+}
+.gbtn > span{ position:relative; z-index:2; }
+.gbtn:hover{ --gb-spin:2.4s; }
+.gbtn:active{ transform:translateY(1px); }
+.gbtn:focus-visible{ outline:2px solid var(--gb-lamp); outline-offset:3px; }
+.gbtn--onlight{
+  --gb-glass:rgba(12,16,20,.62); --gb-ink:#fff;
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02)),
+             var(--gb-glass);
+}
+@media (prefers-reduced-motion: reduce){
+  .gbtn__rim::before{ animation:none;
+    background:conic-gradient(from 0deg, var(--gb-lamp), rgba(255,255,255,.30),
+                              var(--gb-lamp), rgba(255,255,255,.30), var(--gb-lamp)); }
+  .gbtn:hover{ --gb-spin:4.5s; }
+  .rise{opacity:1;transform:none;animation:none}
+}
+.gbtn{--gb-lamp:var(--teal-glow);width:100%;margin-top:24px;font-size:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="livery rise"><b>COX DEMOLITION</b><i>Demolition on a mission</i></div>
+  <h1 class="rise d1">Tony, you asked for a web page. <em>Here it is.</em></h1>
+  <p class="lead rise d2">Built for Cox Demolition: your machine's teal, your phone number on every button, guide prices people can work out themselves, and a WhatsApp button that sends you the job with their photos.</p>
+  <div class="shot rise d2"><img src="media/garage-coming-down.jpg" width="1000" height="750" alt="A concrete garage coming down at the end of a back garden"></div>
+
+  <div class="card rise d3">
+    <span class="mono">Get found on Google</span>
+    <h2>Set up to be found, properly.</h2>
+    <ul>
+      <li><b>Page title and description</b> say what you do and where: demolition and site clearance, Pyle and Bridgend.</li>
+      <li><b>Business details Google reads</b>: name, phone, services and every area you cover, built into the page.</li>
+      <li><b>Answers to what people search</b>, like "how much to knock down a garage in Bridgend".</li>
+      <li><b>Next step:</b> a free Google Business Profile, so you show on Google Maps when someone nearby searches "demolition".</li>
+    </ul>
+  </div>
+
+  <div class="card rise d3">
+    <span class="mono">Your bits to add</span>
+    <h2>Send us your photos.</h2>
+    <ul>
+      <li>The teal machine, side on, so the lettering shows.</li>
+      <li>The stadium stand job from your cover photo.</li>
+      <li>Any before-and-after from a knock-down.</li>
+      <li>Your real prices, if you'd rather show your own than the guide figures.</li>
+    </ul>
+  </div>
+
+  <a class="gbtn gbtn--onlight rise d4" href="index.html"><i class="gbtn__rim"></i><span>Have a look at your site</span></a>
+</div>
+</body>
+</html>
